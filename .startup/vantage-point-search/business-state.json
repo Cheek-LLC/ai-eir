@@ -2,26 +2,26 @@
   "slug": "vantage-point-search",
   "business_name": "Vantage Point Search",
   "created_at": "2026-08-18T14:00:00Z",
-  "updated_at": "2026-09-15T18:00:00Z",
-  "stage": "operating",
+  "updated_at": "2026-09-29T18:00:00Z",
+  "stage": "de_steps_in_progress",
   "founder": {
     "name": "Jordan Reyes",
     "email": "",
-    "notes": "11 years in-house technical recruiter at 3 VC-backed startups before going independent 14 months ago. Bootstrap-funded, explicit: 'This stays bootstrapped - I'm not raising money to run a search firm, I'm reinvesting placement fees into hiring associate recruiters.' Solo delivery today; the founder's own calendar is the stated bottleneck, named unprompted during onboarding."
+    "notes": "11 years in-house technical recruiter at 3 VC-backed startups before going independent 14 months ago. Bootstrap-funded, explicit: 'This stays bootstrapped - I'm not raising money to run a search firm, I'm reinvesting placement fees into hiring associate recruiters.' Solo delivery today; the founder's own calendar is the stated bottleneck, named unprompted during onboarding. 2026-09-29: stated directly during the second recurring check-in that he wants to narrow the beachhead's lower bound from ~50 employees to ~120+ employees (Series C-D) after two real, same-mechanism prospect declines at the sub-100-employee end of the current band (see risk_log ops-vantage-point-search-001) — steps 01/02/04 reopened, 05 flagged for re-confirmation only."
   },
   "business_basics": {
     "one_liner": "Retained executive search for VP/Director of Engineering hires at Series B-D venture-backed startups (roughly 50-500 employees) who've tried to fill the role through their own network or a generalist recruiter for 2-3+ months and struck out.",
-    "venture_stage": "already_operating",
+    "venture_stage": "pivoting",
     "business_type": "services",
     "business_type_notes": "Retained executive search, project-based per engagement (not retainer, not hourly). Currently solo - founder personally executes 100% of delivery (sourcing, screening, client management) in addition to 100% of business development. No licensing requirement (retained permanent-placement search is not a licensed profession in the founder's operating states). Founder's own 11-year professional network is both the primary demand-generation channel and the delivery bottleneck.",
     "funding_intent": "bootstrap"
   },
   "disciplined_entrepreneurship": {
-    "01_market_segmentation": { "status": "drafted", "summary": "7 segments identified from real market exposure; beachhead segment (VP/Dir Engineering search, VC-backed Series B-D) already accounts for 6 of 8 real signed engagements", "file": "plan/01-market-segmentation.md" },
-    "02_select_a_beachhead_market": { "status": "drafted", "summary": "VP/Dir Engineering search for VC-backed Series B-D startups selected; reachable via founder's existing network, underserved between big search firms and generalist contingency recruiters, referenceable via VC-firm-level trust", "file": "plan/02-select-a-beachhead-market.md" },
+    "01_market_segmentation": { "status": "not_started", "summary": "REOPENED 2026-09-29 (pivot signal ops-vantage-point-search-001): prior draft's Segment 1 band (~50-500 employees) needs its lower bound narrowed toward ~120+ employees / Series C-D before this can be re-drafted; prior summary (7 segments, beachhead already 6 of 8 real engagements) still real but the band width is now in question", "file": "plan/01-market-segmentation.md" },
+    "02_select_a_beachhead_market": { "status": "not_started", "summary": "REOPENED 2026-09-29 (pivot signal ops-vantage-point-search-001): the beachhead's stated 50-500 employee band is the thing directly in question - 2 real sub-100-employee prospect declines this check-in cited the same fee-justification mechanism; founder wants the band narrowed to ~120+ employees before re-drafting", "file": "plan/02-select-a-beachhead-market.md" },
     "03_build_an_end_user_profile": { "status": "drafted", "summary": "Two real profiles: Dana (hiring CTO, experiences the problem) and the Head of Talent/CEO (commissions the engagement) - both built from real client relationships", "file": "plan/03-build-an-end-user-profile.md" },
-    "04_calculate_the_tam_for_the_beachhead_market": { "status": "drafted", "summary": "~$25M/year bottom-up TAM (~360 addressable searches/year x $70,500 average fee); explicit capacity caveat that TAM assumes unlimited delivery capacity, which does not hold here", "file": "plan/04-calculate-the-tam-for-the-beachhead-market.md" },
-    "05_profile_the_persona_for_the_beachhead_market": { "status": "drafted", "summary": "Dana: hiring CTO/technical co-founder at a ~130-person Series C company, 11 weeks into a stalled DIY search, exhausted her own network", "file": "plan/05-profile-the-persona-for-the-beachhead-market.md" },
+    "04_calculate_the_tam_for_the_beachhead_market": { "status": "not_started", "summary": "REOPENED 2026-09-29 (pivot signal ops-vantage-point-search-001): cascades from 01/02 - the ~2,400-company count and ~$25M TAM (qc-004-tam) were sized against the wider band; needs recomputing once the narrower band is set, not independently redesigned", "file": "plan/04-calculate-the-tam-for-the-beachhead-market.md" },
+    "05_profile_the_persona_for_the_beachhead_market": { "status": "drafted", "summary": "FLAGGED FOR RE-CONFIRMATION 2026-09-29 (pivot signal ops-vantage-point-search-001), left at drafted rather than reopened: Dana, hiring CTO/technical co-founder at a ~130-person Series C company, 11 weeks into a stalled DIY search - already comfortably inside the proposed narrower ~120+ employee band, so likely needs confirmation only, not a rewrite, once 01/02 are re-drafted", "file": "plan/05-profile-the-persona-for-the-beachhead-market.md" },
     "06_full_life_cycle_use_case": { "status": "drafted", "summary": "Full observed life cycle from failed DIY attempt through discovery, search execution, offer, and the 90-day guarantee window, drawn from real engagements", "file": "plan/06-full-life-cycle-use-case.md" },
     "07_high_level_product_specification": { "status": "drafted", "summary": "Scoped search brief, active sourcing (40-60 real conversations), 4-6 candidate screened slate within ~30 days, interview coordination, offer support, 90-day guarantee; explicitly excludes onboarding and time-to-fill SLAs", "file": "plan/07-high-level-product-specification.md" },
     "08_quantify_the_value_proposition": { "status": "drafted", "summary": "$15,000-$21,000 of founder-time opportunity cost avoided per engagement (low confidence); vacancy-cost avoidance real but unquantified", "file": "plan/08-quantify-the-value-proposition.md" },
@@ -48,7 +48,7 @@
     { "id": "ka-008-vacancy-cost", "statement": "The cost of a prolonged vacancy itself (delayed roadmap, escalations) is real per client anecdote but has never been quantified in dollars by any client", "step_ref": "08_quantify_the_value_proposition", "confidence": "low", "test_plan": "Ask the next 3 clients directly to estimate a dollar cost of the vacancy period before engaging", "test_result": null },
     { "id": "ka-009-referral-concentration", "statement": "6 of 10 prospects trace to just 2 referral sources (one repeat client, one VC talent partner) - the pipeline is currently concentrated, not diversified, which is a real acquisition-channel risk", "step_ref": "09_identify_your_next_10_customers", "confidence": "medium", "test_plan": "Track new-prospect source diversity over the next 2 quarters; flag if concentration doesn't improve", "test_result": null },
     { "id": "ka-010-playbook-informal", "statement": "The technical-screening method exists in Jordan's head and practice, not as a written, teachable document - this is a real gap, not yet closed", "step_ref": "10_define_your_core", "confidence": "high", "test_plan": "Track whether the playbook gets written before the first associate-recruiter hire (Step 24 roadmap dependency)", "test_result": null },
-    { "id": "ka-011-vc-intro-competition", "statement": "The rate at which beachhead companies fill this role via a free VC-talent-partner intro instead of any paid search is unknown - this is a real competitive loss channel Jordan can't currently measure", "step_ref": "11_chart_your_competitive_position", "confidence": "low", "test_plan": "Ask lost/quiet prospects directly how the role eventually got filled, when known", "test_result": null },
+    { "id": "ka-011-vc-intro-competition", "statement": "The rate at which beachhead companies fill this role via a free VC-talent-partner intro instead of any paid search is unknown - this is a real competitive loss channel Jordan can't currently measure", "step_ref": "11_chart_your_competitive_position", "confidence": "medium", "test_plan": "Ask lost/quiet prospects directly how the role eventually got filled, when known", "test_result": "Partially resolved 2026-09-29: followed up directly with prospect #9 (quiet since 2026-09-15) - the role was filled via a free VC-talent-partner intro, no paid search at all. Confirms this loss channel is real, not hypothetical; still only n=1, rate itself remains unmeasured." },
     { "id": "ka-013-conversion-sample", "statement": "All conversion rates above are founder-tracked counts from memory/notes across 14 months, not a CRM export - real numbers, small sample, not statistically robust", "step_ref": "13_map_the_process_to_acquire_a_paying_customer", "confidence": "medium", "test_plan": "Start logging real funnel data in a lightweight CRM/spreadsheet going forward rather than relying on memory", "test_result": null },
     { "id": "ka-014-pin2-repeat-overlap", "statement": "Some portion of Pin 2 (Product search) demand will come from clients who are also counted in Step 17's repeat-engagement LTV assumption - this TAM figure and that LTV figure are not yet reconciled to confirm they aren't double-counting the same repeat-client revenue", "step_ref": "14_calculate_the_tam_for_follow_on_markets", "confidence": "low", "test_plan": "Track, going forward, whether a given repeat engagement counts as 'LTV repeat rate' (same role type) or 'Pin 2 TAM capture' (different role type) rather than blending the two", "test_result": null },
     { "id": "ka-015-retainer-revisit", "statement": "A retainer/subscription model may become credible once the technical-screening playbook is written and at least one associate recruiter is delivering independently - not assumed now, explicitly deferred", "step_ref": "15_design_a_business_model", "confidence": "medium", "test_plan": "Revisit once Step 24's associate-recruiter hiring milestone is reached", "test_result": null },
@@ -58,7 +58,8 @@
     { "id": "ka-018-relationship-maintenance-cost", "statement": "The ~29 hours/engagement of background relationship-maintenance time is a rough backed-out estimate (total 14-month BD hours minus stage-mapped hours), not independently tracked", "step_ref": "18_map_the_sales_process_to_acquire_a_customer", "confidence": "low", "test_plan": "Time-track relationship-maintenance activity separately going forward instead of backing it out by subtraction", "test_result": null },
     { "id": "ka-019-founder-rate", "statement": "Founder time in both the BD/acquisition process and search delivery is valued at a $100/hr placeholder, which may understate what Jordan's actual senior relationship-management and technical-screening role would cost at true market rate", "step_ref": "19_calculate_the_coca", "confidence": "low", "test_plan": "Source a real comparable rate (e.g., a search-firm associate/partner billing rate, or what it would cost to hire a BD-capable associate recruiter) to replace the placeholder", "test_result": null },
     { "id": "ka-020-associate-replication", "statement": "The entire growth plan assumes an associate recruiter, once trained on a not-yet-written playbook, can replicate Jordan's fill rate and technical-screening quality bar independently. Zero associate-run searches have ever been completed - this is untested, not just unproven at scale", "step_ref": "20_identify_key_assumptions", "confidence": "low", "test_plan": "Run the first associate-led search as a real paid engagement, with Jordan doing QA/oversight only, not personally sourcing", "test_result": null },
-    { "id": "ka-023-guarantee-cost-uncounted", "statement": "The real delivery-hour cost of a guarantee invocation (an uncompensated ~85-hour re-run) is not reflected in this plan's LTV/COCA figures, which are built from average-case engagements - at a 17% observed invocation rate, this is a real, currently-uncounted drag on true per-engagement margin", "step_ref": "23_show_that_dogs_will_eat_the_dog_food", "confidence": "medium", "test_plan": "Track guarantee-invocation rate and its real hour cost going forward; fold an expected-value adjustment into Step 17's delivery-cost figure once more data exists", "test_result": null }
+    { "id": "ka-023-guarantee-cost-uncounted", "statement": "The real delivery-hour cost of a guarantee invocation (an uncompensated ~85-hour re-run) is not reflected in this plan's LTV/COCA figures, which are built from average-case engagements - at a 17% observed invocation rate, this is a real, currently-uncounted drag on true per-engagement margin", "step_ref": "23_show_that_dogs_will_eat_the_dog_food", "confidence": "medium", "test_plan": "Track guarantee-invocation rate and its real hour cost going forward; fold an expected-value adjustment into Step 17's delivery-cost figure once more data exists", "test_result": null },
+    { "id": "ka-025-segment-fee-floor", "statement": "Raised 2026-09-29 from the pivot signal (ops-vantage-point-search-001): it's untested whether a fee floor or tiered pricing structure for sub-120-employee companies (an alternative to Step 16's flat 30%-of-base fee) would resolve the fee-justification decline pattern, vs. simply narrowing the beachhead band to exclude that segment entirely - the plan currently assumes the latter without having tested the former", "step_ref": "16_set_your_pricing_framework", "confidence": "low", "test_plan": "Before finalizing the narrower Step 02 band, ask any future sub-120-employee inbound/referral prospect whether a flat fee floor (e.g., a fixed dollar minimum independent of comp) would have changed their internal budget-approval outcome", "test_result": null }
   ],
   "quantitative_claims": [
     { "id": "qc-004-tam", "claim": "Beachhead TAM, VP/Director Engineering search at VC-backed Series B-D companies", "value": "~$25M/year (bottom-up: ~360 addressable searches/year x $70,500 average fee)", "step_ref": "04_calculate_the_tam_for_the_beachhead_market", "source": "founder estimate - company count and turnover rate are Jordan's informed market-exposure estimate, not a paid data-provider pull; no external search attempted this session; fee figure sourced from Step 16 pricing", "confidence": "low", "ai_risk_flag": true },
@@ -102,9 +103,12 @@
     "cadence_metrics_files": [
       "ops/2026-09-15-growth-metrics.md",
       "ops/2026-09-15-finance-metrics.md",
-      "ops/2026-09-15-retention-metrics.md"
+      "ops/2026-09-15-retention-metrics.md",
+      "ops/2026-09-29-growth-metrics.md",
+      "ops/2026-09-29-finance-metrics.md",
+      "ops/2026-09-29-retention-metrics.md"
     ],
-    "last_retro_file": "ops/2026-09-15-retro.md"
+    "last_retro_file": "ops/2026-09-29-retro.md"
   },
   "connectors": {
     "wired_up": [],
@@ -114,9 +118,9 @@
   },
   "cadence": {
     "check_in_frequency": "biweekly",
-    "last_check_in": "2026-09-15T17:30:00Z",
-    "next_check_in": "2026-09-29T17:30:00Z",
-    "scheduling_mechanism": "harness-trigger capability available in this environment (mcp__Claude_Code_Remote__create_trigger / send_later) but not invoked this session — this is a QA dry-run against a fixture business, not a live founder session, so no persistent trigger was created against the operator's real account; founder must run /business-status (or equivalent) manually on 2026-09-29, or ask for a real trigger to be scheduled next time this business is worked on live"
+    "last_check_in": "2026-09-29T17:30:00Z",
+    "next_check_in": "2026-10-13T17:30:00Z",
+    "scheduling_mechanism": "harness-trigger capability available in this environment (mcp__Claude_Code_Remote__create_trigger / send_later) but not invoked this session, same disclosed reasoning as 2026-09-15 — this is a QA dry-run against a fixture business, not a live founder session, so no persistent trigger was created against the operator's real account; founder must run /business-status (or equivalent) manually on 2026-10-13, or ask for a real trigger to be scheduled next time this business is worked on live"
   },
   "risk_log": [
     {
@@ -132,6 +136,13 @@
       "raised_by": "ai-risk-analyst (via skills/risk/ai-risk-review, called from Step 19's own contract)",
       "description": "First-pass draft of plan/19-calculate-the-coca.md stated COCA as an exact '$5,173' figure and the LTV:COCA ratios to a precision the underlying $100/hr placeholder founder-rate and untimed ~45-hour delivery-time estimate did not support (false precision, AI-risk failure mode 2). BLOCKED. Fixed by re-stating COCA as an honest range ($4,900-$5,400, ~$5,200) and rounding the ratios to one decimal place; re-ran the gate same session, PASS confirmed. This is the third consecutive round (following round 2's ShiftCover and round 3's SkyClaim) in which the AI-risk gate independently caught a false-precision finding at a downstream synthesized unit-economics figure - a recurring, structurally expected failure mode the gate continues to catch reliably, not a new bug.",
       "status": "mitigated"
+    },
+    {
+      "id": "ops-vantage-point-search-001",
+      "type": "business",
+      "raised_by": "operations-manager",
+      "description": "Pivot signal: 2 of 2 pipeline prospects that reached the internal-budget-check stage in the 2026-09-15 to 2026-09-29 period and were below ~100 employees (Series B, #2 ~80 employees and #4 ~60 employees) declined citing inability to justify the 30% retained-search fee for a first senior hire without a formal external-spend process, vs. unrelated-reason losses for Series C/D prospects the same period (#3 competitive, #9 free VC-intro). Founder (Jordan) stated directly during the 2026-09-29 recurring check-in that he wants to narrow the beachhead's lower bound from Step 2's stated ~50-500 employees to roughly Series C-D / ~120+ employees, and stop spending BD time below that line. Recommended reopened steps: 01 (segment-1 size band), 02 (beachhead band), 04 (TAM recompute, cascades from 01/02), 05 (persona re-confirmation only — the existing Dana persona at ~130 employees already sits inside the proposed narrower band). Step 16 (pricing/fee-floor alternative) named as worth considering, not required. Would be resolved/re-baselined once steps 01/02/04/05 are re-run and the plan re-passes council review per agents/orchestrator.md's pivot protocol.",
+      "status": "open"
     }
   ]
 }

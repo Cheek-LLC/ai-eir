@@ -241,3 +241,130 @@ risks, cadence set to biweekly, next check-in 2026-09-29, and an honest statemen
 reminder is actually scheduled — he'll need to run `/business-status vantage-point-search` himself
 (or the environment's equivalent) on that date, or ask again for one to be scheduled if he wants a
 real automated ping.
+
+## 2026-09-29 — Second ops check-in + recurring check-in (agents/ops/operations-manager.md, then
+skills/interview/recurring-check-in, then a real pivot-signal handoff)
+
+**Ops check-in ran first**, per the same sequencing as 2026-09-15. Full detail in
+`ops/2026-09-29-retro.md`; headline: outbound cadence resumed (6 touches), finance swung
+cash-generative on one lumpy fee installment (explicitly not read as a trend), all four formal
+plan-vs-actual comparisons still correctly returned "insufficient data," and a real, specific
+funnel-loss pattern surfaced (2 of 2 sub-100-employee prospects that reached the budget-check stage
+declined citing fee-justification) — logged as a Watch List item, **not** yet escalated to a
+`risk_log` pivot entry from the numbers alone, per `agents/ops/operations-manager.md`'s own rule
+against manufacturing a pivot from one period's data.
+
+**Recurring check-in (`skills/interview/recurring-check-in`), same session.**
+
+*Opened with what's known (Phase 1):* summarized the ops retro's headline factually, named the
+funnel-loss pattern as something ops flagged but didn't escalate on its own.
+
+*Real updates (Phase 2):* Jordan confirmed the numbers. Asked "what's working that you didn't
+expect, and what's not" — his answer, quoted closely because it's the actual pivot trigger:
+
+> "Both of my smaller Series B prospects died at the exact same stage for the exact same reason —
+> they can't get internal buy-in for a fee this size on a first senior hire. I'm starting to think
+> the 50-500 employee band is too wide. I think my real beachhead might actually be Series C-D, call
+> it 120-plus employees, where there's already a real budget process for external hiring spend. I
+> don't think I should keep spending outbound time on the smaller end of Series B."
+
+This is a direct, evidence-cited founder statement wanting to change the beachhead — not a vague
+mood, not "things feel off." Per `agents/ops/operations-manager.md`'s own bar ("persistence across
+periods... or the founder explicitly saying they want to change direction... one of those two,
+stated plainly"), this satisfies the second path on its own, backed by the real evidence named
+above, not manufactured from a single noisy period read in isolation.
+
+**Where this session hit a real, concrete gap in the plugin's own instructions, not a judgment
+call:** `skills/interview/recurring-check-in/SKILL.md` names this exact moment ("this is where
+pivot signals... surface") but has no instruction for what to *do* with it — no write to
+`business_basics`, no `risk_log` entry, no handoff mechanic of its own; its "What you read/write"
+section never lists `business_basics` as something it writes at all, despite
+`docs/DATA-CONTRACT.md`'s explicit statement that "a pivot updates `business_basics`... via
+`skills/interview/recurring-check-in` handing the change to the orchestrator." Acting as the
+orchestrator here (not `recurring-check-in`, which has no further instructions to follow), the
+actual write was done by returning to `agents/ops/operations-manager.md`'s own "When ops data points
+toward a pivot" section — which does have complete instructions and executed correctly.
+
+**`operations-manager`'s pivot-handling section, run for real (first time in this plugin's
+history):**
+1. Named the pivot plainly, cited the exact evidence (the 2-of-2 decline pattern plus Jordan's own
+   quoted statement) — not inferred from a mood.
+2. Named the implicated steps explicitly: 01 (segment-1 band), 02 (beachhead band — the core
+   change), 04 (TAM recompute — cascades from 01/02, not independently reopened), 05 (persona —
+   flagged for **re-confirmation, not a rewrite**, since Dana's existing worked example is already a
+   ~130-person Series C company, comfortably inside the proposed narrower band). 16 (pricing/fee-
+   floor alternative) named as worth considering, not required.
+3. Did not touch any plan file itself — correctly stayed in its lane, per its own §3.
+4. Handed back to the orchestrator rather than acting unilaterally, per its own §4 — including
+   flagging that `stage` is `operating` (not `gtm`), so the mid-GTM pivot section in
+   `agents/gtm/launch-director.md` doesn't cleanly cover this case either (see below).
+5. Logged `risk_log["ops-vantage-point-search-001"]` — full text in `ops/2026-09-29-retro.md`'s
+   addendum.
+
+**Orchestrator's handling of the handoff (this is where the trail actually went cold — full detail
+in `docs/QA-FINDINGS-PIVOT-ROUND7.md`):**
+
+Confirmed with Jordan directly this is a real decision, not a founder thinking out loud — he said
+yes, reopen it, don't keep spending outbound time on the sub-120-employee end of Series B while this
+is unresolved. Per `agents/orchestrator.md` Phase 6 ("a pivot that reopens earlier DE steps moves
+`stage` back to `de_steps_in_progress` for the affected steps, then forward again through the gate
+before `approved` is re-earned"), set `stage: "de_steps_in_progress"` and reverted
+`disciplined_entrepreneurship.01_market_segmentation`, `.02_select_a_beachhead_market`,
+`.04_calculate_the_tam_for_the_beachhead_market` to `status: "not_started"`, each with a `summary`
+naming why. Left `.05_profile_the_persona_for_the_beachhead_market` at `status: "drafted"` with a
+note flagging it for re-confirmation rather than reverting it, since nothing in the plan's schema or
+`agents/orchestrator.md` defines a third state between "needs a full redo" and "still valid as-is" —
+this is an improvised reading of "the affected steps," not something the orchestrator's text
+actually specifies, and is named as such rather than presented as a documented mechanism. Also set
+`business_basics.venture_stage: "pivoting"` (from `already_operating`) — again inferred directly
+from `docs/DATA-CONTRACT.md`'s stated intent, since no single skill file actually instructs this
+write on a pivot. Left `business_basics.one_liner` untouched — that's Step 01/02's rewrite to make
+once they actually re-run, not something to overwrite pre-emptively with unreviewed language.
+
+**Left deliberately untouched, and named as open questions rather than silently resolved:**
+- Steps 6-24 were **not** reviewed for consistency against the narrower band. Nothing in
+  `agents/orchestrator.md` or `docs/DE-24-STEPS.md` provides a transitive-impact list saying which
+  of the 19 untouched steps might reference the wide band and need re-checking (Step 9's next-10
+  list and Step 13's DMU/process map both currently include the two declined companies, for
+  instance) versus which are genuinely unaffected. This was not resolved this session — flagged, not
+  guessed at.
+- `gtm.status` stays `"launched"`, `gtm.artifacts` untouched (positioning/content-calendar/outbound-
+  playbook all still target the wider band) — per `agents/gtm/launch-director.md`'s own caution not
+  to flip `gtm.status` back to `"not_started"` on a founder-thinking-out-loud pivot, and because this
+  is a narrowing, not a full business-model change, GTM isn't "restarting from scratch." But
+  `launch-director`'s own "mid-GTM pivot" section is written for `stage: gtm` (active sequencing),
+  not `stage: operating` (already launched) — there's no documented instruction for what happens to
+  already-shipped GTM artifacts once a pivot signal fires *after* launch rather than during it. Named
+  explicitly rather than silently deciding one way or the other.
+- No re-review council run yet — correctly not run, since steps 01/02/04 haven't been re-drafted
+  yet; `agents/orchestrator.md` Phase 4's `revising`/`council_review` loop applies once they are.
+
+*Reconciling `key_assumptions`/`risk_log` (Phase 3), scaled down from a full 16-item name-by-name
+walk per round 6's own flagged scaling concern:* rather than re-reading all 20 unresolved entries in
+full again, asked Jordan directly: "Anything change on the open assumptions since last time, or has
+it mostly been business as usual except what we just covered?" He confirmed no other movement beyond
+what's already logged above and `ka-011-vc-intro-competition` (resolved this period — role filled
+via free VC-intro, see growth-metrics). Explicitly named the 3 items with real activity
+(`ka-011` resolved, `ka-016-delivery-hours-estimate` now flagged as a 2-check-in stuck pattern,
+`ka-009-referral-concentration` — this period's 3 new prospects were 1 referral/2 outbound, continuing
+the same mild-diversification signal noted last period, still short of the 2-quarter test window) by
+name, and named the new entry added this session (`ka-025-segment-fee-floor` — see
+`business-state.json`) rather than silently skipping the rest of the list. This is a deliberate,
+disclosed departure from Phase 3's literal "list each one by its `statement`" instruction, done
+because 14 of 16 items had zero movement last period and would have zero again this period with
+nothing new to ask — logged here as a real judgment call, not hidden.
+
+No other `risk_log` items open besides the new pivot entry.
+
+*Closing the cadence (Phase 4):* Jordan kept **biweekly**. `cadence.last_check_in` updated to
+2026-09-29, `cadence.next_check_in` computed as 2026-10-13. Scheduling mechanism: same disclosed
+non-invocation as last session, same reasoning (QA dry-run against a fixture, not a live founder
+session) — recorded honestly in `business-state.json.cadence.scheduling_mechanism` again rather than
+silently repeating the prior session's wording as if unchanged.
+
+Closing summary given to Jordan: second ops retro filed, funnel-loss pattern named, a real pivot
+signal raised and handed to the orchestrator with 4 steps recommended for reopening (01, 02, 04, 05)
+and one (16) named as worth considering, `stage` moved back to `de_steps_in_progress` for those
+steps, `venture_stage` set to `pivoting`, cadence confirmed biweekly, next check-in 2026-10-13, and
+an honest statement of exactly what's still open and undecided (steps 6-24 consistency, GTM
+artifact staleness) rather than a falsely tidy "all handled."
