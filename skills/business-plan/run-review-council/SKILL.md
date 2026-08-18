@@ -149,33 +149,115 @@ first that triggers; if none trigger, use the default:
    product) regardless of the `business_type` label — trigger on the plan's own content, not just
    the category field, since a `saas`-labeled plan can still describe a technically ambitious or
    regulated build (an AI-diagnostics or fraud-detection product, for instance). This is the
-   highest-priority trigger: a business built on a technically infeasible premise is a more
-   consequential blind spot than an unresolved market or channel question, because no amount of
-   good GTM execution rescues a product that can't be built as scoped.
-2. **`sales-motion-reviewer`** triggers if `business_basics.business_type` is `services` or
+   highest-priority trigger, unconditionally, regardless of what else would trigger below: a
+   business built on a technically infeasible premise is a more consequential blind spot than an
+   unresolved market, liquidity, capacity, or channel question, because no amount of good GTM
+   execution, take-rate design, or delivery-capacity planning rescues a product that can't be
+   built as scoped. This holds even for a `marketplace` or `services` business that would
+   otherwise take seat #2 below — a marketplace with real hardware-feasibility risk (e.g., a
+   physical fulfillment/IoT component embedded in an otherwise two-sided platform) or a services
+   business betting on an unproven core technology still needs its buildability question answered
+   before its business-model question, so #1 wins the seat and the business-type-specific
+   specialist becomes the logged runner-up per the tie-break rule below.
+2. **`marketplace-liquidity-specialist`** triggers if `business_basics.business_type` is
+   `marketplace`. **`services-unit-economics-reviewer`** triggers if `business_basics.business_type`
+   is `services`. These two triggers are mutually exclusive by construction — `business_type` is a
+   single enum value, so a given business can match at most one of them — and unlike #1, neither
+   needs an extra content signal beyond the type itself: being a marketplace (or a services
+   business) at all is enough to make two-sided liquidity (or delivery-capacity/utilization
+   economics) close to always a central question worth a dedicated seat, per the roadmap's
+   explicit finding that these two business types previously had no persona equipped to interrogate
+   their specific claims at all. This tier sits above `sales-motion-reviewer` and
+   `product-market-fit-panel` deliberately: `business_type` is a more fundamental, holistic signal
+   about what kind of business this is than a single-step content pattern, and — more
+   importantly — the concerns these two specialists own (GMV×take-rate arithmetic, two-sided cold
+   start, billable-hours capacity ceilings, founder-dependency) were entirely uncovered by any
+   existing persona before this round, whereas `sales-motion-reviewer`'s and
+   `product-market-fit-panel`'s concerns, while real, already have a seat that can pick them up on
+   a later review cycle.
+3. **`sales-motion-reviewer`** triggers if `business_basics.business_type` is `services` or
    `physical_product` with a stated retail/wholesale/channel component, **or** Step 12's DMU
    description (check `disciplined_entrepreneurship.12_determine_the_dmu.summary` and/or
    `plan/12-determine-the-dmu.md`) names multiple stakeholder roles, procurement, or an explicitly
    long/multi-stage sales cycle — i.e., anything beyond a single self-serve buyer-user-payer.
-3. **`product-market-fit-panel`** triggers if `business_basics.business_type` is `saas`,
+   **Note the direct consequence of the tie-break rule below:** because `business_type: services`
+   satisfies both this trigger and #2's `services-unit-economics-reviewer` trigger, and #2 is
+   evaluated first, `sales-motion-reviewer` will not win the seat for a services business purely
+   on the type match — it can still win for a `physical_product`-with-channel business (no
+   conflict with #2), or, in principle, for a non-services business whose DMU content
+   independently trips this trigger.
+4. **`product-market-fit-panel`** triggers if `business_basics.business_type` is `saas`,
    `consumer_app`, or `marketplace`, **and** any of Steps 06, 07, 08, 20, 21, 22, 23 has `status`
    other than `approved`, **or** `key_assumptions` entries with `step_ref` in that range and
    `confidence: low` outnumber similarly-low-confidence entries elsewhere in the plan — i.e., the
-   PMF-critical steps are the plan's least mature section right now.
-4. **`competitive-strategy-reviewer`** — the default. Also use this instead of #1/#2/#3 whenever
-   `business_basics.business_type` is `marketplace` (two-sided defensibility is close to always
-   the central strategic question for a marketplace) or Steps 10/11 are not yet `approved`.
+   PMF-critical steps are the plan's least mature section right now. In practice this trigger's
+   `marketplace` branch will rarely fire, for the same reason noted at #3: `business_type:
+   marketplace` is already claimed by #2 before evaluation reaches #4. It remains live for `saas`
+   and `consumer_app`.
+5. **`competitive-strategy-reviewer`** — the default, used only when nothing above triggered. Also
+   use this instead of #3/#4 whenever Steps 10/11 are not yet `approved`. (Its own file's
+   description still names `marketplace` as a load-bearing case from before this round — that is
+   now superseded by #2 for seat-selection purposes; `business_type: marketplace` will always be
+   intercepted by #2 unless #1 fires first, so this persona's marketplace-specific rigor, while
+   still real and worth reading in its own right, will only be selected onto the panel via the
+   Steps-10/11 condition or the true default case, not via the business-type match alone. This is
+   a known, intentional consequence of adding #2, not an oversight — flagged here so a future
+   editor of `competitive-strategy-reviewer.md` understands why its own description now overstates
+   how often it's actually selected for a marketplace.)
 
 `technical-feasibility-reviewer` is deliberately **not** a fallback default — most plans describe
 conventional, well-understood builds where this seat has little to add, so it only takes the seat
-when its trigger actually fires, exactly like #2/#3 below it.
+when its trigger actually fires, exactly like #3/#4 below it.
 
-If more than one of #1-#3 triggers for the same review, take the lowest-numbered one that
-triggered — #1 (`technical-feasibility-reviewer`) outranks #2 (`sales-motion-reviewer`), which
-outranks #3 (`product-market-fit-panel`), per the priority order above (rarest, most consequential
-signal wins) — and note in the review file's rationale that the runner-up trigger(s) are
-recommended for the *next* review cycle rather than silently dropping the concern. Never exceed 5
-seats total.
+### Tie-break rule — precise, not vague
+
+If more than one of #1-#4 triggers for the same review, **take the lowest-numbered one that
+triggered**, full stop — this single rule resolves every case, including the two the roadmap
+specifically called out:
+
+- **A `marketplace` (or `services`) business with an independently-triggering technical-feasibility
+  signal** (e.g., a marketplace with a real hardware/IoT/regulated-engineering component, or a
+  services business betting on an unproven core technology): #1 outranks #2. Seat goes to
+  `technical-feasibility-reviewer`; `marketplace-liquidity-specialist` or
+  `services-unit-economics-reviewer` (whichever matched) is the logged runner-up.
+- **A `services` business whose Step 12 DMU also independently signals multi-stakeholder
+  complexity** (e.g., an agency selling to enterprise clients with real procurement): #2 outranks
+  #3. Seat goes to `services-unit-economics-reviewer`; `sales-motion-reviewer` is the logged
+  runner-up. As noted at #3 above, this is in fact the outcome for *every* `services` business,
+  not just an edge case, since `sales-motion-reviewer`'s own trigger includes the bare
+  `business_type: services` match — the tie-break rule makes that resolution automatic and
+  consistent rather than something each review has to re-decide.
+- **A `marketplace` business whose Step 12 DMU independently signals complexity on one or both
+  sides** (a B2B marketplace with real procurement on the demand side, say): #2 outranks #3 here
+  too, for the same reason. This is a smaller loss than it looks — `marketplace-liquidity-
+  specialist`'s own rubric already requires a per-side DMU check at Step 12 (see its file), so the
+  DMU-complexity concern is not dropped entirely, just read through a liquidity lens rather than
+  `sales-motion-reviewer`'s process-realism lens.
+
+In every case above, **note in the review file's rationale that the runner-up trigger(s) are
+recommended for the *next* review cycle** rather than silently dropping the concern — this was
+already this skill's convention before this round and applies unchanged to the two new personas.
+Never exceed 5 seats total.
+
+### Why 5 seats stays fixed rather than flexing to 6
+
+Two contextual triggers firing independently and both being clearly warranted (the
+technical-feasibility-vs-marketplace-liquidity case above, most concretely) is exactly the
+scenario that might argue for a 6th seat. This skill does **not** add one, and holds the panel at
+a fixed 5 (4 core + 1 contextual) deliberately: `CONVENTIONS.md` §6 defines a review council panel
+as "3-5 distinct reviewer personas," and 5 is already the top of that explicitly stated range —
+flexing to 6 would mean this skill silently exceeding a cap `CONVENTIONS.md` states as a hard
+range, not a soft default, and `CONVENTIONS.md` is the one document every skill and agent in this
+plugin writes against precisely so no single skill unilaterally reinterprets a shared constraint
+in its own favor. Changing that range is a `CONVENTIONS.md` edit with plugin-wide consequences
+(every other council-adjacent skill and doc that assumes "5 seats" would need re-checking) and is
+explicitly out of this task's authorized scope, which permits editing `docs/DATA-CONTRACT.md` in
+one narrow way and nothing else outside `agents/council/*` and this file. The tie-break rule above
+is the mechanism that keeps the fixed-5 design honest under the new pressure: it never drops a
+real concern silently, it demotes it to a named, logged runner-up that the founder and the next
+review cycle can see and act on. A future round is free to revisit the 3-5 range itself in
+`CONVENTIONS.md` directly, with the cross-file audit that deserves — this task deliberately does
+not make that call by side effect.
 
 State your full seat list and the one-line trigger reason for the contextual 5th seat in the
 review file's rationale section — this is what makes the "extremely thoughtfully designed" part
