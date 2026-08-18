@@ -1,0 +1,20 @@
+{
+  "name": "30-minute-startup",
+  "description": "An entrepreneur-in-residence plugin: a central Startup Operator agent interviews you about your business, drives it through the 24 steps of Disciplined Entrepreneurship, assembles a venture-grade business plan reviewed by simulated expert/VC review councils, then hands off to go-to-market, operations, analytics, and growth agents — checking back in with you on a recurring cadence as the business evolves.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Cheek LLC"
+  },
+  "homepage": "https://github.com/Cheek-LLC/30-minute-startup-plugin",
+  "repository": "https://github.com/Cheek-LLC/30-minute-startup-plugin",
+  "license": "MIT",
+  "keywords": [
+    "entrepreneurship",
+    "startup",
+    "business-plan",
+    "disciplined-entrepreneurship",
+    "venture",
+    "agents",
+    "swarm"
+  ]
+}
