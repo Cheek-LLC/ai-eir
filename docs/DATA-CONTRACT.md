@@ -68,7 +68,7 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
     "scheduling_mechanism": "string, e.g. harness-trigger|manual-reminder — describes how re-activation actually happens in this environment"
   },
   "risk_log": [
-    { "id": "string", "type": "ai_risk|privacy|legal", "raised_by": "string, agent name", "description": "string", "status": "open|mitigated|accepted" }
+    { "id": "string", "type": "ai_risk|privacy|legal|business", "raised_by": "string, agent name", "description": "string", "status": "open|mitigated|accepted" }
   ]
 }
 ```
@@ -82,6 +82,11 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
   AI-risk finding (see `agents/risk/ai-risk-analyst.md`) and block council approval.
 - `risk_log` entries are never silently deleted — mark `mitigated`/`accepted` with a note in the
   relevant review file instead.
+- `risk_log[].type: "business"` is for material drift/operational findings raised by the
+  `agents/ops/*` layer post-launch (e.g. actual COCA far exceeding the step-19 projection,
+  runway crossing a critical threshold, churn concentrated on-beachhead, realized customers
+  off-segment from the step-3/5 profile) — distinct from `ai_risk`/`privacy`/`legal`, which are
+  typically raised by `agents/risk/*`.
 - Agents should read the whole `business-state.json` before acting and write back only the keys
   they own, preserving everything else — never blind-overwrite the file.
 - `gtm.funding_strategy` is set by `agents/gtm/launch-director.md` the first time GTM work starts,
