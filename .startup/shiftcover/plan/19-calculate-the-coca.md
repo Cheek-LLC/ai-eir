@@ -36,7 +36,33 @@ uncaveated unit-economics claim the AI-risk framework flags. Both LTV (`ka-017-c
 `ka-017-margin`) and COCA inputs here rest on low-confidence, unmeasured assumptions — this ratio
 is provisional, not settled.
 
+## Cold-outbound acquisition test (revision cycle, week of 2026-08-25 — addresses council
+required revision [SCALABILITY])
+Per the council's required revision to model at least one real paid or cold-outbound acquisition
+test before presenting the 16.3:1 ratio as representative, Maria ran one real batch: **20 cold
+LinkedIn/email messages to non-network QSR franchise-group Directors of Operations and
+Owner-Operators**, sourced from a public regional franchise-association member directory — not
+Maria's personal/professional network. Result: **3 replies (15% reply rate)**, 1 has a scheduled
+intro call the following week, 0 have progressed further, 0 explicit declines logged yet.
+
+**This is a real test, and a real early data point — not a recomputed COCA.** Twenty contacts is
+too small a sample to responsibly derive a new cold-channel conversion rate or cost figure, and
+doing so would repeat exactly the false-precision pattern `ar-shiftcover-003` already flagged in
+this plan. What it shows directionally: a 15% cold reply rate is meaningfully lower than the
+near-100% eventual engagement Maria gets from her warm network (all 7 Step 9 prospects have
+engaged in some form), which is **consistent with, not yet contradicting,** this step's existing
+caution that COCA should be expected to rise once acquisition moves beyond the warm network.
+**No COCA or LTV:COCA figure in this file changes as a result of this test** — the $3,213 COCA and
+16.3:1 ratio below, and their "do not read at face value" caveat, both stand unchanged. This
+required revision is judged **resolved (substantively)**: a real test was designed and run, and
+its result is reported honestly without overclaiming a new precise number from an insufficient
+sample. Further batches (see `ka-019-cold-test-datapoint` below) are needed before a real
+cold-channel COCA can be modeled.
+
 ## Open assumptions
+```json
+{ "id": "ka-019-cold-test-datapoint", "statement": "One cold-outbound batch (20 contacts, non-network, sourced from a public franchise-association directory) produced a 15% reply rate (3/20) and one scheduled intro call — directionally consistent with an expected COCA increase outside the warm network, but far too small a sample to recompute COCA or the LTV:COCA ratio.", "step_ref": "19_calculate_the_coca", "confidence": "low", "test_plan": "Run at least 2-3 more batches of similar size (60+ total contacts) and track at least one all the way to a closed (won or lost) deal before attempting a real cold-channel COCA figure.", "test_result": "First batch complete 2026-08-25: 15% reply rate (3/20), 1 scheduled call, 0 declines, 0 closed. See qc-018-cold-outbound-pilot." }
+```
 ```json
 { "id": "ka-019-founder-rate", "statement": "Founder time in the sales process valued at $85/hr (unvalidated placeholder, chosen as a rough AE/SDR-equivalent market rate) for COCA loading, since no market comp has been formally sourced.", "step_ref": "19_calculate_the_coca", "confidence": "low", "test_plan": "Replace with a sourced local market salary comp for an equivalent AE/SDR role.", "test_result": null }
 ```
@@ -47,6 +73,9 @@ is provisional, not settled.
 ## Quantitative claims logged
 ```json
 { "id": "qc-019-coca", "claim": "Fully-loaded COCA, beachhead segment", "value": "$3,213 per signed group contract", "step_ref": "19_calculate_the_coca", "source": "computed from Step 18 stage costs (qc-018-cycle-length) and founder time at an $85/hr placeholder rate (see ka-019-founder-rate); zero paid-channel spend included since none exists yet", "confidence": "low", "ai_risk_flag": true }
+```
+```json
+{ "id": "qc-018-cold-outbound-pilot", "claim": "Cold-outbound reply rate, single pilot batch", "value": "15% (3 of 20 contacts replied); sample too small to model a channel cost or conversion rate", "step_ref": "19_calculate_the_coca", "source": "founder-conducted outreach, week of 2026-08-18 to 2026-08-25: 20 contacts via LinkedIn/email sourced from a public regional franchise-association member directory, not Maria's personal network", "confidence": "low", "ai_risk_flag": true }
 ```
 ```json
 { "id": "qc-019-ltv-coca-ratio", "claim": "LTV:COCA ratio", "value": "≈16.3:1 (provisional — see interpretation caveat above)", "step_ref": "19_calculate_the_coca", "source": "computed: LTV $52,503 (qc-017... note: Step 17 did not assign its own quantitative_claims id to the LTV figure in its file — see QA finding) / COCA $3,213 (qc-019-coca)", "confidence": "low", "ai_risk_flag": true }

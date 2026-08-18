@@ -27,9 +27,36 @@ contractor — no engineering resourcing plan exists yet in any prior step. This
 flagged here rather than assumed away: none of Steps 1-23 established who actually builds the
 product.
 
+## Engineering resourcing plan (revision cycle, week of 2026-08-25 — addresses council required
+revision [EXECUTION-RISK])
+Maria made a real, time-boxed decision rather than leaving this open indefinitely. She obtained
+quotes from 2 independent contractors (**~$18,000-$24,000 for a 6-8 week MVBP build**, her own
+sourced quotes, not published rates) and evaluated a no-code/low-code path she has some direct
+familiarity with from administering her prior employer's scheduling/POS systems.
+
+**Decision: attempt a no-code build herself first, with a hard 2-week checkpoint.** Stack:
+Twilio Studio for the SMS call-out broadcast / first-accept-wins flow, a Retool-built manager
+dashboard for roster/status visibility, CSV import per Step 7's spec. If she has a working
+end-to-end demo (broadcast a call-out → receive an SMS accept → see it reflected on the dashboard)
+within 2 weeks of this revision, she continues solo through the Step 22 MVBP pilot. **If not, she
+engages one of the two quoted contractors rather than continuing indefinitely** — the checkpoint
+exists specifically so "I'll figure it out" doesn't quietly become the plan's actual, unbounded
+timeline risk.
+
+**This is judged resolved (substantively), with an honest limit stated:** it replaces "no plan
+exists" (the original finding) with a real, falsifiable, time-boxed plan that has a funded
+fallback. It does **not** retire `ka-024-no-eng-resourcing` outright — the 2-week checkpoint has
+not been reached yet, and a no-code SMS flow that looks simple in Twilio's own documentation is
+not the same thing as one working reliably against a real franchise group's roster. The MVBP
+timeline in Step 22 is now credible as a *plan with a decision point*, not yet as a *proven build
+capability*.
+
 ```json
-{ "id": "ka-024-no-eng-resourcing", "statement": "No step in this plan (1-23) established who actually builds the MVBP — Maria's background is operations, not engineering, and no technical co-founder or contractor has been identified.", "step_ref": "24_develop_a_product_plan", "confidence": "low", "test_plan": "Founder needs to resolve this before the Step 22 MVBP timeline is credible — either learn to build a minimal version, bring on a technical co-founder, or hire a contractor.", "test_result": null }
+{ "id": "ka-024-no-eng-resourcing", "statement": "No step in this plan (1-23) established who actually builds the MVBP — Maria's background is operations, not engineering, and no technical co-founder or contractor has been identified.", "step_ref": "24_develop_a_product_plan", "confidence": "low", "test_plan": "Founder needs to resolve this before the Step 22 MVBP timeline is credible — either learn to build a minimal version, bring on a technical co-founder, or hire a contractor.", "test_result": "Partial (2026-08-25): build-approach decision made — attempt a Twilio Studio + Retool no-code build solo, with a hard 2-week checkpoint and a funded fallback to one of two quoted contractors (~$18k-$24k, 6-8 weeks) if no working demo by then. This resolves the 'no plan exists' gap; the underlying buildability question (can Maria actually ship a working no-code flow) is not yet tested — checkpoint not yet reached." }
 ```
+
+**Timeline note:** the roadmap's Item 1 (ship the Step 7 Must-have set for one real pilot) is now
+gated on this 2-week no-code build checkpoint, not an open-ended "whenever Maria gets to it."
 
 ## Handoff briefs
 ### To GTM

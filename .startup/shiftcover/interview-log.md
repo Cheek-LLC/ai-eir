@@ -79,3 +79,51 @@ going in the same session rather than stopping here (moving briskly — checkpoi
 each step, not full interactive dwell time on every question, per her explicit signal).
 
 **Handoff:** control passes to the orchestrator to begin Step 1 (01-market-segmentation).
+
+## 2026-08-25 — Revision Follow-up (round-trip on council's REVISE verdict)
+
+**Context:** `reviews/2026-08-18-balanced-panel-v1.md` returned aggregate **REVISE** with 5
+required revisions ([VENTURE-FIT], [SCALABILITY], [EXECUTION-RISK], [DMU-COMPLEXITY],
+[SALES-CYCLE]). Read the full list back to Maria and asked what she could realistically do about
+each one before the plan goes back to the council. Her answer, plainly: "some of this I can do
+this week, some of it just takes real weeks I don't have yet — I'm not going to pretend I ran a
+funnel that hasn't run."
+
+**1. [VENTURE-FIT] — funding-intent statement (first explicit signal logged).** Read her the
+`vc-panel` framing verbatim (sized for a $10-30M/year outcome, not a fund-returner). Her response,
+quoted directly: *"I'm not trying to raise a venture round on this — if it works I want to run it
+as a real, profitable business, and I'd rather it be a $15-20M/year business I own 100% of than
+chase something bigger I don't."* This is the first time funding intent has come up explicitly in
+any logged conversation — `business_basics.funding_intent` was `undecided` through onboarding and
+the v1 review. **Noting for the orchestrator/next `recurring-check-in`:** this statement should be
+captured into `business_basics.funding_intent` (bootstrap) by its proper owner
+(`skills/interview/onboarding-interview` / `skills/interview/recurring-check-in` per the Data
+Contract) — `revise-business-plan` does not own that field and is not writing to it directly, even
+though it's using the statement to reframe the plan's venture-fit narrative this cycle.
+
+**2. [SCALABILITY] — cold-outbound test.** Maria sourced a public regional franchise-association
+member directory and sent 20 cold LinkedIn/email messages to Directors of Operations and
+Owner-Operators **outside** her existing network, over 2026-08-19 through 2026-08-24. Result: 3
+replies (15%), 1 scheduled intro call for next week, 0 further progress, 0 declines. Logged as a
+real, small, honestly-labeled data point (see Step 19 update) — not used to recompute COCA.
+
+**3. [EXECUTION-RISK] — engineering resourcing decision.** Got quotes from 2 contractors
+(~$18k-$24k, 6-8 weeks). Decided to attempt a no-code build herself (Twilio Studio + Retool) with
+a hard 2-week checkpoint, falling back to a contractor if no working demo by then. See Step 24
+update.
+
+**4. [DMU-COMPLEXITY] — franchisor confirmation calls.** Called 3 of the 7 Step 9 prospects (Alex
+Torres/Copperline, Priya Nair/Nair Hospitality, Derek Osei/RiverBend) directly. 2 of 3: no
+franchisor veto. 1 of 3 (RiverBend): a real but non-fatal franchisor security-attestation review
+(2-3 weeks). See Step 12/13 updates. Explicitly a partial result — 4 of 7 prospects still
+unconfirmed.
+
+**5. [SALES-CYCLE] — NOT resolved this cycle, and said so plainly.** Only 2 of 7 prospects have
+reached Stage 2 (Alex Torres — first conversation held; Priya Nair — scheduled). The council asked
+for 5+ prospects through the first two stages before Step 18's funnel is recomputed. Maria: "I'm
+not going to make up a funnel from two calls to make the review look done." Carried forward as
+open — see Step 18 update and `plan.history`/the triggering review's `resolved` field.
+
+**Handoff:** control passes back to `skills/business-plan/revise-business-plan` to re-synthesize
+`plan/business-plan-v2.md` from the above, run the AI-risk gate, and hand off to
+`skills/business-plan/run-review-council` for re-review.

@@ -18,6 +18,17 @@
 | 5. Contract & pricing discussion | Director of Ops | Pricing presented per Step 16 | Price feels justified against Step 8's value case | "Why per-location, not one flat group fee?" | Perceived price doesn't match perceived value, especially before any pilot proof exists | A pilot period at a subset of locations before full-group commitment |
 | 6. Signed & paid | Director of Ops | Contract signed, first payment processed | — | — | — | — |
 
+## Update (revision cycle, week of 2026-08-25 — addresses council required revision
+[DMU-COMPLEXITY], carried from Step 12)
+Direct confirmation with 3 of the 7 Step 9 prospects (see Step 12's updated Veto/blocker section)
+shows Stage 4 is not uniformly binary as this table's "80% blended" estimate in Step 18 implicitly
+assumed: 2 of 3 sampled prospects skip Stage 4 entirely (no franchisor involvement at all), and 1
+of 3 hits a real-but-survivable version of it (a 2-3 week security-attestation review, not an
+outright block). This is directionally reassuring — no prospect has yet shown an actual franchisor
+veto — but it is only a 3-of-7 sample and Step 18's blended time/conversion figures for this stage
+are **not recomputed this cycle**; they remain founder estimates pending confirmation from the
+other 4 prospects.
+
 ## Open assumptions
 - `ka-012-franchisor-veto`: carried from Step 12, directly affects Stage 4 above.
 - New: `ka-013-pilot-needed`: see below.

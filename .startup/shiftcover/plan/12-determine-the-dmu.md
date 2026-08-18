@@ -16,6 +16,19 @@ has not yet confirmed, for any of the Step 9 prospect brands, whether their fran
 restricts third-party tools touching the roster/scheduling data. This could kill a deal after the
 Director of Ops has already said yes.
 
+**Update (revision cycle, week of 2026-08-25 — addresses council required revision
+[DMU-COMPLEXITY]):** Maria called 3 of the 7 Step 9 prospects directly and asked this question
+outright. Results: **2 of 3 confirmed no franchisor veto applies** — Copperline Burgers (Alex
+Torres) and Nair Hospitality Group (Priya Nair) are both structured so the
+Director of Operations/Owner-Operator can approve back-office tools without central franchisor IT
+sign-off. **1 of 3 (RiverBend QSR Group, Derek Osei) has a real, non-fatal added step**: their
+franchisor requires a data-handling/security attestation review for any third-party tool touching
+employee contact data, typically a 2-3 week turnaround — not a veto, but a real time cost Stage 4
+of Step 13 needs to reflect. **This is a partial confirmation only** — 3 of 7 named prospects, not
+all 7, and not the beachhead segment as a whole. It moves the risk from "entirely unconfirmed" to
+"absent for 2 of 3 sampled, present-but-survivable for 1 of 3" — the remaining 4 Step 9 prospects
+and the wider beachhead are still unconfirmed and this finding should not be over-generalized.
+
 ## Typical deal size & complexity
 Roughly 2-3 distinct people typically involved (End User informs but doesn't decide; Director of
 Ops decides; occasionally a franchisor IT veto) — simpler than an enterprise DMU, more than a pure
@@ -27,5 +40,5 @@ use GM pain points (Step 6/8) as the actual proof material — teed up for Step 
 
 ## Assumptions flagged
 ```json
-{ "id": "ka-012-franchisor-veto", "statement": "Assumes franchisor-level IT/brand-standards approval is not required for most Step 9 target groups — not yet confirmed for any specific brand.", "step_ref": "12_determine_the_dmu", "confidence": "low", "test_plan": "Ask directly in the first real sales conversation (prospect #1, Alex Torres) whether their franchise agreement requires franchisor sign-off on third-party ops tools.", "test_result": null }
+{ "id": "ka-012-franchisor-veto", "statement": "Assumes franchisor-level IT/brand-standards approval is not required for most Step 9 target groups — not yet confirmed for any specific brand.", "step_ref": "12_determine_the_dmu", "confidence": "low", "test_plan": "Ask directly in the first real sales conversation (prospect #1, Alex Torres) whether their franchise agreement requires franchisor sign-off on third-party ops tools.", "test_result": "Partial (2026-08-25): called 3 of 7 Step 9 prospects (Alex Torres/Copperline, Priya Nair/Nair Hospitality, Derek Osei/RiverBend). 2 of 3 confirmed no franchisor veto; 1 of 3 (RiverBend) requires a franchisor data-handling/security attestation review (2-3 weeks, not a veto). Remaining 4 prospects and the beachhead segment broadly are still unconfirmed — do not generalize this partial result to the full beachhead yet." }
 ```

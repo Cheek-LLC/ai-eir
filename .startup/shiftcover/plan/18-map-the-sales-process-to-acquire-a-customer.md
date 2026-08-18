@@ -29,6 +29,21 @@
   - Contract: 2.02 × 2.0 hr ≈ 4.0 hrs
   - **Total ≈ 37.8 hours of founder time per closed customer** (feeds Step 19).
 
+## Update (revision cycle, week of 2026-08-25 — council required revision [SALES-CYCLE], NOT
+resolved this cycle)
+The council asked for this funnel to be recomputed once 5+ real prospects have moved through at
+least the first two stages. Real status as of this revision: **2 of 7** Step 9 prospects have
+reached Stage 2 (Alex Torres/Copperline — first conversation held, doubling as the Step 12
+franchisor-veto call above; Priya Nair/Nair Hospitality — first conversation scheduled for the
+following week). That is 2 prospects, not the 5+ the council asked for, and neither has moved
+further than Stage 2. **This table and the roll-up below are deliberately left unchanged** —
+recomputing a 6-stage, 5-point conversion funnel from 2 real data points would be exactly the kind
+of false-precision, evidence-thin claim `ar-shiftcover-003` and this council's own
+`customer-discovery-skeptic` review already warned against. This required revision is carried
+forward as **not resolved**, honestly: getting 5 real prospects through 2 stages of a ~3-4 week
+combined Stage 1+2 process realistically takes several more weeks beyond this revision cycle, not
+something a single revision session can produce without fabricating data.
+
 ## Open assumptions
 ```json
 { "id": "ka-018-conversion", "statement": "No real funnel data yet; all stage conversion rates and time-in-stage figures are founder estimates, not measured from actual prospect conversations — the Step 9 pipeline has not yet advanced anyone past 'in conversation.'", "step_ref": "18_map_the_sales_process_to_acquire_a_customer", "confidence": "low", "test_plan": "Recompute from actual funnel data once the first 5-10 real prospects have moved through the process.", "test_result": null }

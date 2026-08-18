@@ -1,12 +1,12 @@
 # Changelog — 30-Minute Startup
 
 This is the single chronological ledger of what got built, what broke, and what got fixed, across
-every round of this plugin's build. It exists because the QA history now spans six separate
-`docs/QA-FINDINGS-*.md` reports plus a dogfood pass, each a standalone, never-overwritten record of
-one round's audit (per `CONVENTIONS.md`'s own naming rule) — accurate on its own, but not
-skimmable as a set. For the full file-by-file catalog of what exists today, see
-`docs/MASTER_INDEX.md`; this document is a summary and an index into the findings docs, not a
-replacement for either.
+every round of this plugin's build. It exists because the QA history now spans seven separate
+`docs/QA-FINDINGS-*.md` reports plus a dogfood pass and a first real Layer 3 regression pass, each a
+standalone, never-overwritten record of one round's audit (per `CONVENTIONS.md`'s own naming rule)
+— accurate on its own, but not skimmable as a set. For the full file-by-file catalog of what exists
+today, see `docs/MASTER_INDEX.md`; this document is a summary and an index into the findings docs,
+not a replacement for either.
 
 Each round below covers what was built, the real bugs an independent audit found, and whether a
 later round's independent dry run actually re-confirmed the fix — not just that a fix was written.
@@ -255,37 +255,123 @@ an already-working business type's seat-selection outcome.
 
 ---
 
-## Round 5 — in progress at the time of writing
+## Round 5 — fourth dry run (consumer app), first real Layer 3 regression pass, and a latent revision-loop bug
 
-As of this document's most recent update (2026-08-18), round 5 is underway concurrently with this
-document and has not yet landed the `docs/QA-LAYER3-REGRESSION-ROUND5.md` file it's expected to
-produce. This section reflects only what `git log`/`git status` show landed or in flight at the
-moment of writing, not a claim that round 5 is complete — re-check this section against the repo
-before trusting it as final.
+**Findings:** `docs/QA-FINDINGS-ROUND5.md` (end-to-end dry run against Kindling, a freemium
+consumer-app fixture), `docs/QA-LAYER3-REGRESSION-ROUND5.md` (the first real, checkbox-by-checkbox
+execution of `docs/TESTING.md` §3.1–§3.6 against the three existing dry-run fixtures).
 
-**Landed (commit `46f192c`):** all 12 `agents/council/*` files (the original 10 plus round 4's
-mid-session additions, `hardware-physical-product-operator` and
-`regulated-industry-compliance-reviewer`) now carry an explicit "you write nothing to disk" body
-statement. This closes the one item round 4's dogfood pass explicitly flagged but declined to fix
-itself (out of that round's assigned scope) — see `docs/QA-DOGFOOD-ROUND4.md`'s Council section and
-Advisory finding #2. **Not yet independently re-confirmed by a live dry run** — no round 5 dry run
-had completed at the time of writing.
+This round closed the one systemic gap round 4's QA dogfood pass flagged and deliberately left
+unfixed (the council write-scope statement), ran a fourth live dry run against the last untested
+`business_basics.business_type` value, and — for the first time — actually executed
+`docs/TESTING.md`'s Layer 3 pre-release regression checklist as a real pass/fail exercise rather
+than leaving it as a document nobody had run. That checklist run is what surfaced this round's
+single most consequential fix.
 
-**In flight, uncommitted at the time of writing:** a working-tree change to
-`skills/business-plan/revise-business-plan/SKILL.md` (visible in `git status`/`git diff`, not yet
-committed) rewrites its stage-transition logic so re-revision leaves `stage` at `"revising"` instead
-of writing a `"council_review"` value that, per the change's own reasoning,
-`run-review-council`'s precondition never reads or expects on disk — writing it would fail that
-precondition on the very next call and stall the revision loop. This looks like a real,
-self-consistent fix in the same spirit as the state-machine drift bugs rounds 2-4 have repeatedly
-found, but it is uncommitted and therefore unverified by any independent pass; treat it as
-in-progress work, not a confirmed fix, until it lands and a later round (or a fresh read of the
-committed file) checks it against `run-review-council`'s actual current precondition text.
+**The council write-scope mechanical fix.** All 12 `agents/council/*.md` files (the original 10
+plus round 4's `hardware-physical-product-operator` and `regulated-industry-compliance-reviewer`)
+now carry an explicit `## What you write` section stating plainly that the persona writes nothing
+to disk and returns its verdict to the calling skill instead — confirmed by a direct
+case-insensitive grep, 12 of 12 files match. This closes the gap `docs/QA-DOGFOOD-ROUND4.md`
+flagged as systemic but out of scope for that round.
 
-Once `docs/QA-LAYER3-REGRESSION-ROUND5.md` (or any other round 5 findings doc) lands, this section
-should be rewritten with the same treatment as rounds 2-4 above — what was built, what broke, what
-got fixed, and what a later round's independent check has and hasn't yet re-confirmed — rather than
-left as this in-progress snapshot.
+**The fourth live dry run (Kindling, `consumer_app`, `idea_only`, freemium — the last of the six
+`business_type` enum values never yet exercised by a real fixture) surfaced real findings, and the
+consequential ones were fixed directly:**
+
+- **Blocking — Steps 1, 2, and 4 had zero `consumer_app` branching, and Step 4's gap was
+  load-bearing, not cosmetic.** Step 4's formula ("annual revenue per user = price × purchase
+  frequency") has no answer for a freemium app, where most users generate ad revenue only and a
+  small minority pay. Drafting Kindling's real TAM against the unmodified step produced a naive,
+  100%-conversion figure roughly 20x the realistic blended-ARPU figure, with nothing in the step or
+  downstream to catch a less careful drafter from reporting the inflated number — and Step 4 is one
+  of the five steps the mandatory AI-risk gate covers, meaning a founder who stops right there (a
+  named risk in the step's own gate section) would walk away with a materially wrong headline
+  number. **Fixed:** Step 4 now has an explicit `**Consumer app:**` branch instructing the blended
+  ad-plus-subscription-revenue method as the number of record, with the naive full-conversion figure
+  reported only as an explicitly-labeled non-representative ceiling; Step 2 gained a generic B2C
+  fallback question so "reach" and "competitive intensity" aren't left completely undefined for a
+  consumer-facing business.
+- **Significant — Steps 16 and 18 could silently produce two different numbers for the same
+  freemium-to-paid conversion rate**, with neither step's own text instructing a cross-check against
+  the other. This is the fourth independent instance of the "two related steps can diverge without
+  either checking against the other" bug class (after round 2's finding 2.2 and round 3's finding
+  1.3). **Fixed:** Step 18 now instructs cross-checking its chained funnel conversion rate against
+  Step 16's stated assumption and flagging explicitly if they disagree by a material amount.
+- **Significant — `competitive-strategy-reviewer`'s "Calibrate by business type" section had no
+  `consumer_app` bullet**, discovered by hand-working `run-review-council`'s seat-selection logic
+  against Kindling's real `business-state.json`: `product-market-fit-panel`'s own trigger (meant to
+  be the most load-bearing seat for exactly this business type) did not fire, because Kindling's
+  real weak points clustered in unit economics (Steps 4/16-19) and Core (Step 10), not the PMF-range
+  steps the trigger counts — a realistic pattern for an idea-stage app with some pilot signal, not a
+  contrived one. The seat instead went to `competitive-strategy-reviewer` via a different, legitimate
+  trigger, and that persona's file had no type-specific scrutiny for consumer apps to fall back on.
+  **Fixed:** added a `consumer_app` calibration bullet (network/social effects, retention-curve and
+  freemium-conversion credibility, platform-policy dependency). A genuinely dedicated `consumer_app`
+  contextual persona remains an open, future-round scoping question, not fixed this round.
+- **Polish — `assemble-business-plan`'s LTV:COCA reconciliation instruction had a services-specific
+  caveat (round 4) but no consumer_app-specific one for the opposite case**: a weak ratio built
+  entirely from pre-launch, zero-real-data placeholders needs an explicit statement that it reflects
+  current-assumption risk, not a proven-unviable business. **Fixed** with a parallel caveat.
+- **Confirmed a fourth consecutive time, on a fourth business type: the AI-risk gate's false-precision
+  catch keeps landing at the same specific step (19, COCA)** — three of four rounds now, at the
+  step furthest downstream in the TAM→LTV→funnel-costing→COCA estimate chain, and therefore the one
+  accumulating the most compounded uncertainty. Round 4 asked whether a fourth recurrence would
+  justify a structural fix rather than continued reliance on the gate; this round's answer is yes.
+  **Fixed:** added a standing "round explicitly before writing the headline figure" reminder to
+  Step 19 (the specific step hit four times), rather than relying on the gate to catch it
+  indefinitely.
+
+**The Layer 3 regression pass's most important result: it exercised a code path no live dry run had
+ever reached, and found a real, latent bug in `revise-business-plan`'s stage-transition logic that
+would have stalled the revision loop the very first time anyone actually ran it.**
+
+Two of the three existing fixtures (`shiftcover`, `skyclaim`) sit at `stage: "revising"` — the exact
+point where a REVISE/REJECT verdict hands off to `revise-business-plan` — but neither had ever
+actually been driven through a revision cycle by a live run. Checking `docs/TESTING.md` §3.2's
+checklist for real meant reading `revise-business-plan/SKILL.md` against its two collaborators
+(`agents/orchestrator.md` and `run-review-council/SKILL.md`) rather than reading each file in
+isolation, and that cross-read surfaced a three-way contradiction:
+
+- `run-review-council/SKILL.md` §0.2's precondition requires `stage` to be exactly
+  `"plan_assembled"` or `"revising"` before it will run — anything else, it stops and reports.
+- `agents/orchestrator.md`'s own state-machine notes independently confirm the same thing:
+  `run-review-council` "never persists `council_review` as an on-disk value," and any caller handing
+  off to it must leave `stage` at `"revising"`.
+- **But `revise-business-plan/SKILL.md`, before this round's fix, instructed the opposite** — its
+  old §6 ("Advance stage for re-review") and its old §7 final-write list both told the skill to write
+  `stage = "council_review"` once revision work finished.
+
+No fixture had ever exercised this handoff, so the contradiction had never been caught: the two
+skills' contracts had silently diverged, each internally consistent and correctly documented on its
+own, but incompatible with each other at the exact seam a real revision cycle depends on. Had any
+prior dry run actually gotten a REVISE/REJECT verdict through a revision and back to a second
+council review, `revise-business-plan` would have written a `stage` value `run-review-council`'s own
+precondition rejects, and the loop `docs/ARCHITECTURE.md` explicitly requires (revise, never straight
+to `approved`, always back through council review) would have stalled at that handoff with no
+fixture ever having existed at that point in the lifecycle to reveal it. This is the reason the bug
+had never been caught before: it lives entirely inside a seam between two skills that only a real
+multi-step revision cycle exercises, and every one of the four live dry runs to date (rounds 2-5)
+either never reached `"revising"` or stopped exactly there without continuing through it.
+
+**Fixed:** `skills/business-plan/revise-business-plan/SKILL.md` — §6, §7, and the frontmatter
+description now instruct leaving `stage` at `"revising"` (as already set in the skill's own §2)
+rather than writing `"council_review"`, matching what `run-review-council` and the orchestrator both
+already expected. This is a one-file fix confined to the skill that owns the value; it does not
+touch `run-review-council`, the orchestrator, or any fixture. **The fix is unverified by a live
+run** — it resolves a real, demonstrated contract contradiction between three files' own stated
+text, but no fixture has yet exercised the corrected path end to end. Round 6, running concurrently
+with this document, is the first attempt to do exactly that (see `docs/ROADMAP.md`).
+
+**The Layer 3 pass's other headline result, honestly scored rather than glossed:** 6 PASS, 9 GAP,
+2 FAIL (the `revise-business-plan` bug above, fixed; and `vantage-point-search`'s review left with
+`resolved: false` at `stage: "approved"`, logged but not fixed since fixture edits were off-limits
+this round). The single largest gap restated plainly: **nothing in this repo's live-testing history
+has ever driven a business from `approved` into `gtm`/`operating`** — `agents/gtm/*`, every
+`skills/gtm/*` and `skills/ops/*` skill, and Phases 5-6 of the orchestrator's state machine are
+structurally reviewed and read correctly, but carry zero real-run evidence. See
+`docs/QA-LAYER3-REGRESSION-ROUND5.md`'s full summary table for all 17 checked items and its closing
+"what a future round needs to do" list, which is exactly what round 6 is now attempting.
 
 ---
 
@@ -346,4 +432,19 @@ one of them alone.
   the gap itself has closed. Similarly, the round 3 connectors audit found zero live gaps to fix
   (the round 2 fix held completely) — a clean result, but one specific to the 19 files audited at
   that time, not a claim about every future extension.
+- **Round 5 found the first bug of a genuinely different category: not a business-type gap, but an
+  unexercised code path.** Every headline bug in rounds 2 through 5's own dry-run sections above
+  shares one shape — a real business type or business shape hits a step, template, or trigger that
+  was never written (or written wrong) for it, and a live drafting session is what surfaces the gap.
+  The `revise-business-plan`/`run-review-council` stage-value contradiction round 5's Layer 3 pass
+  found is a different animal: both files were individually well-specified and internally
+  consistent, business-type branching had nothing to do with it, and no amount of running the
+  onboarding-through-council-review path on a fifth or sixth business type would ever have surfaced
+  it — the bug lives entirely in a seam between two skills that only a *second* pass through
+  council review exercises, and no dry run (rounds 2-5) had ever continued a fixture past the point
+  where a REVISE/REJECT verdict first lands. This is worth naming as its own category going
+  forward, distinct from "one more business type": some gaps aren't about breadth of coverage at
+  all, they're about depth of exercise — a code path nobody has ever actually walked, however well
+  it reads. Round 6, running concurrently with this document, is the first attempt to walk that
+  specific path for real.
 

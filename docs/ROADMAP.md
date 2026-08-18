@@ -11,20 +11,26 @@ running a second live end-to-end dry run against a marketplace business; **round
 last two council-persona gaps, ran a third live dry run against a services business, audited
 `CONVENTIONS.md` itself for staleness against the repo it governs, ran the QA-tooling agents
 (the auditor/consistency-checker) for real at full-repo scale for the first time, and seeded a
-first Layer 2 behavioral eval suite. **Rounds 2, 3, and 4 are all now complete and integrated** —
-every finding any round's dry run or audit work surfaced was fixed directly in the repo, not left
-as an open backlog; each "complete and integrated" section below documents each fix confirmed
-present, file by file, the same way every prior round's section has. **Round 5** — happening now,
-concurrently with this revision — is a swarm running a fourth live dry run against a
-`consumer_app` business (the last of the six `business_basics.business_type` values never yet
-tested live), doing a small mechanical fix adding an explicit "what you write" statement to all 12
-council personas (closing the one systemic gap round 4's QA dogfood pass found and flagged as
-off-limits for that round), executing `docs/TESTING.md`'s Layer 3 pre-release regression checklist
-for real against the three existing dry-run fixtures, and consolidating a `docs/CHANGELOG.md`
-summarizing the whole build's history. Round 4's output fed directly into this revision's v0.2
-assessment below; round 5's output will do the same for round 6's revision of this document. Treat
-this document as a snapshot that gets rewritten each round, not a static plan drafted once and
-executed against.
+first Layer 2 behavioral eval suite; **round 5** closed the last systemic QA-dogfood gap (an
+explicit "what you write" statement on all 12 council personas), ran a fourth live dry run against
+a `consumer_app` business (the last of the six `business_basics.business_type` values never yet
+tested live), and — for the first time — actually executed `docs/TESTING.md`'s Layer 3 pre-release
+regression checklist against the three existing dry-run fixtures, which is where round 5's single
+most consequential finding came from: a real, latent bug in `revise-business-plan`'s
+stage-transition logic that would have stalled the revision loop the first time anyone actually
+drove a business through it. **Rounds 2, 3, 4, and 5 are all now complete and integrated** — every
+finding any round's dry run or audit work surfaced was fixed directly in the repo, not left as an
+open backlog; each "complete and integrated" section below documents each fix confirmed present,
+file by file, the same way every prior round's section has. **Round 6** — happening now,
+concurrently with this revision — is two agents each driving a real fixture through exactly the
+territory round 5's Layer 3 pass identified as the biggest untested gap: one is driving
+`.startup/shiftcover/` through an actual revision cycle for the first time, live-testing whether
+round 5's `revise-business-plan` fix actually holds; the other is driving
+`.startup/vantage-point-search/` through GTM and operations for the first time, since nothing in
+this repo's live-testing history has ever taken a business past `stage: "approved"`. Round 5's
+output fed directly into this revision's roadmap; round 6's output will do the same for round 7's
+revision of this document. Treat this document as a snapshot that gets rewritten each round, not a
+static plan drafted once and executed against.
 
 This document is honest about the gap between what the plugin actually is right now and the
 long-term vision the spec describes — potentially hundreds of agents and thousands of skills
@@ -309,93 +315,180 @@ looking energy of this document now belongs to v0.3.
    contextual trigger of any kind), and round 4's live services dry run demonstrated the whole
    chain — DE steps, plan assembly, and the dedicated council persona — catching a real,
    services-specific delivery-capacity gap no generic panelist's rubric would have owned.
-3. **The genuinely open frontier now, and it is not another persona or another business-type
+3. **Fixed since round 5, though unverified by a live run yet**: the revision loop had a real,
+   latent bug — `revise-business-plan` instructed writing a `stage` value
+   (`"council_review"`) that `run-review-council`'s own precondition never reads or expects, which
+   would have stalled the loop the first time anyone actually drove a business through a revision
+   cycle. Round 5's Layer 3 regression pass found this by reading the two skills' contracts against
+   each other rather than in isolation, and fixed it in the one file that owns the value. No fixture
+   has yet exercised the corrected path — that is exactly what round 6 (below) is now attempting.
+4. **The genuinely open frontier now, and it is not another persona or another business-type
    pass**: nothing in the repo has yet been driven through a real, multi-session lifecycle by an
-   actual person — every check so far, across all four live dry runs (round 2's ShiftCover, round
-   3's SkyClaim, round 4's Vantage Point Search, and round 5's consumer_app business once it
-   lands), has been a simulated, single-session pass, and simulated passes reliably miss the
-   specific ways real founders phrase vague answers, get confused about `/business-status` state,
-   or stall out mid-interview across a real gap of days or weeks. More concretely, and worth
-   naming plainly: **not one of the three real fixtures under `.startup/` has ever exercised the
-   revision loop or anything past plan approval.** `shiftcover` and `skyclaim` both sit at
-   `stage: "revising"` — the point where a REVISE/REJECT verdict hands off to
-   `revise-business-plan` — and neither fixture shows that skill actually running a revision cycle
-   back through a second `council_review`. `vantage-point-search` is the first fixture to reach
-   `stage: "approved"`, and stops exactly there — GTM, operations, and the recurring check-in
-   cadence machinery (`agents/gtm/*`, `agents/ops/*`, `/check-in`, the whole back half of
-   `docs/ARCHITECTURE.md`'s lifecycle diagram) have never been exercised by a live run at all, only
-   designed and structurally audited. This is a different, deeper kind of gap than "one more
-   business type" or "one more persona" — it's the entire second half of the product's own
-   lifecycle diagram, untested by anything but reading the code. See v0.3 below for why this is now
-   the roadmap's top priority rather than a footnote.
+   actual person — every check so far, across all five live dry runs (round 2's ShiftCover, round
+   3's SkyClaim, round 4's Vantage Point Search, round 5's Kindling), has been a simulated,
+   single-session pass, and simulated passes reliably miss the specific ways real founders phrase
+   vague answers, get confused about `/business-status` state, or stall out mid-interview across a
+   real gap of days or weeks. More concretely, and worth naming plainly, restated from round 5's own
+   Layer 3 pass (`docs/QA-LAYER3-REGRESSION-ROUND5.md`): **not one of the four real fixtures under
+   `.startup/` has ever exercised the revision loop or anything past plan approval.** `shiftcover`
+   and `skyclaim` (now joined by `kindling`) sit at `stage: "revising"` — the point where a
+   REVISE/REJECT verdict hands off to `revise-business-plan` — and none of the three fixtures shows
+   that skill actually running a revision cycle back through a second council review.
+   `vantage-point-search` is the only fixture to reach `stage: "approved"`, and stops exactly
+   there — GTM, operations, and the recurring check-in cadence machinery (`agents/gtm/*`,
+   `agents/ops/*`, `/check-in`, the whole back half of `docs/ARCHITECTURE.md`'s lifecycle diagram)
+   have never been exercised by a live run at all, only designed and structurally audited. This is a
+   different, deeper kind of gap than "one more business type" or "one more persona" — it's the
+   entire second half of the product's own lifecycle diagram, untested by anything but reading the
+   code, and it is exactly what round 6 (below) is now attempting to close.
 
-## Round 5 — closing the last dogfood gap and testing the last mile: in progress
+## Round 5 — closing the last dogfood gap and testing the last mile: complete and integrated
 
-Round 5 is running concurrently with this roadmap revision. Its scope, as described to the swarm:
-a fourth live end-to-end dry run against a `consumer_app` business (the last of the six
-`business_basics.business_type` enum values never yet exercised by a real fixture — round 2 was
-`saas`/`idea_only`, round 3 was `marketplace`/`pivoting`, round 4 was `services`/
-`already_operating`), a small mechanical fix adding an explicit "what you write" statement to all
-12 council personas (closing the one systemic, explicitly-out-of-scope gap round 4's QA dogfood
-pass flagged in `docs/QA-DOGFOOD-ROUND4.md`), a real execution of `docs/TESTING.md`'s Layer 3
-pre-release regression checklist against the three existing dry-run fixtures (the first time that
-checklist has been run for real rather than only existing as a document), and a consolidated
-`docs/CHANGELOG.md` summarizing the whole build's history across all five rounds.
+Round 5's scope, as described to the swarm: a fourth live end-to-end dry run against a
+`consumer_app` business (the last of the six `business_basics.business_type` enum values never yet
+exercised by a real fixture — round 2 was `saas`/`idea_only`, round 3 was `marketplace`/`pivoting`,
+round 4 was `services`/`already_operating`), a small mechanical fix adding an explicit "what you
+write" statement to all 12 council personas (closing the one systemic, explicitly-out-of-scope gap
+round 4's QA dogfood pass flagged in `docs/QA-DOGFOOD-ROUND4.md`), a real execution of
+`docs/TESTING.md`'s Layer 3 pre-release regression checklist against the three existing dry-run
+fixtures (the first time that checklist has been run for real rather than only existing as a
+document), and a consolidated `docs/CHANGELOG.md` summarizing the whole build's history across all
+five rounds. This section was rewritten after walking the actual repo — every item below was
+re-confirmed present in the current files, not carried forward from round 5's in-progress snapshot:
 
-**As of this snapshot, walked directly rather than assumed:**
+- **The council write-statement fix landed and is confirmed present.** All 12
+  `agents/council/*.md` files carry an explicit `## What you write` section (confirmed by a direct
+  case-insensitive grep across every file — 12 of 12 match), each stating plainly that the persona
+  writes nothing to disk and returns its verdict to the calling skill instead. This closes exactly
+  the gap `docs/QA-DOGFOOD-ROUND4.md` flagged and deliberately left unfixed as out-of-scope for that
+  round.
+- **A fourth live end-to-end dry run against a `consumer_app` business landed**
+  (`docs/QA-FINDINGS-ROUND5.md`, **Kindling**, a freemium daily-practice app for hobbyist creatives,
+  `idea_only`), and surfaced real findings, all fixed directly, confirmed present in the current
+  files:
+  - **Blocking — Steps 1, 2, and 4 had zero `consumer_app` branching, and Step 4's gap was
+    load-bearing.** Step 4's formula (price × purchase frequency) has no answer for a freemium app;
+    drafting a real TAM against it produced a naive figure roughly 20x a realistic blended-ARPU
+    figure, with nothing downstream to catch a less careful drafter reporting the inflated one —
+    and Step 4 is one of the five AI-risk-gated steps, so a founder who stops there gets this
+    failure mode with no safety net. **Fixed:** Step 4 now has an explicit `**Consumer app:**`
+    branch instructing the blended ad-plus-subscription method as the number of record, with the
+    naive figure reported only as a labeled non-representative ceiling; Step 2 gained a generic B2C
+    fallback question.
+  - **Significant — Steps 16 and 18 could silently diverge on the same freemium-to-paid conversion
+    rate**, the fourth independent instance of the "two related steps can diverge without either
+    checking against the other" bug class (after round 2's finding 2.2, round 3's finding 1.3).
+    **Fixed:** Step 18 now instructs cross-checking its chained funnel rate against Step 16's stated
+    assumption.
+  - **Significant — `competitive-strategy-reviewer` had no `consumer_app` calibration**, discovered
+    by hand-working the council's seat-selection logic against Kindling's real
+    `business-state.json`: `product-market-fit-panel`'s own trigger did not fire (Kindling's real
+    weak points clustered in unit economics and Core, not the PMF-range steps the trigger counts),
+    so the seat fell to a persona with no type-specific scrutiny to offer. **Fixed:** added a
+    `consumer_app` calibration bullet. A genuinely dedicated `consumer_app` contextual persona
+    remains open (see `docs/DATA-CONTRACT.md`'s coverage table), not fixed this round.
+  - **Polish — `assemble-business-plan`'s LTV:COCA reconciliation had a services-specific caveat
+    (round 4) but no consumer_app-specific one for a weak, zero-real-data ratio.** **Fixed** with a
+    parallel caveat.
+  - **Confirmed a fourth consecutive time: the AI-risk gate's false-precision catch lands at Step
+    19 (COCA) more often than any other step**, three of four rounds now — the step furthest
+    downstream in the estimate chain, and therefore the one accumulating the most compounded
+    uncertainty. **Fixed:** added a standing "round explicitly before writing the headline figure"
+    reminder directly to Step 19, rather than continuing to rely on the gate catching it
+    indefinitely.
+- **`docs/TESTING.md`'s Layer 3 pre-release regression checklist was executed for real for the
+  first time** (`docs/QA-LAYER3-REGRESSION-ROUND5.md`), checked against all three then-existing
+  fixtures item by item: **6 PASS, 9 GAP, 2 FAIL** (one fixed this round, one logged as fixture data
+  this round was barred from editing). **The single most consequential result:** cross-reading
+  `revise-business-plan/SKILL.md` against `run-review-council/SKILL.md` and `agents/orchestrator.md`
+  (rather than reading each in isolation) surfaced a genuine, three-way contradiction —
+  `revise-business-plan` instructed writing `stage = "council_review"`, a value
+  `run-review-council`'s own precondition never reads or expects and would reject outright. No
+  fixture had ever exercised this handoff, so the contradiction had never been caught; it lives
+  entirely in a seam between two skills that only a real second pass through council review
+  exercises. **Fixed** directly in `revise-business-plan/SKILL.md` (§6, §7, frontmatter) — the skill
+  now leaves `stage` at `"revising"`, matching what its two collaborators already expected. **This
+  fix is unverified by a live run** — see round 6 below, which is the first attempt to exercise the
+  corrected path for real. The pass's other headline result, restated plainly rather than glossed:
+  **nothing in this repo's live-testing history has ever driven a business from `approved` into
+  `gtm`/`operating`** — the single largest, most explicit gap the checklist found.
+- **`docs/CHANGELOG.md` landed**, consolidating rounds 1-5's build history, real bugs found and
+  fixed, and cross-round patterns into one chronological ledger, confirmed present at
+  `docs/CHANGELOG.md`.
 
-- **The council write-statement fix has landed.** All 12 `agents/council/*.md` files now carry an
-  explicit "## What you write" section (confirmed by a direct case-insensitive grep across every
-  file — 12 of 12 match), each stating plainly that the persona writes nothing to disk and returns
-  its verdict to the calling skill instead. This closes exactly the gap `docs/QA-DOGFOOD-ROUND4.md`
-  flagged and deliberately left unfixed as out-of-scope for that round.
-- **The fourth live dry run's findings file does not yet exist** in `docs/` — no
-  `docs/QA-FINDINGS-ROUND5.md`-shaped file is present, and no fourth business appears under
-  `.startup/` alongside `shiftcover`, `skyclaim`, and `vantage-point-search` — confirmed by a
-  direct directory listing, not assumed absent.
-- **No output from a real Layer 3 regression-checklist run exists yet** in `docs/` as of this
-  snapshot — `docs/TESTING.md` §3.1's checklist itself is unchanged and still describes what to
-  check, not the result of having checked it.
-- **`docs/CHANGELOG.md` does not yet exist** at this path — confirmed by a direct file-existence
-  check, not assumed absent.
+## Round 6 — testing the revision loop and the post-approval half: in progress
 
-Because round 5 is still running as this document is written, only the persona write-statement fix
-is scored as landed above; the rest should get the same re-verification treatment in the next
-roadmap revision that every prior round's claimed fixes got here, not be marked done on the
-strength of the plan alone.
+Round 6 is running concurrently with this roadmap revision, and is a direct, deliberate response to
+round 5's Layer 3 pass naming this exact gap as the single largest untested surface in the plugin's
+live-testing history. Two agents are each driving a real existing fixture through territory no live
+dry run has ever reached:
 
-## v0.3 and beyond — the real frontier: exercising the second half of the lifecycle
+- **One agent is driving `.startup/shiftcover/` through an actual revision cycle for the first
+  time** — `shiftcover` has sat at `stage: "revising"` since round 2, never once continued through
+  `revise-business-plan` and back to a second council review. This is also the first live test of
+  round 5's fix to `revise-business-plan`'s stage-transition logic: does `run-review-council`
+  actually accept the handoff now that the skill leaves `stage` at `"revising"` instead of writing
+  the `"council_review"` value its precondition would have rejected.
+- **The other agent is driving `.startup/vantage-point-search/` through GTM and operations for the
+  first time** — `vantage-point-search` is the only fixture to ever reach `stage: "approved"`, and
+  it has never continued into `agents/gtm/*`, `agents/ops/*`, or the recurring check-in cadence
+  machinery. This is the first live test of the entire back half of `docs/ARCHITECTURE.md`'s
+  lifecycle diagram.
 
-With v0.2's depth work now closed, the honest next horizon is not primarily more breadth. The four
-live dry runs this build has run so far (round 2 SaaS, round 3 marketplace, round 4 services, round
-5 consumer app once it lands) have been extraordinarily effective at finding and fixing real gaps —
-but every one of them is a single, unbroken session that starts at onboarding and stops at or
-before `council_review`/`revising`. **That is the actual frontier for round 6 and beyond, ahead of
-any further persona or business-type work:**
+**As of this snapshot, checked directly rather than assumed:** neither `docs/QA-FINDINGS-ROUND6.md`
+nor `docs/QA-FINDINGS-POSTAPPROVAL-ROUND6.md` exists yet in `docs/` — confirmed by a direct
+file-existence check, not assumed absent, since both agents are still running concurrently with
+this revision. This section should be rewritten once both land, with the same "confirmed present in
+the current files" treatment every prior round's section above got, rather than left as this
+in-progress snapshot.
 
-- **A real, multi-session lifecycle exercise.** Nothing in this repo has been driven by an actual
-  human across a real gap of time — the specific failure modes that only show up across sessions
-  (a founder who forgets what they said last time, `/business-status` resuming correctly after a
-  real multi-day gap, a scheduling mechanism actually firing a check-in) have never been tested by
-  anything, simulated or real.
-- **The revision loop, exercised for real.** `revise-business-plan` — the skill that takes a
-  REVISE/REJECT verdict and produces the next plan version, then routes back through
-  `council_review` per `docs/ARCHITECTURE.md`'s explicit "never straight to `approved`" rule — has
-  never been driven end-to-end by a live dry run. Two of the three existing fixtures
-  (`shiftcover`, `skyclaim`) sit exactly at the point where this would happen and stop there.
-- **Everything past `stage: "approved"`, exercised for real.** GTM (`agents/gtm/*`,
-  `launch-director`'s coordination, the funding-strategy gate), operations
-  (`agents/ops/*`, drift detection against the plan, proactive runway escalation), and the
-  recurring check-in cadence that's supposed to close the loop back to earlier DE steps or a new
-  council review — all of it is designed, and all of it was checked structurally by round 4's QA
-  dogfood pass, but none of it has been exercised by a single live run. `vantage-point-search` is
-  the first fixture to even reach `stage: "approved"`, and it stops exactly there.
+## v0.3 and beyond — the real frontier, and what stays open even after round 6
 
-Only once that gap is closed does further breadth become the priority again: more industry
-verticals per DE step (regulated industries and hardware now have a dedicated council seat, but
-their DE-step branching depth hasn't been dry-run tested the way marketplace/services/SaaS have;
-B2B2C and nonprofit/social-enterprise variants remain entirely unwritten), a genuinely large
-council-persona library segmented by stage and geography as well as business type, deeper
+With v0.2's depth work closed since round 4, the honest next horizon has not been primarily more
+breadth since round 5. The five live dry runs this build has run so far (round 2 SaaS, round 3
+marketplace, round 4 services, round 5 consumer app) have been extraordinarily effective at finding
+and fixing real gaps — but every one of them is a single, unbroken session that starts at onboarding
+and stops at or before `council_review`/`revising`, and round 5's Layer 3 pass confirmed this
+plainly rather than leaving it inferred: not one fixture has ever exercised the revision loop or
+anything past plan approval. **Round 6 is the first live attempt to close that gap, and once its
+two findings docs land, this section needs the same "confirmed present" re-verification treatment
+every prior round's work has gotten here — not marked done on the strength of the plan alone.**
+
+Even a fully successful round 6 will not close every corner of this frontier. Naming what stays
+genuinely untested afterward, plainly, so a future round doesn't rediscover it as if it were new:
+
+- **A REJECT-and-founder-override path has still never been tested.** `agents/orchestrator.md`'s
+  Non-negotiable #3 specifies an explicit founder-override mechanism (a `risk_log` entry with
+  `raised_by: "startup-operator (founder override)"`, the review file marked noted-but-overridden)
+  for exactly the case where a founder wants to proceed against a council's REVISE/REJECT — round
+  6's revision-loop test is about the plan actually improving and re-passing, not about a founder
+  choosing to override a standing objection. No fixture has ever exercised this branch.
+- **A second or third recurring check-in cycle has never been tested.** Round 6's GTM/ops run, if it
+  reaches a check-in at all, will be the *first* one any fixture has ever had — it cannot, by
+  itself, test whether the cadence mechanism, drift detection, and check-in interview hold up across
+  *multiple* cycles (a founder's numbers changing check-in to check-in, an escalation from one
+  check-in's finding carrying forward correctly into the next, `cadence.next_check_in` actually
+  advancing correctly a second time).
+- **A pivot mid-lifecycle has never been tested.** `business_basics` is explicitly designed to be
+  updatable by `skills/interview/recurring-check-in` handing a change to the orchestrator (per
+  `docs/DATA-CONTRACT.md`'s ownership note) — a founder whose `venture_stage` moves from
+  `idea_only`/`already_operating` to `pivoting`, or whose `business_type` changes, mid-flight. No
+  fixture has ever exercised this, and it's a materially different test than round 3's SkyClaim
+  fixture, which started as `pivoting` rather than becoming so partway through.
+- **A real, multi-session lifecycle exercise driven by an actual human, not a role-played dry
+  run.** Nothing in this repo has been driven by an actual person across a real gap of time — the
+  specific failure modes that only show up across sessions (a founder who forgets what they said
+  last time, `/business-status` resuming correctly after a real multi-day gap, a scheduling
+  mechanism actually firing a check-in) have never been tested by anything, simulated or real, and
+  round 6's two dry runs are still simulated, single-operator sessions.
+
+Only once round 6 lands and these remaining corners are named honestly against what it actually
+covered does further breadth become the priority again: more industry verticals per DE step
+(regulated industries and hardware now have a dedicated council seat, but their DE-step branching
+depth hasn't been dry-run tested the way marketplace/services/SaaS/consumer-app have; B2B2C and
+nonprofit/social-enterprise variants remain entirely unwritten), a genuinely large council-persona
+library segmented by stage and geography as well as business type (starting with the still-open
+`saas`/`consumer_app`/`other` dedicated-persona question round 5 sharpened but didn't close), deeper
 fundraising-specific agents (pitch-deck iteration, cap-table sanity checks flagged clearly as
 non-legal-advice), a Layer 2 behavioral eval suite grown well beyond the 7-case seed round 4
 planted, and operations agents that extend meaningfully past year one (scaling playbooks, hiring
@@ -406,15 +499,15 @@ once, including the revision loop and the post-approval half. Getting there is e
 matter of writing many more agents as fast as possible, and it is not a matter of running one more
 review round and calling the plugin finished — it's a standing practice of building, adversarially
 reviewing, dry-running, and rewriting the roadmap, the same shape this document has now gone
-through four times.
+through five times.
 
 ## The constraint that doesn't loosen as this grows
 
 Every horizon above is additive to the same contract, not a departure from it. `CONVENTIONS.md`
 exists precisely because a swarm of independently-authored agents and skills only stays coherent
 if they all write against one directory layout, one frontmatter shape, one data contract, and one
-verdict schema. Growth from "hundreds" toward "thousands" of skills — and from round 5 toward round
-6 and beyond — is only survivable, for users and for the swarm of contributors building it, if
+verdict schema. Growth from "hundreds" toward "thousands" of skills — and from round 6 toward round
+7 and beyond — is only survivable, for users and for the swarm of contributors building it, if
 every new or revised skill or agent still:
 
 - lives in the directory layout `CONVENTIONS.md` §1 defines, with kebab-case names;
@@ -437,6 +530,8 @@ push and pull request, and now checking two more structural properties than it d
 before it ships, the same way round 1's first pass was meant to be, round 2 checked that it
 actually was, round 3 extended what gets checked and confirmed it held under a second independent
 dry run, round 4 turned that same scrutiny on `CONVENTIONS.md` itself and closed a real
-cross-cutting drift it found, and round 5 is closing the QA layer's own last flagged gap while
-testing, for the first time, the mechanical checklist meant to catch a whole-lifecycle regression
-rather than a single-file or single-behavior one.
+cross-cutting drift it found, round 5 closed the QA layer's own last flagged gap and, running the
+mechanical checklist meant to catch a whole-lifecycle regression for the first time, found a real
+contradiction between two skills' contracts before any live run ever hit it, and round 6 is now
+testing whether that fix — and the entire back half of the lifecycle diagram alongside it — actually
+holds when a real revision cycle and a real GTM/ops run are driven through it live.
