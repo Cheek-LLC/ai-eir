@@ -69,7 +69,7 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
     "scheduling_mechanism": "string, e.g. harness-trigger|manual-reminder — describes how re-activation actually happens in this environment"
   },
   "risk_log": [
-    { "id": "string", "type": "ai_risk|privacy|legal|business", "raised_by": "string, agent name", "description": "string", "status": "open|mitigated|accepted" }
+    { "id": "string", "type": "ai_risk|privacy|legal|business|governance", "raised_by": "string, agent name", "description": "string", "status": "open|mitigated|accepted" }
   ]
 }
 ```
@@ -88,6 +88,12 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
   runway crossing a critical threshold, churn concentrated on-beachhead, realized customers
   off-segment from the step-3/5 profile) — distinct from `ai_risk`/`privacy`/`legal`, which are
   typically raised by `agents/risk/*`.
+- `risk_log[].type: "governance"` is for the plugin's own process/gate decisions, raised by
+  `agents/orchestrator.md` itself — the clearest example is a founder override of a REVISE/REJECT
+  council verdict per Non-negotiable #3. Distinct from `business` (which describes something
+  happening *in the business*, not a decision about how this plugin is being used) and from
+  `ai_risk`/`privacy`/`legal` (which describe a defect in the plan's own content, not a deliberate,
+  logged choice to proceed despite one).
 - Agents should read the whole `business-state.json` before acting and write back only the keys
   they own, preserving everything else — never blind-overwrite the file.
 - `gtm.funding_strategy` is set by `agents/gtm/launch-director.md` the first time GTM work starts,
@@ -102,6 +108,13 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
   `skills/disciplined-entrepreneurship/NN-slug/SKILL.md` must read `business_basics.business_type`
   before asking its questions and tailor them accordingly — see `docs/UX-INTERVIEW-DESIGN.md` for
   worked examples of how the same step diverges by business type.
+- **`NEEDS RE-CONFIRMATION:` summary prefix.** A `disciplined_entrepreneurship.NN_slug.summary`
+  may be prefixed `NEEDS RE-CONFIRMATION: <what changed and why it might still be fine>` — this is
+  the convention for a step whose prior content is probably still valid after a pivot reopened a
+  *different* step, but hasn't been formally re-confirmed against the change (see
+  `agents/orchestrator.md`'s "Reopening a subset of DE steps after a pivot"). It's a signal to
+  resolve before the next plan assembly/council review, not a fourth `status` value — the step's
+  `status` field itself stays whatever it already was (usually `drafted`).
 - `key_assumptions[].id` and `quantitative_claims[].id` values just need to be unique within
   their array — the `ka-NN-slug`/`qc-NN-slug` style used throughout the DE step skills is a
   convention for readability, not a schema requirement, and different step skills' worked

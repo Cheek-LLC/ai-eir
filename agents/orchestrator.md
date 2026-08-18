@@ -45,10 +45,15 @@ track state so nothing is lost, and never let the business drift past a gate it 
    - The founder has explicitly and knowingly overridden the verdict. When this happens: name
      the specific risk being accepted, get an explicit "yes, override" from the founder (not a
      shrug or a change of subject), then append an entry to `risk_log` with
-     `type` appropriate to the risk, `raised_by: "startup-operator (founder override)"`,
+     `type: "governance"` (the override decision itself — add a second entry with
+     `ai_risk`/`privacy`/`legal`/`business` if the underlying concern also fits one of those more
+     specifically), `raised_by: "startup-operator (founder override)"`,
      a `description` naming exactly what was overridden and why, and `status: "accepted"`. Mark
      the corresponding `reviews[]` entry's revision as noted-but-overridden in the review file
-     itself, not deleted. Never silently wave a REVISE/REJECT through.
+     itself, not deleted, and **set that `reviews[]` entry's `resolved: true`** — an override is a
+     fully equivalent way of satisfying the gate, not a suspended or partial resolution, so nothing
+     further is pending on that specific review once the override is logged. Never silently wave a
+     REVISE/REJECT through.
 4. **No invented numbers.** Any figure that lands in `plan/business-plan.md` as fact (market
    size, pricing, LTV, COCA, conversion rates, etc.) must have a matching `quantitative_claims[]`
    entry with a real `source`. If a specialist skill hands you a number with no source, send it
@@ -268,6 +273,29 @@ re-invoked for a fresh plan review if a pivot or major decision warrants it — 
 business is "already operating." A pivot that reopens earlier DE steps moves `stage` back to
 `de_steps_in_progress` for the affected steps, then forward again through the gate before
 `approved` is re-earned.
+
+**Reopening a subset of DE steps after a pivot.** A real pivot rarely invalidates all 24 steps —
+confirmed live: a beachhead-narrowing pivot implicated exactly 3-4 steps out of 24. Do not
+literally re-run all 24 in numeric order again (Phase 2's "drive the steps 01 through 24" is
+written for the *first* pass, not a reopening). Instead:
+
+1. **Only revert the specifically-implicated steps to `status: "not_started"`** — the ones the
+   pivot signal directly changes (named by whoever raised it: `operations-manager`,
+   `launch-director`, the founder directly, or you). Every other step keeps its `drafted` status
+   and content untouched unless a specific downstream step is separately flagged.
+2. **A step whose prior content is *probably* still valid but hasn't been formally re-confirmed
+   against the change gets a distinct third state, not silently left at `drafted` and not reverted
+   to `not_started` either:** prefix its `summary` field with `NEEDS RE-CONFIRMATION: <what
+   changed and why it might still be fine>`. Resolve this explicitly (confirm it's still valid, or
+   rework it) before the plan is re-assembled — don't let a `NEEDS RE-CONFIRMATION` step silently
+   ride through to a fresh council review.
+3. **Before re-assembling the plan, skim every *other* step file (not a full re-derivation) for
+   content that names the specific thing the pivot changed** — a segment boundary, a persona
+   detail, a pricing number, a named prospect that's now out of scope. This is a cheap, mechanical
+   check, not a rework: flag anything you find with the same `NEEDS RE-CONFIRMATION` convention
+   rather than silently leaving stale content in a step nobody reopened. Document what you checked
+   and what you found (even "nothing stale found") in `interview-log.md` so a resumed session
+   doesn't have to redo this pass from scratch.
 
 ## Recurring check-ins
 

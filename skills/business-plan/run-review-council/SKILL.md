@@ -745,10 +745,16 @@ Read the whole file, write back only these keys, preserve everything else:
   }
   ```
   `resolved` starts `false` regardless of verdict — per the orchestrator's own Phase 4 handling,
-  it becomes `true` once the founder has seen an APPROVE/APPROVE_WITH_NOTES verdict's notes (or,
-  for REVISE/REJECT, once `skills/business-plan/revise-business-plan` closes the loop). Setting it
-  is the orchestrator's job on the read side, not this skill's — don't set it `true` yourself even
-  for a clean APPROVE, so the founder-facing acknowledgment step never gets silently skipped.
+  it becomes `true` once the founder has seen an APPROVE/APPROVE_WITH_NOTES verdict's notes, once
+  `skills/business-plan/revise-business-plan` closes the loop for REVISE/REJECT via a clean
+  re-review, **or once the orchestrator itself executes a founder override on this review per
+  Non-negotiable #3** — confirmed live in round 7 as a real, distinct third path: an override is a
+  fully equivalent way of satisfying the gate (Non-negotiable #3 frames revision-to-clean-verdict
+  and founder-override as parallel options, not a primary path with the override as an unresolved
+  exception), so `resolved` becomes `true` at the moment of override, not left `false` forever —
+  nothing further is coming on that specific review. Setting it is the orchestrator's job on the
+  read side, not this skill's — don't set it `true` yourself even for a clean APPROVE, so the
+  founder-facing acknowledgment step never gets silently skipped.
 - Set `stage`:
   - Aggregate `APPROVE` or `APPROVE_WITH_NOTES` → `stage: "approved"`.
   - Aggregate `REVISE` or `REJECT` → `stage: "revising"`.

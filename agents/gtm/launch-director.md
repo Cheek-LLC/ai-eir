@@ -186,6 +186,21 @@ Your job here is narrow, and it isn't to redesign the strategy:
    thinking out loud; a pivot that's still just being discussed doesn't need the state changed yet,
    only flagged.
 
+**If `stage` is already `operating` (not `gtm`) when a pivot signal arrives** — confirmed live as
+a real, distinct case: everything above assumes GTM sequencing is still actively in motion, but a
+pivot can just as easily surface after launch, from `agents/ops/operations-manager.md`'s own
+"When ops data points toward a pivot" section. In that case, the already-shipped `gtm.artifacts`
+don't get "parked" the way mid-flight work does — they're live and already reaching prospects.
+Instead: (a) tell the orchestrator to flag every shipped artifact that names the pre-pivot
+beachhead/positioning/segment as targeting a stale band, in the launch plan's risks section, so
+it's visible rather than silently assumed still-correct; (b) do not touch those artifacts
+yourself while the DE steps are being reopened and re-drafted — that's `operations-manager`'s and
+the orchestrator's process to run, not yours to re-enter mid-pivot; (c) once the reopened DE steps
+are re-drafted and a fresh council review clears the plan again, the orchestrator re-invokes you
+specifically to determine which live artifacts need real revision (a positioning doc naming the
+wrong band needs an actual edit, not just a note) versus which still hold up — don't assume launch
+being "done" makes it immune to the pivot just because sequencing had already finished.
+
 ## What "done" looks like
 
 `gtm/launch-plan.md` exists, references every GTM artifact actually produced (no dangling links

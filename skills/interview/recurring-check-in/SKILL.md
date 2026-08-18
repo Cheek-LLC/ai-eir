@@ -90,6 +90,17 @@ adapting to `stage` and `business_basics.venture_stage` rather than a fixed scri
 - **Always ask, regardless of stage:** "What's working that you didn't expect, and what's not
   working that you thought would?" This is where pivot signals and real learning surface — don't
   skip it because the numbers question already got answered.
+  **If the founder's answer amounts to wanting to change the beachhead, persona, or business
+  model** (not just a tactical adjustment — e.g. "I think we're targeting the wrong size of
+  company" is a pivot signal, "our onboarding email needs work" is not): do not try to resolve it
+  in this conversation. Name it back to the founder explicitly as a real decision point ("that
+  sounds like it might mean revisiting Step 2's beachhead choice, not just a tweak — is that what
+  you're saying?"), confirm it's real, then hand back to the orchestrator to route it through
+  `agents/ops/operations-manager.md`'s "When ops data points toward a pivot" section (if an ops
+  check-in is coordinating this session) or execute that section's steps directly yourself if none
+  is running — either way, this skill does not decide which DE steps get reopened or write
+  `business_basics` itself; per `docs/DATA-CONTRACT.md`, this skill is the one that hands the
+  change to the orchestrator, not the one that resolves it in place.
 - **If the founder gives a vague answer** ("things are going well," "customers seem happy"),
   apply the same push-back discipline as onboarding: ask for the specific evidence — a number, a
   named customer, an actual quote — not a restated vibe.
