@@ -1,0 +1,28 @@
+name: Validate plugin structure
+
+# Structural drift check for the 30-Minute Startup plugin — runs scripts/validate-plugin.sh
+# (CONVENTIONS.md compliance: frontmatter shape, kebab-case naming, no duplicate agent/skill
+# names, DE-step slugs matching docs/DE-24-STEPS.md) on every push and pull request. See
+# docs/ARCHITECTURE-IMPLEMENTATION.md §4 and docs/TESTING.md for what the script checks and why
+# this is Layer 1 (structural QA) of the repo's testing strategy — this workflow is what makes
+# that check run automatically instead of relying on a contributor remembering to run it locally.
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-plugin:
+    name: validate-plugin.sh
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run scripts/validate-plugin.sh
+        run: |
+          chmod +x scripts/validate-plugin.sh
+          ./scripts/validate-plugin.sh

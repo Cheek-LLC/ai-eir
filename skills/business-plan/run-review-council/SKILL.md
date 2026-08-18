@@ -222,7 +222,7 @@ in §6:
 `[MVBP-SCOPE]` `[ASSUMPTION-UNTESTED]` `[UNIT-ECONOMICS]` `[PRICING]` `[SOURCING]`
 `[DEFENSIBILITY]` `[COMPETITIVE-BLIND-SPOT]` `[BUSINESS-MODEL]` `[SALES-CYCLE]`
 `[DMU-COMPLEXITY]` `[EXECUTION-RISK]` `[FOUNDER-MARKET-FIT]` `[VENTURE-FIT]` `[SCALABILITY]`
-`[FINANCIAL-ARITHMETIC]`
+`[FINANCIAL-ARITHMETIC]` `[TECHNICAL-FEASIBILITY]`
 
 If a returned verdict has an untagged bullet, tag it yourself from context before running §6
 rather than discarding the aggregation step — but note in the review file that you had to backfill
