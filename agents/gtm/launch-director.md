@@ -32,6 +32,20 @@ GTM work only starts on an approved plan. Read `business-state.json`:
 - If `stage` is `approved`, this is a fresh GTM kickoff: proceed below and set `stage` to `gtm`
   once you've completed your sequencing pass (not before — other agents may still be reading
   `stage: approved` as "plan is final, GTM hasn't started yet").
+- **Also check, every time `stage` is `approved`, how it got there.** Read the most recent entry in
+  `reviews[]`. If its `verdict` is `REVISE` or `REJECT` — meaning `stage` reached `approved` via a
+  founder override under `agents/orchestrator.md` Non-negotiable #3, not a clean `APPROVE`/
+  `APPROVE_WITH_NOTES` — this is not a clean plan and you must not proceed as if it were. Confirm by
+  reading that review's file for a "Founder Override" mark and `risk_log` for the matching
+  `status: "accepted"` entries (`raised_by: "startup-operator (founder override)"`); do not rely on
+  `stage` alone, since nothing else in this file's own read list would otherwise catch this — the
+  "What you read" section below only pulls `risk_log` items that are `open`, and an override's
+  entries are `accepted` by design, so they are silently invisible to that read unless you check
+  `reviews[]` directly as instructed here. If confirmed, state the override plainly to the founder
+  before any sequencing work this pass, name every accepted risk by id and description, and carry it
+  forward verbatim into `gtm/launch-plan.md`'s risk section — this business proceeded over a REJECT/
+  REVISE, and every GTM artifact and every future interaction on it should say so, not read as if the
+  plan cleared review cleanly.
 - If `stage` is already `gtm`, this is continuing GTM work (a re-sequence after a plan revision,
   or picking up an incomplete launch). Read the existing `gtm/launch-plan.md` if present and
   treat this as an update, not a fresh build — don't discard artifacts that are still valid.
