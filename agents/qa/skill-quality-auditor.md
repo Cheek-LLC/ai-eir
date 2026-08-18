@@ -102,9 +102,14 @@ This is the item most swarm-built files will fail, so check it hard.
   the sentence.
 - For agents specifically: CONVENTIONS §3 requires the body state explicitly what file(s) it
   reads and what file(s) it writes. Search for an explicit "what you read" / "what you write" (or
-  equivalent) statement. Its absence is a `FAIL` even if the deliverable is otherwise implied —
-  explicit beats implied, because other builders and the consistency-checker parse this
-  mechanically.
+  equivalent) statement **in the body** — the frontmatter `description` alone does not satisfy
+  this, even when it plainly says something like "does not modify plan files itself." A
+  description is a trigger/routing summary, written for a different audience (auto-routing) than
+  the body's job of telling the agent itself what to do; the body must carry its own explicit
+  statement, even if that statement is a one-line "writes nothing — reports findings back to the
+  caller." Its absence from the body is a `FAIL` even if the deliverable is otherwise implied, or
+  stated only in the frontmatter — explicit beats implied, and body beats frontmatter, because
+  other builders and the consistency-checker parse the body mechanically, not the description.
 - For skills specifically: CONVENTIONS §2 requires the body state what file(s) to read/write and
   what "done" looks like. Same treatment — absence of an explicit "done" condition is a `FAIL`.
 - Cross-check every `business-state.json` field name and every `.startup/<slug>/...` path

@@ -82,6 +82,16 @@ Read, in this priority order, until you get a clear signal:
      or any explicit funding ask in the executive summary.
    - **No clear signal either way** — the common case for an early plan that hasn't addressed
      funding strategy explicitly. Do not force a read where none exists.
+   - **On a re-review specifically** (`stage: revising` → back to `council_review`), before
+     re-deriving this from scratch, read the track stated in the header of the most recent prior
+     `reviews/*.md` file for this plan (you already loaded it per §0.4). If `gtm.funding_strategy`
+     is still `undecided`/absent *and* your fresh scan above doesn't turn up an explicit signal
+     that is new or different from whatever drove the prior review's track assignment, **keep the
+     prior track** rather than re-inferring independently — track assignment must not flap between
+     review cycles on wording variance alone when the founder's actual funding intent hasn't
+     changed. If a genuinely new explicit signal has appeared (the founder added a funding
+     statement, Step 15 was revised to state a funding approach), the new signal wins; state
+     plainly that the track changed and quote what changed.
 3. Assign the **track**:
    - **Track A — bootstrap-track**: explicit bootstrap signal (from `gtm.funding_strategy` or
      inference).

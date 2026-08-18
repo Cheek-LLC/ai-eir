@@ -168,6 +168,28 @@ real, specific answer on the second try, move on — don't interrogate past the 
 usefulness. If they still can't get specific after one honest push, that's a signal to log it as
 a `key_assumptions` entry (below) rather than keep hammering the same question a third time.
 
+**Two vague-answer shapes the table above won't literally match — push back on these too, by the
+same discipline, not just the six phrasings above:**
+
+- **A confident, specific-sounding number with no source behind it** — "it's a $4.3B market
+  growing 22% a year," "CAC will run about $50," "we'll hit 30% month-over-month growth." This
+  doesn't trip the "huge market" row because it isn't vague *language* — it's vague *evidence*
+  wearing a precise-looking number. Ask directly: "Where does that number come from — something
+  you calculated, something you read, or a gut feel?" A gut-feel number isn't disqualifying (see
+  the "I don't know" protocol below), but it must never get written into `business_basics` or
+  read back to the founder as if it were established fact; it's a `key_assumptions` entry with
+  `confidence: low`, same as an admitted unknown.
+- **A segment answer that's narrower than "everyone" but still not a real beachhead** —
+  "mid-market B2B SaaS companies," "busy working parents," "small manufacturers." This clears the
+  literal "everyone/small businesses/anyone" trigger because it has a qualifier, but the test
+  isn't "does it have a qualifier," it's: *could the founder picture one actual first customer
+  from this description, or is it still a category with thousands of members and no obvious
+  starting point?* If you can't tell from the answer alone, ask: "If you had to pick the single
+  most likely first buyer from that group — one type of company, one kind of role — who is it?"
+  Don't accept a qualified-but-still-broad category as if it were the beachhead; that precision
+  gets forced for real in Step 2, but a platitude-with-adjectives shouldn't sail through the
+  interview any more than a bare platitude does.
+
 ## The "I don't know" protocol
 
 Distinguish a genuine unknown from a deflection. A deflection gets the push-back above. A founder
@@ -178,8 +200,14 @@ pay) should never be forced to invent a number to satisfy the interview. Instead
    figured out yet, or something you have a rough sense of but aren't sure how to phrase?" Give
    them the chance to produce a rough estimate; a rough estimate with low confidence is still more
    useful than nothing, and different from a true unknown.
-2. If it's genuinely unknown, create a `key_assumptions[]` entry immediately — don't let it
-   evaporate at the end of the conversation:
+2. **Whether the founder gives a genuine unknown or a rough, self-declared-uncertain estimate,
+   the disposition is the same: create a `key_assumptions[]` entry immediately** — a rough guess
+   is not a resolved fact just because a number came out of it. Never let a hedge like "maybe
+   around $X, but I'm really not sure" get written into `business_basics` or repeated back as if
+   it were settled; put the actual guess in the `statement` field so it isn't lost, but the
+   `confidence` stays `low` and downstream steps (especially Step 4's TAM math) must re-derive or
+   validate it rather than treat it as given. Don't let it evaporate at the end of the
+   conversation:
    ```json
    { "id": "<short kebab-case id>", "statement": "<the thing being assumed, stated plainly>",
      "step_ref": "onboarding", "confidence": "low", "test_plan": "<how this could actually be
