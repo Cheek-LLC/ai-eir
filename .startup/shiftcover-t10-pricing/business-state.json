@@ -110,7 +110,7 @@
   },
   "ops": {
     "status": "not_started",
-    "cadence_metrics_files": [],
+    "cadence_metrics_files": ["ops/pricing-review-2026-08-28.md"],
     "last_retro_file": null
   },
   "connectors": {

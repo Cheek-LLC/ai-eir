@@ -1,8 +1,8 @@
 {
-  "slug": "kindling",
+  "slug": "kindling-t10-compintel",
   "business_name": "Kindling",
   "created_at": "2026-08-18T14:00:00Z",
-  "updated_at": "2026-08-18T22:30:00Z",
+  "updated_at": "2026-08-18T23:15:00Z",
   "stage": "revising",
   "founder": {
     "name": "Priya Shah",
@@ -107,7 +107,7 @@
   },
   "ops": {
     "status": "not_started",
-    "cadence_metrics_files": [],
+    "cadence_metrics_files": [ "ops/competitive-intel-2026-08-18.md" ],
     "last_retro_file": null
   },
   "connectors": {
@@ -126,6 +126,7 @@
   "risk_log": [
     { "id": "privacy-onboarding-kindling", "type": "privacy", "raised_by": "privacy-check (onboarding)", "description": "Onboarding privacy/data-handling and legal-scope notice given to founder on 2026-08-18.", "status": "accepted" },
     { "id": "ar-kindling-001", "type": "ai_risk", "raised_by": "ai-risk-analyst", "description": "Step 4 (plan/04-calculate-the-tam-for-the-beachhead-market.md): the ~13M reference population underlying the beachhead TAM is a founder gut estimate with no external source; recommend sourcing it externally before this figure is presented to any outside party (advisory, not blocking - both TAM figures are otherwise honestly rounded and sourced as unvalidated estimates).", "status": "open" },
-    { "id": "ar-kindling-005", "type": "ai_risk", "raised_by": "ai-risk-analyst", "description": "Step 19 (plan/19-calculate-the-coca.md): qc-019-coca-payer was originally stated as an exact '$125.00' despite being built from two confidence:low inputs (ka-019-founder-rate, ka-019-install-estimate) chained through division - false precision, the same failure mode independently caught in round 2 (Step 17 LTV), round 3 (Step 4 TAM, Step 17 LTV), and round 4 (Step 19 COCA). Resolved by restating as a range ('~$120-130, roughly $125') and re-rounding the LTV:COCA ratio and payback period; re-run of the gate confirmed the fix.", "status": "mitigated" }
+    { "id": "ar-kindling-005", "type": "ai_risk", "raised_by": "ai-risk-analyst", "description": "Step 19 (plan/19-calculate-the-coca.md): qc-019-coca-payer was originally stated as an exact '$125.00' despite being built from two confidence:low inputs (ka-019-founder-rate, ka-019-install-estimate) chained through division - false precision, the same failure mode independently caught in round 2 (Step 17 LTV), round 3 (Step 4 TAM, Step 17 LTV), and round 4 (Step 19 COCA). Resolved by restating as a range ('~$120-130, roughly $125') and re-rounding the LTV:COCA ratio and payback period; re-run of the gate confirmed the fix.", "status": "mitigated" },
+    { "id": "ops-kindling-t10-compintel-001", "type": "business", "raised_by": "competitive-intelligence-lead", "description": "QA ROUND 10 TEST ENTRY - NOT A REAL FINDING. Role-played scenario only: a hypothetical 'Duolingo Sketch' feature (invented for this dry run, not a real Duolingo product) was scored as crossing Step 4 criterion 2 of skills/ops/competitive-intelligence-monitoring - it would close the remaining creative-breadth (Y-axis) gap against Kindling while already matching Kindling on accountability structure (X-axis), per plan/11-chart-your-competitive-position.md. Recorded here only to exercise the risk_log write path end-to-end; see ops/competitive-intel-2026-08-18.md for full reasoning and docs/QA-FINDINGS-COMPETITIVEINTEL-ROUND10.md for the QA writeup. Also note: this pass ran while stage is 'revising' (pre-launch), outside the skill's own stated operating/late-gtm scope.", "status": "open" }
   ]
 }

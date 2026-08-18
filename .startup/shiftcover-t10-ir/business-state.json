@@ -106,7 +106,10 @@
     "status": "not_started",
     "funding_strategy": "raising_outside_capital",
     "launch_plan_file": "",
-    "artifacts": []
+    "artifacts": [
+      { "type": "fundraising-deck-brief", "file": "gtm/fundraising-deck-brief.md" },
+      { "type": "investor-update", "file": "gtm/investor-update-2026-08-29.md" }
+    ]
   },
   "ops": {
     "status": "not_started",

@@ -368,3 +368,137 @@ and one (16) named as worth considering, `stage` moved back to `de_steps_in_prog
 steps, `venture_stage` set to `pivoting`, cadence confirmed biweekly, next check-in 2026-10-13, and
 an honest statement of exactly what's still open and undecided (steps 6-24 consistency, GTM
 artifact staleness) rather than a falsely tidy "all handled."
+
+## 2026-10-13 — Autonomous continuation cycle (skills/autonomous-continuation, via
+`/continue-business vantage-point-search-t10-auto` — unattended firing, no live founder present)
+
+Round-10 QA dry run: the first real, live execution of `skills/autonomous-continuation` against a
+real fixture, role-played exactly as a Claude Code Routine firing with nobody watching. Full
+`business-state.json`, this log's tail, and everything newer than `cadence.last_check_in`
+(2026-09-29) under `ops/`, `gtm/`, `reviews/` were re-read fresh before acting — nothing newer than
+2026-09-29 exists in any of those directories, so there was no new period data to reconcile.
+
+**Classification (per the skill's own stage table):** `stage` is `de_steps_in_progress` (the
+2026-09-29 pivot reopening, not a first pass), even though `gtm.status: "launched"` and
+`ops.status: "active"` simultaneously — this business is genuinely operating and mid-pivot at the
+same time. The skill's "Autonomous-safe work by stage" table is keyed on `stage` alone and has no
+row for this combination; the `de_steps_in_progress` row's text ("Phase 2 of agents/orchestrator.md")
+reads as written for a first-pass sequence, not a Phase-6 reopening. Followed the table literally
+by the on-disk `stage` value rather than improvising an `operating`-row action just because ops/gtm
+are also active — see the round's QA findings doc for the full reasoning and the recommendation.
+
+**Phase 1 — autonomous-safe work actually done:**
+1. Re-checked readiness/dependencies for the reopened/flagged steps, reading each step skill's own
+   "Read before starting" section rather than assuming:
+   - Step 01 (market segmentation): no structural prerequisite — ready to run now.
+   - Step 02 (beachhead): blocked on Step 01 reaching `drafted` again.
+   - Step 04 (beachhead TAM): blocked on Step 02 (Step 03 is already `drafted` and untouched, so
+     that half of Step 04's dependency is already satisfied).
+   - Step 05 (persona): still correctly left at `drafted`/flagged, not reverted — unchanged.
+2. Did the mechanical, read-only cross-step skim that 2026-09-29's entry named as still-open
+   (orchestrator.md Phase 6 item 3 — "skim every other step file for content that names the
+   specific thing the pivot changed"). Found real stale content in two steps **not** in the
+   original reopened/flagged list:
+   - **Step 09** (`plan/09-identify-your-next-10-customers.md`) still lists prospect #2 (~80
+     employees) as "proposal sent" and #4 (~60 employees) as "first conversation only" — both are
+     the exact two prospects `ops/2026-09-29-growth-metrics.md` already recorded as **declined**
+     2026-09-24/2026-09-26. It also still carries #6 (~95 employees) and #8 (~55 employees) as
+     active prospects, both below Jordan's stated ~120+ employee floor.
+   - **Step 14** (`plan/14-calculate-the-tam-for-follow-on-markets.md`) explicitly states its Pin-2
+     TAM uses "the same company-count basis" as Step 4's 50-500-employee band — it inherits the
+     exact same cascade Step 4 has, but was not named in the 2026-09-29 pivot signal's implicated-
+     steps list.
+   - **Did not** apply a `NEEDS RE-CONFIRMATION` marker to either step's `summary` myself — naming
+     implicated steps on a pivot is described in `agents/orchestrator.md` Phase 6 as done "by
+     whoever raised it: operations-manager, launch-director, the founder directly, or you [the
+     orchestrator]," a list that doesn't obviously include this skill. Reporting the finding below
+     rather than unilaterally deciding it's in-scope — a deliberate, disclosed conservative call,
+     not an oversight.
+3. **Did not** run any `agents/ops/*`/`skills/ops/*` metrics or retro work this cycle. Two
+   independent reasons, both recorded here rather than silently skipped: (a) the stage table
+   authorizes that work under `stage: "operating"` only, and this business's `stage` is
+   `de_steps_in_progress`; (b) even setting that aside, every ops metrics skill this business uses
+   (`weekly-metrics-review`, `runway-and-burn-tracking`, `retention-and-churn-analysis`) is built
+   to ask the founder directly for period actuals and explicitly refuses to fill in a number the
+   founder hasn't reported — `connectors.wired_up` is empty, so there is no connector-sourced data
+   this cycle could have produced a real snapshot from regardless of stage.
+4. **Phase 2 (reconcile without the founder):** reviewed all 20 open `key_assumptions[]` entries
+   and the one open `risk_log` entry (`ops-vantage-point-search-001`) — none are resolvable from
+   data already on disk or a connector this cycle. Left every one exactly as it is; nothing marked
+   resolved on a guess.
+
+**Nothing founder-only was fabricated and nothing gated was crossed** — no DE step content was
+drafted, no `business_basics`/`founder` field was inferred, no council verdict was treated as
+resolved, no launch/spend/send action was taken, and no `disciplined_entrepreneurship.NN_slug`
+status was advanced. Confirmed against the skill's own "invoke only these" list before doing
+anything: no downstream skill invoked this cycle assumes a live conversational founder mid-skill
+(nothing was invoked at all, in fact — every candidate action this stage offers turned out to be
+read-only/advisory, not an invokable downstream skill).
+
+**Phase 3 — the digest** (composed exactly in the skill's specified format; reproduced here since
+nothing in the skill names a durable on-disk location for it, and this log entry is the one
+write-back rule this skill does require):
+
+```
+## Since 2026-09-29, while you were away
+
+**What I did on my own:**
+- Re-read the full business state and everything newer than your last check-in under ops/, gtm/,
+  reviews/ — nothing new exists since 2026-09-29, so there was no new period to reconcile.
+- Checked readiness on the reopened pivot steps: Step 01 is ready to run now; Steps 02 and 04 are
+  still blocked behind it in order; Step 05 is still just flagged for a quick re-confirm, not a
+  rewrite.
+- Did a mechanical skim of steps 6-24 for anything still referencing the old wide band (the
+  check flagged as open last time) — found two more spots that look stale, listed below.
+- Deliberately did no ops metrics/retro work this cycle — you're mid-pivot (stage still
+  de_steps_in_progress) even though the business is live and operating, and this skill's rules
+  don't authorize ops work outside stage "operating." (Also: there's no connector wired up, so a
+  real metrics snapshot needs your numbers directly either way.)
+- Did not create a real scheduled Routine for this cycle (see below).
+
+**What still needs you** (I did not guess at any of these):
+1. Run Step 01 live — narrow Segment 1's lower bound toward ~120+ employees/Series C-D, per what
+   you told me on 2026-09-29. This is the next concrete action and it's unblocked.
+2. Steps 02 then 04 follow once 01 is redrafted.
+3. Step 05's Dana persona needs an explicit quick re-confirm once 01/02 land — likely still valid
+   as-is.
+4. Two more spots look stale against the new band and weren't on the original reopened list —
+   worth confirming next session whether they should be too:
+   - Step 9 still shows prospects #2 (~80 employees) and #4 (~60 employees) as active/in-progress;
+     your own growth-metrics already has both as declined 2026-09-24/26. #6 (~95) and #8 (~55) are
+     also still listed active, both under your stated floor.
+   - Step 14 (Pin 2 / Product-search TAM) uses the same company-count basis as Step 4 and will
+     need the same recompute once the new band is set, even though it wasn't in the original
+     reopened list.
+5. All the usual founder-reported ops numbers (outbound touches, new prospects, revenue, etc.) for
+   this period — none exist yet; I didn't invent placeholders for any of them.
+
+**Current stage:** de_steps_in_progress (pivot in progress; gtm.status stays "launched" and
+ops.status stays "active" in parallel — this is a live, operating business mid-pivot, not a
+pre-launch one), next concrete action: run Step 01 live to narrow the beachhead band.
+
+**Next scheduled check:** No real Routine was created this cycle — see the note below. Your
+cadence is still biweekly from your last real check-in (2026-09-29); run `/continue-business
+vantage-point-search-t10-auto` or talk to me directly whenever you're next available.
+```
+
+**Phase 4 — reschedule:** a scheduling capability (`mcp__Claude_Code_Remote__create_trigger` /
+`send_later`) is genuinely present in this session's tool list — so, strictly, the skill's Phase 4
+"if one exists, use it" branch applies, not the "if none exists" fallback. Deliberately did **not**
+invoke it: this is a disposable round-10 QA fixture (`vantage-point-search-t10-auto`), not a real
+founder's business, and creating a real persistent Routine against the operator's real account for
+a test copy would be a genuine harm the task's own scope explicitly guards against. Recorded this
+disclosed non-invocation, and the reasoning for it, in
+`business-state.json.cadence.scheduling_mechanism`. This is a real gap in the skill's own text, not
+just a QA-environment quirk — see the round's QA findings doc: Phase 4 has no concept of "a
+scheduling capability exists but this business shouldn't actually get a real trigger," so a fully
+literal reading of "if one exists, use it" would, in a non-test environment, create a real
+persistent Routine with no equivalent safeguard baked into the skill itself.
+
+**cadence fields:** `cadence.last_check_in` and `cadence.next_check_in` left untouched, per the
+skill's own write-back rule (this cycle had no real reconciliation to justify advancing
+`last_check_in`). `cadence.scheduling_mechanism` and `business-state.json.updated_at` updated to
+record this cycle honestly.
+
+Full reasoning, the stage-table ambiguity, and a clear verdict are in
+`docs/QA-FINDINGS-AUTONOMOUS-ROUND10.md`.
