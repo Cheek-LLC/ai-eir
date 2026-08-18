@@ -1,4 +1,4 @@
-# Master Index — after Round 6, during Round 7
+# Master Index — after Round 7, during Round 8
 
 Full catalog of every agent, skill, and command in the plugin after round 1 (v0.1 build, 15
 parallel builders), round 2 (adversarial review + fix pass, 9 parallel reviewers plus a live
@@ -15,22 +15,27 @@ write-statement mechanical fix closing round 4's last flagged dogfood gap, a fou
 against a `consumer_app` business, and the first real execution of `docs/TESTING.md`'s Layer 3
 regression checklist — which found and fixed a genuine, previously-uncaught bug in
 `revise-business-plan`'s stage-transition logic — see `docs/QA-FINDINGS-ROUND5.md` and
-`docs/QA-LAYER3-REGRESSION-ROUND5.md`), and round 6 (the first completed revision cycle, driven
+`docs/QA-LAYER3-REGRESSION-ROUND5.md`), round 6 (the first completed revision cycle, driven
 live against `shiftcover`'s standing REVISE verdict — confirming round 5's fix holds and finding a
 real revision-routing gap of its own — and the first live GTM/ops/check-in run, driven against
 `vantage-point-search`'s standing `approved` stage — finding a real 2-4.3x runway-overstatement bug
 and a real connectors-gate scope ambiguity — see `docs/QA-FINDINGS-ROUND6.md` and
-`docs/QA-FINDINGS-POSTAPPROVAL-ROUND6.md`, both now landed and resolved). **Round 6 is complete and
-integrated** — every count and claim below was re-walked directly against the repo (`find`,
-targeted `grep`, and a live run of `scripts/validate-plugin.sh`) while writing this revision, not
-carried forward from the prior snapshot. **Round 7 is running concurrently with this revision**: one
-agent is testing the founder-override path against `shiftcover`'s standing REJECT verdict (never
-exercised before), and another is testing a second recurring check-in cycle and a mid-lifecycle
-pivot against `vantage-point-search` (also never exercised before) — neither
-`docs/QA-FINDINGS-OVERRIDE-ROUND7.md` nor `docs/QA-FINDINGS-PIVOT-ROUND7.md` exists yet as of this
-revision, confirmed by a direct file-existence check, not assumed absent. Regenerate this file again
-once round 7 fully lands. `/list-skills` gives a live, always-current view for day-to-day use
-between regenerations.
+`docs/QA-FINDINGS-POSTAPPROVAL-ROUND6.md`), and round 7 (the first live exercise of the
+founder-override mechanism, driven against `shiftcover`'s standing REJECT verdict — finding a real
+silent-failure risk in `launch-director`'s override detection — and the first live second recurring
+check-in cycle plus a real mid-lifecycle pivot, driven against `vantage-point-search` — finding the
+DE-step reopening protocol was a single unspecified sentence with no real mechanics — see
+`docs/QA-FINDINGS-OVERRIDE-ROUND7.md` and `docs/QA-FINDINGS-PIVOT-ROUND7.md`, both now landed and
+resolved). **Round 7 is complete and integrated** — every count and claim below was re-walked
+directly against the repo (`find`, targeted `grep`, and a live run of `scripts/validate-plugin.sh`)
+while writing this revision, not carried forward from the prior snapshot. **Round 8 is running
+concurrently with this revision**: one agent is sweeping every prior round's findings documents for
+deferred/unfixed items and closing what's safely closeable, and another is preparing the plugin for
+real human trial use (README/onboarding polish) per `docs/ROADMAP.md`'s own recommendation that
+further simulated dry runs have hit diminishing returns. `docs/QA-BACKLOG-SWEEP-ROUND8.md` does not
+exist yet as of this revision, confirmed by a direct file-existence check, not assumed absent.
+Regenerate this file again once round 8 fully lands. `/list-skills` gives a live, always-current view
+for day-to-day use between regenerations.
 
 **Live validation output at the time of this revision:**
 `PASS — no structural drift from CONVENTIONS.md detected` — **46 skills, 29 agents, 5 commands, 12
@@ -331,11 +336,40 @@ scope (agent-automated vs. founder-personal actions) in `agents/connectors-liais
 confirmed present in the current files as of this revision, not carried forward from either finding's
 own description.
 
-**Round 7 in progress, not yet landed as of this revision:** one agent testing the founder-override
-path against `shiftcover`'s standing REJECT verdict, another testing a second recurring check-in
-cycle and a mid-lifecycle pivot against `vantage-point-search`. **A direct check found neither
-`docs/QA-FINDINGS-OVERRIDE-ROUND7.md` nor `docs/QA-FINDINGS-PIVOT-ROUND7.md`** as of this
-revision — confirmed by directory/file listing, not assumed absent.
+**Round 7 landed and is confirmed resolved.** `docs/QA-FINDINGS-OVERRIDE-ROUND7.md` drove the
+founder-override mechanism live for the first time against `shiftcover`'s standing REJECT verdict —
+Non-negotiable #3's own "not a shrug" bar held under a real, reasoned founder decision, and driving
+the override through to its actual downstream consequence found a real bug: `agents/gtm/
+launch-director.md` would have proceeded as if the plan had cleared review cleanly, since its Gate
+check read only `stage` and its "What you read" instruction filtered `risk_log` to "anything open" —
+but an override's entries are `accepted` by design, invisible to that read by construction. **Fixed**:
+`launch-director`'s Gate section now re-reads the most recent `reviews[]` verdict whenever `stage` is
+`approved`, confirms an override via the review file's mark and the matching `accepted` entries, and
+states it plainly before any sequencing work; a related bug in the orchestrator's state-machine
+diagram (which had described the override path as looping back through another council re-run,
+backwards from the mechanism's purpose) was fixed in the same pass. `docs/QA-FINDINGS-PIVOT-ROUND7.md`
+drove a second recurring check-in cycle and a real, evidence-based mid-lifecycle pivot against
+`vantage-point-search` for the first time, and found `agents/orchestrator.md` Phase 6's entire
+specification for reopening DE steps after a pivot was one unspecified sentence, with no
+partial-reopening mechanic, no status semantics for a probably-still-valid-but-unconfirmed step, and
+no transitive-impact guidance. **Fixed**: Phase 6 now has a real "Reopening a subset of DE steps after
+a pivot" procedure, plus a new `NEEDS RE-CONFIRMATION:` summary-prefix convention (also documented in
+`docs/DATA-CONTRACT.md`). Two related handoff gaps were found and fixed in the same pass:
+`skills/interview/recurring-check-in/SKILL.md` gave its executor no instruction for what to do once a
+pivot signal surfaced in conversation, despite `docs/DATA-CONTRACT.md` explicitly assigning this write
+to it by name (**fixed**, Phase 2 now names the handoff); and `launch-director`'s mid-GTM pivot section
+had nothing for a pivot signal firing after launch (**fixed**, already-shipped artifacts now get
+flagged rather than assumed immune). All fixes confirmed present in the current files as of this
+revision, not carried forward from either finding's own description.
+
+**Round 8 in progress, not yet landed as of this revision.** One agent is sweeping every prior round's
+findings documents (all ten `docs/QA-FINDINGS-*.md` reports plus the dogfood and Layer 3 passes) for
+deferred or explicitly out-of-scope items and closing what's safely closeable now; the other is
+preparing the plugin for real human trial use (README/onboarding polish), consistent with
+`docs/ROADMAP.md`'s own recommendation that further simulated dry runs have hit diminishing returns.
+**A direct check found no `docs/QA-BACKLOG-SWEEP-ROUND8.md`** as of this revision — confirmed by
+directory/file listing, not assumed absent; the real-use-readiness agent's own output was not
+independently re-read while writing this revision, since it's outside this revision's edit scope.
 
 ## Reference docs (`docs/`)
 
@@ -344,8 +378,8 @@ mechanics) · `DATA-CONTRACT.md` (business-state.json schema, now including a co
 persona-coverage-by-business-type table, closed as of round 4) · `DE-24-STEPS.md` (canonical step
 list) · `UX-INTERVIEW-DESIGN.md` · `AI-RISK-FRAMEWORK.md` · `PRIVACY-AND-DATA-HANDLING.md` ·
 `CONNECTORS-CATALOG.md` · `TESTING.md` · `ROADMAP.md` · `CHANGELOG.md` (landed round 5, extended
-round 6 — a chronological ledger of what got built, what broke, and what got fixed across rounds
-1-6, indexing every findings doc below) · `QA-FINDINGS-ROUND2.md` (round 2's ShiftCover B2B SaaS dry
+rounds 6 and 7 — a chronological ledger of what got built, what broke, and what got fixed across
+rounds 1-7, indexing every findings doc below) · `QA-FINDINGS-ROUND2.md` (round 2's ShiftCover B2B SaaS dry
 run — resolved, findings fixed directly) · `QA-FINDINGS-GATES-ROUND2.md` (round 2's parallel
 risk-gate sweep) · `QA-FINDINGS-ROUND3.md` (round 3's SkyClaim marketplace dry run — resolved, all
 four findings fixed directly) · `QA-FINDINGS-CONNECTORS-ROUND3.md` (round 3's connectors-enforcement
@@ -364,14 +398,19 @@ first completed revision cycle against `shiftcover` — resolved: round 5's `rev
 fix confirmed live, and a real discarded-outlier revision-routing gap found and fixed) ·
 `QA-FINDINGS-POSTAPPROVAL-ROUND6.md` (round 6's first live GTM/ops/check-in run against
 `vantage-point-search` — resolved: a real 2-4.3x runway-overstatement bug and a real connectors-gate
-scope ambiguity, both found and fixed). Root `CONVENTIONS.md` is the contract every file above
-conforms to; round 4's staleness audit re-checked it against the repo it governs and fixed the one
-real drift found (§5's `connectors.json`/`cadence.json` description, traced into 6 more files).
+scope ambiguity, both found and fixed) · `QA-FINDINGS-OVERRIDE-ROUND7.md` (round 7's first live
+founder-override run against `shiftcover`'s standing REJECT — resolved: a real silent-failure risk in
+`launch-director`'s override detection and a backwards state-machine diagram branch, both found and
+fixed) · `QA-FINDINGS-PIVOT-ROUND7.md` (round 7's first live second check-in cycle and mid-lifecycle
+pivot against `vantage-point-search` — resolved: the DE-step reopening protocol's missing mechanics,
+plus two related pivot-handoff gaps in `recurring-check-in` and `launch-director`, all found and
+fixed). Root `CONVENTIONS.md` is the contract every file above conforms to; round 4's staleness audit
+re-checked it against the repo it governs and fixed the one real drift found (§5's
+`connectors.json`/`cadence.json` description, traced into 6 more files).
 
-**`docs/QA-FINDINGS-OVERRIDE-ROUND7.md` and `docs/QA-FINDINGS-PIVOT-ROUND7.md` do not yet exist as
-of this revision** — round 7 deliverables, confirmed absent by a direct file-existence check, not
-assumed. Add them to this list once a file read confirms they've landed; do not cite either as
-existing until then.
+**`docs/QA-BACKLOG-SWEEP-ROUND8.md` does not yet exist as of this revision** — a round 8 deliverable,
+confirmed absent by a direct file-existence check, not assumed. Add it to this list once a file read
+confirms it's landed; do not cite it as existing until then.
 
 ## Totals (walked directly against the repo via `find` and a live `scripts/validate-plugin.sh` run)
 
@@ -381,8 +420,8 @@ existing until then.
   compliance-reviewer` added round 4), GTM (4), ops (5), risk (2), QA (2), connectors (1),
   design (1), and plan-editing (1)
 - **46 skills** across interview (2), the 24 DE steps, business-plan (3), GTM (5), ops (5),
-  design (3), risk (2), QA (1), connectors (1) — same total as the round-3 through round-6
-  snapshots; rounds 3 through 6 all deepened existing skill files rather than adding new skill
+  design (3), risk (2), QA (1), connectors (1) — same total as the round-3 through round-7
+  snapshots; rounds 3 through 7 all deepened existing skill files rather than adding new skill
   folders, confirmed by `scripts/validate-plugin.sh`'s own live count, not by incrementing the
   prior number
 - **5 slash commands**

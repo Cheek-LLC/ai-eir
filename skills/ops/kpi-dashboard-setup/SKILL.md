@@ -124,6 +124,14 @@ to make the dashboard look complete. An honest, partially-filled dashboard with 
 more useful — and more truthful — than one that quietly launders assumed numbers into what looks
 like measured reality.
 
+**Forward note for a future extension.** This skill works from founder-reported and plan-derived
+figures only; it never pulls live data from an analytics tool itself, which is why a KPI without a
+wired data source is marked "recommended, not yet trackable" rather than assumed available. If a
+future version of this skill (or `agents/ops/growth-analyst.md`) is extended to pull live
+analytics data directly instead of asking the founder, that extension must call
+`skills/risk/privacy-check` (Mode B) before that live pull — this file does not perform that call
+itself.
+
 ## Done means
 
 - The business's actual model (not a generic template) is named explicitly and the KPI set is

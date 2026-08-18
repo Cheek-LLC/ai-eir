@@ -134,3 +134,10 @@ should confirm compliance for their specific situation. State once, not per scri
 Write `.startup/<slug>/gtm/outbound-sales-playbook.md`. Report back to `sales-lead` that it's
 complete (or exactly what's blocking it and why). This skill does not update
 `business-state.json` itself.
+
+**Forward note for a future extension.** This skill produces the playbook/target-tracker
+document only; it does not send or sync anything itself. If a future version of this skill (or
+`sales-lead`) is extended to actually push the target tracker into a connector-driven send or CRM
+sync, that extension must call `skills/risk/privacy-check` (Mode B) immediately before that live
+send — this file does not perform that call itself, and a future editor should not assume the
+document-only design already covers it.

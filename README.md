@@ -8,6 +8,38 @@ hands off to go-to-market and ongoing-operations agents that check back in with 
 as the business grows. It doesn't skip the hard parts — it forces you through them, on the
 record, with a paper trail of every assumption, claim, and revision.
 
+## Before you start — what to actually expect
+
+Read this before your first session; it will save you a surprise mid-conversation.
+
+- **The name is a hook, not a time estimate.** Some of the first conversation — pinning down who
+  you're really selling to, killing vague answers like "everyone is my customer" — moves fast. But
+  a genuinely rigorous plan runs all 24 steps of Disciplined Entrepreneurship, plus a review
+  council, plus (if you continue) go-to-market and operations. That's real back-and-forth, not
+  thirty minutes. Budget one solid session to get through onboarding and the first few steps, and
+  expect to return for several more sessions to finish a full plan — likely hours of total
+  conversation across days or weeks, not one sitting.
+- **What you need before you start:** a real idea (even a rough one — "I don't know yet" answers
+  are handled honestly, see below), and the willingness to answer specific, sometimes
+  uncomfortable follow-up questions rather than smoothing past them. The plugin is built to push
+  back on platitudes ("huge market," "no competitors," "we'll figure out pricing later") rather
+  than accept them — that pushback is the point, not a bug.
+- **"I don't know" is a fine answer.** You will not be forced to invent a number you don't
+  believe. Genuine unknowns get logged as an explicit assumption with a note on how it could be
+  tested later, instead of a fabricated figure sitting quietly in your plan looking like fact.
+- **It will not check back in on its own unless your environment supports that.** This plugin runs
+  inside a Claude Code session — it has no way to wake itself up and message you later unless the
+  environment hosting it exposes a scheduling/trigger capability as a tool. Some environments have
+  this; many don't. The Startup Operator checks for one honestly every session and tells you
+  plainly which case you're in. If your environment doesn't have it, nothing bad happens
+  automatically — but nothing happens automatically at all: **you are responsible for coming back
+  and running `/business-status` (or `/check-in`) yourself, on whatever cadence you agree to.**
+  See [Recurring check-ins, honestly](#recurring-check-ins-honestly) below for the concrete detail.
+- **Literally, what to type first:** `/start-business`, optionally followed by a name or a
+  one-sentence idea (e.g. `/start-business ShiftCover, a scheduling tool for shift workers`). If
+  you type it with no arguments, the Startup Operator will ask you for a working name and a
+  one-liner directly — you don't need to have those polished in advance.
+
 ## Install and use
 
 This is a [Claude Code plugin](https://docs.claude.com/en/docs/claude-code/plugins). Add this
@@ -16,7 +48,9 @@ any directory where you're comfortable with a `.startup/` working folder being c
 [Directory layout](#directory-layout) below). The full manifest is
 [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json).
 
-Two entry points cover the whole lifecycle:
+### Commands
+
+Two commands cover the whole lifecycle, and you'll use these almost exclusively:
 
 - **`/start-business [name or one-liner]`** — begins a brand-new business. If you don't pass
   arguments, the Startup Operator asks for a working name and a one-sentence description before
@@ -27,11 +61,46 @@ Two entry points cover the whole lifecycle:
   your businesses and asks which one otherwise. It re-reads the business's full state from disk
   (never from conversation memory), reports what changed since the last session, and continues
   the next concrete action — another Disciplined Entrepreneurship step, plan assembly, a council
-  review, go-to-market work, or an operations check-in.
+  review, go-to-market work, or an operations check-in. **This is also the command you run
+  yourself, on your own schedule, if your environment can't schedule check-ins automatically —
+  see below.**
+
+Three more commands exist for specific, less-frequent situations:
+
+- **`/check-in [slug]`** — manually triggers a recurring check-in conversation right now, either
+  because you want to check in early or because `/business-status` is your only way to trigger one
+  at all (no automatic scheduling available). Functionally close to `/business-status`, but framed
+  explicitly as a check-in rather than a general resume.
+- **`/run-council [slug] [council-name...]`** — manually convenes a review council against your
+  current plan outside the normal review gate — useful for an early gut-check before you're ready
+  to formally submit for review. Doesn't skip or replace the real gate.
+- **`/list-skills [filter]`** — prints a categorized summary of every skill, agent, and command
+  currently in the plugin. Mostly useful if you're curious what's under the hood or contributing
+  to the plugin itself.
 
 Everything else — the 24 step skills, the review councils, go-to-market and operations agents,
-the risk layers — is driven by the Startup Operator through these two commands. You generally
-won't invoke individual agents or skills directly.
+the risk layers — is driven by the Startup Operator through these commands. You generally won't
+invoke individual agents or skills directly.
+
+## Recurring check-ins, honestly
+
+Once your plan is approved and you move into go-to-market and operations, the Startup Operator
+asks what cadence you want to check back in on (`weekly`, `biweekly`, `monthly`, or `manual`) and
+records it. What happens next depends entirely on whether the environment running this plugin
+exposes a scheduling/trigger capability as a tool:
+
+- **If it does**, the Startup Operator schedules the next check-in itself and tells you when to
+  expect it — no action needed on your part.
+- **If it doesn't** (a plain Claude Code session with no scheduling tool available, for example),
+  the plugin says so explicitly, sets `cadence.scheduling_mechanism` to `"manual-reminder"` in
+  your business's state file, and — this is the important part — **that check-in will never
+  happen unless you make it happen.** Nothing is silently missed on the plugin's end because
+  nothing was ever scheduled; it's simply on you to come back and run `/business-status <slug>`
+  or `/check-in <slug>` yourself on whatever cadence you picked.
+
+Know which case you're in before you finish your first session — the Startup Operator will tell
+you plainly, and it's worth writing down your own reminder (a calendar entry, a recurring to-do)
+if you're in the manual case and this business matters to you.
 
 ## Directory layout
 
@@ -79,6 +148,11 @@ required to carry a source (founder estimate, cited research, or cited benchmark
 because this system cannot independently verify the world — see
 [`docs/DATA-CONTRACT.md`](docs/DATA-CONTRACT.md) for how that's enforced. Treat every output as a
 draft to pressure-test with real people, not a document to hand a real VC unedited.
+
+**This also is not** a service that runs in the background on its own. See
+[Recurring check-ins, honestly](#recurring-check-ins-honestly) above — outside of a session you
+are actively driving, or an environment that genuinely supports scheduled triggers, nothing about
+your business advances on its own.
 
 ## Contributing
 

@@ -66,17 +66,20 @@ to you), read it fully and proceed; don't re-create anything.
 ## Opening: set honest expectations before asking anything
 
 Say this — in your own words, not verbatim, but hit every point — as your first message, before
-any question:
+any question. Open like a cofounder sitting down to actually do this with them, not like a
+disclaimer being read aloud:
 
-> "30-Minute Startup" is this plugin's name and its hook, not a promise about how long a plan
-> worth showing an investor actually takes. Some of what we do today — pinning down who you're
-> really selling to, killing vague answers — can happen fast, in this one conversation. But a
-> genuinely rigorous plan runs all 24 steps of Disciplined Entrepreneurship, and that's real
-> back-and-forth: some steps take five minutes, a few (market sizing, unit economics) take real
-> thought and sometimes research between sessions. Expect this to span one solid session or
-> several shorter ones, not thirty minutes end to end. I'd rather take the time and end up with a
-> plan that holds up in front of a skeptical reviewer than rush you into a plan full of numbers
-> neither of us actually believes.
+> I'm going to work through this with you like a cofounder who's done this before, not run you
+> through a form. First, the honest version of what "30-Minute Startup" means: that name is this
+> plugin's hook, not a real estimate of how long a plan worth showing an investor takes to build.
+> Some of what we're about to do — pinning down exactly who you're selling to, killing vague
+> answers before they calcify — moves fast, right here in this conversation. But a genuinely
+> rigorous plan runs all 24 steps of Disciplined Entrepreneurship, and that's real back-and-forth:
+> some steps take five minutes, a few — market sizing, unit economics — take real thought, and
+> sometimes real research between sessions rather than something either of us can just make up on
+> the spot. Expect this to span one solid session or several shorter ones, not thirty minutes
+> start to finish. I'd rather take the time and end up with something that holds up in front of a
+> skeptical reviewer than rush you into a plan full of numbers neither of us actually believes.
 
 Then: "Let's start with the basics. What's the business called, and what does it do — in one
 sentence, for a real person or company you'd actually sell to first?"

@@ -88,6 +88,13 @@ actual number. Concretely, at minimum:
   discipline — loaded founder/team time if that's how COCA was computed in the plan).
 - Channel breakdown, if the founder tracks it (which channel(s) actually produced the new
   customers).
+- **Funnel losses this period** — any prospect/deal that dropped out of the funnel (not just
+  advanced or converted): the prospect/company, the stage it was lost at, and the reason if the
+  founder has one. This is a real, structured field, not an afterthought — a period where the
+  most important finding is *why deals are being lost*, not the close count, needs a place to
+  record that as data rather than as an ad hoc note bolted onto the output file. Use the same
+  "not tracked"/"unknown" discipline as every other field here if the founder doesn't have a
+  reason yet.
 
 If the founder doesn't have a number for something on the dashboard, record **"not tracked"** —
 never substitute a plausible estimate. Log it under Data Gaps in the output file as a concrete,
@@ -133,6 +140,13 @@ calendar day.
 | Metric | This period | Source |
 |---|---|---|
 | ... | ... | founder-reported <date> (or "not tracked") |
+
+## Funnel losses this period
+| Prospect/company | Stage lost at | Reason |
+|---|---|---|
+| ... | ... | ... (or "not tracked" / "unknown") |
+(Omit this table's rows, but keep the heading, if nothing was lost this period — say so plainly
+rather than leaving the section out entirely.)
 
 ## Derived metrics
 | Metric | Value | Note |

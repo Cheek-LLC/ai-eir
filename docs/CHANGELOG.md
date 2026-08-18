@@ -1,7 +1,7 @@
 # Changelog — 30-Minute Startup
 
 This is the single chronological ledger of what got built, what broke, and what got fixed, across
-every round of this plugin's build. It exists because the QA history now spans eight separate
+every round of this plugin's build. It exists because the QA history now spans ten separate
 `docs/QA-FINDINGS-*.md` reports plus a dogfood pass and a first real Layer 3 regression pass, each a
 standalone, never-overwritten record of one round's audit (per `CONVENTIONS.md`'s own naming rule)
 — accurate on its own, but not skimmable as a set. For the full file-by-file catalog of what exists
@@ -463,6 +463,114 @@ founder-personal gate scope).
 
 ---
 
+## Round 7 — the founder-override path and a second check-in cycle with a real mid-lifecycle pivot
+
+**Findings:** `docs/QA-FINDINGS-OVERRIDE-ROUND7.md` (the first live exercise of the founder-override
+mechanism, driven against `shiftcover`'s standing REJECT verdict), `docs/QA-FINDINGS-PIVOT-ROUND7.md`
+(the first live second recurring check-in cycle, and the first live mid-lifecycle pivot, both driven
+against `vantage-point-search`). Both are exactly the two of three items round 6's own roadmap update
+named as the next frontier once the revision loop and the post-approval half were closed (the third,
+a founder overriding mid-GTM sequencing rather than post-approval, remains untested — see the round 7
+roadmap section).
+
+This round ran no new onboarding session and created no new fixture; like round 6, it picked up two
+existing fixtures and drove each through a code path every prior round had only read, never executed.
+
+**Headline 1 — the founder-override mechanism works, and exercising it live found a genuine
+silent-failure risk in the one place it would have mattered most: downstream GTM visibility.**
+`agents/orchestrator.md` Non-negotiable #3 specifies an explicit override — a `risk_log` entry with
+`raised_by: "startup-operator (founder override)"`, `status: "accepted"`, the review file marked
+noted-but-overridden — for a founder who wants to proceed against a standing REVISE/REJECT rather than
+revise further. Playing founder Maria Chen through a real decision on `shiftcover`'s second-cycle
+REJECT (a reasoned partial agreement — accepting 2 of 4 risks outright, disputing one on its own
+terms, naming the one she takes most seriously) confirmed the mechanism's own "not a shrug" bar is
+genuinely enforceable, not just aspirational prose, and that round 6's "Also flagging, regardless of
+severity" review-file section did exactly the job it was built for on its first founder-facing use —
+surfacing the one corroborating fact (a 2-of-7 sales-cycle conversion figure) that mattered most to
+an informed override decision.
+
+But driving the override through to its actual downstream consequence — would `agents/gtm/
+launch-director.md` notice a plan proceeded over a blocking verdict? — found a real bug, not a
+hypothetical one: **`launch-director` would have silently proceeded as if the plan had cleared review
+cleanly.** Two independent, compounding reasons: its Gate check only read `stage`, with nothing
+distinguishing an `approved` reached via a clean verdict from one reached via override; and its own
+"What you read" instruction for `risk_log` was scoped to "anything **open**" — but Non-negotiable #3's
+required value for an override entry is `status: "accepted"`, so the instruction, taken literally,
+filtered out exactly the entries the override mechanism produces, by construction, every time. A
+founder who overrode a REJECT and proceeded to GTM would have gotten a `gtm/launch-plan.md` — the
+artifact most likely to be shown to a contractor, early hire, or investor — with zero mention that it
+proceeded over a blocking verdict. **Fixed:** `launch-director`'s Gate section now re-reads the most
+recent `reviews[]` verdict whenever `stage` is `approved`; if it's REVISE/REJECT, it confirms via the
+review file's override mark and the matching `accepted` risk_log entries, states the override plainly
+to the founder, and carries it into `gtm/launch-plan.md`'s risk section by name before any sequencing
+work — verified by walking the patched gate logic against `shiftcover`'s real current state and
+confirming it fires correctly. A second, related bug was found and fixed in the same pass: the
+orchestrator's own state-machine diagram had described the override path as looping back through
+*another* council re-run — backwards, since the entire point of an override is that it substitutes
+for a clean re-pass. **Fixed:** the diagram now shows the override branch going straight to `approved`
+with no re-run, distinct from the "revisions addressed" branch. Two smaller items were logged rather
+than fixed, both explicitly out of this round's edit scope: `docs/DATA-CONTRACT.md`'s `risk_log[].type`
+enum has no clean fit for "a review-council verdict was overridden" (a real taxonomy gap, `business`
+used as the least-wrong fit), and `reviews[].resolved`'s meaning on the override path required a
+judgment call (resolved to `true`, reasoned and stated explicitly rather than silently assumed).
+
+**Headline 2 — a second check-in cycle and a real mid-lifecycle pivot both ran live for the first
+time, and found the DE-step reopening protocol was a single unspecified sentence with no real
+mechanics, plus two related handoff gaps.** `vantage-point-search` was driven through a second
+biweekly check-in and then a genuine, evidence-based pivot: two real prospect losses at the low end of
+the beachhead's employee-count band, both stalling at the exact stage the plan itself already named as
+the single biggest drop-off point — a plausible, foreseeable consequence of risks the plan had already
+flagged, not a contrived edge case.
+
+`agents/orchestrator.md` Phase 6's entire specification for reopening DE steps after a pivot was one
+clause — "return to `de_steps_in_progress` if a pivot reopens earlier steps" — with no partial-
+reopening mechanic (Phase 2's sequencing instruction is written for a first pass through all 24, not a
+targeted reopening of 4), no status semantics for a step whose content is probably still valid but
+hasn't been formally re-confirmed (the schema's four-value status enum has no state for this), and no
+transitive-impact guidance for the other 19 steps. Trying to follow it literally for this round's real
+pivot (steps 01/02/04 clearly implicated, step 05 probably still valid but unconfirmed) required
+inventing a subset-reopening approach from scratch, with no basis in written text for the specific
+calls made. **Fixed:** `agents/orchestrator.md` Phase 6 now has a real "Reopening a subset of DE steps
+after a pivot" procedure — only the specifically-implicated steps revert to `not_started`; every other
+step keeps its `drafted` status unless separately flagged; a step that's probably still valid but
+unconfirmed gets a new `NEEDS RE-CONFIRMATION:` summary-prefix convention (now also documented in
+`docs/DATA-CONTRACT.md`'s Conventions section) rather than an invented ad hoc marker; and re-assembly
+is preceded by a cheap skim-check of every step file for content naming the specific thing that
+changed, not a full re-derivation. Two related, smaller handoff gaps were found and fixed in the same
+pass: `skills/interview/recurring-check-in/SKILL.md` correctly anticipated a pivot signal surfacing in
+Phase 2 conversation but gave its executor no next step once one did — no instruction to flag it, hand
+it to the orchestrator, or route to `agents/ops/operations-manager.md`'s pivot section, despite
+`docs/DATA-CONTRACT.md` explicitly assigning this write to `recurring-check-in` by name (**fixed**:
+Phase 2 now names the handoff explicitly); and `agents/gtm/launch-director.md`'s existing mid-GTM pivot
+section only covered a pivot signal firing while GTM sequencing was still active, with nothing for one
+firing after `gtm.status: "launched"` — a real gap, since no fixture had ever pivoted post-launch
+before this round (**fixed**: the section now states explicitly that already-shipped GTM artifacts get
+flagged as targeting the pre-pivot band rather than "parked," and `launch-director` re-enters once the
+DE steps are re-drafted and re-cleared).
+
+**What worked well, confirmed live for the first time:** `operations-manager`'s pivot-signal discipline
+correctly did *not* escalate a suggestive-but-thin numeric pattern (2 prospect losses) to a pivot on
+its own — it took the founder's own explicit statement to cross that line, exactly per the file's own
+rule against manufacturing a pivot from one period's data, and once that statement came in, the
+pivot section's own instructions were followable to the letter (in sharp contrast to the orchestrator's
+reopening protocol immediately downstream of it). Round 6's runway-normalization fix held correctly a
+second time, on the opposite edge case (net cash-generative, not burn-heavy) from the one that found
+it. `scaling-strategist`'s "≥3 periods" bar correctly stayed un-invoked even under a plausible-looking
+trigger (2 nominally "Healthy" finance periods). And the cadence mechanism itself advanced correctly a
+second time (`cadence.last_check_in`/`next_check_in` both moved forward across two real cycles),
+answering round 6's own open question about whether it would.
+
+**Round 7 is now complete and integrated** — every fix named above is confirmed present in the current
+files, not left as an open backlog: `agents/orchestrator.md` (the override branch in the state-machine
+diagram, the "Reopening a subset of DE steps after a pivot" procedure in Phase 6), `agents/gtm/
+launch-director.md` (the override-detection Gate check, the post-launch pivot clause), and
+`skills/interview/recurring-check-in/SKILL.md` (the pivot-handoff instruction in Phase 2).
+`docs/DATA-CONTRACT.md`'s Conventions section documents the new `NEEDS RE-CONFIRMATION:` summary-prefix
+convention. `scripts/validate-plugin.sh` still reports 46 skills, 29 agents, 5 commands, 12 council
+files, 0 warnings, 0 errors — round 7 deepened existing agent/skill files rather than adding new ones.
+
+---
+
 ## Patterns worth knowing
 
 These are the things that only become visible by reading the findings docs together, not from any
@@ -553,4 +661,22 @@ one of them alone.
   business-type coverage (true since round 4), the highest-yield place to look next is not a seventh
   business type, it's the next code path nothing has ever actually walked — see `docs/ROADMAP.md`'s
   framing of round 7 and what stays open after it.
+- **Round 7 found the same "unexercised code path" shape a fourth and fifth time, in the exact two
+  places round 6's roadmap update named — and then, once found, closed the specific question of
+  whether the swarm-dry-run method itself was reaching diminishing returns, rather than leaving that
+  question implicit for a future round to notice on its own.** The override-mechanism gap in
+  `launch-director` and the DE-step reopening protocol's missing mechanics in the orchestrator are
+  both, structurally, the same animal as round 6's two findings: well-specified-looking code that had
+  simply never been walked by anything before this round. But round 7's own roadmap update is itself
+  worth naming as a pattern, not just a finding about the plugin: for the first time across seven
+  rounds, this document made explicit, as a judgment call rather than an implicit drift, that further
+  simulated dry runs are hitting diminishing returns for this category of bug, and that a real human's
+  multi-session use is the next qualitatively different test this project needs — not a claim that
+  simulated dry runs stop being useful, but an explicit statement of when a method that has reliably
+  produced real findings for six consecutive rounds should stop being the presumptive next move by
+  default. That is a pattern about the swarm's own method, worth watching for in any future project
+  built this way: a technique that keeps working is not, by itself, evidence that it's still the
+  highest-value technique available, and naming the point where it stops being so is a deliverable in
+  its own right, not a failure to keep finding bugs. Round 8, running concurrently with this entry, is
+  the swarm's own direct response to that judgment call — see `docs/ROADMAP.md`.
 
