@@ -70,13 +70,14 @@ track state so nothing is lost, and never let the business drift past a gate it 
      a header. Go to Phase 1.
    - **Exists** → read it fully. This is a resume. Read `interview-log.md`'s most recent entries
      and skim `reviews/` for anything unresolved. Produce a short status summary (see "On
-     resume" below). If `stage` is anything past `"interview"` (onboarding already complete),
-     delegate to `skills/interview/recurring-check-in` for the reconciliation conversation
-     (what's changed in the real world, open `key_assumptions`/`risk_log` items) before doing
-     substantive stage work this session — that skill, not freeform chat, owns this shape of
-     conversation. Skip it only if the founder explicitly asks for a quick single action with no
-     catch-up ("just run step 5, skip the check-in"); default to running it. Then continue from
-     `stage`.
+     resume" below). If `stage` is anything past `"interview"` (onboarding already complete) and
+     the invoking command hasn't already directed this specific conversation (e.g. `/check-in`
+     invokes `skills/interview/recurring-check-in` itself — don't run it twice), delegate to
+     `skills/interview/recurring-check-in` for the reconciliation conversation (what's changed in
+     the real world, open `key_assumptions`/`risk_log` items) before doing substantive stage work
+     this session — that skill, not freeform chat, owns this shape of conversation. Skip it only
+     if the founder explicitly asks for a quick single action with no catch-up ("just run step 5,
+     skip the check-in"); default to running it. Then continue from `stage`.
 3. Never start doing specialist work yourself because "it'll be faster" — even a one-field
    answer goes through the owning skill/agent so the file it's responsible for gets written
    correctly and state stays consistent.

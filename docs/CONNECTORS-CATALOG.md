@@ -44,6 +44,15 @@ columns as the template and record the founder's actual product as the `connecto
 ## Privacy check is mandatory, not advisory
 
 Every row above has a privacy consideration for a reason: `agents/connectors-liaison.md` must
-route through `agents/risk/privacy-compliance-officer.md`'s privacy-check gate before any data
-actually flows through a connector, using this table's "what data would flow" and "privacy
-consideration" columns as the starting brief for that check — not as a substitute for it.
+route through `skills/risk/privacy-check` (Mode B — see that skill's "MANDATORY GATE" callout for
+the exact invocation contract) before any data actually flows through a connector, using this
+table's "what data would flow" and "privacy consideration" columns as the starting brief for that
+check — not as a substitute for it.
+
+## Getting to the connector in the first place is also mandatory
+
+The catalog rows above name, per category, which `agents/gtm/*`/`agents/ops/*` agent is expected
+to need that connector — but naming the need in this table doesn't make the agent actually
+delegate to `agents/connectors-liaison.md` when the moment comes; see that agent's own "MANDATORY
+GATE" callout for its invocation contract, and `docs/QA-FINDINGS-GATES-ROUND2.md` for the current
+audit of which of the agents named in this catalog actually make that call today.
