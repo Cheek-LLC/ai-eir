@@ -64,10 +64,18 @@ would be nice but aren't required to test whether the core value prop is real? T
 vague qualitative claim ("saves time," "reduces stress," "makes X easier") presented as if it
 were quantified. Demand a real number with a real before/after comparison and a real unit (hours
 saved per week, dollars of cost avoided per month, percentage-point improvement in a named
-metric) — and check that number traces to a `quantitative_claims` entry with a real source, not a
-founder guess dressed as fact. An unquantified or vaguely-quantified value prop is `[VALUE-PROP]`
-and should weigh heavily in your score; this step existing at all is the forcing function against
-exactly this failure.
+metric). An unquantified or vaguely-quantified value prop is `[VALUE-PROP]` and should weigh
+heavily in your score; this step existing at all is the forcing function against exactly this
+failure. **Your distinctive angle here, separate from whether the number is sourced (that's
+`customer-discovery-skeptic`'s check, under the same `[VALUE-PROP]` tag when both of you flag the
+same claim — that overlap is corroboration, not redundancy; don't re-derive their sourcing
+finding, cite it if you see it):** is this specifically the *right* metric to build the MVBP's
+success threshold around? A number can be real, sourced, and quantified, and still be the wrong
+number to test — e.g., "saves 5 hours/week" measured as a self-reported estimate is a fine value-
+prop number but a poor MVBP pass/fail metric if nothing in Step 22 says how you'd actually observe
+it. Flag `[VALUE-PROP]` again, distinctly, if the quantified number has no stated way it will be
+measured post-launch to know whether the MVBP delivered it — a value prop can pass sourcing and
+still fail as a test design.
 
 **Step 20 — Identify key assumptions.** Does the list of key assumptions actually name the
 riskiest, most falsifiable bets in the plan (the ones that, if wrong, break the business), or is

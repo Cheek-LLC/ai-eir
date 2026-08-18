@@ -132,8 +132,9 @@ first that triggers; if none trigger, use the default:
    "FDA," "novel algorithm," "proprietary model," "deep tech," "R&D," "patent-pending
    technology," "regulatory approval," "certification (UL/FCC/CE/FDA)" — **or**
    `business_basics.business_type` is `other` with `business_type_notes` describing exactly that
-   shape (the fixed enum has no dedicated hardware/deep-tech/regulated value yet — see this
-   skill's cross-team note), **or** Step 7's product spec itself
+   shape (the fixed enum in `docs/DATA-CONTRACT.md` has no dedicated hardware/deep-tech/regulated
+   value yet — this is a candidate future schema addition, flagged for the Data Contract owner
+   rather than invented here), **or** Step 7's product spec itself
    (`disciplined_entrepreneurship.07_high_level_product_specification.summary` and/or
    `plan/07-high-level-product-specification.md`) describes a novel/unproven core technology (a
    proprietary algorithm, novel hardware mechanism, or a safety-/accuracy-critical or regulated
@@ -244,25 +245,44 @@ remaining verdicts the **blocking set**. (Track B and C: the blocking set is all
 **Step C — Test whether the verdict(s) at that harshest severity are outliers, and discard only
 if they pass every part of this test:**
 
-A verdict at the current-harshest severity is a **discardable outlier** if and only if:
+Fix the **comparison set** before you test anything: it is the blocking set exactly as it stood
+after Step A (all 5 seats for Track B/C, or the 4 non-downgraded seats for Track A) — call this
+the **original blocking set**. Every tag-overlap check below, on every discard round including
+the first, is run against the original blocking set minus the verdict being tested — never
+against whatever subset happens to remain after earlier discards. This matters from round two
+onward: a verdict already discarded is still "in the room" for the purpose of checking whether a
+*later* candidate's tags overlap with it.
 
-1. **It is alone at that severity** — no other blocking-set verdict shares the same severity
-   level. (Two or more reviewers independently landing on the same harsh verdict — e.g. two
-   REJECTs — is never an outlier situation for either of them, regardless of tag overlap; real
+A verdict at the current-harshest severity (among whatever verdicts still remain under
+consideration) is a **discardable outlier** if and only if:
+
+1. **It is alone at that severity** — no other verdict still under consideration shares the same
+   severity level. (Two or more reviewers independently landing on the same harsh verdict — e.g.
+   two REJECTs — is never an outlier situation for either of them, regardless of tag overlap; real
    convergence from independent reviewers is corroboration, not noise.)
-2. **None of its Risks/gaps or Required-revisions tags appear in any *other* blocking-set
-   reviewer's Risks/gaps or Required-revisions** (check every other reviewer's tags, not just
-   reviewers who share its verdict level — a reviewer who APPROVE_WITH_NOTES'd but flagged the
-   same tag as a lone REJECT is corroboration that concern is real, even though their overall
-   verdict was softer). If there is *any* tag overlap with *any* other reviewer, the verdict is
-   **not** discardable — a credible concern shared across personas blocks, full stop, per
+2. **None of its Risks/gaps or Required-revisions tags appear in any *other* original-blocking-set
+   reviewer's Risks/gaps or Required-revisions** (check every other reviewer's tags — including
+   already-discarded reviewers, per the fixed comparison set above — not just reviewers who share
+   its verdict level; a reviewer who APPROVE_WITH_NOTES'd but flagged the same tag as a lone
+   REJECT is corroboration that concern is real, even though their overall verdict was softer). If
+   there is *any* tag overlap with *any* other reviewer in the original blocking set, the verdict
+   is **not** discardable — a credible concern shared across personas blocks, full stop, per
    CONVENTIONS.md §6's "one credible blocking objection should block, not get diluted."
+3. **Discarding it would leave at least one verdict still under consideration.** Never discard the
+   last verdict standing. This floor case is rare but real: it can only arise in Track A, where
+   the blocking set has 4 seats (not 5) and 4 severity levels exist, so it is mathematically
+   possible for every seat to land alone at a distinct severity with zero tag overlap between any
+   pair — a cascade that would otherwise empty the blocking set and leave no defined aggregate. If
+   the verdict under test is the sole remaining verdict, it is not discardable regardless of tests
+   1-2, and it stands as the aggregate — state in the review file that the floor rule was invoked,
+   since it means a lone, uncorroborated verdict became the aggregate and the founder should know
+   that context.
 
-If a verdict passes both tests, discard it from consideration and recompute the harshest severity
-among what remains (repeat Step B/C — a second lone dissenter can also be tested and discarded
-independently, using tag-overlap against the *original* full blocking set, not just the
-already-reduced one). If it fails either test, it is **not** discarded — the current harshest
-severity stands as the aggregate.
+If a verdict passes all three tests, discard it from consideration and recompute the harshest
+severity among what remains (repeat Step B/C — a second, third, or later lone dissenter can also
+be tested and discarded independently, always against the fixed original blocking set per above).
+If it fails any test, it is **not** discarded — the current harshest severity stands as the
+aggregate.
 
 **Step D — the aggregate verdict is the harshest severity remaining after all applicable
 discards.** The **aggregate score** is the lowest (harshest) score among the blocking-set
@@ -273,15 +293,30 @@ but this is Track B, so it's in the blocking set), REVISE (`customer-discovery-s
 `[EVIDENCE-GAP]`), APPROVE_WITH_NOTES (`expert-entrepreneur-panel`, tags `[EXECUTION-RISK]`),
 APPROVE_WITH_NOTES (`financial-modeling-reviewer`, tags `[UNIT-ECONOMICS]`), APPROVE
 (`competitive-strategy-reviewer`, no risk tags). Harshest is REJECT, held alone by `vc-panel`.
-Check tag overlap: `[VENTURE-FIT]` does not appear in any other reviewer's tags → passes both
-outlier tests → discard. Recompute: harshest remaining is REVISE, held alone by
-`customer-discovery-skeptic`. Check tag overlap: `[EVIDENCE-GAP]` does not appear elsewhere either
-→ discard. Recompute: harshest remaining is APPROVE_WITH_NOTES, held by two reviewers (not alone)
+Check tag overlap: `[VENTURE-FIT]` does not appear in any other reviewer's tags, and discarding it
+leaves four verdicts standing → passes all three outlier tests → discard. Recompute: harshest
+remaining is REVISE, held alone by `customer-discovery-skeptic`. Check tag overlap:
+`[EVIDENCE-GAP]` does not appear elsewhere either, and discarding it leaves three verdicts
+standing → discard. Recompute: harshest remaining is APPROVE_WITH_NOTES, held by two reviewers (not alone)
 → stops here. **Aggregate verdict: APPROVE_WITH_NOTES**, score = the lower of the two
 APPROVE_WITH_NOTES scores. Contrast: if `financial-modeling-reviewer` had *also* tagged a bullet
 `[EVIDENCE-GAP]` (e.g., flagging that a TAM input traces to the same unvalidated customer claim
 `customer-discovery-skeptic` flagged), the REVISE would **not** be discardable — it would stand as
 the aggregate, because two independent reviewers converged on the same underlying concern.
+
+**Floor-rule example (Track A only).** Four blocking-set verdicts (Track A, `vc-panel` already
+set aside per §4), each alone at a distinct severity with zero tag overlap between any pair:
+REJECT (`customer-discovery-skeptic`, `[EVIDENCE-GAP]`), REVISE
+(`financial-modeling-reviewer`, `[FINANCIAL-ARITHMETIC]`), APPROVE_WITH_NOTES
+(`expert-entrepreneur-panel`, `[EXECUTION-RISK]`), APPROVE (contextual seat, no tags). REJECT is
+alone, has no tag overlap, and discarding it leaves three verdicts → discard. REVISE is alone, no
+overlap, discarding it leaves two → discard. APPROVE_WITH_NOTES is alone, no overlap, but
+discarding it would leave only APPROVE standing — still one verdict, not zero, so it still passes
+test 3 → discard. Recompute: only APPROVE remains. It is trivially alone, and by test 3 discarding
+it would leave the blocking set empty — so the floor rule stops the cascade here regardless of
+tag overlap. **Aggregate verdict: APPROVE**, and the review file must state plainly that this is a
+lone, uncorroborated verdict reached only because the floor rule blocked further discarding, so
+the founder reads it with that context rather than as unanimous agreement.
 
 ## 7. Post-verdict AI-risk council-integrity gate
 
