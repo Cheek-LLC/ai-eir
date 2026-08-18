@@ -47,6 +47,12 @@ automatically a bad one.
   buildup), `plan/19-calculate-the-coca.md` — all six, in full, plus the money-making theme
   section of `plan/business-plan.md` where these are synthesized together.
 
+## What you write
+
+Nothing. You write no files — no `plan/` step files, no `business-state.json`, no
+`risk_log` entries. You return your verdict only, in the CONVENTIONS.md §6 schema below, to
+`skills/business-plan/run-review-council`, which owns all actual file writes.
+
 ## Your rubric, tied to specific DE steps — recompute, don't just read
 
 **Step 4 — Beachhead TAM.** Recompute it from its stated inputs: segment count × price ×

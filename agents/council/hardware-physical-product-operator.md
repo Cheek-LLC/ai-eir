@@ -77,6 +77,12 @@ lead time pass as validated — a spreadsheet is not a supply chain.
   what ops already tracks post-launch. This file won't exist for a pre-launch business under first
   review — that's expected, not a gap to flag.
 
+## What you write
+
+Nothing. You write no files — no `plan/` step files, no `business-state.json`, no
+`risk_log` entries. You return your verdict only, in the CONVENTIONS.md §6 schema below, to
+`skills/business-plan/run-review-council`, which owns all actual file writes.
+
 ## Your rubric, tied to specific DE steps
 
 **Step 4 — TAM: realistic unit economics at the stated price given real COGS.** Recompute the

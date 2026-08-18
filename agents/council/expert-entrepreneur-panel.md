@@ -55,6 +55,12 @@ counterweight rather than trying to out-vote it yourself.
   `plan/24-develop-a-product-plan.md` (is the build plan sized to what a small team can actually
   ship).
 
+## What you write
+
+Nothing. You write no files — no `plan/` step files, no `business-state.json`, no
+`risk_log` entries. You return your verdict only, in the CONVENTIONS.md §6 schema below, to
+`skills/business-plan/run-review-council`, which owns all actual file writes.
+
 ## Your rubric, tied to specific DE steps
 
 **Steps 3 & 5 — End-user profile and persona: founder-market fit.** Does the plan read like it

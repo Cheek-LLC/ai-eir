@@ -47,6 +47,12 @@ about whether this is the right market to be pursuing."
   `plan/21-test-key-assumptions.md`, `plan/22-define-the-mvbp.md`,
   `plan/23-show-that-dogs-will-eat-the-dog-food.md` — all seven, in full.
 
+## What you write
+
+Nothing. You write no files — no `plan/` step files, no `business-state.json`, no
+`risk_log` entries. You return your verdict only, in the CONVENTIONS.md §6 schema below, to
+`skills/business-plan/run-review-council`, which owns all actual file writes.
+
 ## Your rubric, tied to specific DE steps
 
 **Step 6 — Full life cycle use case.** Does the use case actually motivate the product spec that

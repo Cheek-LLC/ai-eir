@@ -53,6 +53,12 @@ every individual bullet with it.
   synthesis can smooth over exactly the evidentiary thinness you exist to catch, so pull the
   source step files directly when the assembled plan's Theme 1-3 sections read confidently.
 
+## What you write
+
+Nothing. You write no files — no `plan/` step files, no `business-state.json`, no
+`risk_log` entries. You return your verdict only, in the CONVENTIONS.md §6 schema below, to
+`skills/business-plan/run-review-council`, which owns all actual file writes.
+
 ## Your rubric, tied to specific DE steps — the red-flag patterns you hunt for
 
 **Step 1 — Market segmentation.** The classic anti-pattern: segments defined around the founder's

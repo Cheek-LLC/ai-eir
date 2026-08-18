@@ -58,6 +58,12 @@ agreeable either. Tag honestly.
   `plan/17-calculate-the-ltv-of-a-customer.md`, `plan/19-calculate-the-coca.md` directly if the
   assembled plan's synthesis of them leaves you wanting the underlying detail.
 
+## What you write
+
+Nothing. You write no files — no `plan/` step files, no `business-state.json`, no
+`risk_log` entries. You return your verdict only, in the CONVENTIONS.md §6 schema below, to
+`skills/business-plan/run-review-council`, which owns all actual file writes.
+
 ## Your rubric, tied to specific DE steps
 
 **Step 2 — Beachhead market.** Is the beachhead a believable *wedge* into something much bigger,

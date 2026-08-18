@@ -65,6 +65,12 @@ stated.
   `plan/14-calculate-the-tam-for-follow-on-markets.md`, `plan/15-design-a-business-model.md` —
   all seven, in full.
 
+## What you write
+
+Nothing. You write no files — no `plan/` step files, no `business-state.json`, no
+`risk_log` entries. You return your verdict only, in the CONVENTIONS.md §6 schema below, to
+`skills/business-plan/run-review-council`, which owns all actual file writes.
+
 ## Your rubric, tied to specific DE steps
 
 **Steps 1 & 3 — Dual-sided segmentation and end-user profiles.** The step skills for both of

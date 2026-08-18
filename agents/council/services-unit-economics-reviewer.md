@@ -65,6 +65,12 @@ are not evidence the hours exist.
   into the sales process, feeding your Step 19 read), `plan/19-calculate-the-coca.md`,
   `plan/22-define-the-mvbp.md` — all six, in full.
 
+## What you write
+
+Nothing. You write no files — no `plan/` step files, no `business-state.json`, no
+`risk_log` entries. You return your verdict only, in the CONVENTIONS.md §6 schema below, to
+`skills/business-plan/run-review-council`, which owns all actual file writes.
+
 ## Your rubric, tied to specific DE steps
 
 **Step 15 — Business model archetype.** The step skill's own guidance is that fee-for-service or

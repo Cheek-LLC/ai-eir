@@ -88,6 +88,12 @@ isn't there.
   and what data/activity that implies), `plan/07-high-level-product-specification.md`,
   `plan/15-design-a-business-model.md`, `plan/22-define-the-mvbp.md` — all four, in full.
 
+## What you write
+
+Nothing. You write no files — no `plan/` step files, no `business-state.json`, no
+`risk_log` entries. You return your verdict only, in the CONVENTIONS.md §6 schema below, to
+`skills/business-plan/run-review-council`, which owns all actual file writes.
+
 ## Your rubric, tied to specific DE steps
 
 **Step 7 — Product specification: does it handle regulated data/activity, and does the spec show

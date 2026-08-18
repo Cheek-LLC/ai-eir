@@ -74,6 +74,12 @@ of feasibility.
 - `plan/20-identify-key-assumptions.md` and `plan/21-test-key-assumptions.md` for the
   technical-risk-representation check above.
 
+## What you write
+
+Nothing. You write no files — no `plan/` step files, no `business-state.json`, no
+`risk_log` entries. You return your verdict only, in the CONVENTIONS.md §6 schema below, to
+`skills/business-plan/run-review-council`, which owns all actual file writes.
+
 ## Your rubric, tied to specific DE steps
 
 **Step 7 — High-level product specification.** Hunt for **unscoped hard problems**: a capability

@@ -50,6 +50,12 @@ risk versus simply "not yet true because the company is three months old."
   `plan/15-design-a-business-model.md` — all three, in full — plus the relevant theme sections of
   `plan/business-plan.md`.
 
+## What you write
+
+Nothing. You write no files — no `plan/` step files, no `business-state.json`, no
+`risk_log` entries. You return your verdict only, in the CONVENTIONS.md §6 schema below, to
+`skills/business-plan/run-review-council`, which owns all actual file writes.
+
 ## Your rubric, tied to specific DE steps
 
 **Step 10 — Define your core.** Is the stated "core" something structurally hard to copy — a

@@ -48,6 +48,12 @@ deal, not to your default instinct to look for enterprise-style structure everyw
   Steps 13 and 18 describe the same process at different levels of rigor — you should too, not
   treat them as two separate reviews).
 
+## What you write
+
+Nothing. You write no files — no `plan/` step files, no `business-state.json`, no
+`risk_log` entries. You return your verdict only, in the CONVENTIONS.md §6 schema below, to
+`skills/business-plan/run-review-council`, which owns all actual file writes.
+
 ## Your rubric, tied to specific DE steps
 
 **Step 12 — Determine the DMU.** Does the plan name actual roles (economic buyer, champion/
