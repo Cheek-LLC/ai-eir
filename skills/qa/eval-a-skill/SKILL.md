@@ -5,12 +5,11 @@ description: >
   whole plugin, before considering new or changed agents/skills done. Triggers: "eval this
   skill", "QA this before I merge it", "run eval-a-skill on <path>", "check my new agent
   against CONVENTIONS.md", "audit the whole repo", "is this ready to merge". Runs
-  agents/qa/skill-quality-auditor against every target file individually and
-  agents/qa/consistency-checker across the target set, then produces one findings report with
-  a clear overall verdict. This is the structural/static QA layer (frontmatter, deliverables,
-  cross-file consistency) — for behavioral testing of what a skill actually *does* when run,
-  use Claude Code's built-in `claude plugin eval` / skill-doctor tooling instead (see below);
-  this skill does not reimplement that.
+  agents/qa/skill-quality-auditor per file and agents/qa/consistency-checker across the set,
+  then returns one findings report with a clear verdict. This is structural/static QA
+  (frontmatter, deliverables, cross-file consistency) — for behavioral testing of what a skill
+  actually does when run, use Claude Code's built-in `claude plugin eval` / skill-doctor
+  tooling instead; this skill does not reimplement that.
 ---
 
 # Eval a Skill
