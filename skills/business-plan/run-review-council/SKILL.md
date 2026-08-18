@@ -313,7 +313,8 @@ in §6:
 `[MVBP-SCOPE]` `[ASSUMPTION-UNTESTED]` `[UNIT-ECONOMICS]` `[PRICING]` `[SOURCING]`
 `[DEFENSIBILITY]` `[COMPETITIVE-BLIND-SPOT]` `[BUSINESS-MODEL]` `[SALES-CYCLE]`
 `[DMU-COMPLEXITY]` `[EXECUTION-RISK]` `[FOUNDER-MARKET-FIT]` `[VENTURE-FIT]` `[SCALABILITY]`
-`[FINANCIAL-ARITHMETIC]` `[TECHNICAL-FEASIBILITY]` `[FALSE-PRECISION]`
+`[FINANCIAL-ARITHMETIC]` `[TECHNICAL-FEASIBILITY]` `[FALSE-PRECISION]` `[LIQUIDITY]`
+`[DELIVERY-CAPACITY]`
 
 `[FALSE-PRECISION]` is distinct from `[FINANCIAL-ARITHMETIC]` — use it for "this number claims
 more precision than its method supports" (e.g. a TAM stated to the dollar from a rough bottom-up
@@ -321,6 +322,26 @@ estimate), and reserve `[FINANCIAL-ARITHMETIC]` for actual computation/formula e
 the two under one tag would make the §6 overlap check treat an unrelated arithmetic mistake and a
 precision complaint as corroborating each other, which could wrongly save a verdict from being
 discarded as an outlier.
+
+`[LIQUIDITY]` (added this round, owned primarily by `marketplace-liquidity-specialist`) is for
+two-sided cold-start sequencing and supply/demand-balance concerns specific to marketplaces —
+one side under-courted relative to the other, a take-rate that charges the price-sensitive side
+and threatens liquidity, a next-10 list that's real on one side but a wishlist on the other. It is
+distinct from `[BUSINESS-MODEL]` (general archetype-fit issues not specific to two-sidedness) and
+from `[MARKET-SIZE]`/`[FINANCIAL-ARITHMETIC]` (a marketplace TAM priced per-seat instead of
+GMV × take-rate is a `[FINANCIAL-ARITHMETIC]` formula error, not a `[LIQUIDITY]` finding, even
+though both can appear in the same review of the same plan).
+
+`[DELIVERY-CAPACITY]` (added this round, owned primarily by `services-unit-economics-reviewer`)
+is for billable-hours/utilization ceilings and key-person/founder-dependency risk that caps how
+fast a services (or any labor-delivered) business can actually grow — a growth curve that requires
+more delivery hours than the stated team can provide, an uncapped retainer that quietly commits
+unbounded hours, an MVBP that only pencils out because the founder's time is valued at zero. It is
+distinct from `[UNIT-ECONOMICS]` (the LTV/COCA figures and ratio themselves) and from
+`[SCALABILITY]` (broader product/market scalability questions not specific to labor-hours
+capacity) — a services business can have a mathematically healthy LTV:COCA ratio and still be
+`[DELIVERY-CAPACITY]`-flagged if delivering on that LTV requires hours nobody on the team actually
+has.
 
 If a returned verdict has an untagged bullet, tag it yourself from context before running §6
 rather than discarding the aggregation step — but note in the review file that you had to backfill

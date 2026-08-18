@@ -108,4 +108,21 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
   examples use inconsistent zero-padding (`qc-04-...` vs `qc-016-...`). Don't read padding
   differences as a bug; do keep ids unique.
 
+- **Council persona coverage by `business_basics.business_type`** — tracked here per the roadmap's
+  explicit ask, so gaps stay visible without spelunking `skills/business-plan/run-review-council/
+  SKILL.md`'s seat-selection logic. This lists only the *contextual 5th seat* — the 4 core seats
+  (`customer-discovery-skeptic`, `financial-modeling-reviewer`, `vc-panel`,
+  `expert-entrepreneur-panel`) run for every `business_type` and aren't repeated below.
+
+  | `business_type` | Dedicated contextual persona(s) | Notes |
+  |---|---|---|
+  | `marketplace` | `marketplace-liquidity-specialist` (type match, unconditional) | Yields to `technical-feasibility-reviewer` when a hardware/deep-tech signal independently fires; see the SKILL.md tie-break rule. |
+  | `services` | `services-unit-economics-reviewer` (type match, unconditional) | Yields to `technical-feasibility-reviewer` on the same basis; also permanently outranks `sales-motion-reviewer`'s `business_type: services` trigger per the tie-break rule, so `sales-motion-reviewer` is logged as a runner-up rather than selected, for every services business. |
+  | `physical_product` | `technical-feasibility-reviewer` (hardware/deep-tech/regulated signal only, not unconditional) or `sales-motion-reviewer` (retail/wholesale/channel component) | No unconditional dedicated persona — depends on the plan's specific content. |
+  | `saas`, `consumer_app`, `other` | none dedicated | Covered only by the content-triggered generalist seats (`product-market-fit-panel`, `sales-motion-reviewer` on DMU-complexity content, `competitive-strategy-reviewer` as default) and the 4 core seats — **still an open gap**, consistent with the roadmap's v0.2 priority 2 note that a regulated-industry (health/fintech) compliance-minded reviewer and a hardware/physical-product operator reviewer also remain unwritten. `other` additionally has no fixed business-type-specific trigger at all beyond `technical-feasibility-reviewer`'s narrow carve-out for a hardware/deep-tech shape described in `business_type_notes`. |
+
+  Update this table in the same change that adds or retargets any contextual-seat trigger in
+  `run-review-council/SKILL.md`'s §3 — a trigger that exists in the skill but isn't reflected here
+  is exactly the kind of drift this table exists to prevent.
+
 See `docs/DE-24-STEPS.md` for the authoritative list of the 24 step keys/filenames.
