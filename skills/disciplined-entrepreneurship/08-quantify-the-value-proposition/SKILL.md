@@ -59,6 +59,16 @@ What the value is typically denominated in differs by type:
   a better price found. Don't average the two sides into one number; report both.
 - **Services:** commonly the outcome delivered (revenue generated, cost avoided, risk reduced) net
   of the service's cost and the client's own time spent managing the engagement.
+- **Consumer app:** value is often denominated in time saved, enjoyment/entertainment gained, or
+  social connection rather than a direct dollar figure — if there's no direct payment for the
+  as-is/possible comparison, quantify via a proxy (time spent, task-completion rate, frequency of
+  use) or via willingness-to-pay signaled by conversion to a paid tier. The next best alternative
+  is frequently another free app already occupying that slice of attention, or simply not using an
+  app for this at all — compare against that honestly, not against a paid competitor that isn't
+  the real alternative most users face.
+- **Other / genuine hybrid:** pick the denomination (time, money, risk, enjoyment) that matches
+  whichever type's lens actually governs how this persona thinks about the problem, confirming
+  with the founder rather than defaulting to a dollar figure because it's easier to compute.
 
 ## Method: as-is minus possible, in Persona's own metric, checked against switching cost
 

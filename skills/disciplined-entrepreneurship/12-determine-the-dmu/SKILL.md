@@ -61,6 +61,16 @@ customer), built by other skills — this step stops at identifying *who*, not *
   sign-off) and the demand side has its own (e.g., a consumer deciding to buy, possibly with a
   household influencer). Mapping only one side's DMU misses half the acquisition problem Step 13
   needs to solve.
+- **Consumer app:** the DMU usually collapses to just the End User, who is also their own economic
+  buyer (paying for their own subscription or in-app purchase) — the common case is one person, not
+  three or four roles. Check for two real exceptions before collapsing it, though: a household/
+  social influencer who recommended it or shares the account/subscription, and — for anything a
+  minor could plausibly use — a parent/guardian acting as an explicit veto-holder via app-store
+  parental controls or payment approval.
+- **Other / genuine hybrid:** map the DMU using whichever pattern above (simple/collapsed consumer,
+  B2B multi-role, per-side marketplace) actually matches how a purchase happens in this specific
+  business, and say explicitly which pattern was used and why, rather than defaulting to generic
+  B2B roles for a business that doesn't have them.
 
 ## Method: name the roles, then name the real titles that fill them
 

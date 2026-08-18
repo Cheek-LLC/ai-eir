@@ -61,6 +61,15 @@ interview questions above, not as a checklist to rubber-stamp:
   through delivering the service. A generalist services business often has no durable Core yet —
   say so plainly rather than defaulting to "our people" as a Core, which rarely survives the
   Unique test.
+- **Consumer app:** common real Cores are network/social effects (the app gets more valuable as
+  friends/contacts join), a proprietary recommendation or personalization engine that improves
+  with accumulating usage data, or brand/community. "Clean design" or "good UX" is not a Core — a
+  well-funded competitor can copy an interface in a sprint; press for what's underneath the design.
+- **Other / genuine hybrid:** test the founder's candidate Core against Unique/Important/Grows
+  regardless of category label — the three-criteria test is category-agnostic — but use the
+  business-type prompts above (data/lock-in, IP/sourcing, liquidity, methodology, network effects)
+  as the menu of what a real Core tends to look like, picking whichever actually matches this
+  business rather than assuming one from the label alone.
 
 ## Method: Core vs. Moat vs. Competitive Advantage — three distinct things
 

@@ -55,6 +55,16 @@ plugin (e.g., ops/build skills), not here.
 - **Marketplace:** ask separately what each side of the marketplace needs from a first version
   (e.g., a listing/fulfillment flow for supply, a search/trust flow for demand) — a spec that only
   covers one side's capabilities isn't a marketplace spec yet.
+- **Consumer app:** ask about target platform(s) (iOS/Android/web/cross-platform) and the
+  constraints that come with each — app store review guidelines, offline functionality, push
+  notification permissions; what the first 60 seconds of onboarding must accomplish, since consumer
+  app abandonment is heavily front-loaded into the first session; and whether any sharing/invite
+  mechanic is part of the core flow or explicitly deferred. A spec silent on the first-session
+  experience isn't a real consumer-app spec.
+- **Other / genuine hybrid:** if the business spans two types (e.g. a physical product with a
+  companion app, a marketplace with a services layer), spec each component against its own type's
+  questions above rather than picking one lens and forcing the rest to fit it — and say plainly in
+  the write-up which lens covered which capability.
 
 ## Method: trace every feature to a life-cycle touchpoint, then force prioritization
 

@@ -62,6 +62,18 @@ The eight stages are universal, but what fills them changes by type:
 - **Services:** onboarding = engagement kickoff/scoping; ongoing use = the service delivery
   cadence itself (sessions, deliverables, check-ins); renewal = contract renewal or re-engagement
   decision, often gated by a relationship review rather than an automated prompt.
+- **Consumer app:** search/discovery is frequently app-store browse/search, a social share, or an
+  influencer/creator mention rather than a deliberate vendor search; onboarding = app-store install
+  plus account creation — the single highest-drop-off stage in the whole life cycle, so probe it
+  hard; ongoing use = session frequency/depth and what push notifications or habit loops actually
+  bring them back; renewal = subscription renewal if the app is paid, but for free/ad-supported
+  apps there is often no formal renewal moment at all, just decaying engagement toward a quiet
+  uninstall — track that decay explicitly rather than assuming a renewal stage exists.
+- **Other / genuine hybrid:** if the business doesn't map cleanly onto one type (a subscription
+  box, a marketplace with a heavy services layer, a physical product with an attached app), map
+  each of the eight stages using whichever type's lens the founder confirms fits that specific
+  stage best, and say explicitly which lens was used where — don't silently blend them into a
+  generic version that fits no real business.
 
 ## Method: the whole arc, stage by stage
 

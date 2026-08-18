@@ -58,6 +58,16 @@ drive Persona's choice, with all real alternatives — including the status quo 
   may be a different marketplace or selling direct, while a buyer's alternative may be a different
   marketplace or the status quo. If the sides' competitive landscapes genuinely diverge, chart them
   as two separate positioning maps rather than forcing one chart to represent both sides honestly.
+- **Consumer app:** axes commonly cluster around engagement/stickiness vs. simplicity, or free vs.
+  premium depth. Critically, "alternatives" here means every other app plausibly competing for the
+  same slice of the persona's attention or time in their day, not just other apps with the same
+  feature set — the status quo is frequently "an app already on their home screen doing something
+  adjacent" or "not using an app for this at all," and both deserve a plotted point, not just named
+  direct competitors.
+- **Other / genuine hybrid:** choose axes from whichever business-type pattern above actually
+  matches what Persona said mattered (Steps 5/8) — the axis choice is driven by persona research,
+  not by the business-type label, so a hybrid business may legitimately mix a physical-product axis
+  with a services axis if that's what the research supports.
 
 ## Method: axes chosen by the persona's priorities, not by convenience
 

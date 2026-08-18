@@ -60,6 +60,16 @@ from or checked against this persona.
 - **Services:** distinguish clearly whether the persona is the person who experiences the problem
   or the person who commissions the engagement (per Step 3's split) — name which one this persona
   is, since the day-in-the-life and goals differ substantially between the two.
+- **Consumer app:** center the "day in the life" on the attention/habit moment, not a workday —
+  what's happening around them the instant they'd reach for this (bored on a commute, deciding
+  what to cook, checking in with friends), what app or habit on their phone this would actually
+  displace, and who (if anyone) they'd tell or share it with. Social/word-of-mouth context and
+  "what's already on their home screen" matter more here than a job title or a measured KPI.
+- **Other / genuine hybrid:** don't force the persona into one of the above lenses by default. Ask
+  the founder directly which framing fits best — workflow-and-tools, purchase-occasion, or
+  attention-and-habit — or blend explicitly (e.g. a subscription box is purchase-occasion plus a
+  renewal habit) and say which elements came from which lens, per
+  `docs/UX-INTERVIEW-DESIGN.md` §4's guidance to ask rather than guess.
 
 ## Method: one vivid individual, not a restatement of Step 3
 

@@ -54,6 +54,14 @@ Steps 13/18 (acquisition/sales process) and the GTM skills build on later.
   10 demand-side prospects alone) isn't a real pipeline for a marketplace, since neither side has
   anything to transact with the other. Name real prospects on both sides, even if the split isn't
   even, and say explicitly whether the binding constraint is supply or demand right now.
+- **Consumer app:** access paths are typically personal network plus social sharing, beta-tester
+  communities (TestFlight/Play Console beta testers, Product Hunt, a relevant subreddit or
+  Discord), or creator/influencer seeding — not warm B2B intros or retail contacts. Still insist on
+  10 specific, named real individuals willing to actually install and use it, not "10 people who'd
+  see an ad" — an ad-audience estimate isn't a next-10-customers answer, it's a marketing plan.
+- **Other / genuine hybrid:** use whichever access-path pattern above (network/social, retail/
+  wholesale, referral, or beta-seeding) actually matches how this founder would realistically reach
+  a first real prospect — ask them which one fits rather than assuming from the category label.
 
 ## Method: real names, not a description of a type of customer
 
