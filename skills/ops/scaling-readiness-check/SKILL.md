@@ -79,6 +79,57 @@ criterion yet.
    breaking something currently working (support quality, fulfillment, personal capacity)? This is
    a direct founder self-report, not an inference.
 
+## Business-type dispatch: what criteria 3 and 6 actually check
+
+Criteria 1, 2, 4, and 5 test whether the core thesis holds (unit economics, retention, the
+validation signal, the product plan) and their evidence bar doesn't change by business type.
+Criteria 3 and 6 are about *how this specific kind of business* actually scales, and forcing the
+SaaS framing ("repeatable, costed sales process" / "founder time and cash") onto every type
+produces a false read. Check `business_basics.business_type` and apply the matching bar below
+before marking either criterion — state which type-specific bar was used in the Evidence column.
+
+**Criterion 3 — the repeatable-acquisition-motion bar, by type:**
+- `saas`: as written — a real majority of recently closed deals followed the documented step-18
+  process (stages, resources, conversion pattern), not founder-improvised one-offs.
+- `physical_product`: repeatable, costed acquisition/channel motion — is the same channel mix
+  (paid, retail, wholesale) producing consistent COCA across the last several cohorts, or does
+  revenue still trace mostly to non-repeatable founder-personal channels (one-off influencer
+  favors, personal network sales)? Fail if it's mostly the latter.
+- `marketplace`: readiness on this axis is **liquidity achieved in the beachhead, not a sales
+  process**. Ask whether a typical buyer/seller on the beachhead side reliably finds a match (a
+  real fill/match rate) without the founder manually intervening to make transactions happen, and
+  without ongoing subsidy propping the match rate up. Fail if the founder is still manually
+  matchmaking or subsidizing most transactions to make liquidity happen.
+- `services`: ask whether new-client acquisition follows a repeatable pattern (referral engine,
+  inbound pipeline) rather than being 100% founder-networked one-offs — same underlying question
+  as SaaS, evidence bar adapted to how services businesses actually acquire clients (reputation/
+  referral-driven, not necessarily a formal sales process).
+- `consumer_app`: ask whether user acquisition runs through a repeatable channel (paid, organic/
+  content, a genuine referral loop) producing consistent CAC and activation rate period over
+  period, or whether growth to date traces to a non-repeatable spike (a single viral moment, a
+  one-time press hit). Fail if it's mostly the latter.
+- `other`: ask the founder what "repeatable acquisition" would even mean for this business before
+  applying any template above; use their own framing and state it explicitly in the Evidence cell.
+
+**Criterion 6 — the capacity bar, by type:**
+- `services`: this is the load-bearing readiness question for a services business specifically —
+  readiness = can the founder hire and train delivery capacity (new billable staff/contractors
+  ramped to full productivity) faster than new client commitments are being made, since services
+  scaling is capacity-constrained in a way product businesses aren't (each new client consumes
+  real delivery hours, not marginal infra cost). Ask directly whether there's a credible hiring/
+  training plan and timeline, and whether it out-paces the rate new business is being sold. Fail
+  if new business is being sold faster than delivery capacity can be credibly added.
+- `physical_product`: capacity includes fulfillment/production/supply-chain throughput, not just
+  founder time — ask whether manufacturing lead time and fulfillment capacity can support the
+  volume being considered without stockouts or lead-time blowups.
+- `marketplace`: capacity includes whether trust & safety / support can keep pace with both sides
+  at higher volume (dispute resolution, quality control, fraud) — a liquidity engine that holds at
+  current volume can still break at higher volume if support/trust infrastructure doesn't scale
+  with it.
+- `saas`, `consumer_app`, `other`: as originally written — founder/team time, cash (cross-checked
+  against the latest runway classification), and team bandwidth to execute without breaking
+  something currently working.
+
 ## Verdict logic
 
 - **Ready:** every criterion passes on real evidence. No criterion may be marked pass on

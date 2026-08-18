@@ -56,6 +56,38 @@ Ask the founder directly:
   damage?"
 - "What have you been assuming is true that you've never actually asked a customer about?"
 
+## Business-type branching
+
+The gap sweep (deliverable 2) is where business-type knowledge matters most in this step —
+unlogged assumptions tend to cluster in different places depending on `business_basics.business_
+type`, and a generic sweep will miss the categories specific to each:
+
+- **SaaS:** Look hardest for unlogged churn/expansion assumptions carried into Step 17's LTV,
+  self-serve activation assumptions ("users will figure out onboarding without help") behind Step
+  22's MVBP shape, and integration/security/compliance requirements assumed rather than confirmed
+  with a real prospect in Step 7.
+- **Physical product:** Look hardest for unit-economics assumptions that quietly shift between
+  prototype/small-batch cost and cost-at-scale (Step 16's markup chain), unconfirmed regulatory/
+  certification requirements gating go-to-market at all, and channel-margin assumptions (wholesale
+  terms, retail markup) that were stated once and never re-verified.
+- **Marketplace:** Look hardest for chicken-and-egg/liquidity assumptions — which side is assumed
+  to move first, and why that assumption hasn't actually been tested — plus assumptions that
+  supply and demand will naturally balance without active management, and take-rate tolerance
+  assumptions on each side that were asserted rather than confirmed in a real transaction.
+- **Services:** Look hardest for delivery-capacity assumptions (can this scale past the founder's
+  own hours — this shows up disguised as a business-model or LTV assumption but is really a
+  capacity assumption), scope-creep/pricing assumptions baked into Step 16's effective-rate math,
+  and referral-pipeline sustainability assumptions (a pipeline built on one or two relationships
+  that quietly stands in for "reliable acquisition channel").
+- **Consumer app:** Look hardest for retention-curve assumptions (a specific D30/D90 number stated
+  or implied in Step 17's LTV without real cohort data), virality/K-factor assumptions behind any
+  organic-growth claim, freemium-to-paid conversion-rate assumptions behind Step 16's pricing, and
+  platform/app-store dependency risk (policy changes, fee changes, discovery-algorithm shifts)
+  that's easy to leave completely unstated.
+- **Other:** Ask the founder which of the above categories their business most resembles, or
+  sweep broadly across all of them, rather than assuming none apply (per
+  `docs/UX-INTERVIEW-DESIGN.md` §4).
+
 ## When the founder doesn't know
 
 This step's entire purpose is to make peace with what's unknown rather than hide it — there is

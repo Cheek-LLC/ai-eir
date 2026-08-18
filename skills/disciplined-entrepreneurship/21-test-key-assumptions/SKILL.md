@@ -40,7 +40,8 @@ once that linked assumption is actually validated, never before.
 ## Reads
 
 - `.startup/<slug>/business-state.json` (whole file) — the full `key_assumptions` array and the
-  full `quantitative_claims` array, not just the entries Step 20 ranked as leap-of-faith.
+  full `quantitative_claims` array, not just the entries Step 20 ranked as leap-of-faith. Read
+  `business_basics.business_type` before designing test methods — see "Business-type branching."
 - `.startup/<slug>/plan/20-identify-key-assumptions.md` — required. Both the ranked shortlist
   (worked in order, full test designs) and the full inventory table (every entry gets at least
   the lighter disposition in deliverable 6).

@@ -13,6 +13,15 @@
 #   4. No two agents/skills (combined) share the same `name`.
 #   5. Every `NN-slug` folder under skills/disciplined-entrepreneurship/ matches one of the
 #      24 canonical slugs parsed out of docs/DE-24-STEPS.md.
+#   6. Every business-state.json top-level field referenced across agents/**/*.md and
+#      skills/**/SKILL.md is (heuristically) cross-checked against the top-level keys declared
+#      in docs/DATA-CONTRACT.md. WARNING-level only — see the comment at that check's own section
+#      below for why this is not promoted to a build-failing error.
+#   7. Every agents/council/*.md file's own instructions commit to the CONVENTIONS.md §6 verdict
+#      schema headings (Verdict/Score/Reviewer persona/Strengths/Risks/Required revisions).
+#      ERROR-level — see the comment at that check's own section below for exactly what this
+#      does and does not verify (it is a structural check on the agent's instructions, not proof
+#      of the agent's actual output at runtime).
 #
 # Exit code: 0 if everything passes, 1 if any check fails (usable as a CI gate).
 
