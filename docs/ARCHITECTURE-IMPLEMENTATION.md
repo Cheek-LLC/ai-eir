@@ -36,9 +36,12 @@ Discovery is directory-convention-based, not manifest-based, and recursive withi
   `description` (CONVENTIONS.md §3) are what Claude Code uses for auto-routing: when a user's
   request matches what a `description` says the agent handles, Claude Code can delegate to it by
   invoking that agent with its file body as the system prompt. Subfolders under `agents/`
-  (`council/`, `gtm/`, `ops/`, `risk/`, `qa/`, `connectors/`) are purely organizational — they
+  (`council/`, `design/`, `gtm/`, `ops/`, `qa/`, `risk/`) are purely organizational — they
   group agents by domain for humans and for `/list-skills`, but Claude Code discovers a file at
-  any depth under `agents/`, not just top-level files.
+  any depth under `agents/`, not just top-level files. Not every agent needs a category folder:
+  `orchestrator.md`, `business-plan-editor.md`, and `connectors-liaison.md` live directly under
+  `agents/` as singletons — there is no `agents/connectors/` folder, just the one
+  `connectors-liaison.md` file (CONVENTIONS.md §1).
 - **Skills** — every `skills/*/SKILL.md` (and, for the Disciplined Entrepreneurship steps,
   `skills/disciplined-entrepreneurship/NN-slug/SKILL.md`, one directory level deeper) is a skill
   package. `name` and `description` (CONVENTIONS.md §2) drive the same trigger-matching mechanism
@@ -119,7 +122,18 @@ tree and checks it against `CONVENTIONS.md`:
 - no two agents/skills (combined) share the same `name`;
 - every `NN-slug` folder under `skills/disciplined-entrepreneurship/` matches one of the 24
   canonical slugs parsed live out of `docs/DE-24-STEPS.md` (parsed, not hardcoded, so the check
-  can't itself drift from that doc).
+  can't itself drift from that doc);
+- **(added round 3)** every `business-state.json` top-level field referenced across
+  `agents/**/*.md` and `skills/**/SKILL.md` is heuristically cross-checked against the top-level
+  keys declared in `docs/DATA-CONTRACT.md` — WARNING-level only, since the pattern-matching this
+  requires without a real JSON/markdown parser produces real false positives (see the script's own
+  comment at that check for exactly what it does and doesn't catch);
+- **(added round 3)** every `agents/council/*.md` file's own instructions commit to the
+  CONVENTIONS.md §6 verdict schema headings (`## Verdict:` naming all four outcomes,
+  `**Score:**`, `**Reviewer persona:**`, `### Strengths`, `### Risks`, `### Required revisions`) —
+  ERROR-level, since this greps for literal text the file's author controls directly, not a fuzzy
+  inference (it verifies the agent's instructions commit to the shape, not that a live invocation
+  actually returns it — that's Layer 2, see `docs/TESTING.md`).
 
 **Run it locally, from the plugin root, before opening a PR that adds or touches an
 agent/skill/command file:**
@@ -138,10 +152,13 @@ It optionally accepts a repo-root path as its first argument (`./scripts/validat
 /path/to/checkout`), defaulting to its own parent directory — useful for running it against a
 worktree or a fixture directory without `cd`-ing first.
 
-**CI candidate, not yet wired up:** this script's exit code is designed to gate a merge — it is a
-natural fit for a GitHub Actions workflow step (`run: ./scripts/validate-plugin.sh`) triggered on
-pull requests touching `agents/**`, `skills/**`, `commands/**`, or `docs/DE-24-STEPS.md`. That
-workflow file itself is out of scope here; this is the one-line pointer for whoever picks it up.
+**Wired into CI (round 2):** `.github/workflows/validate-plugin.yml` runs this script on every
+`push` and `pull_request` (no `branches:` filter on either trigger, so every branch and every PR
+base is covered), with no `continue-on-error` — a non-zero exit fails the `validate-plugin.sh`
+check on the commit/PR, gating a merge in practice provided the repo's branch protection rules
+require that check (that requirement lives in GitHub's Settings → Branches, not in the workflow
+file itself, and isn't verifiable from here). See the workflow file's own header comment for the
+round-3 confirmation of these specifics.
 
 ## 5. Where this leaves a new contributor
 
