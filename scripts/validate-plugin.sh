@@ -273,6 +273,193 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# 6. business-state.json field references vs. docs/DATA-CONTRACT.md (heuristic, WARNING-only)
+# ---------------------------------------------------------------------------
+#
+# Goal (docs/ROADMAP.md v0.2 priority 3 / CONVENTIONS.md §5): catch a new business-state.json
+# field that got used somewhere in the corpus but never declared in docs/DATA-CONTRACT.md in the
+# same change.
+#
+# This is a heuristic, not a JSON-schema-level check — doing this precisely would mean parsing
+# every agent/skill's prose into an actual field-access AST, which is real complexity a bash
+# script has no business attempting. Instead it looks for two patterns this repo's own files
+# actually use (confirmed by reading real files before writing this check, not assumed):
+#   (a) an explicit dotted path with the literal `business-state.json.` prefix
+#       (e.g. `business-state.json.cadence.check_in_frequency`), and
+#   (b) a backtick-wrapped dotted-path or array token (`` `foo.bar` ``, `` `foo[]` ``) appearing
+#       inside a section whose own heading mentions business-state.json — this repo's dominant
+#       convention is a `## Update business-state.json` (or `## Update \`business-state.json\``)
+#       heading per skill, immediately followed by the fields that skill writes.
+# Only the FIRST path segment (the top-level field name) is checked against the top-level keys
+# parsed out of docs/DATA-CONTRACT.md's own "## Top-level shape" block — nested shapes are
+# explicitly out of scope, per the task's own "top-level key at minimum" bar.
+#
+# Why WARNING, not ERROR: both patterns above produce real false positives this script cannot
+# fully rule out — a bare word backtick-adjacent to a business-state.json heading, a stray
+# `e.g.` or version string that happens to contain a dot, a legitimate nested-only field name
+# (e.g. `status`) written without its parent prefix in prose. A single false positive turning
+# into a hard CI failure would train contributors to silence this check rather than trust it,
+# which defeats the point. Promoting this to ERROR would need either a real JSON/markdown parser
+# or a much narrower, hand-maintained pattern list — both bigger than this script should take on
+# right now. Treat a warning here as "go look", not "go fix blindly".
+
+echo
+echo "== Checking business-state.json field references against docs/DATA-CONTRACT.md (heuristic) =="
+
+DATA_CONTRACT_DOC="$ROOT/docs/DATA-CONTRACT.md"
+FIELD_CANDIDATES_FILE="$TMP_DIR/field-candidates.tsv"   # topkey<TAB>path
+: > "$FIELD_CANDIDATES_FILE"
+
+if [ ! -f "$DATA_CONTRACT_DOC" ]; then
+  warn "[data-contract] $DATA_CONTRACT_DOC not found — cannot cross-check business-state.json field references"
+else
+  # Top-level keys sit at exactly 2-space indentation inside the outer `{ }` of the canonical
+  # "## Top-level shape" fenced ```json block; nested keys sit at 4+ spaces. Anchoring on exactly
+  # two leading spaces before the opening quote separates the two without a real JSON parser.
+  documented_keys_raw="$(awk '
+    /^## Top-level shape/ { seen_heading=1 }
+    seen_heading && /^```json/ && !injson { injson=1; next }
+    injson && /^```/ { exit }
+    injson
+  ' "$DATA_CONTRACT_DOC" | grep -oE '^  "[A-Za-z_][A-Za-z0-9_]*":' | tr -d ' ":')"
+
+  declare -A DOCUMENTED_KEYS
+  doc_key_count=0
+  while IFS= read -r k; do
+    [ -z "$k" ] && continue
+    DOCUMENTED_KEYS["$k"]=1
+    doc_key_count=$((doc_key_count + 1))
+  done <<< "$documented_keys_raw"
+
+  if [ "$doc_key_count" -eq 0 ]; then
+    warn "[data-contract] could not parse any top-level keys out of docs/DATA-CONTRACT.md's '## Top-level shape' block — skipping the field cross-check this run"
+  else
+    while IFS= read -r target_file; do
+      [ -f "$target_file" ] || continue
+      rel="${target_file#"$ROOT"/}"
+
+      # (a) explicit "business-state.json.X..." references anywhere in the file.
+      while IFS= read -r topkey; do
+        [ -z "$topkey" ] && continue
+        [ "${#topkey}" -lt 3 ] && continue
+        printf '%s\t%s\n' "$topkey" "$rel" >> "$FIELD_CANDIDATES_FILE"
+      done < <(grep -oE 'business-state\.json\.[A-Za-z_][A-Za-z0-9_]*' "$target_file" 2>/dev/null \
+                 | sed -E 's/^business-state\.json\.//')
+
+      # (b) backtick-wrapped dotted-path/array tokens inside a "...business-state.json..."
+      # heading's own section (from that heading up to the next heading of any level).
+      section_text="$(awk '
+        /^#+.*business-state\.json/ { insection=1; next }
+        /^#+/ { insection=0 }
+        insection
+      ' "$target_file" 2>/dev/null)"
+
+      while IFS= read -r topkey; do
+        [ -z "$topkey" ] && continue
+        [ "${#topkey}" -lt 3 ] && continue
+        printf '%s\t%s\n' "$topkey" "$rel" >> "$FIELD_CANDIDATES_FILE"
+      done < <(printf '%s\n' "$section_text" \
+                 | grep -oE '`[a-z_][a-z0-9_]*(\.[A-Za-z0-9_]+|\[\])' \
+                 | tr -d '`' \
+                 | sed -E 's/(\[\])?(\..*)?$//')
+    done < <(find "$AGENTS_DIR" -type f -name '*.md' 2>/dev/null; find "$SKILLS_DIR" -type f -name 'SKILL.md' 2>/dev/null)
+
+    if [ -s "$FIELD_CANDIDATES_FILE" ]; then
+      undoc_keys="$(cut -f1 "$FIELD_CANDIDATES_FILE" | sort -u)"
+      undoc_count=0
+      while IFS= read -r topkey; do
+        [ -z "$topkey" ] && continue
+        if [ -z "${DOCUMENTED_KEYS[$topkey]:-}" ]; then
+          offenders="$(awk -F'\t' -v k="$topkey" '$1 == k {print $2}' "$FIELD_CANDIDATES_FILE" | sort -u | paste -sd', ' -)"
+          warn "[business-state-field] '$topkey' is referenced as a business-state.json top-level field in: $offenders — not found among the top-level keys declared in docs/DATA-CONTRACT.md's '## Top-level shape' block. If this is a real new field, declare it there in the same change (CONVENTIONS.md §5); if it's a false positive from this heuristic (see comment above), no action needed."
+          undoc_count=$((undoc_count + 1))
+        fi
+      done <<< "$undoc_keys"
+      if [ "$undoc_count" -eq 0 ]; then
+        echo "   every referenced business-state.json top-level field matches docs/DATA-CONTRACT.md ($doc_key_count documented top-level key(s))"
+      else
+        echo "   $undoc_count possibly-undocumented top-level field name(s) found — see warnings below (non-fatal; heuristic, not a proof — see script comment)"
+      fi
+    else
+      echo "   no business-state.json field references found to check"
+    fi
+  fi
+fi
+
+# ---------------------------------------------------------------------------
+# 7. agents/council/*.md — commitment to the CONVENTIONS.md §6 verdict schema
+# ---------------------------------------------------------------------------
+#
+# What this check CAN verify: that each council agent's own instructions actually spell out the
+# CONVENTIONS.md §6 schema's required markers as the shape its persona must return — the exact
+# same "## Output format — exactly this shape (CONVENTIONS.md §6)" fenced example every existing
+# agents/council/*.md file uses today (confirmed by reading real council files before writing
+# this check, not assumed from the schema's prose description). Concretely, per file:
+#   - a `## Verdict:` heading line that names all four verdict values
+#     (APPROVE / APPROVE_WITH_NOTES / REVISE / REJECT), not just the word "Verdict"
+#   - a `**Score:**` line
+#   - a `**Reviewer persona:**` line
+#   - a `### Strengths` heading
+#   - a `### Risks` heading (CONVENTIONS.md §6 writes it as "### Risks / gaps"; the suffix is
+#     allowed to vary, the "Risks" heading itself is not optional)
+#   - a `### Required revisions` heading
+#
+# What this check CANNOT verify: whether a council agent's ACTUAL output, the day it actually
+# runs, uses this shape correctly, scores honestly, or fills in real content rather than
+# boilerplate. That requires executing the agent and inspecting a real response — this script
+# never invokes Claude and never will; that's docs/TESTING.md Layer 2 (behavioral eval), owned by
+# `claude plugin eval` / skill-doctor, explicitly out of this script's scope. A file can pass this
+# check and still misbehave at runtime, and a file failing this check is a real, fixable defect in
+# the agent's own instructions, not a false positive — that asymmetry is why this check IS
+# error-level (unlike check 6 above): it greps for literal text the file's author controls
+# directly, not a fuzzy inference about intent.
+
+echo
+echo "== Checking agents/council/*.md commit to the CONVENTIONS.md §6 verdict schema =="
+
+COUNCIL_DIR="$AGENTS_DIR/council"
+CHECKED_COUNCIL=0
+
+if [ -d "$COUNCIL_DIR" ]; then
+  while IFS= read -r council_file; do
+    CHECKED_COUNCIL=$((CHECKED_COUNCIL + 1))
+    rel="${council_file#"$ROOT"/}"
+    missing=()
+
+    verdict_line="$(grep -E '^##[[:space:]]*Verdict:' "$council_file" | head -n1)"
+    if [ -z "$verdict_line" ]; then
+      missing+=("a '## Verdict:' heading")
+    else
+      for token in APPROVE APPROVE_WITH_NOTES REVISE REJECT; do
+        case "$verdict_line" in
+          *"$token"*) : ;;
+          *) missing+=("the '$token' option on its '## Verdict:' line") ;;
+        esac
+      done
+    fi
+
+    grep -qE '\*\*Score:\*\*' "$council_file" || missing+=("a '**Score:**' line")
+    grep -qE '\*\*Reviewer persona:\*\*' "$council_file" || missing+=("a '**Reviewer persona:**' line")
+    grep -qE '^###[[:space:]]*Strengths' "$council_file" || missing+=("a '### Strengths' heading")
+    grep -qE '^###[[:space:]]*Risks' "$council_file" || missing+=("a '### Risks' heading")
+    grep -qE '^###[[:space:]]*Required revisions' "$council_file" || missing+=("a '### Required revisions' heading")
+
+    if [ "${#missing[@]}" -gt 0 ]; then
+      joined="$(printf '%s; ' "${missing[@]}")"
+      fail "[council-verdict-schema] $rel: does not commit to the CONVENTIONS.md §6 verdict schema in its own instructions — missing: ${joined%; }"
+    fi
+  done < <(find "$COUNCIL_DIR" -type f -name '*.md' | sort)
+
+  if [ "$CHECKED_COUNCIL" -eq 0 ]; then
+    warn "[council-verdict-schema] no agents/council/*.md files found to check"
+  else
+    echo "   checked $CHECKED_COUNCIL council agent file(s) for §6 schema commitment (structural check on instructions only — see comment above this check)"
+  fi
+else
+  warn "agents/council/ directory does not exist"
+fi
+
+# ---------------------------------------------------------------------------
 # Summary
 # ---------------------------------------------------------------------------
 

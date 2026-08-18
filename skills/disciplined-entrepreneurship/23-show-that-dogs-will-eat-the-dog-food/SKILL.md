@@ -66,6 +66,34 @@ Ask the founder directly:
 - "Has anyone used this in a way you didn't expect, or stopped using a part of it you thought was
   important?"
 
+## Business-type branching
+
+Push for the concrete usage signal that actually matters for each type, not a generic "are they
+happy" check:
+
+- **SaaS:** Login/feature-usage events, DAU/WAU ratio, core-workflow completion rate (started vs.
+  finished the key job-to-be-done), and expansion signal (seats or usage growing without being
+  asked) — the strongest SaaS adoption signal is usage *growing* post-onboarding, not just present.
+- **Physical product:** Repeat purchase or reorder rate, consumption rate of a consumable (does the
+  replenishment cadence match what was assumed in Step 17's LTV), and unprompted reviews/unboxing
+  engagement/social posts — a single purchase with no reorder and no organic mention is a weak
+  signal even if the transaction itself closed cleanly.
+- **Marketplace:** Repeat transaction rate on **each side separately** (supply-side re-listing,
+  demand-side repeat purchase) — a healthy demand side with a churning supply side is not healthy,
+  and vice versa; also check match rate/time-to-match as a leading indicator, since a marketplace
+  can have "usage" (browsing) without actual liquidity (completed matches).
+- **Services:** Retainer renewal/expansion, scope increase requested by the client, referral to
+  another client — for a one-off project, "would they hire you again, unprompted, without being
+  asked directly" is the closest analog to a usage metric a services business has.
+- **Consumer app:** DAU/MAU ratio (stickiness), and specifically the shape of the D1/D7/D30
+  retention curve — the classic dog-food signal for a consumer app is a retention curve that
+  flattens at a non-zero level rather than decaying to zero, not a single satisfied comment.
+  Session frequency/length against the intended use case, and organic/referral share (an actual
+  K-factor or invite-acceptance rate, not stated willingness to recommend) round out the picture.
+- **Other:** Ask the founder what "real, ongoing use" concretely looks like and how it's logged
+  for their business rather than assuming one of the above patterns applies (per
+  `docs/UX-INTERVIEW-DESIGN.md` §4).
+
 ## When the founder doesn't know
 
 If no usage instrumentation exists yet, or the MVBP hasn't been in a real customer's hands long

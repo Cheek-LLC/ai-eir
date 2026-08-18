@@ -24,7 +24,9 @@ re-litigate earlier decisions — it sequences execution of them.
 
 ## Reads
 
-- `.startup/<slug>/business-state.json` (whole file)
+- `.startup/<slug>/business-state.json` (whole file). Read `business_basics.business_type` — it
+  determines what typically dominates the near-term roadmap and what the pin-2 readiness gate
+  usually depends on; see "Business-type branching."
 - `.startup/<slug>/plan/23-show-that-dogs-will-eat-the-dog-food.md` — required. Real usage
   evidence (or its absence) directly determines roadmap priority: weak adoption in a specific
   workflow area means that area gets prioritized before anything else, regardless of what looks
