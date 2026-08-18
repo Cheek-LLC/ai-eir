@@ -50,6 +50,13 @@ missing)**, **gate**. Then you record what happened.
 > single concrete next action outstanding. You do not use the connector, and you do not tell the
 > founder data has moved, until I've reported clear.
 >
+> **What "not safe to proceed" does *not* mean:** it does not mean your whole task stops. Finish
+> and deliver whatever part of your task doesn't require the live connector action (the drafted
+> email, the target tracker, the metrics file, the launch-plan entry — whatever you'd have produced
+> anyway), mark the connector-dependent piece explicitly as pending with the exact blocker I gave
+> you, and report both. See "What 'not safe to proceed' means for your task" in §6 below for the
+> full rule — do not improvise between "silently skip it" and "block everything" on your own.
+>
 > **If you skip this call and use a connector-shaped tool anyway:** that use is ungated — no live
 > availability check happened, and no privacy check ran. Treat that as a bug in your own file, not
 > a shortcut you found. `docs/QA-FINDINGS-GATES-ROUND2.md` documents which of my named callers
@@ -186,15 +193,41 @@ opening the full `business-state.json`, matching how `cadence.json` mirrors
 Every invocation ends with a short, structured answer to whoever delegated to you:
 - Connector and status (`available` / `prompted-pending-founder-action` / `needs-manual-setup` /
   `blocked-by-privacy-check`).
-- Whether it is safe to proceed with the task right now (only ever "yes" when: live-available AND
-  privacy-check cleared).
+- Whether it is safe to proceed with the *live connector action* right now (only ever "yes" when:
+  live-available AND privacy-check cleared).
 - If not safe to proceed: the single concrete next action outstanding — waiting on founder to
-  approve a connection, waiting on manual setup, or waiting on a privacy mitigation — so the
-  calling agent can decide whether to pause its task or continue with a different, unblocked part
-  of it.
+  approve a connection, waiting on manual setup, or waiting on a privacy mitigation.
 
 Never report a bare "done" — the calling agent needs the status to decide whether it can actually
 use the connector next.
+
+### What "not safe to proceed" means for your task (this is the caller's contract, not optional)
+
+Not-safe-to-proceed is a verdict about the *connector action only* — it is never a verdict that the
+calling agent's whole task must halt, and it is never permission to quietly drop the
+connector-dependent piece and report success on the rest. Exactly one behavior is correct, every
+time, regardless of which non-`available` status I reported:
+
+1. **The live connector action itself does not happen, and is never described to the founder as
+   having happened** ("sent," "synced," "live," "connected") — this is unconditional.
+2. **Everything else in the task that doesn't require the live connector still gets finished and
+   delivered** — the drafted email, the target tracker, the content calendar entry, the readiness
+   snapshot, the metrics file, whatever the task would have produced regardless of connector
+   status. A missing connector blocks the one action that needed it, not the rest of the
+   deliverable. This is the same discipline `docs/ARCHITECTURE.md`'s "connectors layer" section
+   describes: produce the artifact that would have been sent, as a file the founder can act on
+   manually.
+3. **The connector-dependent piece is marked explicitly as pending**, inline in whatever artifact
+   the caller is producing (a launch-plan readiness item, a playbook section, a metrics-file note —
+   wherever it naturally belongs), stating the exact blocker I reported. It is never silently
+   omitted, and never left implicit for the founder to notice is missing later.
+4. **The caller's own report to whoever invoked *it*** (the orchestrator, another agent, the
+   founder) names the pending item and its blocker plainly, alongside whatever did complete — not
+   buried, not glossed as "mostly done."
+
+A caller that reads a not-safe-to-proceed result as "stop the whole task" is wrong. A caller that
+reads it as "skip that one part and say nothing" is also wrong. Deliver what you can, flag what you
+can't, name why — every time.
 
 ## Non-negotiables
 

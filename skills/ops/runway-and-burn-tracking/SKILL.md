@@ -22,9 +22,10 @@ plainly, and say clearly when the answer means "act now."
 
 ## Reads
 
-- `.startup/<slug>/business-state.json` — `cadence` (for period length), `quantitative_claims`
-  tagged step_ref 15/16 (revenue model shape, for context only — never a substitute for the
-  founder's actual reported revenue).
+- `.startup/<slug>/business-state.json` — `cadence` (for period length), `business_basics.
+  business_type` (what's likely driving burn — see Step 1a), `quantitative_claims` tagged
+  step_ref 15/16 (revenue model shape, for context only — never a substitute for the founder's
+  actual reported revenue).
 - The most recent prior `.startup/<slug>/ops/*-finance-metrics.md`, if one exists — for trend and
   as a sanity check (a wildly inconsistent jump in reported cash from one period to the next is
   worth asking about), never as a stand-in for today's number.
@@ -43,6 +44,40 @@ If the founder can't or won't give a number, record **"not provided by founder"*
 that field. Do not estimate a plausible figure in its place. A finance-metrics file with an
 honest gap is useful; one with a fabricated number that happens to look reasonable is not — it's
 the single worst place in this plugin to guess.
+
+## Step 1a: What's actually driving burn, by business type
+
+The runway formula in Step 2 never changes — this section adds context on what's *behind* the
+spend number, not an alternate calculation. Check `business_basics.business_type` and, when it
+applies, ask the founder to break last period's total spend into the lines below as a follow-up to
+Step 1's question 2, so the finance-metrics file separates a deliberate or structural spend
+pattern from an undifferentiated "burn is high" read:
+
+- **`physical_product`**: inventory-heavy businesses tie up real cash in stock. Ask what fraction
+  of last period's spend went to building/holding inventory versus ongoing operating costs
+  (payroll, rent, tools). Report **working-capital burn** (spend on inventory/stock) as its own
+  line, separate from **operating burn** (everything else) — a period that looks like heavy burn
+  might actually be inventory being built ahead of a real sales ramp, which reads very differently
+  from the same dollar amount spent on ongoing opex with nothing to show for it.
+- **`marketplace`**: burn is often driven by supply-side and/or demand-side incentives (referral
+  bonuses, below-cost pricing, subsidies used to seed liquidity) — these are a deliberate,
+  temporary spend to bootstrap the marketplace, not a cost-structure problem, and should never be
+  buried inside core opex. Ask what fraction of last period's spend was incentive/subsidy spend.
+  Report the blended net burn (unchanged, feeds the Step 2 runway formula) **and**, separately, a
+  reference figure for burn excluding incentives — the second number is what tells the founder
+  whether the underlying cost structure works once subsidies eventually taper, which the blended
+  runway figure alone can't show.
+- **`services`**: burn here is typically dominated by people-cost. Ask what fraction of last
+  period's spend was payroll/contractor cost, and — if a recent `weekly-metrics-review` snapshot
+  reports billable utilization — note it alongside burn as context. Low utilization paired with
+  high people-cost spend is a specific, actionable finding (paid capacity sitting on the bench),
+  distinct from "burn is just high" and worth naming explicitly rather than folding into the
+  blended figure.
+- **`saas`** / **`consumer_app`**: burn is typically driven fairly evenly by team headcount and
+  infra/tooling costs — the standard Step 1 breakdown (payroll, tools, rent, contractors) usually
+  already captures what's driving it; no additional split is needed here.
+- **`other`**: ask the founder directly what's actually driving spend this period before assuming
+  any category above applies — record it in the founder's own terms.
 
 ## Step 2: Compute net burn and runway
 
@@ -106,6 +141,13 @@ _This is a planning aid, not licensed accounting, financial, or tax advice._
 ## Net burn and runway
 Net burn: $... | Runway: N.N months (or "not applicable — cash-generative" or "cannot be
 computed — missing <input>")
+
+## Burn composition (physical_product, marketplace, and services only — omit for other types)
+<physical_product: working-capital burn (inventory/stock spend) $... vs. operating burn $... |
+marketplace: blended net burn $... (unchanged, feeds the figure above) vs. burn excluding
+supply/demand incentive spend $... | services: people-cost spend $... as a share of total spend,
+noted alongside this period's billable utilization if known. Omit this section entirely for saas,
+consumer_app, or other unless the founder specifically flagged a comparable structural spend line.>
 
 ## Classification
 <Critical / Warning / Watch / Healthy>, per the thresholds above.

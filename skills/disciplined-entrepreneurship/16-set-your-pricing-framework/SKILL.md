@@ -69,10 +69,29 @@ ask the version below, not a generic one:
   channel is incomplete here.
 - **Marketplace:** The "price" is a take rate (% of transaction value) or a flat listing/
   subscription fee on one or both sides — ask which, and whether the rate is actually viable
-  given what each side would tolerate before liquidity breaks down.
+  given what each side would tolerate before liquidity breaks down. Ask specifically what take
+  rate comparable marketplaces in this category charge (10-20% is common for services/goods
+  marketplaces, lower for high-value/low-frequency categories like real estate or freight) and
+  whether this marketplace's rate needs to start lower to bootstrap liquidity before rising once
+  the network effect makes switching costly for participants.
 - **Services:** Ask whether pricing is hourly, per-project/milestone, or retainer-based, and what
   determines which engagements get quoted which way — the "unit" being priced is the harder
-  question here than the number itself.
+  question here than the number itself. Ask explicitly what the effective hourly/day rate works
+  out to once scope creep and non-billable delivery time (revisions, project management, client
+  communication) are accounted for — a headline project price that looks healthy can hide an
+  effective rate well below what the founder intended, and this is the number Step 19's COCA and
+  the delivery-capacity question actually depend on.
+- **Consumer app:** Ask whether the price point is a subscription tier (monthly/annual, and what
+  the annual discount is meant to do to retention), a one-time purchase, or IAP priced at
+  psychological price-point anchors (e.g., $0.99/$4.99/$9.99) — and if freemium, what specific
+  paid-tier feature or limit is meant to trigger conversion, and at roughly what conversion rate
+  from free to paid the model needs to work (state it as an assumption if untested, since
+  freemium-to-paid conversion rates are commonly in the low single digits and an unstated
+  optimistic assumption here quietly breaks the whole model). If ad-supported, ask what eCPM
+  assumption is being used and whether it's sourced from a comparable app's reported figures or
+  invented.
+- **Other:** Ask the founder which of the above pricing shapes fits best, or whether it's a
+  genuine hybrid, rather than guessing (per `docs/UX-INTERVIEW-DESIGN.md` §4).
 
 ## When the founder doesn't know
 

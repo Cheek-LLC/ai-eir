@@ -33,15 +33,47 @@ against the plan's own step-3/5 definition of the beachhead customer, not just r
   to `.startup/<slug>/plan/15-design-a-business-model.md` directly.
 - The most recent prior `.startup/<slug>/ops/*-retention-metrics.md`, if one exists — for trend.
 
-## Step 1: Determine the right retention frame
+## Step 1: Determine the right retention frame, by business type
 
-- Subscription/recurring model: logo churn rate; revenue churn / net revenue retention if pricing
-  varies materially by account and the founder tracks per-account revenue.
-- Marketplace/usage-based model: repeat-transaction or repeat-usage rate over a defined window
-  (there may be no formal cancellation event).
-- One-time-purchase model (e.g. much of physical-product DTC, or project-based services): "churn"
-  doesn't map cleanly — use repeat-purchase rate / renewal-of-engagement rate instead, and say so
-  explicitly rather than forcing a churn-% headline that doesn't mean anything for this business.
+What "churn" even means is not the same question across business types — check
+`business_basics.business_type` (falling back to `plan/15-design-a-business-model.md` if
+`ops/kpi-dashboard.md` doesn't exist yet) before picking a frame:
+
+- **`saas`**: subscription cancellation and downgrade. Logo churn rate (accounts that cancel
+  outright), and — kept as a *separate* number, not blended into logo churn — revenue
+  churn/downgrade rate if pricing varies materially by account and the founder tracks per-account
+  revenue. A cancellation and a downgrade are different severities of the same underlying signal;
+  report both.
+- **`marketplace`**: supply-side churn and demand-side churn are different problems with different
+  fixes, and must be computed and reported **separately** — never blended into one "marketplace
+  churn" number. Supply-side churn = active sellers/providers who stop listing/transacting;
+  demand-side churn = active buyers who stop transacting. A period where supply-side churn spikes
+  while demand-side is stable (or vice versa) is a materially different finding than a single
+  blended rate would show, and calls for a different fix (seller economics/support vs. buyer
+  experience/pricing).
+- **`physical_product`**: "churn" in the subscription sense doesn't apply — there's no
+  subscription to cancel — so reframe the question entirely rather than forcing a churn-%
+  headline. Track repeat-purchase rate (customers who purchase again within a defined window) and
+  customer lifetime (average span between a customer's first and most recent purchase, or purchase
+  frequency over a trailing period) instead. State the reframe explicitly in the output file.
+- **`services`**: which frame applies depends on the engagement model, and a services business can
+  have both — ask the founder which segment this covers, or split the analysis if it's genuinely
+  both:
+  - *Recurring engagements* (retainers, ongoing contracts): client retention/renewal rate — did
+    the client renew or continue past the current term.
+  - *One-off, project-based engagements*: renewal doesn't apply — there's no ongoing relationship
+    to lose. Track project completion rate (delivered on time and in scope) and repeat-engagement
+    rate (a past client returning for a new, separate project) instead; repeat-engagement is a
+    different metric from renewal and shouldn't be reported as if it were the same thing.
+- **`consumer_app`**: cohort retention curves, not a single blended churn %. Ask for retained-user
+  counts at D1/D7/D30 for the most recent cohort(s) old enough to report each checkpoint — a
+  cohort younger than 30 days can only report D1/D7 so far; mark D30 "not yet elapsed" rather than
+  forcing a number that doesn't exist yet.
+- **`other`**: ask the founder directly what "a customer leaving" or "losing engagement" actually
+  means for this business before picking any frame above — don't default to subscription churn or
+  repeat-purchase by assumption. Use whatever definition the founder gives, and record it
+  explicitly in the output file so future periods reuse the same definition instead of
+  re-litigating it each check-in.
 
 ## Step 2: Ask the founder for real numbers
 
@@ -80,8 +112,11 @@ Timestamp format `YYYY-MM-DD`; append `-2`, `-3`... for a same-day rerun.
 # Retention Metrics — <business name> — <date>
 
 ## Retention frame used
-<logo churn | revenue churn/NRR | repeat-transaction rate | repeat-purchase rate>, because
-<business model reason>.
+<logo churn | revenue churn/downgrade | supply-side churn + demand-side churn (marketplace,
+reported separately) | repeat-purchase rate + customer lifetime (physical_product) | client
+renewal rate and/or project completion + repeat-engagement rate (services) | D1/D7/D30 cohort
+retention (consumer_app) | founder-defined frame (other)>, because <business type and model
+reason>.
 
 ## Founder-reported inputs
 | Metric | Value | Source |
@@ -89,6 +124,10 @@ Timestamp format `YYYY-MM-DD`; append `-2`, `-3`... for a same-day rerun.
 | Customers/users, start of period | ... | founder-reported <date> |
 | New this period | ... | founder-reported <date> |
 | Lost this period | ... | founder-reported <date> |
+
+_For marketplace, repeat this table once for supply-side and once for demand-side rather than one
+blended row. For services covering both recurring and one-off engagements, repeat it once per
+segment. For consumer_app, replace this table with retained-user counts per cohort at D1/D7/D30._
 
 ## Headline retention metric
 <Rate, with the formula shown.>

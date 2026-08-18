@@ -57,6 +57,45 @@ Ask the founder directly:
   product (expansion revenue) versus a genuinely new customer base?"
 - "What would have to be true — technically or commercially — before pin 2 becomes sellable?"
 
+## Business-type branching
+
+What counts as a legitimate "adjacency" — and how the follow-on TAM should be sized — differs by
+`business_basics.business_type`. Read it before running the adjacency-logic questions above:
+
+- **SaaS:** Adjacency is usually either (a) expansion within existing accounts — selling an
+  adjacent module/workflow to a role or department the beachhead product hasn't reached yet inside
+  the same company — or (b) a new logo in an adjacent vertical that shares the same core product
+  and buying motion. Size these very differently: (a) is closer to expansion revenue and should be
+  cross-checked against Step 17's LTV assumptions so it isn't double-counted as both TAM and LTV
+  expansion; (b) is a genuinely new TAM using the same bottom-up method as Step 4.
+- **Physical product:** Adjacency usually runs through shared manufacturing/supply chain (a new
+  SKU using the same production line and materials), a shared retail relationship (the same buyer
+  who already stocks you would plausibly carry an adjacent product), or brand loyalty extending
+  into an adjacent category. Size using count × realistic price exactly as in Step 4, and flag
+  whether the adjacent product needs new tooling/certification (a real cost and timeline gate, not
+  just a market-sizing footnote).
+- **Marketplace:** The most common and highest-leverage adjacency is adding a new supply or demand
+  *category* onto the existing two-sided network — reusing the trust/liquidity engine and the side
+  that's already solved, while adding the harder side fresh for the new category. Size follow-on
+  TAM the same way as Step 4: GMV (transacting population × transaction value × frequency) × take
+  rate for the new category — never a per-seat or flat-fee estimate. State explicitly which side
+  (supply or demand) is reused from the beachhead and which side still needs to be built from
+  scratch, since that materially changes how "natural" the pin actually is.
+- **Services:** Adjacency is usually either a new service line sold to the *same* client base
+  (higher wallet share per existing client — check this doesn't just restate Step 17's expansion
+  revenue as if it were new TAM) or the same service sold to an adjacent client segment. Either
+  way, restate the delivery-capacity flag from Step 4 explicitly here too — capacity constraints
+  compound across pins, since the same founder/team now has to deliver two service lines instead
+  of one, and TAM figures say nothing about deliverable revenue without that caveat.
+- **Consumer app:** Adjacency is usually either a new use case/feature vertical monetized within
+  the *existing* user base (a different revenue lever on the same DAU — distinguish this sharply
+  from new TAM, since it's really an ARPU-expansion play) or genuinely new user acquisition into an
+  adjacent audience. Be explicit about which one is being sized; presenting existing-user
+  monetization expansion as if it were incremental TAM is the most common inflation risk at this
+  step for this business type.
+- **Other:** Ask the founder which adjacency logic actually fits their business rather than
+  guessing (per `docs/UX-INTERVIEW-DESIGN.md` §4).
+
 ## When the founder doesn't know
 
 Follow-on market sizing is inherently more speculative than the beachhead. Never fabricate

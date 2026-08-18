@@ -27,11 +27,54 @@ regardless of that setting.
 - `.startup/<slug>/ops/kpi-dashboard.md` — required. If missing, stop here and report back that
   `kpi-dashboard-setup` needs to run first; do not improvise a generic KPI list to fill the gap.
 - `.startup/<slug>/business-state.json` — `quantitative_claims` tagged step_ref 19 (COCA) for the
-  plan-comparison figure, `cadence` for the period this review covers.
+  plan-comparison figure, `cadence` for the period this review covers, and `business_basics.
+  business_type` (plus `business_type_notes`) — read before Step 1 to determine which type-specific
+  metrics to ask about in addition to the acquisition/COCA questions below.
 - `.startup/<slug>/plan/19-calculate-the-coca.md` — the plan's own COCA derivation, so the
   comparison cites method, not just the headline number.
 - The most recent prior `.startup/<slug>/ops/*-growth-metrics.md`, if one exists — for
   period-over-period deltas.
+
+## Business-type dispatch: what "the metrics that matter this week" actually means
+
+Acquisition/COCA (Step 1 below) matters for every business, but a founder checking in on "how are
+we doing this week" is also thinking about type-specific numbers acquisition alone doesn't
+capture. Check `business_basics.business_type` and ask for these too, this period, alongside
+Step 1's questions — mark "not tracked" per the same discipline if the founder doesn't have a
+number, never estimate one:
+
+- **`saas`**: new MRR added this period, churned/contracted MRR this period (cancellations and
+  downgrades — keep these two apart, don't blend them into one "churn" line), and activation rate
+  (new signups this period who reached the product's defined activation event, ÷ new signups this
+  period).
+- **`marketplace`**: GMV this period, take-rate revenue (GMV × take rate), and growth on **both
+  sides tracked separately** — new/active supply-side participants and new/active demand-side
+  participants as two distinct numbers, never blended into one "users" figure. This is the same
+  supply/demand-separation convention used elsewhere in this plugin's marketplace guidance (see
+  `skills/ops/kpi-dashboard-setup`'s marketplace archetype row and the DE step-01/02/03/04
+  branching in `docs/UX-INTERVIEW-DESIGN.md` §4). A period where supply grew and demand didn't (or
+  vice versa) is a materially different finding than "users grew 12%" would suggest.
+- **`physical_product`**: units sold this period, sell-through rate (units sold ÷ units
+  available/stocked this period), and inventory turns (COGS this period ÷ average inventory
+  value). If the founder doesn't track average inventory value precisely, mark inventory turns
+  "recommended, not yet trackable" rather than approximating an average.
+- **`services`**: billable utilization (billable hours delivered ÷ available capacity hours this
+  period), pipeline value (open, not-yet-closed opportunity value currently being worked), and
+  project/engagement completion rate (engagements completed on time and in scope this period ÷
+  engagements scheduled to complete this period).
+- **`consumer_app`**: DAU/MAU this period (and the DAU:MAU ratio as a stickiness read), plus a
+  pointer to the current cohort-retention read from `retention-and-churn-analysis` if one exists
+  this period — don't recompute the full cohort curve here, that skill owns it. Ask about viral
+  coefficient only if this app actually has a referral/invite mechanic; if it doesn't, record "not
+  applicable — no viral loop in this product" rather than asking for a number that doesn't exist
+  for this business's growth model.
+- **`other`**: don't force any of the above templates onto a business they don't fit. Ask the
+  founder directly what number(s) they actually watch week to week to know whether the business is
+  doing well, and use exactly those going forward. Record the founder's own metric set in this
+  file's Notes so future periods reuse the same set rather than re-litigating it each check-in.
+
+These are in addition to — never a replacement for — the acquisition/COCA questions in Step 1
+below, which apply the same way across every business type.
 
 ## Step 1: Ask the founder for real actuals
 

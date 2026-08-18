@@ -69,6 +69,41 @@ Ask explicitly:
   saboteur/blocker role — every DMU has one; if the founder says "no one," push back)
 - "What's the single most common reason a deal that got this far still doesn't close?"
 
+## Business-type branching
+
+The shape of "the process" — how many distinct roles act, and whether it's one process or several
+running in parallel — changes fundamentally by `business_basics.business_type`. Map the actual
+shape, don't force a generic enterprise-sale cast onto a process that doesn't have one:
+
+- **SaaS:** If the DMU from Step 12 is multi-role (sales-assisted or enterprise), map the full
+  stage sequence with a distinct stage for security/procurement review where deal size warrants
+  it. If self-serve/PLG, collapse to a signup → activation → paid-conversion sequence with one
+  role (buyer = user) and no procurement stage — a self-serve product doesn't gain rigor by
+  inventing a committee for it.
+- **Physical product:** A DTC purchase is usually a single-person process (browse → cart →
+  checkout) with at most an informal influencer (a gift recipient, a household co-decider) — don't
+  map a DMU cast here. If the business also sells wholesale/retail, that is a **second, separate**
+  process with its own DMU-style cast (a retail buyer who reviews assortment fit, negotiates
+  terms, and issues a PO) — map both processes if both channels exist; do not merge them into one
+  table, since the trigger, proof, and objection at each stage differ completely by channel.
+- **Marketplace:** Map **two parallel processes** — one for acquiring supply (sellers/providers)
+  and one for acquiring demand (buyers) — never one blended map. What each side needs to see or
+  believe is different by nature: supply cares about earning potential, ease of listing, and
+  competition from other sellers; demand cares about selection, trust/safety, and price. State
+  explicitly which side's process is being mapped in each table.
+- **Services:** The process usually centers on trust-building through referral or reputation
+  rather than a cold acquisition funnel — typical stages are referral/introduction → discovery
+  call → proposal/scope → contract signed. For B2B services with an internal buyer organization,
+  the DMU can still be multi-role (as in SaaS); for solo/small clients it often collapses to one
+  person. Ask which shape applies rather than assuming.
+- **Consumer app:** Almost always a single-person, self-serve funnel with no DMU roles beyond the
+  one user — discovery (app store, ad, referral) → install → first-use moment → paid conversion
+  (if freemium/subscription). The paid-conversion moment is still worth calling out as its own
+  stage even though no new "role" enters — it's where the deal-killer question changes from
+  "will they try it" to "will they pay."
+- **Other:** Ask the founder which of the above shapes their process actually resembles (or
+  whether it's a genuine hybrid) rather than guessing — per `docs/UX-INTERVIEW-DESIGN.md` §4.
+
 ## When the founder doesn't know
 
 This step is qualitative and founders often genuinely don't know some of it before they've sold

@@ -38,8 +38,10 @@ resolves to pass / fail / insufficient-data — never a vibe.
 - The last 3+ (where they exist) `.startup/<slug>/ops/*-growth-metrics.md`,
   `.startup/<slug>/ops/*-finance-metrics.md`, `.startup/<slug>/ops/*-retention-metrics.md` — the
   checklist runs on trend across periods, not a single snapshot.
-- `.startup/<slug>/business-state.json` — `key_assumptions`/`quantitative_claims` tagged step_ref
-  17/19/22/23/24, `risk_log` (open findings bearing on readiness).
+- `.startup/<slug>/business-state.json` — `business_basics.business_type` (which criterion 3 and
+  6 evidence bar applies — see Business-type dispatch below), `key_assumptions`/
+  `quantitative_claims` tagged step_ref 17/19/22/23/24, `risk_log` (open findings bearing on
+  readiness).
 
 ## The checklist
 

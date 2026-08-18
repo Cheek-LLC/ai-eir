@@ -1,12 +1,16 @@
 # Roadmap
 
 This plugin is being built through iterative swarm rounds, not a single pass: **round 1** built
-v0.1 end to end (a full but shallow lifecycle spine); **round 2** — happening now — is a swarm of
-agents adversarially reviewing and fixing every layer of that spine in parallel, plus one agent
-running a live end-to-end dry run and logging what breaks. Round 2's output feeds directly into
-this roadmap's v0.2 priorities below, and future rounds will keep doing the same: review, fix,
-log findings, sharpen the roadmap, repeat. Treat this document as a snapshot that gets rewritten
-each round, not a static plan drafted once and executed against.
+v0.1 end to end (a full but shallow lifecycle spine); **round 2** was a swarm of agents
+adversarially reviewing and fixing every layer of that spine in parallel, plus one agent running a
+live end-to-end dry run and logging what broke. Round 2 is now complete and integrated. **Round
+3** — happening now — is a swarm of roughly seven agents deepening business-type branching across
+all 24 DE steps, adding two new council personas, hardening CI and the validation script, adding
+business-type instrumentation to the ops layer, auditing whether the connectors layer's
+"check-before-assuming" promise is real in practice, and running a second live end-to-end dry run
+against a marketplace business. Round 2's output fed directly into this roadmap's v0.2 priorities
+below; round 3's output will do the same for round 4. Treat this document as a snapshot that gets
+rewritten each round, not a static plan drafted once and executed against.
 
 This document is honest about the gap between what the plugin actually is right now and the
 long-term vision the spec describes — potentially hundreds of agents and thousands of skills
@@ -15,153 +19,192 @@ gets closed deliberately, in prioritized horizons, rather than by throwing volum
 
 ## v0.1 — complete
 
-Round 1 delivered one coherent, working pass through the whole lifecycle. As of this round, the
-repo actually contains:
+Round 1 delivered one coherent, working pass through the whole lifecycle: a central Startup
+Operator agent, onboarding + recurring check-in interviews, all 24 Disciplined Entrepreneurship
+step skills, business-plan assembly/revision/review-council skills, a 7-persona review council,
+AI-risk and privacy gates, GTM/ops/design/connector layers, QA agents and a structural validation
+script (not yet wired into CI), and 5 slash commands. What v0.1 delivered, honestly, was **one
+deep, working path** — first contact through an operating business with a check-in cadence — with
+SaaS-flavored guidance dominating wherever a step skill needed a concrete example to anchor
+questions. Industry-specific variants of each step were largely unwritten, the council persona
+library was SaaS/B2B-leaning, ops/GTM tooling was generic rather than business-model-specific, and
+none of it had been driven through a real end-to-end dry run or adversarial review.
 
-- A central Startup Operator agent (`agents/orchestrator.md`) that bootstraps a business, drives
-  it through onboarding, and owns state transitions.
-- An onboarding interview and a recurring check-in interview (`skills/interview/`, 2 skills).
-- All 24 Disciplined Entrepreneurship step skills (`skills/disciplined-entrepreneurship/01-...`
-  through `24-...`), each producing its own `plan/NN-slug.md` and state entry.
-- A business-plan assembler, reviser, and review-council runner (`skills/business-plan/`, 3
-  skills) plus `agents/business-plan-editor.md`.
-- A review-council system of 7 distinct personas under `agents/council/` (VC panel,
-  expert-entrepreneur panel, product-market-fit panel, customer-discovery skeptic,
-  competitive-strategy reviewer, financial-modeling reviewer, sales-motion reviewer), plus the
-  AI-risk and privacy/compliance gates (`agents/risk/`) that sit inside the approval path per
-  `docs/ARCHITECTURE.md`.
-- Go-to-market agents and skills (`agents/gtm/`, `skills/gtm/` — 4 agents, 5 skills), operations
-  agents and skills (`agents/ops/`, `skills/ops/` — 5 agents, 5 skills), a connectors layer
-  (`agents/connectors-liaison.md`, `skills/connectors/`, and a 9-category `docs/CONNECTORS-
-  CATALOG.md`), and a design/brand layer (`agents/design/brand-designer.md`, `skills/design/` —
-  3 skills).
-- QA agents (`agents/qa/`, 2 agents + `skills/qa/eval-a-skill`) and a structural validation
-  script (`scripts/validate-plugin.sh`) implementing Layer 1 of `docs/TESTING.md`'s three-layer
-  strategy — written, runnable locally, but **not yet wired into CI** (see v0.2 below).
-- Plugin-engineering scaffolding: 5 slash commands, with `/start-business` and
-  `/business-status` as the two founder-facing entry points.
+## Round 2 — adversarial review and fix: complete and integrated
 
-That's 24 agent files and 46 skill packages in total — a real, working spine, not a stub. What
-v0.1 delivered, honestly, is **one deep, working path** — first contact through an operating
-business with a check-in cadence — with enough coverage on each theme (SaaS-flavored guidance
-dominated where step skills needed a concrete example to anchor questions) that the framework
-held together end-to-end. It was not, at the end of round 1, the breadth the long-term vision
-describes: industry-specific variants of each step were largely unwritten, the council persona
-library was SaaS/B2B-leaning, ops/GTM tooling was generic rather than business-model-specific,
-and none of it had been driven through a real end-to-end dry run or adversarial review. That gap
-is exactly what round 2 exists to close a first layer of.
+Round 2 was a swarm of roughly seven agents, each independently reviewing and fixing one layer of
+what round 1 built, plus one agent driving a live, synthetic end-to-end business
+(**ShiftCover**, a B2B SaaS shift-coverage tool) through the full lifecycle and logging every gap
+it found to `docs/QA-FINDINGS-ROUND2.md` (cross-checked against a parallel, more exhaustive gate
+sweep in `docs/QA-FINDINGS-GATES-ROUND2.md`). Its findings were fixed directly rather than left as
+an open backlog, and the fixes are now verified present in the repo:
 
-## Round 2 — adversarial review and fix (the bridge to v0.2)
+- **Mandatory AI-risk gates wired into the DE steps that produce fact-claims and into onboarding.**
+  Steps `04-calculate-the-tam-for-the-beachhead-market`, `14-calculate-the-tam-for-follow-on-
+  markets`, `16-set-your-pricing-framework`, `17-calculate-the-ltv-of-a-customer`, and
+  `19-calculate-the-coca` each now carry a `## Mandatory AI-risk gate` section with a MANDATORY
+  GATE banner that blocks a step from being marked `status: "drafted"` until the gate passes or a
+  BLOCKED finding is resolved — closing the gap where an unsourced number could reach the assembled
+  plan before any risk review saw it. `skills/interview/onboarding-interview` got the matching
+  fix on the interview side.
+- **"Confidence & Validation Status" is now a real, mandatory section**, not a gap between what the
+  risk layer expected and what plan assembly produced. `agents/business-plan-editor.md` now states
+  it explicitly as mandatory on every canonical plan and revision, positioned right after the
+  executive summary; `skills/business-plan/assemble-business-plan/SKILL.md` instructs writing it
+  and checks for its presence with all four required parts before considering assembly done.
+- **The orchestrator's step-status bug is fixed.** `agents/orchestrator.md` is now explicit and
+  repeated at multiple points that no DE step's `status` is ever promoted past `"drafted"` by
+  anything in the plugin — `"approved"` was a stage-machine state (the whole plan, post-council),
+  not a per-step status, and the confusion between the two is closed.
+- **The council aggregation edge case is fixed.** `skills/business-plan/run-review-council/
+  SKILL.md` §5–6 now has a precisely defined "harshest non-outlier" computation, including a
+  documented rule for the specific cascade that could otherwise empty the blocking set and leave no
+  defined aggregate, plus a floor rule on the outlier test and the new 5th-seat mechanics for
+  `technical-feasibility-reviewer`.
+- **`business_basics.funding_intent` is a real field.** `docs/DATA-CONTRACT.md` now declares it
+  alongside `gtm.funding_strategy`, with the distinction spelled out: `funding_intent` is the
+  earliest founder-stated signal (or `undecided`), set once by onboarding and never re-inferred;
+  `gtm.funding_strategy` is the confirmed, operational decision made at GTM time.
+- **A technical-feasibility review-council persona** (`agents/council/technical-feasibility-
+  reviewer.md`) closed the gap where a technically unrealistic build plan could sail through every
+  round-1 persona untouched — bringing the council to 8 personas.
+- **A CI validation workflow** (`.github/workflows/validate-plugin.yml`) now runs
+  `scripts/validate-plugin.sh` on every `push` and `pull_request`, making `docs/TESTING.md` Layer 1
+  enforced automatically rather than dependent on a contributor remembering to run it locally.
 
-Round 2 is a swarm of roughly seven agents, each independently reviewing and fixing one layer of
-what round 1 built — DE step skills, review councils, GTM/ops agents, the risk and connector
-gates, business-plan assembly, the design layer, and the orchestrator/interview/QA layer — plus
-one agent driving a live, synthetic end-to-end business through the full lifecycle and logging
-every gap it finds to `docs/QA-FINDINGS-ROUND2.md` (the dry-run checklist it's executing against
-is `docs/TESTING.md` §3.1–3.3). Two structural additions are part of this round rather than
-deferred to v0.2 planning:
+## Round 3 — deepening breadth, in progress
 
-- **A technical-feasibility review-council persona** — round 1's 7-persona council covered
-  market, product-market-fit, competitive, financial, and sales-motion angles, but nothing
-  interrogated whether the product as specified (Step 7) is buildable in the stated timeline with
-  the stated resources. That gap let a plan with a technically unrealistic build plan sail through
-  every existing persona untouched; round 2 adds the persona that catches it.
-- **A CI validation workflow** — wiring `scripts/validate-plugin.sh` into GitHub Actions so
-  `docs/TESTING.md` Layer 1 runs automatically on every contribution instead of depending on a
-  contributor remembering to run it locally. (Previously slated as a v0.2 item; pulled forward
-  into round 2 because it's what makes round 2's own fixes — and every round after it — actually
-  enforced rather than trusted.)
+Round 3 is a swarm of roughly seven agents actively closing v0.2 priorities 1 and 2 below (rather
+than leaving them as open gaps for a future round to start), while also advancing priorities 3-5
+in parallel:
 
-This document does not summarize round 2's specific diffs — it's being written concurrently with
-round 2, not after it, so most of what round 2 changes isn't visible from here yet. What follows
-is grounded in what was true in the repo as this pass was written (spot-checked directly against
-current agent/skill files, not just round 1's plan for them) and in what round 2 is scoped to
-produce; a reader after round 2 lands should treat `docs/QA-FINDINGS-ROUND2.md` and the actual
-files as more current than the specifics below, and should expect this roadmap to be rewritten
-again once round 2's findings are in.
+- **Two agents deepening business-type branching** across the 24 DE step skills for
+  `marketplace`, `services`, and `consumer_app` — the three types round 1's SaaS-leaning default
+  under-served most.
+- **Two new council personas** — `marketplace-liquidity-specialist` and `services-unit-economics-
+  reviewer` — closing the two sharpest gaps in v0.2 priority 2's list (no persona could
+  interrogate two-sided-liquidity claims or services delivery-capacity/utilization economics on
+  their own terms).
+- **CI and validation-script hardening** — two new checks added to `scripts/validate-plugin.sh` /
+  the GitHub Actions workflow, addressing v0.2 priority 3.
+- **Business-type instrumentation added to 4 ops skills** — addressing v0.2 priority 4.
+- **An audit of whether the connectors layer's "check before assuming" promise is real** — walking
+  every GTM/ops skill that would act through a connector and confirming (or finding gaps in)
+  whether it actually checks `connectors.needed_not_installed` before assuming success, addressing
+  v0.2 priority 5.
+- **A second live end-to-end dry run**, this time against a marketplace business, logging findings
+  to `docs/QA-FINDINGS-ROUND3.md` — deliberately choosing a business type round 2's dry run
+  (B2B SaaS) didn't exercise, so the two dry runs together stress-test different parts of the
+  business-type branching this round is building.
 
-One concrete, already-visible signal of round 2 in motion: several DE step skills
-(`01-market-segmentation` through at least `04-calculate-the-tam-for-the-beachhead-market`) have
-already grown real `## Business-type branching` sections mid-round, in the exact structural
-position `docs/UX-INTERVIEW-DESIGN.md` §4 now documents as the convention. That's the pattern
-v0.2 priority 1 below expects to see finished across all 24 steps, not just the first few.
+**Grounded current state, walked directly against the repo as this document was written** (a
+snapshot mid-round — round 3 is still running as this is written, so treat the actual files as
+more current than the specifics below):
+
+- **Business-type branching**: 12 of 24 DE step skills (`01` through `12`) now have a real,
+  developed `## Business-type branching` section with genuinely distinct treatment per type — not
+  a one-line conditional. Spot-checking `01-market-segmentation` and
+  `04-calculate-the-tam-for-the-beachhead-market` confirms the depth bar is real: `marketplace`
+  gets its own counting/pricing logic (GMV × take rate, not a per-seat price; supply/demand sides
+  segmented separately), `services` gets delivery-capacity framing distinct from a SaaS seat
+  count, not a reskinned SaaS paragraph. Steps `13` through `24` do not yet have the section as of
+  this snapshot — that's the concrete remaining scope for this round (and, if round 3 doesn't
+  finish it, for round 4).
+- **Council personas**: 8 personas present (`vc-panel`, `expert-entrepreneur-panel`,
+  `customer-discovery-skeptic`, `product-market-fit-panel`, `financial-modeling-reviewer`,
+  `competitive-strategy-reviewer`, `sales-motion-reviewer`, `technical-feasibility-reviewer`); the
+  two new personas this round targets were not yet present as separate files as of this snapshot.
+- **Ops instrumentation**: 1 of 5 `skills/ops/*` packages (`kpi-dashboard-setup`) branches by
+  `business_type` as of this snapshot; `weekly-metrics-review`, `retention-and-churn-analysis`,
+  `runway-and-burn-tracking`, and `scaling-readiness-check` do not yet.
+- **CI**: the workflow already runs on both `push` and `pull_request` (not main-only) and fails
+  the build on a non-zero exit rather than merely annotating — v0.2 priority 3's "confirm it's
+  actually blocking" concern is resolved; what's left is the script's *coverage* (the
+  data-contract-field and verdict-schema checks this round is adding).
+- **Connectors**: `agents/connectors-liaison.md` itself correctly distinguishes `wired_up` from
+  `needed_not_installed` and never silently deletes a needed-but-absent entry. What's still
+  genuinely open, and is what this round's connector audit is checking directly rather than
+  assuming: whether `skills/gtm/*` and `skills/ops/*` skills that would act through a connector
+  actually route through that check before assuming success, as opposed to only the liaison agent
+  itself enforcing it.
 
 ## v0.2 — deepen before widening
 
-Priorities, in order, sharpened against what the repo actually contains rather than the original
-speculative list:
+Priorities, sharpened against what round 3 is actually doing (not the original speculative list):
 
 1. **Finish business-type branching across all 24 DE step skills, and check it for quality, not
-   just presence.** Round 1 shipped every step skill able to *read* `business_basics.business_type`
-   in principle, but as of this pass only a handful of steps (`01`, `02`, `03`, `04`, and partial
-   treatment in `12`, `13`, `15`, `16`, `18`) had a real, developed `## Business-type branching`
-   section — the rest still asked a type-blind version of their questions. Round 2 is actively
-   extending this; v0.2's job is to (a) confirm all 24 steps have it, (b) confirm each one is a
-   genuinely distinct, well-reasoned branch per type (see `docs/UX-INTERVIEW-DESIGN.md` §4 for the
-   bar and the worked examples), not a one-line conditional bolted on to satisfy a checklist, and
-   (c) confirm the four business-type values that show up least in round 1's examples —
-   `marketplace`, `services`, and `consumer_app` — got the same depth as `saas` and
-   `physical_product`, which is where round 1's SaaS-leaning default naturally concentrated.
+   just presence.** Round 3 is actively closing this — 12 of 24 steps have a genuinely distinct,
+   well-reasoned branch per type as of this snapshot (see "Grounded current state" above for the
+   depth bar being met). The remaining scope is mechanical and known: steps `13` through `24` need
+   the same treatment steps `01`-`12` already got, and `docs/UX-INTERVIEW-DESIGN.md` §4 remains
+   the bar and the worked-example reference for it.
 2. **Council persona coverage for the business types the interview layer now takes seriously.**
-   Round 1's 7 personas plus round 2's technical-feasibility addition (8 total) still lean
-   general-B2B/SaaS: there is no marketplace-liquidity specialist, no regulated-industry
-   (health/fintech) compliance-minded reviewer, no hardware/physical-product operator, and no
-   services-business unit-economics reviewer. This matters more now than it did at the start of
-   round 1: if DE steps genuinely branch by business type (priority 1) but the review layer that
-   gates approval doesn't have a persona equipped to interrogate a marketplace or physical-product
-   plan on its own terms, the plan sails through a panel that isn't actually adversarial to its
-   specific claims — exactly the failure mode `docs/ARCHITECTURE.md`'s "Why the review council
-   varies" section warns against. Track persona coverage against `business_type` values directly
-   in `docs/DATA-CONTRACT.md` so gaps stay visible.
-3. **Confirm the CI validation workflow round 2 adds is actually blocking, and extend what it
-   checks.** Getting `scripts/validate-plugin.sh` into GitHub Actions (round 2) is necessary but
-   not sufficient — v0.2 should confirm the workflow runs on every PR (not just main), fails the
-   build rather than just annotating it, and extend the script's coverage toward what
-   `docs/TESTING.md` Layer 1 promises but the script doesn't yet mechanically check: that a new
-   `business-state.json` field introduced anywhere is declared in `docs/DATA-CONTRACT.md` in the
-   same change, and that council agents actually commit to the CONVENTIONS §6 verdict schema
-   rather than approximating it.
-4. **Business-model-specific ops/GTM instrumentation.** Of the 5 `skills/ops/*` packages, only
-   `kpi-dashboard-setup` currently branches by `business_type`; `weekly-metrics-review`,
-   `retention-and-churn-analysis`, `runway-and-burn-tracking`, and `scaling-readiness-check` still
-   ask the same questions regardless of whether the business is SaaS (MRR/NRR/churn-cohort),
-   marketplace (liquidity, take-rate), or physical-product (inventory-turn, contribution margin) —
-   the same gap priority 1 addresses for DE steps exists one layer downstream in ops, and reuses
-   the same `business_type` dispatch point rather than inventing a new mechanism.
-5. **Wire the connectors layer to what's already cataloged, rather than cataloging more.**
-   `docs/CONNECTORS-CATALOG.md` is already substantive — 9 connector categories with canonical
-   ids, real product examples, and a privacy consideration for each — so the original "expand the
-   catalog" item was solving a problem that's largely already solved. The actual gap is thinner
-   and sharper: confirm every GTM/ops skill that would act through a connector (per the catalog's
-   own "DE step / GTM-ops task that creates the need" column) genuinely checks
+   Round 3 is actively closing this by adding `marketplace-liquidity-specialist` and
+   `services-unit-economics-reviewer`. Once both land, remaining coverage gaps are a
+   regulated-industry (health/fintech) compliance-minded reviewer and a hardware/physical-product
+   operator persona — track persona coverage against `business_type` values directly in
+   `docs/DATA-CONTRACT.md` so gaps stay visible, per `docs/ARCHITECTURE.md`'s "Why the review
+   council varies" section.
+3. **Confirm the CI validation workflow is actually blocking, and extend what it checks.** The
+   "actually blocking" half of this is resolved (see "Grounded current state" above). Round 3 is
+   extending the script's coverage with two new checks; once landed, re-verify they cover what
+   `docs/TESTING.md` Layer 1 promises but the pre-round-3 script didn't yet mechanically check —
+   that a new `business-state.json` field introduced anywhere is declared in
+   `docs/DATA-CONTRACT.md` in the same change, and that council agents actually commit to the
+   CONVENTIONS §6 verdict schema rather than approximating it.
+4. **Business-model-specific ops/GTM instrumentation.** Round 3 is adding business-type
+   instrumentation to 4 ops skills — as of this snapshot only `kpi-dashboard-setup` had it, so this
+   is the round closing the exact gap v0.2 previously flagged: `weekly-metrics-review`,
+   `retention-and-churn-analysis`, `runway-and-burn-tracking`, and `scaling-readiness-check`
+   dispatching on `business_type` the same way `kpi-dashboard-setup` already does (MRR/NRR/churn-
+   cohort for SaaS, liquidity/take-rate for marketplace, inventory-turn/contribution margin for
+   physical product).
+5. **Wire the connectors layer to what's already cataloged, rather than cataloging more.** Round 3
+   is auditing this directly rather than assuming the liaison agent's own correct behavior means
+   every caller routes through it — `docs/QA-FINDINGS-CONNECTORS-ROUND3.md`, once it lands, is the
+   authoritative source for exactly which GTM/ops skills do and don't check
    `connectors.needed_not_installed` before assuming success, per `docs/ARCHITECTURE.md`'s "not
-   assuming tools the founder hasn't installed" section — that behavior is easy to assert in an
-   agent's prompt and easy to silently skip in practice, and it's exactly the kind of thing Layer
-   2 behavioral eval (`docs/TESTING.md`) needs to actually test, not just Layer 1 structural QA.
-6. **Fold round 2's live dry-run findings (`docs/QA-FINDINGS-ROUND2.md`) into a concrete backlog.**
-   That file is being written concurrently with this one; once round 2 lands, its findings are the
-   most grounded source of "what a real founder hits first" available — more grounded than
+   assuming tools the founder hasn't installed" section.
+6. **Fold round 2's and round 3's live dry-run findings into a concrete backlog.**
+   `docs/QA-FINDINGS-ROUND2.md` (the ShiftCover B2B SaaS dry run) is resolved — its concrete
+   findings were fixed directly this round rather than left as backlog (see the round 2 section
+   above for the specifics). `docs/QA-FINDINGS-ROUND3.md` (a second dry run, this time against a
+   marketplace business, deliberately covering the business-type gap the first dry run left
+   untested) is being written concurrently with this document and did not yet exist at the time
+   this roadmap was last checked against the repo. Once it lands, it — together with
+   `docs/QA-FINDINGS-CONNECTORS-ROUND3.md` if that also lands — is the most grounded source of
+   "what a real founder hits first" available for setting round 4's priorities, more grounded than
    anything in this list, because it comes from actually driving a synthetic business through the
    full state machine rather than reading the code and reasoning about where it's likely to break.
-   The next roadmap revision should read that file and promote its findings above the items in
+   The next roadmap revision should read both files and promote their findings above the items in
    this list wherever they conflict on priority.
 
 ### What a founder would hit first today, honestly
 
-Independent of round 2's specific fixes, three things a real founder would notice immediately if
-they ran this end to end right now: (1) the review council's rigor is uneven across business
-types for the reason priority 2 above describes — a physical-product or marketplace founder gets
-a shallower adversarial review than a SaaS founder gets, even post-round-2's technical-feasibility
-addition; (2) the AI-risk gate (`ai_risk_flag` on unsourced `quantitative_claims`) is enforced by
-every agent's own instructions, not by any mechanical check outside `scripts/validate-plugin.sh`'s
-narrower structural scope — an agent that forgets to flag a fabricated number has nothing else in
-the system catching it before council review, which is a real gap between the architecture's
-stated intent and what's actually enforced; and (3) nothing in the repo has yet been driven through
-a real multi-session lifecycle by an actual person — every check so far (round 1's own review,
-round 2's dry run) is still a simulated pass, and simulated passes reliably miss the specific ways
-real founders phrase vague answers, get confused about `/business-status` state, or stall out
-mid-interview. None of these are reasons not to ship v0.1 as a working spine — they're the reason
-this roadmap treats "one working pass" and "trustworthy at scale" as different milestones.
+Some of what round 2 found is now fixed; some things a real founder would still notice are
+unchanged by round 2 or round 3 so far:
+
+1. **Fixed since round 2**: a founder whose plan contains an unsourced number no longer sails
+   through unnoticed — the mandatory AI-risk gates in steps 04/14/16/17/19 and onboarding, plus the
+   now-mandatory Confidence & Validation Status section, catch it structurally rather than relying
+   on every agent's own instructions to remember to flag it.
+2. **Still real, narrower than before**: the review council's rigor is still uneven across
+   business types until round 3's two new personas land and steps 13-24 finish branching — a
+   marketplace or services founder today gets a shallower adversarial review and a more
+   generic-feeling interview than a SaaS founder does, though the gap is visibly closing rather
+   than static (12/24 steps and 8/10 targeted personas in place as of this snapshot, up from a
+   handful of steps and 7 personas at the start of round 2).
+3. **Still open**: whether GTM/ops skills genuinely check `connectors.needed_not_installed` before
+   assuming a connector-backed action succeeded is, as of this snapshot, an open question this
+   round's audit is actively answering rather than a confirmed gap or a confirmed non-issue —
+   treat `docs/QA-FINDINGS-CONNECTORS-ROUND3.md` as authoritative once it exists.
+4. **Still open**: nothing in the repo has yet been driven through a real multi-session lifecycle
+   by an actual person — every check so far (round 1's own review, round 2's SaaS dry run, round
+   3's marketplace dry run) is still a simulated pass, and simulated passes reliably miss the
+   specific ways real founders phrase vague answers, get confused about `/business-status` state,
+   or stall out mid-interview. None of these are reasons not to use the plugin as a working spine
+   — they're the reason this roadmap treats "one working pass" and "trustworthy at scale" as
+   different milestones.
 
 ## v0.3 and beyond — the long tail
 
@@ -175,17 +218,17 @@ reporting assembly). This is where the "hundreds of agents, thousands of skills"
 long-term vision actually starts to apply — but only some of it. Getting there is explicitly not
 a matter of writing many more agents as fast as possible, and it is not a matter of running one
 more review round and calling the plugin finished — it's a standing practice of building,
-adversarially reviewing, dry-running, and rewriting the roadmap, the same three-round shape this
-document itself has now gone through once.
+adversarially reviewing, dry-running, and rewriting the roadmap, the same shape this document
+itself has now gone through twice.
 
 ## The constraint that doesn't loosen as this grows
 
 Every horizon above is additive to the same contract, not a departure from it. `CONVENTIONS.md`
 exists precisely because a swarm of independently-authored agents and skills only stays coherent
 if they all write against one directory layout, one frontmatter shape, one data contract, and one
-verdict schema. Growth from "hundreds" toward "thousands" of skills — and from round 2 toward
-round 3, 4, and beyond — is only survivable, for users and for the swarm of contributors building
-it, if every new or revised skill or agent still:
+verdict schema. Growth from "hundreds" toward "thousands" of skills — and from round 3 toward
+round 4 and beyond — is only survivable, for users and for the swarm of contributors building it,
+if every new or revised skill or agent still:
 
 - lives in the directory layout `CONVENTIONS.md` §1 defines, with kebab-case names;
 - declares any new `business-state.json` field in `docs/DATA-CONTRACT.md` in the same change
@@ -199,6 +242,6 @@ it, if every new or revised skill or agent still:
 A thousand skills that all violate this contract in slightly different ways would be worse than
 the 24-step spine this repo shipped in round 1. The roadmap's job, every round, is to make sure
 volume never becomes the goal in place of coherence — each horizon above is scoped so it can be
-validated against `CONVENTIONS.md` (via the CI validation round 2 adds, once v0.2 confirms it's
-actually blocking) before it ships, the same way round 1's first pass was meant to be and round 2
-is now checking that it actually was.
+validated against `CONVENTIONS.md` (via the CI validation workflow, now confirmed blocking on
+every push and pull request) before it ships, the same way round 1's first pass was meant to be,
+round 2 checked that it actually was, and round 3 is now extending what gets checked.

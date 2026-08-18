@@ -23,14 +23,11 @@ independent work — **do not re-derive the stage list from scratch**; pull it d
 The output of this step is the direct, required input to Step 19 (COCA calculation) — every cost
 driver COCA needs must trace back to a row in this map.
 
-For self-serve businesses (most `consumer_app`, some `saas`/`physical_product`), "sales process"
-is really a marketing/conversion funnel — impression/ad → signup → activation → paid conversion —
-with no human rep touching most prospects. Cost per stage there is overwhelmingly paid-acquisition
-spend and product/onboarding friction, not loaded rep time; don't force a multi-stage enterprise
-sales-cycle shape onto a motion that's actually self-serve. Read `business_basics.business_type`
-first. Step 13's stage list should already reflect the right shape if it was done well — if it
-doesn't (e.g. it lists "champion" and "procurement" for a $9/mo self-serve product), flag that
-gap back to Step 13 rather than silently costing the wrong shape here.
+Read `business_basics.business_type` first — see "Business-type branching" below for what the cost
+buildup is actually dominated by per type. Step 13's stage list should already reflect the right
+shape if it was done well — if it doesn't (e.g. it lists "champion" and "procurement" for a $9/mo
+self-serve product), flag that gap back to Step 13 rather than silently costing the wrong shape
+here.
 
 ## Reads
 
@@ -62,6 +59,46 @@ Ask the founder directly:
   (use real data if any customers/prospects exist yet, even a handful)
 - "Where does the process actually stall the longest, and why?"
 - "What does that stalled stage cost you in founder time you're not spending elsewhere?"
+
+## Business-type branching
+
+What dominates the costed buildup — and what "conversion rate" even measures — differs sharply by
+`business_basics.business_type`:
+
+- **SaaS:** If Step 13's map is a sales-led/multi-role process, cost each stage in loaded rep/AE
+  time plus tools (demo environment, CRM, proposal software). If it's self-serve/PLG, the process
+  is really a marketing/conversion funnel — impression/ad → signup → activation → paid conversion
+  — with no human rep touching most prospects; cost per stage there is overwhelmingly paid-
+  acquisition spend (CPC/CPM) and product/onboarding friction, not loaded rep time. Many SaaS
+  businesses run both motions in parallel (self-serve for small deals, sales-assisted for larger
+  ones) — cost them as two separate funnels, not one blended average.
+- **Physical product:** Cost the DTC funnel as paid-acquisition spend per stage (impression → click
+  → cart → checkout), and include payment-processing fees and a returns-handling cost as a stage-
+  level line if return rate is material — acquiring a customer who returns the item isn't really a
+  closed sale. If a wholesale/retail channel exists, it is a **separate, much longer** process
+  (trade show or broker outreach → buyer meeting → line-sheet review → PO negotiation → first
+  shipment) costed in founder/rep time and travel/event spend, not ad spend — do not average its
+  cycle length or cost against the DTC funnel.
+- **Marketplace:** Cost the supply-side acquisition funnel and the demand-side acquisition funnel
+  **completely separately** — their stages, time-per-stage, resources, and conversion rates rarely
+  match. Supply-side often needs manual outreach and onboarding calls (loaded founder/BD time);
+  demand-side is often a self-serve app-install/browse/transact funnel (paid-acquisition spend).
+  Blending them into one "marketplace sales process" produces a number that hides which side is
+  actually expensive to acquire — the exact thing Step 19's COCA needs to see clearly.
+- **Services:** The process is almost entirely relationship/referral-driven, so cost is dominated
+  by founder/BD loaded time spent on discovery calls, proposal writing, and follow-up — paid
+  marketing spend is usually near zero early on. The single most important conversion rate here is
+  proposals-sent-to-signed; track it explicitly, since it's the number that determines how much
+  unpaid founder time gets spent per closed client.
+- **Consumer app:** The "sales process" is a pure marketing/conversion funnel with no rep time at
+  all — impression/ad → install → activation → paid conversion (if freemium/subscription). Cost
+  each stage in paid-acquisition spend (CPI/CPC/CPM) and use app-funnel-standard conversion metrics
+  (install→signup, signup→activation, activation→paid) rather than a sales-cycle framing; there is
+  no meaningful "sales cycle length" in calendar days the way an enterprise deal has one — measure
+  time-to-conversion in hours/days from install instead.
+- **Other:** Ask the founder which shape — sales-led, self-serve funnel, referral-driven, or a
+  genuine hybrid — actually describes their process rather than guessing (per
+  `docs/UX-INTERVIEW-DESIGN.md` §4).
 
 ## When the founder doesn't know
 

@@ -26,7 +26,8 @@ the ranking, not the testing.
 - `.startup/<slug>/business-state.json` (whole file) — this is the primary input. Read the
   **entire** `key_assumptions` array and the **entire** `quantitative_claims` array (every entry
   with `confidence: "low"` or `ai_risk_flag: true` is a candidate for this register regardless
-  of which step logged it).
+  of which step logged it). Also read `business_basics.business_type` — it tells you where to
+  look hardest during the gap sweep (see "Business-type branching").
 - `.startup/<slug>/plan/01-market-segmentation.md` through
   `.startup/<slug>/plan/19-calculate-the-coca.md` — all 19 prior plan files. Re-scan each for
   claims stated as settled fact that have no corresponding `key_assumptions` or

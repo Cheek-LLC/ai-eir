@@ -20,7 +20,9 @@ something.
 
 ## Reads
 
-- `.startup/<slug>/business-state.json` (whole file)
+- `.startup/<slug>/business-state.json` (whole file). Read `business_basics.business_type` before
+  choosing what "lifetime" and "revenue per period" actually mean for this business — see
+  "Business-type branching."
 - `.startup/<slug>/plan/16-set-your-pricing-framework.md` — required. Price point(s) are the
   starting input for revenue per period.
 - `.startup/<slug>/plan/15-design-a-business-model.md` — required. Determines whether "lifetime"
@@ -54,6 +56,49 @@ Require the founder to supply or source:
    a churn rate; benchmark ranges vary enormously by category (monthly SMB SaaS churn commonly
    3-7%/mo; enterprise annual contracts commonly 5-15%/yr) — cite whichever is used as source.
 4. Compute LTV per pricing tier if tiers exist, plus a blended figure.
+
+## Business-type branching
+
+The standard formula's inputs — "revenue per period," "expected lifetime" — mean something
+different depending on `business_basics.business_type`. Don't force churn-based subscription math
+onto a business that doesn't work that way:
+
+- **SaaS:** The standard formula applies most directly — `ARPU × gross margin × (1 / churn rate)`.
+  Where the pricing model includes expansion (seat growth, tier upgrades), compute LTV two ways:
+  a conservative flat-ARPU version and a net-revenue-retention-adjusted version that accounts for
+  expansion revenue exceeding the churned-revenue base — state which one is presented as the
+  headline figure and why, since presenting only the NRR-adjusted number without the flat baseline
+  overstates confidence.
+- **Physical product:** "Lifetime" is not a churn rate but a repeat-purchase pattern — compute
+  `average order value × expected purchase frequency per year × expected years as an active
+  customer (from reorder/repeat-purchase data or a category benchmark)`, net of COGS, fulfillment,
+  payment processing, and a return-rate haircut if returns are material. A one-time-purchase
+  product (no consumable/replacement cycle) has an LTV that is honestly just that one order's
+  margin, plus any cross-sell — say so plainly rather than inventing a multi-year repeat pattern
+  that doesn't exist for the category.
+- **Marketplace:** LTV must be computed **per side** and the side being measured stated explicitly
+  — a marketplace has no single "the customer." For the side being measured: `GMV per active
+  participant per period × take rate × expected active lifetime on that side (from repeat-
+  transaction/re-listing rate, not a subscription churn rate)`. Supply-side and demand-side LTV
+  are often structurally different (e.g., a small number of high-volume sellers vs. many
+  low-frequency buyers) — compute both if both sides generate take-rate revenue, and never blend
+  them into one figure without saying so.
+- **Services:** `Average contract/engagement value × expected number of renewals or follow-on
+  engagements`, net of **delivery cost** (loaded labor cost to actually deliver the engagement,
+  which is usually the dominant cost line here, unlike SaaS's hosting/support margin). Margins are
+  frequently much thinner than SaaS gross margin once real delivery time is counted — do not
+  default to a SaaS-typical 70-80% gross margin assumption without the founder confirming loaded
+  delivery cost per engagement.
+- **Consumer app:** Revenue per user is often not a single number — a freemium app has payers and
+  non-payers, and non-payers may still generate ad revenue. Compute a **blended** LTV across the
+  full user base (not just paying users): `(ad revenue per user + subscription/IAP revenue per
+  paying user × payer conversion rate) × expected active lifetime`, where expected lifetime comes
+  from an actual retention curve (D1/D7/D30/D90 retention feeding an estimated total session count
+  or subscription months) rather than a flat churn percentage — consumer retention curves are
+  famously non-linear (steep early drop-off, then a long flatter tail), and collapsing that into
+  `1/churn` the way SaaS does will misstate the number materially.
+- **Other:** Ask the founder which of the above lifetime/revenue models actually fits, or whether
+  it's a genuine hybrid, rather than guessing (per `docs/UX-INTERVIEW-DESIGN.md` §4).
 
 ## When the founder doesn't know
 

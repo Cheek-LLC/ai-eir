@@ -86,13 +86,40 @@ candidates before the founder rules anything in or out:
 - **Marketplace:** Advertising/take-rate is the near-default, but *which side pays* is the actual
   decision — supply-side fee, demand-side fee, or a cut of the transaction — and it's rarely
   symmetric. State explicitly which side is price-sensitive enough that charging them would kill
-  liquidity, and price the other side instead.
+  liquidity, and price the other side instead. The business model here is structurally GMV-based,
+  not seat- or unit-based: value capture is `GMV × take rate`, so the model conversation must
+  cover both the take-rate mechanism *and* what drives GMV (transaction frequency and value on the
+  reused side). Consider explicitly whether a hybrid is warranted once volume exists — a pure
+  take-rate model often needs a flat subscription/listing fee layered in for high-volume sellers
+  once they'd rather pay flat than a percentage (the Etsy/Airbnb Plus pattern) — and whether a
+  two-sided or one-sided fee structure best protects the harder-to-source side from churning off
+  the marketplace to transact directly (disintermediation risk is a real threat to this archetype
+  specifically and should be named, not assumed away).
 - **Services:** Fee-for-service/project-based is the honest starting point pre-productization.
   Ask what would have to be standardized before a subscription/retainer model becomes credible
-  rather than defaulting to it aspirationally.
+  rather than defaulting to it aspirationally. Because the "unit" being sold is founder/team time,
+  the business model choice here is inseparable from a delivery-capacity question that SaaS and
+  marketplace models don't have: does this model let revenue grow without linearly adding
+  headcount (a tiered/productized retainer with a capped scope, or IP/template reuse across
+  clients), or does every dollar of revenue require a proportional dollar of delivery cost (pure
+  hourly/project billing)? A model that can't answer that question is choosing "won't scale" by
+  default, not by decision — surface that trade-off explicitly rather than letting fee-for-service
+  stand unexamined as the permanent answer.
+- **Consumer app:** The live candidates are usually subscription, advertising, in-app purchase
+  (IAP), or a freemium hybrid of these — and which one fits depends on engagement pattern more
+  than product category. A high-frequency utility the user depends on regularly supports
+  subscription; broad reach with high session volume but lower per-user intent supports
+  advertising; occasional or impulse-driven engagement supports one-time or consumable IAP.
+  Require the founder to state which engagement pattern actually describes their product (not
+  which monetization model they'd prefer) before selecting the archetype. Flag explicitly whether
+  the model requires app-store platform billing (with the associated ~15-30% platform fee, a real
+  cost to the business model, not just a technical detail) or supports direct/web billing instead.
 
 When `business_type` is `other` or a genuine hybrid, ask the founder which of the above framings
-fits best rather than guessing (per `docs/UX-INTERVIEW-DESIGN.md` §4).
+fits best rather than guessing (per `docs/UX-INTERVIEW-DESIGN.md` §4) — and if the hybrid spans two
+of the listed types (e.g., a marketplace with a services layer, or a consumer app with a B2B
+services upsell), require the founder to state which side is primary for value-capture purposes so
+the model conversation doesn't default to whichever archetype is easiest to describe.
 
 ## When the founder doesn't know
 

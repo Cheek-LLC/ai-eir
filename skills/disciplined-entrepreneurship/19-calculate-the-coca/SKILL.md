@@ -81,6 +81,16 @@ The fully-loaded buildup (deliverable 1) is dominated by a different cost line d
   near-zero paid marketing spend early on — the "ask the founder" question above about a market-
   rate rep salary is especially load-bearing here, since unpaid founder time is most of the real
   cost and easiest to leave out.
+- **Consumer app:** Usually dominated by paid-install spend (CPI) and/or ad-network spend, blended
+  with any organic/referral installs. The critical decision this business type forces that others
+  don't: COCA must be computed at a **stated funnel stage** — per install, per activated user, or
+  per paying user — and these can differ by an order of magnitude for a freemium app with a low
+  free-to-paid conversion rate. State explicitly which one is "the" COCA being compared against
+  LTV in the sanity check below; comparing a per-install COCA against a per-paying-user LTV
+  understates the ratio catastrophically and is the single most common mistake at this step for
+  this business type.
+- **Other:** Ask the founder which cost driver actually dominates their acquisition spend rather
+  than assuming one of the above patterns applies (per `docs/UX-INTERVIEW-DESIGN.md` §4).
 
 ## When the founder doesn't know
 
