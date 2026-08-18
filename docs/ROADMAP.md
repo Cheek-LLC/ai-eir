@@ -568,44 +568,86 @@ protocol still leaves informal — whether steps *downstream* of a reopened step
 naming a now-out-of-band prospect) are stale in a plan-assembly-blocking way — was documented as an
 open item, not resolved.
 
-## Round 8 — findings-backlog sweep and real-use-readiness polish: in progress
+## Round 8 — findings-backlog sweep and real-use-readiness polish: complete and integrated
 
-Round 8 is the swarm's own direct response to the judgment call round 7's roadmap revision made
-explicit for the first time: that further simulated dry runs are hitting diminishing returns for the
-category of bug they've reliably found across six rounds running, and that a real founder's real,
+Round 8 was the swarm's own direct response to the judgment call round 7's roadmap revision made
+explicit for the first time: that further simulated dry runs were hitting diminishing returns for the
+category of bug they'd reliably found across six rounds running, and that a real founder's real,
 multi-session use of this plugin is the next qualitatively different validation this project needs —
-not another simulated business. Consistent with that finding, round 8 deliberately does **not** run a
-seventh simulated dry run. Two agents are working concurrently on consolidation and readiness instead:
+not another simulated business. Consistent with that finding, round 8 deliberately ran **no** seventh
+simulated dry run. Three agents worked concurrently on consolidation and readiness instead:
 
-- **One agent is sweeping every prior round's findings documents** — all ten `docs/QA-FINDINGS-*.md`
-  reports, the two dogfood/regression passes, and this roadmap and changelog's own history — for
-  deferred, logged-but-not-fixed, or explicitly out-of-scope items, and closing whatever can be safely
-  closed now that it's no longer any single round's off-limits scope. Concretely, this round's own
-  "what round 7 did not close" list above, `docs/DATA-CONTRACT.md`'s `risk_log[].type` taxonomy gap
-  (logged round 7, off-limits to that round to fix), and any other item any prior round explicitly
-  deferred are exactly this agent's territory.
-- **The other agent is preparing the plugin for real human trial use** — README and onboarding
-  polish — which is this roadmap's own explicit recommendation put into practice: if a real founder's
-  multi-session use is genuinely the next frontier, the honest next step is making sure a real person
-  picking this plugin up for the first time can actually do that cleanly, not scoping another
-  simulated business to drive through it.
+- **A findings-backlog sweep** (`docs/QA-BACKLOG-SWEEP-ROUND8.md`) re-audited all 34 deferred items
+  across the seven prior rounds' findings documents against current file state, not each document's
+  own possibly-stale language. 5 were fixed directly, 20 were confirmed already resolved by later
+  rounds' work, and 9 remain genuinely open — each blocked on a `CONVENTIONS.md`/`docs/DATA-CONTRACT.md`
+  edit or a real maintainer judgment call, restated verbatim in that document rather than silently
+  dropped.
+- **Real-use-readiness polish** — `README.md`'s "Before you start" and honest "Recurring check-ins"
+  sections, a `plugin.json` version bump to `0.2.0`, and `onboarding-interview`'s opening tightened for
+  a genuine first-time human founder — this roadmap's own explicit recommendation put into practice.
+- **Changelog/roadmap/master-index update** — closed out round 7 as complete and integrated in all
+  three documents.
 
-**As of this snapshot, checked directly rather than assumed:** `docs/QA-BACKLOG-SWEEP-ROUND8.md` does
-not yet exist in `docs/` — confirmed by a direct file-existence check, not assumed absent, since the
-sweep agent is still running concurrently with this revision. The real-use-readiness agent's output
-was not independently re-read while writing this revision (that agent's changes are outside this
-revision's own edit scope — see `CONVENTIONS.md`'s file-ownership discipline) — if `README.md` or
-related onboarding material has changed by the time a future revision is written, that revision should
-confirm what actually landed rather than assume this description still holds. This section should be
-rewritten once both agents' work lands, with the same "confirmed present in the current files"
-treatment every prior round's section above got, rather than left as this in-progress snapshot.
+**Round 8 is confirmed complete and integrated**, checked directly rather than assumed at the time of
+this round-9 revision: `docs/QA-BACKLOG-SWEEP-ROUND8.md` exists on disk with the 34-item accounting
+above; `README.md`, `plugin.json`, and `onboarding-interview/SKILL.md` all carry the described changes.
+One process gap surfaced during round 9's integration pass and is worth naming plainly rather than
+quietly fixing without a record: `docs/CHANGELOG.md` had gone straight from a "Round 7" section to
+"Patterns worth knowing" with no "Round 8" section at all, even though this document and
+`docs/MASTER_INDEX.md` had both been correctly updated for round 8 at the time — round 9's integration
+pass added the missing changelog section retroactively. `scripts/validate-plugin.sh` reported 46
+skills, 29 agents, 5 commands, 12 council files, 0 warnings, 0 errors at the close of round 8 — a
+consolidation round by design, touching no new skill/agent/command files.
 
-## v0.3 and beyond — the real frontier, and what round 8 is doing about it
+## Round 9 — a human-directed pivot back to breadth: 10 functional-expert agents and an autonomous
+   recurring-routine skill
+
+**Read this section honestly, not as a continuation of round 8's own logic.** Round 7 and round 8 both
+argued, independently and then in practice, that the swarm should stop scoping more simulated-business
+breadth and wait for a real human trial instead. Round 9 did not happen because the swarm decided that
+judgment call was wrong — **it happened because the human maintainer gave a new, explicit instruction**:
+build a genuinely advanced expert-level bench of functional specialists, plus the concrete
+infrastructure for a founder to actually run this plugin unattended on a recurring cadence, rather than
+wait indefinitely for a live multi-session trial before doing more depth work. That is a legitimate,
+different kind of input than anything the swarm can generate on its own — a real person's direct
+judgment about what the project needs next — and this document records it as exactly that, not as the
+swarm quietly reversing its own round-7/8 position. The "real human trial is the next frontier" finding
+from rounds 7-8 still holds and is restated, unchanged, below; round 9 is additive breadth work done in
+parallel with that finding still being true, not a replacement for it.
+
+**Two pieces of work:**
+
+1. **`skills/autonomous-continuation/SKILL.md` + `commands/continue-business.md`** — the concrete
+   mechanism for the "scheduling mechanism actually firing a check-in unattended, with no one driving"
+   gap round 6 and round 8 both named as untested (see "What round 8 did not close" below — it still
+   isn't *tested* by this round, but it is now *possible* in a disciplined way, which it wasn't before).
+   `agents/orchestrator.md`'s self-scheduling logic now targets this command specifically. Full detail
+   in `docs/CHANGELOG.md`'s round 9 entry.
+2. **10 parallel functional-specialist "expert entrepreneur" agents**, each building advanced-level
+   skill content, an optimization-focused ops agent, or (one of them) a new review-council persona:
+   product management, legal/entity structure, HR/hiring, customer success, growth/CRO experimentation,
+   pricing optimization, fundraising/investor-relations, operations/fulfillment, competitive
+   intelligence, and a new `operational-execution-reviewer` council seat. Full detail, including the
+   new council persona's exact trigger and priority placement, in `docs/CHANGELOG.md`'s round 9 entry
+   and `docs/DATA-CONTRACT.md`'s persona-coverage table.
+
+**Round 9 is complete and integrated.** `scripts/validate-plugin.sh` reports 56 skills, 34 agents, 6
+commands, 13 council files, 0 warnings, 0 errors — the largest single-round growth in skill/agent count
+since round 1, and (10 concurrently-running agents) the widest fan-out of any round, with zero
+file-collision incidents, confirmed by every agent's own `git status` check in its final report.
+
+## v0.3 and beyond — the real frontier, restated, and what round 9 did and didn't change about it
 
 With v0.2's depth work closed since round 4, and the revision loop and post-approval half both
-closed live since round 6, the honest next horizon narrowed further still once round 7 landed — and
-it is worth naming plainly that round 8, running concurrently with this revision, is the swarm's own
-direct response to that narrowing, not another round of business-type or code-path dry-run coverage.
+closed live since round 6, the honest next horizon narrowed further still once round 7 landed, and
+round 8 was the swarm's own direct response to that narrowing. Round 9, as its own section above
+states plainly, was a different kind of event — a direct human instruction to build functional-expert
+breadth and unattended-operation infrastructure, not the swarm's own continuation of the round-7/8
+diminishing-returns logic. Both things are true at once and this section holds both: the frontier
+described below is unchanged by round 9, and round 9's actual output (cataloged in its own section
+above and in `docs/CHANGELOG.md`) is real, additive value that happened alongside it, not instead of
+addressing it.
 
 **After round 7, most of what a *swarm of simulated dry runs* can find in this plugin has now been
 found.** Seven rounds of live exercise (six full dry runs plus round 6's and round 7's targeted
@@ -641,69 +683,69 @@ fictional business, rather than fake a demonstration — which is the right call
 also means the one live-firing test that would matter most has still never happened, by design, and
 cannot happen inside another simulated round.
 
-**Round 8 is that answer put into practice, not just argued for a second time.** Rather than scoping
-a seventh live dry run, round 8 is a findings-backlog sweep (closing whatever deferred items across
-all seven prior rounds' documents can now be safely closed) paired with real-use-readiness polish —
-README and onboarding work aimed specifically at a real founder picking this plugin up for the first
-time, since that is the qualitatively different validation this document has now named twice running
-as the genuine next frontier. This does not mean simulated dry runs stop being useful forever — a
-future business type, persona, or code path may still turn up a real bug the same way rounds 2-7 did,
-and nothing about round 8's scope forecloses a future round returning to that method if a real human
-trial surfaces territory a dry run should also stress-test. It means the roadmap has stopped treating
-"run another simulated business through the plugin" as the presumptive next horizon by default, and
-round 8 is the first round to actually act on that rather than only state it. Naming what stays
-genuinely untested even after round 8's consolidation work, so a future round doesn't rediscover it
-as if it were new:
+**Round 8 was that answer put into practice, not just argued for a second time; round 9 is genuinely
+additive breadth on top, not a reversal of it.** Round 8 ran a findings-backlog sweep and
+real-use-readiness polish instead of a seventh live dry run. Round 9, on explicit human instruction,
+then built real depth — 10 functional-specialist skills/agents and unattended-firing infrastructure —
+while the "real human trial is the frontier" finding from rounds 7-8 stayed true throughout; nothing
+about round 9's work substitutes for that trial, and the roadmap has not quietly gone back to treating
+"build more agents" as the presumptive default move on its own initiative. Naming what stays genuinely
+untested, updated for what round 9 did and didn't touch, so a future round doesn't rediscover any of
+this as new:
 
 - **A real, multi-session lifecycle exercise driven by an actual human is still the single biggest
-  structural gap, and no further swarm round can close it by itself.** See the framing above — this
-  is restated here, not as one bullet among several equally-weighted open items the way it was in the
-  round-6 revision of this document, but as the frontier everything else in this section is now
-  secondary to. Round 8's real-use-readiness work is a precondition for closing this gap, not a
-  substitute for it — polished onboarding makes a real human trial possible, it isn't one.
+  structural gap, and no further swarm round can close it by itself.** Unchanged by round 9. Round 8's
+  real-use-readiness work and round 9's `skills/autonomous-continuation` infrastructure are both
+  preconditions for this trial being possible and well-supported — polished onboarding and a working
+  unattended-firing mechanism make a real human trial *feasible*, neither one *is* one.
 - **The four specific items round 7 named as still open, restated here rather than left only in that
   section above:** a founder overriding a standing objection mid-GTM sequencing (rather than
   post-approval, before GTM starts); a founder changing their mind after an override, once an accepted
   risk materializes for real; `launch-director`'s full sequencing pass producing a real, complete GTM
-  artifact set against an overridden plan (round 7 confirmed only that the gate detects and flags the
-  override, not that the flag survives intact through a full `marketing-strategist`/`sales-lead`
-  pass); and the transitive-impact question the pivot-reopening protocol still leaves informal —
-  whether steps downstream of a reopened step are stale in a plan-assembly-blocking way. None of these
-  are round 8's scope by design (see the round 8 section above); a future round choosing to return to
-  live-dry-run territory should look here first before scoping a new business type or persona.
+  artifact set against an overridden plan; and the transitive-impact question the pivot-reopening
+  protocol still leaves informal. None of these were round 8's or round 9's scope; a future round
+  returning to live-dry-run territory should look here first before scoping a new business type.
+- **`skills/autonomous-continuation` and `/continue-business` are built but never actually fired
+  unattended against a real Routine.** Round 9 built the mechanism round 6 and round 8 both flagged as
+  the one live-firing test that had never happened; it still hasn't — this was a build round, not a
+  dry-run round, so the skill's own discipline (autonomous-safe vs. founder-required classification,
+  the digest format, never crossing a gate) has been read and reasoned about carefully but not yet
+  watched executing against a real scheduled firing. This is squarely inside the "real human trial"
+  frontier above, not a separate gap.
 - **More industry verticals per DE step remain unwritten.** Regulated industries and hardware now
-  have a dedicated council seat, but their DE-step branching depth hasn't been dry-run tested the way
-  marketplace/services/SaaS/consumer-app have; B2B2C and nonprofit/social-enterprise variants remain
-  entirely unwritten.
+  have a dedicated council seat, and execution-complexity now has one too (round 9); their DE-step
+  branching depth hasn't been dry-run tested the way marketplace/services/SaaS/consumer-app have;
+  B2B2C and nonprofit/social-enterprise variants remain entirely unwritten.
 - **A genuinely large council-persona library segmented by stage and geography, as well as business
-  type, remains open** — starting with the still-open `saas`/`consumer_app`/`other` dedicated-persona
-  question round 5 sharpened but didn't close.
-- **Deeper fundraising-specific agents** (pitch-deck iteration, cap-table sanity checks flagged
-  clearly as non-legal-advice) remain unwritten.
+  type, remains open** — the `saas`/`consumer_app`/`other` dedicated-persona question round 5
+  sharpened is now partially, not fully, reached by round 9's `operational-execution-reviewer` (see
+  `docs/DATA-CONTRACT.md`'s persona-coverage table) — real, content-triggered, partial coverage, still
+  not a dedicated type-match seat for those three types.
+- **Deeper fundraising-specific agents** — round 9 closed a real piece of this (`skills/gtm/
+  investor-updates-and-cap-table-basics`); pitch-deck *iteration* (as opposed to first-draft prep,
+  already covered by `fundraising-deck-prep`) remains unwritten.
 - **A Layer 2 behavioral eval suite** grown well beyond the 7-case seed round 4 planted remains open —
   and is worth weighing directly against the "real human" frontier above: a larger eval suite is
   still simulated, automatable validation, not a substitute for it.
-- **Operations agents that extend meaningfully past year one** (scaling playbooks, hiring plans,
-  board-reporting assembly) remain unwritten.
+- **Operations agents that extend meaningfully past year one** — round 9 closed the hiring-plan piece
+  (`agents/ops/people-lead.md`) and the pricing/growth-optimization piece; scaling playbooks and
+  board-reporting assembly remain unwritten.
 
 This is where the "hundreds of agents, thousands of skills" scale of the long-term vision actually
 starts to apply — but only some of it, and only once it's weighed honestly against the fact that the
-single highest-value thing this project can do next is no longer "simulate one more business," it's
-"get a real founder to actually use it and see what breaks." Getting there is explicitly not a matter
-of writing many more agents as fast as possible, and it is not a matter of running one more review
-round and calling the plugin finished — it's a standing practice of building, adversarially
-reviewing, dry-running, and rewriting the roadmap, the same shape this document has now gone through
-eight times, alongside an honest reckoning with which parts of that practice have started to plateau
-— and, as of round 8, an actual change in what a round's work looks like as a result of that
-reckoning, not just a restatement of it.
+single highest-value thing this project can do next is still not "simulate one more business," it's
+"get a real founder to actually use it and see what breaks." Round 9 is real evidence that targeted,
+human-directed breadth work can happen productively *alongside* that finding without contradicting it
+— the two are not in tension as long as each round is honest about which kind of work it's doing and
+why, which is the entire discipline this document exists to enforce on itself, now nine times running.
 
 ## The constraint that doesn't loosen as this grows
 
 Every horizon above is additive to the same contract, not a departure from it. `CONVENTIONS.md`
 exists precisely because a swarm of independently-authored agents and skills only stays coherent
 if they all write against one directory layout, one frontmatter shape, one data contract, and one
-verdict schema. Growth from "hundreds" toward "thousands" of skills — and from round 8 toward round
-9 and beyond — is only survivable, for users and for the swarm of contributors building it, if
+verdict schema. Growth from "hundreds" toward "thousands" of skills — and from round 9 toward round
+10 and beyond — is only survivable, for users and for the swarm of contributors building it, if
 every new or revised skill or agent still:
 
 - lives in the directory layout `CONVENTIONS.md` §1 defines, with kebab-case names;

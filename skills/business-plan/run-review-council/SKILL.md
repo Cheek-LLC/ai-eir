@@ -176,27 +176,63 @@ first that triggers; if none trigger, use the default:
    proprietary algorithm, novel hardware mechanism, or a safety-/accuracy-critical or regulated
    product) regardless of the `business_type` label — trigger on the plan's own content, not just
    the category field, since a `saas`-labeled plan can still describe a technically ambitious or
-   regulated build (an AI-diagnostics or fraud-detection product, for instance). Among tiers #2-#6,
+   regulated build (an AI-diagnostics or fraud-detection product, for instance). Among tiers #2-#7,
    this is the highest priority, unconditionally, regardless of what else would trigger below: a
    business built on a technically infeasible premise is a more consequential blind spot than an
-   unresolved market, liquidity, capacity, or channel question, because no amount of good GTM
-   execution, take-rate design, or delivery-capacity planning rescues a product that can't be
-   built as scoped. This holds even for a `marketplace` or `services` business that would
-   otherwise take seat #3 below — a marketplace with real hardware-feasibility risk (e.g., a
+   unresolved market, liquidity, capacity, channel, or operational-load question, because no amount
+   of good GTM execution, take-rate design, or delivery-capacity planning rescues a product that
+   can't be built as scoped. This holds even for a `marketplace` or `services` business that would
+   otherwise take seat #4 below — a marketplace with real hardware-feasibility risk (e.g., a
    physical fulfillment/IoT component embedded in an otherwise two-sided platform) or a services
    business betting on an unproven core technology still needs its buildability question answered
    before its business-model question, so #2 wins the seat and the business-type-specific
-   specialist becomes the logged runner-up per the tie-break rule below. It in turn yields to #1
-   when `regulated-industry-compliance-reviewer`'s content signal independently fires (e.g. a
-   novel medical device is simultaneously a hardware-feasibility question and a licensing-
-   awareness question) — see the reasoning below the list.
-3. **`marketplace-liquidity-specialist`** triggers if `business_basics.business_type` is
+   specialist becomes the logged runner-up per the tie-break rule below. On the identical logic, #2
+   also outranks #3 (`operational-execution-reviewer`) whenever both would otherwise fire: whether
+   this specific team can operationally run the business is a moot question until it's established
+   the thing they'd be running actually works as an engineering matter — see the reasoning at #3
+   below. It in turn yields to #1 when `regulated-industry-compliance-reviewer`'s content signal
+   independently fires (e.g. a novel medical device is simultaneously a hardware-feasibility
+   question and a licensing-awareness question) — see the reasoning below the list.
+3. **`operational-execution-reviewer`** triggers when **at least two** of the following three
+   execution-complexity signals independently fire against Steps 13/18/22 (and, for the timeline
+   signal, Step 24's sequencing), **and** nothing in `founder.notes` or
+   `business_basics.business_type_notes` names a team beyond one or two founders (an already-staffed
+   ops/fulfillment/support hire or a small named team changes the capacity baseline enough that this
+   seat's default "small founding team, ambitious operational footprint" premise no longer holds —
+   see the persona's own file for exactly how it reads that signal):
+   1. **Multi-channel/multi-mode fulfillment or delivery** — Step 22's MVBP (and/or Step 6's
+      full-life-cycle use case) describes delivering the product/service through more than one
+      distinct channel or mode concurrently (e.g., DTC shipping *plus* a wholesale/retail channel;
+      self-serve *plus* high-touch onboarding; in-person *plus* remote delivery) — each one is a
+      distinct operational process with its own fulfillment/support mechanics, not merely a
+      market-reach choice.
+   2. **Multi-stage/high-touch sales process required at launch** — Steps 13/18 describe an
+      acquisition process with three or more distinct founder-time-consuming stages (e.g., outbound
+      prospecting, demo/consultation, negotiation, custom onboarding) that must run concurrently
+      with delivery, not a single-stage self-serve signup.
+   3. **Aggressive MVBP timeline relative to concurrent build+deliver+support load** — Step 22 (read
+      against Step 24) states a launch timeline in which the product must still be finished *and*
+      the acquisition process run *and* the first customers fulfilled/supported, all within a short
+      window (a rough anchor: inside 8 weeks of the plan's own stated start — a planning-aid
+      heuristic, not a hard rule, adjusted for context), with no described way to stage or sequence
+      those three concurrent demands.
+
+   **Exactly one signal firing is not enough to win this seat** — a single-axis complexity signal is
+   precisely the kind of concern a lower, more specialized tier already exists to catch (channel
+   complexity alone feeds #4's `hardware-physical-product-operator` or #5's
+   `sales-motion-reviewer`; sales-process complexity alone feeds #5 directly), and this persona's
+   distinctive value is the *cross-axis sum*, not any one axis in isolation. Log a single firing
+   signal as a runner-up note for whichever lower tier owns that axis rather than selecting this
+   seat on it. See "Why `operational-execution-reviewer` sits between #2 and #4" below the list for
+   the full placement reasoning, including why this does not quietly override the unconditional
+   type-match seats at #4 for the common case.
+4. **`marketplace-liquidity-specialist`** triggers if `business_basics.business_type` is
    `marketplace`. **`services-unit-economics-reviewer`** triggers if `business_basics.business_type`
    is `services`. **`hardware-physical-product-operator`** triggers if
-   `business_basics.business_type` is `physical_product` — added this round, closing the gap the
+   `business_basics.business_type` is `physical_product` — added round 4, closing the gap the
    Data Contract's persona-coverage table flagged: `physical_product` previously had no
    unconditional dedicated persona, only `technical-feasibility-reviewer`'s narrow hardware/deep-
-   tech carve-out (#2 above) or `sales-motion-reviewer`'s channel carve-out (#4 below). These three
+   tech carve-out (#2 above) or `sales-motion-reviewer`'s channel carve-out (#5 below). These three
    triggers are mutually exclusive by construction — `business_type` is a single enum value, so a
    given business can match at most one of them — and, like the original two, none needs an extra
    content signal beyond the type itself: being a marketplace, a services business, or a
@@ -208,22 +244,28 @@ first that triggers; if none trigger, use the default:
    these three specialists own (GMV×take-rate arithmetic and two-sided cold start; billable-hours
    capacity ceilings and founder-dependency; manufacturing lead times, tooling/certification cost,
    supply-chain single-points-of-failure, and the prototype-to-production gap) were entirely
-   uncovered by any existing persona before this round and last round, whereas
+   uncovered by any existing persona before round 4 and round 3, whereas
    `sales-motion-reviewer`'s and `product-market-fit-panel`'s concerns, while real, already have a
-   seat that can pick them up on a later review cycle.
-4. **`sales-motion-reviewer`** triggers if `business_basics.business_type` is `services` or
+   seat that can pick them up on a later review cycle. It normally outranks #3 as well, for the same
+   "business_type is more fundamental than a narrower signal" reasoning — except in the specific,
+   demanding case where #3's own compound (two-of-three) trigger independently fires, which is the
+   one case this round's placement reasoning treats as genuinely prior; see #3 above and the
+   dedicated placement section below the list.
+5. **`sales-motion-reviewer`** triggers if `business_basics.business_type` is `services` or
    `physical_product` with a stated retail/wholesale/channel component, **or** Step 12's DMU
    description (check `disciplined_entrepreneurship.12_determine_the_dmu.summary` and/or
    `plan/12-determine-the-dmu.md`) names multiple stakeholder roles, procurement, or an explicitly
    long/multi-stage sales cycle — i.e., anything beyond a single self-serve buyer-user-payer.
    **Note the direct consequence of the tie-break rule below:** because `business_type: services`
-   satisfies both this trigger and #3's `services-unit-economics-reviewer` trigger, and
-   `business_type: physical_product` satisfies both this trigger's channel clause and #3's
-   `hardware-physical-product-operator` trigger, and #3 is evaluated first in both cases,
+   satisfies both this trigger and #4's `services-unit-economics-reviewer` trigger, and
+   `business_type: physical_product` satisfies both this trigger's channel clause and #4's
+   `hardware-physical-product-operator` trigger, and #4 is evaluated first in both cases,
    `sales-motion-reviewer` will not win the seat for a services business or a physical-product
    business purely on the type match — it can still win, in principle, for a non-services,
-   non-physical-product business whose DMU content independently trips this trigger.
-5. **`product-market-fit-panel`** triggers if `business_basics.business_type` is `saas`,
+   non-physical-product business whose DMU content independently trips this trigger, and it also
+   remains the winner over #3 whenever only #3's sales-process-complexity signal (and not a second,
+   independent signal) is what fired — see #3's own "exactly one signal" rule above.
+6. **`product-market-fit-panel`** triggers if `business_basics.business_type` is `saas`,
    `consumer_app`, or `marketplace`, **and** `key_assumptions` entries with `step_ref` in the
    06/07/08/20/21/22/23 range and `confidence: low` outnumber similarly-low-confidence entries
    elsewhere in the plan — i.e., the PMF-critical steps are the plan's least mature section right
@@ -234,35 +276,90 @@ first that triggers; if none trigger, use the default:
    vacuous — it always fired whenever the business-type matched, regardless of actual step
    maturity. Removed; the `key_assumptions`-confidence-concentration test is the only real signal
    and was already doing the actual work.)** In practice this trigger's `marketplace` branch will
-   rarely fire, for the same reason noted at #4: `business_type: marketplace` is already claimed
-   by #3 before evaluation reaches #5. It remains live for `saas` and `consumer_app`.
-6. **`competitive-strategy-reviewer`** — the default, used only when nothing above triggered.
-   **Also use this instead of #4/#5 whenever Steps 10 or 11 have `key_assumptions` entries with
+   rarely fire, for the same reason noted at #5: `business_type: marketplace` is already claimed
+   by #4 before evaluation reaches #6. It remains live for `saas` and `consumer_app`.
+7. **`competitive-strategy-reviewer`** — the default, used only when nothing above triggered.
+   **Also use this instead of #5/#6 whenever Steps 10 or 11 have `key_assumptions` entries with
    `step_ref` in that range at `confidence: low`, or either step's `summary` explicitly states no
    differentiated Core/position was found yet (e.g. a pre-liquidity marketplace with no Core yet,
    or a generic/undifferentiated competitive chart)** — i.e. the same kind of real content-based
-   maturity signal #5 uses, not a status value. **(Round 3 fix: this condition used to read
+   maturity signal #6 uses, not a status value. **(Round 3 fix: this condition used to read
    "whenever Steps 10/11 are not yet `approved`" — the identical vacuous-status bug found and
-   fixed in #5 above, independently present here too and confirmed, by a live second dry run, to
+   fixed in #6 above, independently present here too and confirmed, by a live second dry run, to
    have survived a full rewrite of this section untouched. Since no step status ever reaches
-   `approved`, that clause was unconditionally true for every business, silently overriding #4 and
-   #5's legitimately-firing triggers every single time for any business type other than
-   `marketplace`/`services` — which now have their own higher-priority trigger at #3 and so were
+   `approved`, that clause was unconditionally true for every business, silently overriding #5 and
+   #6's legitimately-firing triggers every single time for any business type other than
+   `marketplace`/`services` — which now have their own higher-priority trigger at #4 and so were
    accidentally shielded from ever hitting this bug. Replaced with a real, variable signal.)** Its
    own file's description still names `marketplace` as a load-bearing case from before round 3 —
-   that is now superseded by #3 for seat-selection purposes; `business_type: marketplace` will
-   always be intercepted by #3 unless #1 or #2 fires first, so this persona's marketplace-specific
+   that is now superseded by #4 for seat-selection purposes; `business_type: marketplace` will
+   always be intercepted by #4 unless #1, #2, or #3 fires first, so this persona's marketplace-specific
    rigor, while still real and worth reading in its own right, will only be selected onto the
    panel via the Steps-10/11 content signal above or the true default case, not via the
-   business-type match alone. This is a known, intentional consequence of adding #3, not an
+   business-type match alone. This is a known, intentional consequence of adding #4, not an
    oversight — flagged here so a future
    editor of `competitive-strategy-reviewer.md` understands why its own description now overstates
    how often it's actually selected for a marketplace.)
 
-`technical-feasibility-reviewer` and `regulated-industry-compliance-reviewer` are deliberately
-**not** fallback defaults — most plans describe conventional, well-understood, unregulated builds
-where these seats have little to add, so each only takes the seat when its own trigger actually
-fires, exactly like #4/#5 below them.
+`technical-feasibility-reviewer`, `regulated-industry-compliance-reviewer`, and
+`operational-execution-reviewer` are deliberately **not** fallback defaults — most plans describe
+conventional, well-understood, unregulated builds with an operational footprint their team can
+plausibly carry, where these seats have little to add, so each only takes the seat when its own
+trigger actually fires, exactly like #5/#6 below them.
+
+### Why `operational-execution-reviewer` sits between #2 and #4
+
+Placing the new `operational-execution-reviewer` trigger at #3 — between `technical-feasibility-
+reviewer` and the business-type-match tier — is a deliberate placement decision, not a default
+earned by being newest, and it deserves the same explicit reasoning the compliance-reviewer
+placement got in round 4.
+
+**Why it sits below #1 and #2 (yields to both).** A business that can't legally operate as scoped,
+or can't be built as an engineering matter, makes "can this team run it day to day" a moot
+question — there is no operational load to plan around for a product that doesn't exist yet or
+can't be sold. This is the identical "prior-in-kind" logic already established for #1 vs. #2 and
+#1/#2 vs. the type-match tier; nothing about adding a third, lower tier changes it.
+
+**Why it sits above #4 rather than below it, when its own compound trigger fires.** This is the
+genuinely new call. `marketplace-liquidity-specialist`, `services-unit-economics-reviewer`, and
+`hardware-physical-product-operator` each own one operational axis deeply (two-sided liquidity;
+billable-hours delivery capacity; manufacturing/supply-chain operations) for the business type that
+axis is close to always central to. `operational-execution-reviewer` owns something those single-
+axis specialists structurally cannot: whether *multiple* operational axes are colliding on the same
+small team at the same time — a physical-product business, say, whose hardware-physical-product-
+operator seat would rigorously check manufacturing lead times and MOQs, but whose plan *also*
+describes a multi-stage enterprise sales process and a support-heavy onboarding flow stacked on the
+same two founders, with the timeline compressed into six weeks. `hardware-physical-product-operator`
+has no mandate to check the sales-process or support-load axes (see its own "what you don't do");
+`sales-motion-reviewer` isn't on the panel to check them either, because #4 already claimed the seat
+by type match. In that specific, compound-signal case, "can this team survive concurrently
+launching production, running a real sales process, and supporting first customers" is a more
+consequential open question than getting any single axis's economics exactly right — the same
+category of reasoning that already lets #2 outrank the type-match tier for a hardware/deep-tech
+signal.
+
+**Why this doesn't quietly erode the type-match tier's "unconditional" design.** The demanding
+two-of-three trigger is the load-bearing safeguard here, deliberately. A plan that trips only the
+one axis its type specialist already owns (a physical-product business with a normal, single-
+channel fulfillment plan, say) does **not** win this seat — #4 still wins, exactly as round 3/4
+intended when they made these seats unconditional for their types. The override only fires for the
+narrower subset of plans carrying a genuinely uncovered cross-functional risk the type specialist's
+own rubric explicitly disclaims. This is the same shape of bounded, visible cost the tie-break rule
+already accepts elsewhere (see "Why 5 seats stays fixed," reason 2) — not a silent erosion of the
+round-3/4 gap-closing work, and the type specialist becomes a named, logged runner-up exactly as
+every other displaced tier already is.
+
+**Why it can also reach `saas`, `consumer_app`, and `other` — the table's still-open gap.** Because
+this trigger is content-based, not `business_type`-based, it can land on the three business types
+the Data Contract's persona-coverage table still lists as having no *dedicated* persona at all —
+alongside `regulated-industry-compliance-reviewer`, which already reaches these same types on its
+own narrower regulated-content basis without the table treating that as closing the gap (see that
+row's own note). A `saas` business with a support-heavy onboarding flow and a multi-stage enterprise
+sales process stacked on a two-person team is exactly the shape this trigger exists to catch, and
+for that business type there is no tier ahead of #3 to compete with (assuming no regulated or
+technical-feasibility signal). It does not fully close that gap — most `saas`/`consumer_app`/`other`
+plans will not trip the demanding two-of-three bar — but, like the compliance reviewer's reach into
+these types, it is real, partial, content-triggered coverage where none existed before this round.
 
 ### Why the compliance reviewer is checked first
 
@@ -273,7 +370,7 @@ tie-break rule below rather than being asserted in a bullet. Two independent rea
 sufficient on its own:
 
 1. **It reaches business types nothing else does on this question.** `technical-feasibility-
-   reviewer` and the #3 tier are gated by `business_type` (or a hardware/deep-tech content signal
+   reviewer` and the #4 tier are gated by `business_type` (or a hardware/deep-tech content signal
    layered on top of it). A regulated `saas` business (a HIPAA-scope patient-scheduling tool), a
    regulated `services` business (a bookkeeping firm that starts handling client payroll funds), or
    a regulated `marketplace` (a peer-to-peer lending platform) can each be a technically ordinary,
@@ -295,22 +392,23 @@ sufficient on its own:
    sitting alongside it.
 
 This is a genuinely new kind of priority decision, not a mechanical extension of the existing
-"business-type is more fundamental than a content pattern" reasoning used for tiers #3 vs. #4/#5 —
+"business-type is more fundamental than a content pattern" reasoning used for tiers #4 vs. #5/#6 —
 those tiers rank a holistic type signal above a narrower content signal; this ranks a narrower
-content signal (regulated-industry) above both a wider content signal (#2) and a holistic type
-signal (#3), specifically because #1's content signal identifies a *legal-operability* gate that
-nothing else on the panel checks, not because content signals generally outrank type signals.
+content signal (regulated-industry) above both a wider content signal (#2), a holistic type
+signal (#4), and (added this round) `operational-execution-reviewer`'s own compound content signal
+at #3, specifically because #1's content signal identifies a *legal-operability* gate that nothing
+else on the panel checks, not because content signals generally outrank type signals.
 
 ### Tie-break rule — precise, not vague
 
-If more than one of #1-#5 triggers for the same review, **take the lowest-numbered one that
+If more than one of #1-#6 triggers for the same review, **take the lowest-numbered one that
 triggered**, full stop — this single rule resolves every case, including the ones the roadmap and
 this round's own persona-coverage gap specifically called out:
 
 - **A regulated `marketplace`, `services`, or `saas` business** (e.g., a peer-to-peer lending
   marketplace, a bookkeeping services firm handling client funds, a HIPAA-scope patient-scheduling
-  SaaS tool) whose `business_type` would otherwise route it straight to #3 (or, for `saas`, to #5
-  or the #6 default): #1 outranks every lower tier. Seat goes to
+  SaaS tool) whose `business_type` would otherwise route it straight to #4 (or, for `saas`, to #6
+  or the #7 default): #1 outranks every lower tier. Seat goes to
   `regulated-industry-compliance-reviewer`; whichever lower-tier persona would otherwise have been
   selected (`marketplace-liquidity-specialist`, `services-unit-economics-reviewer`, or nothing more
   specific than the default) is the logged runner-up. This is precisely the case the roadmap's
@@ -324,44 +422,57 @@ this round's own persona-coverage gap specifically called out:
 - **A `marketplace` (or `services`) business with an independently-triggering technical-feasibility
   signal** (e.g., a marketplace with a real hardware/IoT/regulated-engineering component, or a
   services business betting on an unproven core technology, with no regulated-industry content
-  signal present): #2 outranks #3. Seat goes to `technical-feasibility-reviewer`;
+  signal present): #2 outranks #4. Seat goes to `technical-feasibility-reviewer`;
   `marketplace-liquidity-specialist` or `services-unit-economics-reviewer` (whichever matched) is
   the logged runner-up.
 - **A `physical_product` business with an independently-triggering hardware/deep-tech signal but no
   regulated-industry content signal** (ordinary consumer electronics with a genuinely novel sensor,
-  say): #2 outranks #3. Seat goes to `technical-feasibility-reviewer`;
+  say): #2 outranks #4. Seat goes to `technical-feasibility-reviewer`;
   `hardware-physical-product-operator` is the logged runner-up — the two personas' lenses are
   distinct (engineering buildability vs. manufacturing/supply-chain operations) but only one seat
   exists, so the more consequential "can this be built at all" question wins per the reasoning at
   #2 above.
+- **Any business (regardless of type) whose Steps 13/18/22 independently trip
+  `operational-execution-reviewer`'s compound two-of-three execution-complexity signal, with no
+  regulated-industry or technical-feasibility signal also present**: #3 outranks #4/#5/#6/#7 —
+  whichever lower tier would otherwise have matched (a type-match specialist, `sales-motion-
+  reviewer`, `product-market-fit-panel`, or the default) becomes the logged runner-up. See "Why
+  `operational-execution-reviewer` sits between #2 and #4" above for why this is deliberately a
+  narrow override, not a routine one: the two-of-three bar means most businesses of every type keep
+  routing to their normal tier, and only a plan carrying a genuinely uncovered cross-functional
+  overload trips this instead.
 - **A `services` business whose Step 12 DMU also independently signals multi-stakeholder
-  complexity** (e.g., an agency selling to enterprise clients with real procurement): #3 outranks
-  #4. Seat goes to `services-unit-economics-reviewer`; `sales-motion-reviewer` is the logged
-  runner-up. As noted at #4 above, this is in fact the outcome for *every* `services` business,
+  complexity, with `operational-execution-reviewer`'s trigger not independently satisfied**
+  (e.g., an agency selling to enterprise clients with real procurement, but without a second,
+  independent execution-complexity axis also firing): #4 outranks #5. Seat goes to
+  `services-unit-economics-reviewer`; `sales-motion-reviewer` is the logged runner-up. As noted at
+  #5 above, this is in fact the outcome for *every* `services` business that doesn't also trip #3,
   not just an edge case, since `sales-motion-reviewer`'s own trigger includes the bare
   `business_type: services` match — the tie-break rule makes that resolution automatic and
   consistent rather than something each review has to re-decide.
 - **A `marketplace` business whose Step 12 DMU independently signals complexity on one or both
-  sides** (a B2B marketplace with real procurement on the demand side, say): #3 outranks #4 here
+  sides** (a B2B marketplace with real procurement on the demand side, say): #4 outranks #5 here
   too, for the same reason. This is a smaller loss than it looks — `marketplace-liquidity-
   specialist`'s own rubric already requires a per-side DMU check at Step 12 (see its file), so the
   DMU-complexity concern is not dropped entirely, just read through a liquidity lens rather than
   `sales-motion-reviewer`'s process-realism lens.
 - **Every `physical_product` business whose Step 12 DMU or channel component would otherwise
-  independently signal `sales-motion-reviewer`'s trigger** (added this round, parallel to the
-  services case above): #3 outranks #4. Seat goes to `hardware-physical-product-operator`;
-  `sales-motion-reviewer` is the logged runner-up — this is the outcome for *every*
-  `physical_product` business, not an edge case, for the identical structural reason the services
-  case is unconditional: `sales-motion-reviewer`'s own trigger includes the bare
-  `business_type: physical_product`-with-channel match, and #3 is evaluated first.
+  independently signal `sales-motion-reviewer`'s trigger** (parallel to the services case above),
+  **and `operational-execution-reviewer`'s trigger is not independently satisfied**: #4 outranks
+  #5. Seat goes to `hardware-physical-product-operator`; `sales-motion-reviewer` is the logged
+  runner-up — this is the outcome for *every* `physical_product` business that doesn't also trip
+  #3, not an edge case, for the identical structural reason the services case is unconditional:
+  `sales-motion-reviewer`'s own trigger includes the bare `business_type: physical_product`-with-
+  channel match, and #4 is evaluated first.
 
 In every case above, **note in the review file's rationale that the runner-up trigger(s) are
 recommended for the *next* review cycle** rather than silently dropping the concern — this was
 already this skill's convention before this round and applies unchanged to the personas added this
 round. A single review can in principle have three or more triggers fire simultaneously (a
-regulated hardware physical product can trip #1, #2, and #3 all at once) — the rule still resolves
-mechanically to the single lowest-numbered winner, and every other triggering persona is logged as
-a runner-up, plural, not just the immediate next-lowest one. Never exceed 5 seats total.
+regulated hardware physical product with a genuinely overloaded launch plan can trip #1, #2, #3,
+and #4 all at once) — the rule still resolves mechanically to the single lowest-numbered winner,
+and every other triggering persona is logged as a runner-up, plural, not just the immediate
+next-lowest one. Never exceed 5 seats total.
 
 ### Why 5 seats stays fixed rather than flexing to 6
 
