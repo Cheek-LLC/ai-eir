@@ -41,8 +41,9 @@ runtime:
 - **`agents/`** — subagent definitions: the orchestrator (`orchestrator.md`, the "Startup
   Operator"), the review councils (`agents/council/`), go-to-market agents (`agents/gtm/`),
   operations/analytics/finance agents (`agents/ops/`), AI-risk and privacy/compliance agents
-  (`agents/risk/`), QA agents (`agents/qa/`), and connector-liaison agents
-  (`agents/connectors/`).
+  (`agents/risk/`), QA agents (`agents/qa/`), brand/design agents (`agents/design/`), and the
+  connector-liaison agent (`connectors-liaison.md`, a singleton file directly under `agents/`,
+  not a subfolder).
 - **`skills/`** — one folder per skill, each a `SKILL.md` package: the 24 Disciplined
   Entrepreneurship step skills (`skills/disciplined-entrepreneurship/01-...` through `24-...`),
   business-plan assembly and revision (`skills/business-plan/`), onboarding and recurring

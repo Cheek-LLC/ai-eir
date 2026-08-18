@@ -18,7 +18,8 @@ machine, their own environment). Per `docs/DATA-CONTRACT.md`, this directory hol
 - `plan/` — the 24 step files and the assembled business plan.
 - `reviews/`, `gtm/`, `ops/` — council review output, launch/marketing artifacts, operations
   snapshots.
-- `connectors.json` — which external tools are wired up, and which are still needed.
+- `business-state.json.connectors` — which external tools are wired up, and which are still
+  needed (an inline key inside `business-state.json`, not a separate file).
 
 **This directory is local to the founder's own environment. Nothing in it is transmitted
 anywhere by this plugin automatically, by default, ever, as a background process, or as a
@@ -37,7 +38,7 @@ analytics from a connected tool.
 Concretely, before any such send:
 
 1. The connector must already be wired and recorded in `business-state.json.connectors.wired_up`
-   / `connectors.json` — the plugin does not silently discover or auto-connect a tool.
+   — the plugin does not silently discover or auto-connect a tool.
 2. `skills/risk/privacy-check` (Mode B) must clear the send — checking what data is moving, where
    it came from, whether the founder has a real legal basis to hold and use it, and whether the
    plugin itself is the point of undisclosed collection (it should never be — the plugin routes

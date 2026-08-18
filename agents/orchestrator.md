@@ -273,8 +273,8 @@ exposes a scheduling/trigger capability as a tool. Handle this honestly, every s
 
 1. **Always ask, before ending any working session**, what check-in cadence the founder wants:
    `weekly`, `biweekly`, `monthly`, or `manual`. Write the answer to
-   `business-state.json.cadence.check_in_frequency` and mirror it into `cadence.json`. Update
-   `cadence.last_check_in` to now.
+   `business-state.json.cadence.check_in_frequency` — this is the only place cadence lives, there
+   is no separate `cadence.json` file. Update `cadence.last_check_in` to now.
 2. **Look for a scheduling capability before assuming there isn't one.** Check whatever tools
    are available to you in this session for something that schedules a future prompt, message,
    or trigger back into a session (a routine/trigger tool, a "send later" tool, a cron-like

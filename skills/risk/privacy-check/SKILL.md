@@ -39,7 +39,7 @@ read `agents/risk/privacy-compliance-officer.md` before running this skill.
 > **What to pass in, every Mode B call:**
 > 1. What data is about to move (fields/records, not necessarily every raw value) and where it
 >    came from.
-> 2. Which connector it's going to (must match `business-state.json.connectors` / `connectors.json`).
+> 2. Which connector it's going to (must match `business-state.json.connectors`).
 > 3. What the founder has said, if anything, about consent/legal basis for this specific data.
 >
 > **What "clear" looks like:** the calling skill/agent may proceed with the send; any `risk_log`
@@ -121,14 +121,13 @@ changed rather than re-running the full notice.
 **Calling contract:** the calling skill/agent must supply, before this gate can clear anything:
 1. What data is about to move (a description of the fields/records, not necessarily every raw
    value) and where it came from.
-2. Which connector it's going to (must match an entry in `business-state.json.connectors` /
-   `connectors.json`).
+2. Which connector it's going to (must match an entry in `business-state.json.connectors`).
 3. What the founder has said (if anything) about consent/legal basis for this specific data.
 
 **What to do:**
 
-1. Read `business-state.json` in full, plus `connectors.json` and the specific plan/gtm/ops file
-   the data is drawn from.
+1. Read `business-state.json` in full (including its `connectors` key) and the specific
+   plan/gtm/ops file the data is drawn from.
 2. Delegate to `agents/risk/privacy-compliance-officer.md`, handing it exactly what the calling
    skill supplied. It runs the four-part connector gate check (data minimization, legal basis,
    undisclosed-collection check, destination-ownership check — full detail in that agent's file)
@@ -165,8 +164,8 @@ been wired in, that's a bug in the integration, not a reason to skip it — add 
 
 ## What this skill reads
 
-- `business-state.json` (whole file)
-- `connectors.json`
+- `business-state.json` (whole file, including its `connectors` key — there is no separate
+  `connectors.json` file)
 - `docs/PRIVACY-AND-DATA-HANDLING.md`
 - The specific plan/gtm/ops file(s) relevant to the current check
 

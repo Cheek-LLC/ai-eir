@@ -147,6 +147,15 @@ Instruct the business-plan-editor subagent, explicitly, to perform these three r
    explicitly in section 4. If the ratio is below roughly 3:1, or if either LTV or COCA rests
    on a `key_assumptions` entry with no `test_result` yet, flag that plainly in both section 4
    and Key Assumptions & Open Risks — do not present the ratio as settled fact if it isn't.
+   **For a `services` business specifically, a *healthy* ratio needs the same explicit scrutiny
+   as an unhealthy one — do not let a strong number alone read as a growth signal.** Step 19's own
+   services guidance already carries the instruction to state whether the ratio reflects real
+   scalability or is orthogonal to a delivery-capacity constraint (a services business can post an
+   excellent LTV:COCA ratio while still being unable to grow revenue without proportionally adding
+   headcount) — but that instruction lives in the individual step file, and a less careful drafter
+   could omit it there without this assembly step catching the gap. Explicitly re-state the
+   capacity-vs-ratio distinction in section 4 whenever `business_basics.business_type: services`,
+   regardless of whether the ratio itself looks healthy.
 
 ## 4. Key Assumptions & Open Risks section
 

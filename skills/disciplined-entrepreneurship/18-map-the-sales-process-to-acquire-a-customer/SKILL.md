@@ -135,14 +135,36 @@ presented as fact and need `quantitative_claims` entries:
 | ... | | | | |
 | N. Signed & paid | ... | ... | ...% | ... |
 
+## Background relationship/network maintenance (referral-driven businesses — see note below)
+| Activity | Time/period | Who does it | Notes |
+|---|---|---|---|
+| e.g. staying in touch with referral source X | ... | ... | ... |
+
 ## Roll-up
 - Total sales cycle length: ...
 - Overall funnel conversion (top of funnel → paying customer): ...
-- Total resource cost per closed customer (feeds Step 19): $...
+- Total resource cost per closed customer, discrete stages only (feeds Step 19): $...
+- Total resource cost per closed customer, including background relationship maintenance
+  allocated per engagement (feeds Step 19 if material — see note below): $...
 
 ## Open assumptions
 - ka-018-...: ...
 ```
+
+**For a referral-driven business specifically** (the default pattern this step's services guidance
+names): a founder/BD person's real acquisition time is often materially larger than the sum of
+time spent in the discrete stages above. The remainder is background relationship-maintenance —
+staying in touch with the handful of referral sources that generate most of the pipeline — which
+happens *between* discrete funnel stages, not *within* any one of them, so it has nowhere to go in
+the stage-row table above and is easy to leave structurally uncounted. Ask directly: "does your
+real total time-per-engagement in sales/BD activity match the sum of the stage rows above, or is
+there a gap?" If there's a material gap, use the Background relationship/network maintenance
+table to capture it (e.g. periodic check-ins with referral sources, allocated per engagement they
+generate) and include it in the second Roll-up line — Step 19's COCA calculation needs the
+complete figure, not just the discrete-stage total, or it will understate founder/BD loaded cost
+for exactly the business shape (referral-driven services) where this cost is often the largest
+single line. Omit this section entirely if the business's acquisition process is genuinely
+confined to discrete, countable stages (e.g. most paid-acquisition or self-serve funnels).
 
 ## Update business-state.json
 

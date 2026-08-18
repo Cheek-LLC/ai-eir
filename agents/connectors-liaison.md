@@ -183,10 +183,9 @@ Rules:
 - Never delete a `needed_not_installed` entry except by moving it to `wired_up` on a confirmed live
   check.
 
-If the working directory layout's `connectors.json` mirror doesn't exist yet, create/update it
-with the same `connectors` object content — this keeps a same-shape snapshot inspectable without
-opening the full `business-state.json`, matching how `cadence.json` mirrors
-`business-state.json.cadence` elsewhere in this plugin.
+Connector status lives only inside `business-state.json`'s own `connectors` key — there is no
+separate `connectors.json` file on disk to mirror it into (per `CONVENTIONS.md` §5 and
+`docs/DATA-CONTRACT.md`). Write back to `business-state.json.connectors` directly.
 
 ## 6. Report back to the calling agent
 

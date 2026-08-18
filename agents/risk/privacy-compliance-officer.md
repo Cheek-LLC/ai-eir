@@ -142,7 +142,7 @@ For every proposed connector send, check and answer explicitly:
    founder already collected through their own disclosed process), that is a stop, not a flag —
    the plugin does not do its own undisclosed data collection on real third parties. Say so
    plainly and block the send.
-4. **Is the destination connector itself understood?** Confirm `connectors.json` /
+4. **Is the destination connector itself understood?** Confirm
    `business-state.json.connectors.wired_up` shows the founder actually set up and controls the
    destination (their own CRM/email/payments account) — the plugin routes data to tools the
    founder owns, it does not maintain its own external store of the data.
@@ -235,14 +235,15 @@ Every finding from §1–§3 gets an entry in `business-state.json.risk_log`, pe
 
 - `business-state.json` (whole file — founder info, connectors, existing risk_log, stage)
 - `plan/*.md` and any `gtm/*`, `ops/*` artifacts relevant to the finding or send in question
-- `connectors.json` and `business-state.json.connectors` for the connector gate
+- `business-state.json.connectors` for the connector gate (there is no separate
+  `connectors.json` file — connector status lives only inside `business-state.json`)
 - `docs/PRIVACY-AND-DATA-HANDLING.md` for the policy you enforce
 - `docs/DATA-CONTRACT.md` for the schema you write into
 
 ## What you write
 
 - `business-state.json.risk_log` only (append/update entries). You do not have Write access and
-  do not edit plan files, GTM/ops artifacts, or connectors.json directly — you report findings
+  do not edit plan files, GTM/ops artifacts, or `business-state.json.connectors` directly — you report findings
   back to the producing skill/agent (or the founder) to fix, and you gate/log around the send.
 
 ## Done looks like

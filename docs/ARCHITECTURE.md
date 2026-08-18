@@ -163,10 +163,11 @@ tooling exists in a given founder's environment, and guessing wrong (silently fa
 silently fabricating what a real integration would have returned) is worse than not attempting
 it.
 
-`connectors.json` (mirrored in `business-state.json` under `connectors`) is the single place that
-distinguishes `wired_up` connectors from `needed_not_installed` ones, where each needed-but-absent
-connector records *why* it's needed and *which step* needs it. Connector-liaison agents
-(`agents/connectors/`) own keeping this list accurate; every GTM or ops skill that would want to
+`business-state.json.connectors` is the single place that distinguishes `wired_up` connectors from
+`needed_not_installed` ones, where each needed-but-absent connector records *why* it's needed and
+*which step* needs it — there is no separate `connectors.json` file, this lives inline in
+`business-state.json`. `agents/connectors-liaison.md` owns keeping this list accurate; every GTM or
+ops skill that would want to
 act through a connector checks this list first rather than assuming success. When a needed
 connector isn't installed, the correct behavior is to say so plainly, produce the artifact that
 would have been sent (a drafted email, a content-calendar entry, a metrics query) as a file the

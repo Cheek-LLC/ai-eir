@@ -143,13 +143,24 @@ first that triggers; if none trigger, use the default:
    records, transportation-safety-regulated services, and the like) — keywords such as "patient,"
    "PHI," "HIPAA," "clinical," "diagnosis," "medical record," "payments," "lending," "custody of
    funds," "money transmission," "KYC," "AML," "insurance underwriting," "FERPA," "controlled
-   substance," "licensed provider." **Added this round as the new highest-priority trigger,
-   evaluated ahead of `technical-feasibility-reviewer` (now #2) and every other tier** — see "Why
-   the compliance reviewer is checked first" immediately below the numbered list for the full
-   reasoning; in short, this seat can fire for business types (`saas`, `consumer_app`, `services`,
-   `marketplace`) that no other tier below reaches on a licensing/regulatory-awareness basis at
-   all, and even where it overlaps with a lower tier's trigger, the "can this business legally
-   operate as scoped" question it asks is prior-in-kind to that tier's question.
+   substance," "licensed provider." **A keyword match only counts if it describes the business's
+   own actual or pursued activity** — the selected beachhead, the chosen business-model archetype,
+   the actual product/service being delivered — never (a) a candidate/customer characteristic
+   inside a surveyed-and-rejected Step 1 segment (Step 1 necessarily lists these by design, and a
+   segment's description can legitimately contain a regulated-sounding term without the business
+   itself touching that activity), or (b) a sentence that explicitly negates the regulated
+   attribute rather than asserting it (e.g. "not a licensed profession," "no HIPAA scope" — read
+   the actual claim, don't fire on substring presence alone). Confirmed via round 4's live dry run
+   that a literal/mechanical keyword-presence check would misfire on exactly these two real
+   patterns; an executing agent must read the surrounding sentence for what it actually claims
+   about the pursued business, not pattern-match the word list. **Added this round as the new
+   highest-priority trigger, evaluated ahead of `technical-feasibility-reviewer` (now #2) and every
+   other tier** — see "Why the compliance reviewer is checked first" immediately below the numbered
+   list for the full reasoning; in short, this seat can fire for business types (`saas`,
+   `consumer_app`, `services`, `marketplace`) that no other tier below reaches on a
+   licensing/regulatory-awareness basis at all, and even where it overlaps with a lower tier's
+   trigger, the "can this business legally operate as scoped" question it asks is prior-in-kind to
+   that tier's question.
 2. **`technical-feasibility-reviewer`** triggers if `business_basics.business_type` is
    `physical_product` **and** `business_type_notes` (or `founder.notes`) signals hardware,
    deep-tech, or regulated-engineering content — keywords like "hardware," "device," "firmware,"
@@ -564,6 +575,21 @@ consideration) is a **discardable outlier** if and only if:
    there is *any* tag overlap with *any* other reviewer in the original blocking set, the verdict
    is **not** discardable — a credible concern shared across personas blocks, full stop, per
    CONVENTIONS.md §6's "one credible blocking objection should block, not get diluted."
+   **This tag check is mechanical but not sufficient on its own — also read the actual prose of
+   every other reviewer's Risks/gaps for substantive overlap even under a *different* tag.** Two
+   personas can converge on the same real underlying concern through legitimately distinct rubric
+   lenses and tag it differently (e.g. `expert-entrepreneur-panel` tagging a hiring plan's missing
+   sourcing channel `[EXECUTION-RISK]` while `services-unit-economics-reviewer` tags the same
+   underlying "can this scaling plan actually work" concern `[DELIVERY-CAPACITY]` from its own
+   angle) — confirmed as a real, demonstrated case in round 4's live dry run, where the literal tag
+   check alone let a substantively-corroborated REVISE get discarded. If you judge two reviewers'
+   prose describes the same underlying finding despite different tags, treat it as corroboration
+   (not discardable) the same as a literal tag match — and if you're genuinely unsure whether the
+   overlap is substantive or coincidental, resolve in favor of not discarding (a false "kept"
+   costs a slightly less concentrated aggregate; a false "discarded" can silently drop a real,
+   corroborated concern from the gate). Either way, name the specific cross-reference explicitly in
+   the review file's aggregation accounting — don't just note "tag overlap: none" when a semantic
+   read says otherwise.
 3. **Discarding it would leave at least one verdict still under consideration.** Never discard the
    last verdict standing. This floor case is rare but real: it can only arise in Track A, where
    the blocking set has 4 seats (not 5) and 4 severity levels exist, so it is mathematically
@@ -650,9 +676,23 @@ Write, in this order:
    the tag-overlap check explicitly, the way the worked example does), and the final aggregate
    verdict and score.
 4. **`## Aggregate Verdict`** section in the same CONVENTIONS.md §6 schema shape (Verdict, Score,
-   and a synthesized Required revisions list — the union of every required-revision item from
-   every reviewer whose verdict counted toward the aggregate severity, deduplicated by tag+substance,
-   not just the single harshest reviewer's list, so the founder gets one actionable checklist).
+   and a synthesized checklist — the union of every required-revision item from every reviewer
+   whose verdict counted toward the aggregate severity, deduplicated by tag+substance, not just the
+   single harshest reviewer's list, so the founder gets one actionable checklist).
+   **When the aggregate verdict is `REVISE` or `REJECT`**, that checklist is headed
+   `### Required revisions`, per CONVENTIONS.md §6's schema (which only defines a Required
+   revisions section for those two verdicts).
+   **When the aggregate verdict is `APPROVE` or `APPROVE_WITH_NOTES`, there is no Required
+   revisions content to union — per §6's own schema, an APPROVE/APPROVE_WITH_NOTES verdict has no
+   Required-revisions section at all, so every reviewer at that severity contributes zero items by
+   construction.** In that case, head the checklist `### Notes to consider` instead, and build it
+   from the union of the surviving reviewers' Risks/gaps bullets (deduplicated the same way) —
+   this is real, actionable information the founder should still see, just not phrased as a
+   blocking requirement. Do not reuse the `Required revisions` heading over this content, and do
+   not leave the section blank or improvise a different resolution per review — this exact branch
+   is the specified behavior, confirmed necessary by a real APPROVE_WITH_NOTES aggregate in round
+   4's live dry run (the case neither round 2's REVISE aggregate nor round 3's REJECT aggregate
+   exercised).
    **Immediately under that checklist, add a `### Discarded-but-real concerns` subsection** if
    §6 discarded any verdict as an outlier — one line per discarded reviewer: persona name,
    severity, and a one-sentence summary of their sharpest point (not their full required-revisions
