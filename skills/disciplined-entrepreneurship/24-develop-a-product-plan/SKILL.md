@@ -66,6 +66,45 @@ Ask the founder directly:
 - "What's the actual trigger — not a date, a condition — for starting pin 2's product work?"
 - "What would you need to hire or learn to execute the next 2 quarters of this roadmap?"
 
+## Business-type branching
+
+What dominates the near-term roadmap, and what the pin-2 readiness gate typically depends on,
+differs by `business_basics.business_type`:
+
+- **SaaS:** Near-term roadmap is usually driven by weak activation/feature-adoption signal from
+  Step 23, expansion-revenue features (upsell paths that Step 17's LTV already assumed), and
+  integration/security/compliance gaps that block broader beachhead sales. The pin-2 readiness
+  gate is often "a repeatable self-serve or sales motion proven at the beachhead" — building pin-2
+  product before the beachhead motion is repeatable just spreads a still-fragile GTM motion
+  thinner.
+- **Physical product:** Roadmap is usually driven by production scale-up (moving from small-batch
+  or handmade fulfillment to manufactured-at-volume), SKU/variant expansion validated by reorder
+  data from Step 23, and any certification/regulatory work that gates wider retail/channel access.
+  The pin-2 readiness gate is often proven unit economics and supply-chain capacity at the current
+  scale — adding a new product line before current-line economics are proven compounds risk rather
+  than diversifying it.
+- **Marketplace:** Roadmap is usually driven by whichever side (supply or demand) is the current
+  liquidity bottleneck per Step 23's per-side repeat-transaction data — matching/discovery
+  automation should follow proven manual-match demand, not precede it (building automated matching
+  before liquidity is proven manually just automates a broken match rate). The pin-2 readiness
+  gate is typically a liquidity threshold (a minimum match rate or time-to-match) achieved in the
+  beachhead before opening a new vertical or geography — a new category with the same unsolved
+  liquidity problem is not actually a "bowling pin," it's a second beachhead.
+- **Services:** Roadmap is usually driven by productizing and standardizing what's currently
+  bespoke — building the repeatable process, templates, or tooling that Step 15/19 already flagged
+  as the delivery-capacity constraint — before adding a new service line. The pin-2 readiness gate
+  is typically a standardized delivery playbook plus proven ability to deliver beyond just the
+  founder's own hours (someone other than the founder can execute the core engagement to the same
+  standard).
+- **Consumer app:** Roadmap is usually driven by retention-curve gaps surfaced in Step 23 — fixing
+  activation/onboarding friction takes priority over adding growth or engagement-loop features,
+  since acquiring more users into a leaky retention curve just accelerates burn. The pin-2
+  readiness gate is typically a stable, non-decaying retention curve at current scale — spending
+  on user-acquisition-heavy expansion before retention is stable is the single most common
+  consumer-app roadmap mistake this step exists to catch.
+- **Other:** Ask the founder what's actually gating expansion for their business rather than
+  defaulting to one of the above patterns (per `docs/UX-INTERVIEW-DESIGN.md` §4).
+
 ## When the founder doesn't know
 
 Roadmap prioritization not grounded in Step 23 evidence or a stated trigger condition is founder

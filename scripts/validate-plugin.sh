@@ -467,11 +467,12 @@ echo
 echo "=================================================================="
 echo " validate-plugin.sh summary"
 echo "=================================================================="
-echo " skills checked:   $CHECKED_SKILLS"
-echo " agents checked:   $CHECKED_AGENTS"
-echo " commands checked: $CHECKED_COMMANDS"
-echo " warnings:         ${#WARNINGS[@]}"
-echo " errors:           ${#ERRORS[@]}"
+echo " skills checked:          $CHECKED_SKILLS"
+echo " agents checked:          $CHECKED_AGENTS"
+echo " commands checked:        $CHECKED_COMMANDS"
+echo " council files checked:   $CHECKED_COUNCIL"
+echo " warnings:                ${#WARNINGS[@]}"
+echo " errors:                  ${#ERRORS[@]}"
 echo
 
 if [ "${#WARNINGS[@]}" -gt 0 ]; then
