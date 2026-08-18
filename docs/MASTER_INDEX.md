@@ -65,14 +65,20 @@ step-status ambiguity here: no DE step's `status` is ever promoted past `"drafte
 the plugin — `"approved"` is a whole-plan stage-machine state, not a per-step status. Round 3's
 marketplace dry run independently re-confirmed this fix holds and, separately, found the identical
 vacuous-status bug pattern recurring in the review council's own seat-selection logic (see below) —
-now fixed there too.
+now fixed there too. Round 7's first live founder-override run found the state-machine diagram's
+override branch was backwards (looping back through another council re-run instead of going straight
+to `approved`) — **fixed**, and confirmed correct by the same run. The same round's pivot dry run
+found Phase 6's DE-step-reopening protocol was a single unspecified sentence; **fixed** with a real
+"Reopening a subset of DE steps after a pivot" procedure (which steps revert to `not_started`, which
+get a `NEEDS RE-CONFIRMATION:` summary flag instead, and a cheap pre-reassembly skim-check) — see the
+round 7 section below.
 
 ## Interview (`skills/interview/`)
 
 | Skill | Purpose |
 |---|---|
 | `onboarding-interview` | First conversation with a new founder — captures identity/basics, classifies business type, sets honest depth/time expectations, pushes back on vague answers. Round 2 wired the mandatory AI-risk gate in here too; round 3's marketplace dry run ran it live and confirmed the privacy-notice call fires correctly. |
-| `recurring-check-in` | Conversational shape of every check-in after launch — asks for real founder-reported numbers, walks open risks/assumptions, confirms next cadence. |
+| `recurring-check-in` | Conversational shape of every check-in after launch — asks for real founder-reported numbers, walks open risks/assumptions, confirms next cadence. Round 7's second-check-in-cycle dry run found this skill anticipated a pivot signal surfacing in its own Phase 2 conversation but gave its executor no instruction for what to do next, despite `docs/DATA-CONTRACT.md` explicitly naming this skill as the one that hands a pivot to the orchestrator — **fixed**, Phase 2 now names the handoff explicitly. |
 
 Design rationale for both: `docs/UX-INTERVIEW-DESIGN.md`.
 
@@ -212,7 +218,16 @@ spec now requires the match to describe "the business's own actual or pursued ac
 `launch-director` (coordinator) → `marketing-strategist`, `sales-lead`, `fundraising-advisor`
 (gated on `gtm.funding_strategy`). Skills: `launch-plan`, `positioning-and-messaging`,
 `content-calendar`, `outbound-sales-playbook`, `fundraising-deck-prep` (builds the actual
-`.pptx` via the built-in `pptx` skill).
+`.pptx` via the built-in `pptx` skill). Round 7's founder-override dry run found `launch-director`
+would have silently proceeded as if an overridden REJECT/REVISE plan had cleared review cleanly — its
+Gate check read only `stage`, and its `risk_log` read was scoped to "anything open," which by
+construction excludes the `accepted`-status entries a founder override produces. **Fixed:** the Gate
+now re-reads the most recent `reviews[]` verdict whenever `stage` is `approved`, detects an override
+via the review file's mark and matching `accepted` entries, and states it plainly before any
+sequencing work. The same round's pivot dry run found the existing "mid-GTM pivot" section had no
+coverage for a pivot signal firing *after* launch (`gtm.status: "launched"`) — **fixed** with an
+explicit post-launch clause (already-shipped artifacts get flagged as targeting the pre-pivot band,
+not assumed immune). See the round 7 section below for both.
 
 ## Operations (`agents/ops/`, `skills/ops/`)
 
@@ -432,14 +447,15 @@ confirms it's landed; do not cite it as existing until then.
   through `06-revise-routes-through-revise-business-plan`, one case, 04, split into an `a`/`b`
   pair — unchanged since round 4, confirmed by directory listing)
 
-**Round 6 held both the agent and skill counts stable, confirmed directly rather than assumed** —
-this was a dry-run round exercising two existing fixtures, not a build round, and every
-file-count-affecting scope was a fix to an existing skill/agent file
-(`revise-business-plan/SKILL.md`, `runway-and-burn-tracking/SKILL.md`, `connectors-liaison.md`),
-never a new file. `scripts/validate-plugin.sh` still reports 46 skills, 29 agents, 5 commands, 12
-council files, 0 warnings, 0 errors as of this revision — identical to the round-4 and round-5
-snapshots' counts, confirmed by a live run of the script during this revision, not assumed carried
-forward.
+**Rounds 6 and 7 both held the agent and skill counts stable, confirmed directly rather than
+assumed** — both were dry-run rounds exercising existing fixtures, not build rounds, and every
+file-count-affecting scope was a fix to an existing skill/agent file: round 6 touched
+`revise-business-plan/SKILL.md`, `runway-and-burn-tracking/SKILL.md`, and `connectors-liaison.md`;
+round 7 touched `agents/orchestrator.md`, `agents/gtm/launch-director.md`, and
+`skills/interview/recurring-check-in/SKILL.md` — never a new file, in either round.
+`scripts/validate-plugin.sh` still reports 46 skills, 29 agents, 5 commands, 12 council files, 0
+warnings, 0 errors as of this revision — identical to the round-4 through round-6 snapshots' counts,
+confirmed by a live run of the script during this revision, not assumed carried forward.
 
 `scripts/validate-plugin.sh` output at the time of this revision: `PASS — no structural drift from
 CONVENTIONS.md detected` (46 skills, 29 agents, 5 commands, 12 council files, 0 warnings, 0 errors,
