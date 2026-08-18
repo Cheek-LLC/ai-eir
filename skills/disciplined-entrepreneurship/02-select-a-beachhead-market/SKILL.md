@@ -61,6 +61,16 @@ right kind of access/threat, not a generic version:
 - **Services:** reach = access via referral relationships, past clients, or a professional network
   where reputation travels; competitive intensity should weigh how commoditized/undifferentiated
   the service category already is.
+- **Consumer app:** reach = access to real individuals via personal network, beta-tester/early-
+  adopter communities (Discord, Reddit, Product Hunt, relevant subreddits/forums), or an existing
+  content/creator audience — not an ad-audience size estimate, which measures who you could pay to
+  reach, not who you can actually reach and learn from now. Competitive intensity = how many other
+  apps are already competing for the same slice of this segment's attention/habit, not just
+  feature-identical competitors (see Step 11's consumer-app competitive-position guidance for the
+  same distinction).
+- **Other:** ask the founder which of the above reach/competitive-intensity framings fits best, or
+  whether it's a genuine hybrid, rather than defaulting to a generic version (per
+  `docs/UX-INTERVIEW-DESIGN.md` §4).
 
 ## Method: weighted scoring matrix, not a gut call
 

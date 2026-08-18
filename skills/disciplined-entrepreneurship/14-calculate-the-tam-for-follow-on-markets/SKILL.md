@@ -175,6 +175,10 @@ keys untouched.
 - If you fell back to a founder-estimate/range instead of using WebSearch for a credible
   published count, say so explicitly ("no external search attempted this session") — an honest
   fallback and a skipped search otherwise look identical in the output.
+- **State the final headline figure to no more precision than your weakest chained input
+  supports — round explicitly before writing it, not after the AI-risk gate catches it.** Four
+  consecutive rounds of live dry runs have hit false-precision BLOCKED findings at exactly this
+  cluster of steps (04/14/16/17/19) — check yours before you finish.
 - The mandatory AI-risk gate above returned PASS, or a BLOCKED finding was resolved/overridden.
 - `business-state.json` key `14_calculate_the_tam_for_follow_on_markets` set to `status:
   "drafted"`. Review/approval happens later via a council skill — do not set it yourself.

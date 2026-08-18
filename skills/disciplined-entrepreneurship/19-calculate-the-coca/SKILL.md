@@ -176,6 +176,12 @@ Append `quantitative_claims` and `key_assumptions` entries; preserve all other k
 - Every figure has a `quantitative_claims` entry with a source — before reporting `drafted`,
   re-read this file's claims section and confirm COCA, the ratio, and the payback period each
   have a matching entry, not just the cost inputs.
+- **State COCA, the ratio, and the payback period to no more precision than your weakest chained
+  input supports — round explicitly before writing them, not after the AI-risk gate catches it.**
+  This step is the single most common place this plugin's own live dry runs have hit a
+  false-precision BLOCKED finding — four consecutive rounds, most often right here, because COCA is
+  structurally the most downstream step in the TAM→LTV→funnel-costing→COCA chain and accumulates
+  the most compounded uncertainty. Check yours before you finish; don't count on the gate.
 - The mandatory AI-risk gate above returned PASS, or a BLOCKED finding was resolved/overridden.
 - `business-state.json` key `19_calculate_the_coca` set to `status: "drafted"`; leave
   review/approval to the later council skill.

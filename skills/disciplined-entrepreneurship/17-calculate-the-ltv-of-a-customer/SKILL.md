@@ -187,6 +187,10 @@ Append `quantitative_claims` and `key_assumptions` entries; preserve all other k
   needs its own `quantitative_claims` entry too; before reporting `drafted`, re-read this file's
   "Quantitative claims" section and confirm the LTV figure has a JSON block under it, not just a
   heading.
+- **State the final headline figure to no more precision than your weakest chained input
+  supports — round explicitly before writing it, not after the AI-risk gate catches it.** Four
+  consecutive rounds of live dry runs have hit false-precision BLOCKED findings at exactly this
+  cluster of steps (04/14/16/17/19) — check yours before you finish.
 - The mandatory AI-risk gate above returned PASS, or a BLOCKED finding was resolved/overridden.
 - `business-state.json` key `17_calculate_the_ltv_of_a_customer` set to `status: "drafted"`;
   review/approval is a later council skill's job.

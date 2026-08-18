@@ -167,6 +167,10 @@ Append `quantitative_claims` and `key_assumptions` entries; preserve all other k
 - Every price figure has a `quantitative_claims` entry with a source — before reporting
   `drafted`, re-read this file's own claims section and confirm every stated price has a matching
   entry.
+- **State the final headline figure to no more precision than your weakest chained input
+  supports — round explicitly before writing it, not after the AI-risk gate catches it.** Four
+  consecutive rounds of live dry runs have hit false-precision BLOCKED findings at exactly this
+  cluster of steps (04/14/16/17/19) — check yours before you finish.
 - The mandatory AI-risk gate above returned PASS, or a BLOCKED finding was resolved/overridden.
 - `business-state.json` key `16_set_your_pricing_framework` set to `status: "drafted"`; leave
   review/approval to the later council skill.

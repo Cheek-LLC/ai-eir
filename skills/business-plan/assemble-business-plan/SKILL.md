@@ -156,6 +156,14 @@ Instruct the business-plan-editor subagent, explicitly, to perform these three r
    could omit it there without this assembly step catching the gap. Explicitly re-state the
    capacity-vs-ratio distinction in section 4 whenever `business_basics.business_type: services`,
    regardless of whether the ratio itself looks healthy.
+   **For a `consumer_app` business specifically, the opposite case needs the same explicit
+   scrutiny: a *weak* ratio built entirely from pre-launch, zero-real-data placeholders (a
+   retention curve, a freemium-conversion rate) needs an explicit statement that it reflects
+   current-assumption risk, not a proven-unviable business.** Do not let a scary number alone read
+   as a verdict on the underlying idea before real data exists to test the assumptions it's built
+   on — and do not let that caveat become an excuse to soften or hide a genuinely bad number either;
+   state both plainly, the same "not settled, but not hidden or minimized" discipline the services
+   caveat above requires in the opposite direction.
 
 ## 4. Key Assumptions & Open Risks section
 

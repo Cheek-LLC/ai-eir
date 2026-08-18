@@ -66,16 +66,21 @@ directly on Steps 2 and 3 and feeds every downstream financial claim in the plan
    for the founder to consider revisiting Step 2's beachhead choice — do not silently redo Step 2
    yourself.
    **This heuristic is stated in revenue terms and applies directly to SaaS/physical-product/
-   services/consumer_app beachhead TAM (their step-4 output is revenue). For a `marketplace`
-   business, the step-4 output per the Business-type branching section above is take-rate
-   *revenue* (GMV × take rate), which is structurally a fraction of GMV — do not apply this
-   heuristic's dollar range to the take-rate figure directly, or nearly every early-stage
-   marketplace's correctly-computed beachhead will spuriously look "too small." Instead: check the
-   heuristic against the underlying GMV figure (report both GMV and take-rate revenue explicitly,
-   per the branching section above), and treat a take-rate-revenue figure an order of magnitude or
-   more below the stated range as expected and non-disqualifying for a marketplace specifically —
-   flag it as a marketplace-typical pattern, not a beachhead-choice problem, unless the GMV figure
-   itself is also outside a sane range.**
+   services beachhead TAM (their step-4 output is revenue). Two business types produce a step-4
+   output that is structurally smaller than this heuristic's range even when correctly computed —
+   check each against its own reference figure instead of this heuristic's raw dollar range:**
+   - **`marketplace`**: the step-4 output per the Business-type branching section above is
+     take-rate *revenue* (GMV × take rate), a structural fraction of GMV. Check against the
+     underlying GMV figure (report both explicitly), and treat a take-rate-revenue figure an order
+     of magnitude or more below the stated range as expected and non-disqualifying — flag it as a
+     marketplace-typical pattern, not a beachhead-choice problem, unless the GMV figure itself is
+     also outside a sane range.
+   - **`consumer_app`** (freemium specifically): the step-4 output per the branching section above
+     is a blended revenue-per-user figure, a structural fraction of what a naive 100%-paid-
+     conversion calculation would produce. Check against the naive-ceiling figure (report both
+     explicitly, per the branching section), and treat a blended figure an order of magnitude or
+     more below the naive ceiling as expected and non-disqualifying — flag it as a freemium-typical
+     pattern, not a beachhead-choice problem, unless the naive ceiling itself is also implausible.
 5. **Cross-check against any top-down figure** (a market report's stated TAM for the broader
    category) as directional support only. Always show the bottom-up math as the number of
    record; label any top-down figure as "directional cross-check," never as the primary source.
@@ -103,10 +108,30 @@ number:
   services TAM assumes unlimited delivery capacity, which is rarely true; this doesn't change the
   TAM figure itself but should be named so it isn't mistaken for revenue the business can actually
   capture without scaling delivery).
+- **Consumer app:** **Do not use a naive count × price calculation for a freemium app — it produces
+  a nonsensical, wildly overstated number.** Most freemium consumer apps monetize a small minority
+  of users (subscription/IAP) while the majority generate ad revenue only or nothing at all; a
+  "count of end users × subscription price" formula implicitly assumes 100% paid conversion, which
+  no real freemium app achieves. Instead: compute a **blended revenue-per-user figure** — the same
+  method Step 17 uses for LTV, applied here to a single period instead of a lifetime — `(ad revenue
+  per user + subscription/IAP revenue per paying user × payer-conversion rate)`, then `count of
+  reachable end users in the beachhead × blended revenue-per-user × 12 months`. Report **two**
+  figures explicitly, the same discipline Step 17 requires: the blended TAM (the number of record)
+  and, separately and clearly labeled as a non-representative ceiling, what a naive 100%-conversion
+  calculation would produce — so a reader can see how much smaller the real number is and why,
+  rather than the naive figure silently becoming the plan's TAM by default. If a payer-conversion
+  rate hasn't been tested, this is exactly the kind of number that needs a `key_assumptions` entry,
+  not an invented plausible-sounding rate.
+- **Other:** ask the founder which of the above sizing methods actually fits, or whether it's a
+  genuine hybrid, rather than defaulting to a generic count × price formula (per
+  `docs/UX-INTERVIEW-DESIGN.md` §4).
 
 If Step 3 produced two profiles for a marketplace (supply-side and demand-side), size from
 whichever side is the actual constraint on transaction volume and say explicitly which side that
 is and why.
+
+See the Sanity-check step above (item 4) for how the beachhead-size heuristic applies differently
+to `marketplace` and `consumer_app` outputs.
 
 ## Every number here is a fact-claim — source it, never invent it
 
@@ -213,6 +238,13 @@ every other key untouched.
 - Before reporting `drafted`: re-read this file's own "Quantitative claims logged" section and
   confirm every dollar figure/percentage/ratio stated as fact above it has a matching entry — a
   heading with no JSON block under it is not done.
+- **State the final headline figure to no more precision than your weakest chained input
+  supports — round explicitly before writing it, not after the AI-risk gate catches it.** This is
+  a real, recurring failure mode: four consecutive rounds of live dry runs each hit false-precision
+  BLOCKED findings on a downstream unit-economics figure (TAM, LTV, or COCA), most often at exactly
+  this cluster of steps (04/14/16/17/19). A number chained through several low-confidence inputs
+  tends to come out looking artificially precise unless you deliberately round it — check yours
+  before you finish, don't rely on the gate to catch it.
 - Sanity check against the beachhead-size heuristic stated explicitly.
 - If you fell back to a founder-estimate/range instead of using WebSearch for a credible
   published count, say so explicitly in the Assumptions section ("no external search attempted

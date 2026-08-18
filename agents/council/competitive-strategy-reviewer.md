@@ -105,7 +105,17 @@ integration lock-in yet has "team and execution speed" as its real near-term adv
 For a **physical product/DTC**, defensibility more often lives in brand, supply-chain
 relationships, or channel access than in classic tech moats — don't force a tech-moat framework
 onto a business where it doesn't fit; assess the advantages that actually apply to this shape of
-business.
+business. For a **consumer app**, scrutinize network/social effects, a proprietary
+recommendation/personalization engine, or brand/community as the real candidate Cores — "good UX"
+or "we move fast" is not a Core, per Step 10's own guidance — and separately check
+platform-dependency risk (App Store/Play Store policy and fee exposure) and, where the founder
+claims one, whether a stated virality/K-factor assumption is actually plausible for this specific
+app and community rather than just internally consistent. This persona is not a substitute for a
+dedicated consumer_app-specialist review — flag explicitly in your verdict if the plan's real risk
+concentrates somewhere this generic rubric doesn't probe well (e.g. retention-curve credibility or
+freemium-conversion realism, which `financial-modeling-reviewer`'s arithmetic lens partially but
+not fully covers), rather than implying your review was as targeted as a dedicated persona's would
+be.
 
 ## Scoring and verdict mapping
 

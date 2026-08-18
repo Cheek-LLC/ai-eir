@@ -183,5 +183,14 @@ Append `quantitative_claims` and `key_assumptions` entries; preserve all other k
 - `plan/18-map-the-sales-process-to-acquire-a-customer.md` written, explicitly extending Step
   13's map rather than duplicating it.
 - Every stage's cost/conversion figures used elsewhere have `quantitative_claims` entries.
+- **Cross-check your chained overall-funnel conversion rate (multiplying every stage's
+  stage-to-stage conversion together) against any conversion-rate assumption stated in a different
+  step for the same underlying quantity** (most commonly Step 16's freemium-to-paid rate for a
+  consumer app, or a similar top-of-funnel-to-close assumption elsewhere) — if they disagree by a
+  material amount, flag it explicitly in Open assumptions rather than silently using one number in
+  this file and a different one elsewhere. Two related steps computing the same real-world quantity
+  two different ways is a known, recurring failure mode in this plugin (confirmed independently in
+  rounds 2, 3, and 5) — this step is often the one that surfaces the discrepancy first, since it's
+  the one doing the actual chained arithmetic.
 - `business-state.json` key `18_map_the_sales_process_to_acquire_a_customer` set to `status:
   "drafted"`; leave review/approval to the later council skill.
