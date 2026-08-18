@@ -29,8 +29,8 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
   },
   "disciplined_entrepreneurship": {
     "01_market_segmentation": { "status": "not_started|drafted|reviewed|approved", "summary": "string", "file": "plan/01-market-segmentation.md" },
-    "02_beachhead_market": { "...": "same shape" },
-    "...": "one entry per step, keys 01..24, matching docs/DE-24-STEPS.md filenames exactly"
+    "02_select_a_beachhead_market": { "...": "same shape" },
+    "...": "one entry per step, keys 01..24 — each key is the step's DE-24-STEPS.md slug with hyphens replaced by underscores (e.g. 04-calculate-the-tam-for-the-beachhead-market -> 04_calculate_the_tam_for_the_beachhead_market). This is the convention every skills/disciplined-entrepreneurship/*/SKILL.md file actually writes — do not abbreviate it."
   },
   "key_assumptions": [
     { "id": "string", "statement": "string", "step_ref": "e.g. 04_tam_beachhead", "confidence": "low|medium|high", "test_plan": "string", "test_result": "string|null" }
