@@ -21,7 +21,8 @@ plugin (e.g., ops/build skills), not here.
 
 ## Read before starting
 
-- `.startup/<slug>/business-state.json`.
+- `.startup/<slug>/business-state.json`, including `business_basics.business_type` — read before
+  drafting the spec (see "Business-type branching").
 - `.startup/<slug>/plan/06-full-life-cycle-use-case.md` — **required**; every feature must trace
   to a touchpoint here. If missing or `not_started`, stop and tell the founder to complete Step 6
   first.
@@ -39,6 +40,21 @@ plugin (e.g., ops/build skills), not here.
    validated the Persona wants?
 5. Describe the moment of highest value — what does Persona see or do at the core interaction?
 6. What does the product explicitly *not* do at this stage — where's the scope boundary?
+
+## Business-type branching
+
+- **SaaS:** ask about must-have integrations, deployment model (cloud multi-tenant vs. on-prem vs.
+  hybrid), uptime/SLA expectations at this customer tier, and data residency/security requirements
+  the beachhead segment will actually ask about.
+- **Physical product:** ask about materials and manufacturing tolerances, unit cost at target
+  volume, packaging and shipping constraints, and any required regulatory certification (FDA,
+  CPSC, UL, etc.) that gates going to market at all — a spec that ignores this isn't a real spec.
+- **Services:** ask about what's standardized versus custom per engagement, what a delivery "unit"
+  actually is (a project, a retainer month, an hour), and what tooling or process makes the service
+  repeatable rather than fully bespoke every time.
+- **Marketplace:** ask separately what each side of the marketplace needs from a first version
+  (e.g., a listing/fulfillment flow for supply, a search/trust flow for demand) — a spec that only
+  covers one side's capabilities isn't a marketplace spec yet.
 
 ## Method: trace every feature to a life-cycle touchpoint, then force prioritization
 

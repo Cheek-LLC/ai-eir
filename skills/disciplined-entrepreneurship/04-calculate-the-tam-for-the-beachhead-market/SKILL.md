@@ -21,7 +21,9 @@ directly on Steps 2 and 3 and feeds every downstream financial claim in the plan
 
 ## Read before starting
 
-- `.startup/<slug>/business-state.json`.
+- `.startup/<slug>/business-state.json`, including `business_basics.business_type` — read before
+  choosing the counting unit and multiplier; the bottom-up method itself differs by type (see
+  "Business-type branching").
 - `.startup/<slug>/plan/02-select-a-beachhead-market.md` — **required**, defines the market
   boundary being sized.
 - `.startup/<slug>/plan/03-build-an-end-user-profile.md` — **required**, defines the exact
@@ -66,6 +68,34 @@ directly on Steps 2 and 3 and feeds every downstream financial claim in the plan
 5. **Cross-check against any top-down figure** (a market report's stated TAM for the broader
    category) as directional support only. Always show the bottom-up math as the number of
    record; label any top-down figure as "directional cross-check," never as the primary source.
+
+## Business-type branching
+
+The counting unit and the multiplier both change shape by business type — using a generic
+"count × price" without adapting to the type is a common way this step produces a misleading
+number:
+
+- **SaaS:** count = number of companies (or seats within them) matching the Step 3 profile;
+  multiplier = realistic annual contract value or seat price × seats, grounded in what the founder
+  said they'd charge, not an aspirational ACV.
+- **Physical product:** count = number of end consumers/households in the target segment;
+  multiplier = average annual spend at realistic purchase frequency (units/year × price/unit) —
+  and note whether the realizable price is DTC or nets down through a wholesale/retail channel,
+  since that changes the revenue that actually reaches the business.
+- **Marketplace:** size by **GMV × take rate**, not a per-user subscription price — count the
+  transacting population on the demand side (or supply side, whichever is the binding constraint),
+  multiply by expected transaction value and frequency to get GMV, then apply the take rate the
+  founder actually expects to charge. Pricing a marketplace like a SaaS seat is the most common
+  sizing mistake at this step for this business type.
+- **Services:** count = number of target clients in the beachhead; multiplier = average annual
+  contract/engagement value — and flag delivery-capacity constraints explicitly as a note (a
+  services TAM assumes unlimited delivery capacity, which is rarely true; this doesn't change the
+  TAM figure itself but should be named so it isn't mistaken for revenue the business can actually
+  capture without scaling delivery).
+
+If Step 3 produced two profiles for a marketplace (supply-side and demand-side), size from
+whichever side is the actual constraint on transaction volume and say explicitly which side that
+is and why.
 
 ## Every number here is a fact-claim — source it, never invent it
 

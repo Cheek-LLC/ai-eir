@@ -20,7 +20,10 @@ Do not narrow to one market in this skill — that happens in `02-select-a-beach
 
 ## Read before starting
 
-- `.startup/<slug>/business-state.json` — founder info, `business_name`, any onboarding notes.
+- `.startup/<slug>/business-state.json` — founder info, `business_name`, any onboarding notes,
+  and **`business_basics.business_type`/`business_type_notes`**. Read the business type before
+  asking anything below and tailor per "Business-type branching" here and
+  `docs/UX-INTERVIEW-DESIGN.md` §4.
 - `.startup/<slug>/interview-log.md` (skim, if present) for anything already said about the
   product/technology or target customers, so you don't re-ask what's already on record.
 
@@ -40,6 +43,29 @@ Ask these directly — don't accept vague answers, push for specifics:
 5. Name 3-5 different "jobs to be done" or problems this could solve, even ones that seem to be
    for entirely different kinds of people.
 6. Have you seen anything like this used in adjacent verticals or by unexpected user types?
+
+If the founder's first answer is close to "everyone" or "anyone could use this," push back
+immediately, don't let it stand as segment #1 — ask them to name the first 5 specific people or
+companies they'd actually call this week if they had to sell something today. That list is real
+data; "everyone" is not.
+
+## Business-type branching
+
+The axes that actually produce heterogeneous segments differ by business type — read
+`business_basics.business_type` and steer the brainstorm accordingly:
+
+- **SaaS:** segment along company size/vertical/technical sophistication and workflow — e.g.
+  "seed-stage startups with no dedicated ops hire" is a real segment; "companies that need
+  software" is not.
+- **Physical product:** segment along purchase channel and occasion (DTC vs. retail/wholesale,
+  gift vs. self-use, replacement vs. first purchase) as much as demographics — two demographically
+  identical buyers in different channels often behave like different segments.
+- **Marketplace:** brainstorm supply-side and demand-side segments **separately** before pairing
+  them — a marketplace segmentation done on only one side (e.g., only buyer types) misses that the
+  real constraint is usually finding a supply segment and demand segment that fit each other.
+- **Services:** segment by client sophistication, project complexity, or budget tier at least as
+  much as by industry vertical — a services business segmented only by vertical often misses that
+  engagement size/complexity is the real driver of differing needs.
 
 ## Method: generate and cluster, don't describe one customer
 
@@ -85,8 +111,8 @@ Never invent segments or their sizes to hit the 10+ target. If the founder can o
 (tech push vs. market pull, one paragraph)
 
 ## Candidate segments
-| # | Segment name | End user | Distinct need | Why it's heterogeneous from other segments | Source |
-|---|---|---|---|---|---|
+| # | Segment name | End user | Distinct need | Why it's heterogeneous from other segments | Source | Side (marketplace only: supply/demand) |
+|---|---|---|---|---|---|---|
 (source = founder-identified | candidate — needs validation)
 
 ## Segments carried forward to Step 2

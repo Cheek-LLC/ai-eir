@@ -25,7 +25,9 @@ period explicitly.
 
 ## Reads
 
-- `.startup/<slug>/business-state.json` (whole file)
+- `.startup/<slug>/business-state.json` (whole file). Read `business_basics.business_type` — it
+  determines what the dominant cost driver in the buildup actually is (see "Business-type cost
+  drivers").
 - `.startup/<slug>/plan/18-map-the-sales-process-to-acquire-a-customer.md` — required. Source of
   every cost input: resources consumed per stage, sales cycle length, funnel conversion rates.
 - `.startup/<slug>/plan/17-calculate-the-ltv-of-a-customer.md` — required. Source of the LTV
@@ -58,6 +60,27 @@ Ask the founder directly:
 - "Does this COCA number still work if you had to pay a rep market salary instead of your own
   sweat equity?" (loaded founder time is a real cost and must not be left out just because it's
   currently unpaid)
+
+## Business-type cost drivers
+
+The fully-loaded buildup (deliverable 1) is dominated by a different cost line depending on
+`business_basics.business_type` — check the right one isn't being left out:
+
+- **SaaS:** Often a mix of paid-acquisition spend (per click/lead) for the self-serve funnel and
+  loaded rep/AE time for sales-assisted deals — compute both and blend, don't pick one channel and
+  ignore the other if both exist.
+- **Physical product / DTC:** COCA is usually dominated by paid social/search spend per order;
+  include payment-processing fees and, if the product has a meaningfully high return rate, the
+  loaded cost of returns/refunds as part of acquiring a *net* paying customer, not just a first
+  order. Wholesale-channel COCA (trade shows, broker/distributor fees) is a distinct number from
+  DTC COCA — don't blend them into one figure without saying so.
+- **Marketplace:** Cost supply-side and demand-side acquisition **separately** — they're rarely
+  symmetric, and one side is often subsidized (free listings, incentive payments) to reach
+  liquidity. A single blended "marketplace COCA" hides which side is actually expensive.
+- **Services:** Usually dominated by founder/BD loaded time (referral- and network-driven), with
+  near-zero paid marketing spend early on — the "ask the founder" question above about a market-
+  rate rep salary is especially load-bearing here, since unpaid founder time is most of the real
+  cost and easiest to leave out.
 
 ## When the founder doesn't know
 

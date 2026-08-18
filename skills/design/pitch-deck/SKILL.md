@@ -53,16 +53,37 @@ below — do not hand-roll slide XML or reimplement what that skill already does
 
 ### Fundraising-deck-prep handoff
 
-Check for a fundraising content-strategy brief from the GTM builder's skill,
-`skills/gtm/fundraising-deck-prep` — look under `.startup/<slug>/gtm/` for a file whose name
-suggests deck prep or fundraising strategy, and check `gtm.artifacts` in `business-state.json` for
-an entry of a matching type. That skill's job is narrative/investor strategy (what story to tell,
-which objections to preempt, which investor archetype this is aimed at) — **do not redo that
-analysis here.** If the brief exists, treat its narrative arc and emphasis as required input to
-slide ordering and framing; reference it explicitly in your output rather than silently
-reproducing its reasoning. If it does not exist yet, proceed using the plan alone and note in your
-report back that a fundraising-deck-prep pass, once that skill exists and runs, may reshape slide
-emphasis — this skill's content still stands as a solid first draft either way.
+Check for `.startup/<slug>/gtm/fundraising-deck-brief.md`, produced by the GTM builder's
+`skills/gtm/fundraising-deck-prep` (invoked via `agents/gtm/fundraising-advisor.md` whenever
+`gtm.funding_strategy` is `raising_outside_capital`). Corroborate with `business-state.json`
+`gtm.artifacts`: that skill registers `{ "type": "fundraising-deck-brief", "file":
+"gtm/fundraising-deck-brief.md" }` and, if its own `pptx` build step ran, also `{ "type":
+"pitch-deck", "file": "gtm/pitch-deck.pptx" }`. That skill's job is narrative/investor strategy
+(what story to tell, which objections to preempt — pulled from the VC-panel's actual review
+notes, not generic tropes) — **do not redo that analysis here; read the brief and defer to its
+narrative arc and emphasis for slide ordering and framing**, referencing it explicitly in your
+output rather than silently reproducing its reasoning. If it does not exist yet (funding
+strategy isn't `raising_outside_capital`, or the founder hasn't asked for fundraising prep),
+proceed using the plan alone — this skill's content stands as a solid general-purpose deck
+either way, not one written to substitute for the fundraising-specific narrative.
+
+**Avoid building a redundant, colliding deck.** If `gtm/pitch-deck.pptx` already exists (i.e.
+`fundraising-deck-prep`'s own `pptx` build already ran), that deck and this skill's deck are
+built from different code paths for overlapping purposes (fundraising narrative vs. general
+investor/demo-day deck) and both would otherwise register under the same `gtm.artifacts` type —
+`"pitch-deck"` — at two different file paths, so whichever writes second silently clobbers the
+other's registration per the "replace in place" rule in §5, even though both files still exist on
+disk. Before building a new deck in that situation: tell the founder plainly that a fundraising
+deck already exists at `gtm/pitch-deck.pptx`, and confirm whether they want (a) to use that one
+as-is, or (b) a second, differently-purposed deck (e.g. a general/demo-day deck distinct from the
+investor-fundraising narrative). Only proceed to build if they choose (b), and in that case
+register this skill's output under the distinct type `"pitch-deck-general"` (not `"pitch-deck"`)
+in §5 so neither `gtm.artifacts` entry overwrites the other — say explicitly in your report back
+that two decks now exist and what distinguishes them. (This type-collision is a real gap between
+this skill and `agents/gtm/fundraising-advisor.md`/`skills/gtm/fundraising-deck-prep`, which this
+skill does not own — flag it for whoever owns those files to reconcile the `type` naming
+convention properly; the `"pitch-deck-general"` fallback here is a local mitigation, not the
+final fix.)
 
 ## 2. Slide outline
 
@@ -126,7 +147,11 @@ future materials more consistent.
 
 Read the whole file, write back only:
 - `gtm.artifacts`: append `{ "type": "pitch-deck", "file": "design/pitch-deck.pptx" }` (replace
-  in place if a pitch-deck entry already exists — this is a refresh, e.g. after a plan revision).
+  in place if a `pitch-deck` entry already exists **and it points at this same file**,
+  `design/pitch-deck.pptx` — that's a refresh, e.g. after a plan revision. If a `pitch-deck`
+  entry exists pointing at `gtm/pitch-deck.pptx` instead, that's the fundraising-deck-prep
+  output, not a prior run of this skill — do not replace it; see the collision handling above and
+  use `"pitch-deck-general"` as the type for this file in that case instead).
 - `updated_at`: current ISO-8601 timestamp.
 
 Preserve every other key untouched.
@@ -137,7 +162,9 @@ Preserve every other key untouched.
   outline) with every slide from §2 that applies to this business.
 - Every number on every slide either has a `quantitative_claims` source or is visibly flagged as
   an estimate.
-- `business-state.json.gtm.artifacts` has a `pitch-deck` entry.
+- `business-state.json.gtm.artifacts` has a `pitch-deck` entry (or `pitch-deck-general`, if this
+  ran alongside an existing fundraising deck per the collision handling above).
 - Report back: slide count and outline, which slides used optional/not-yet-drafted plan sections
   (so the founder knows what's thin), the LTV:COCA ratio if the unit-economics slide was included,
-  and whether a fundraising-deck-prep brief was found and used.
+  and whether `gtm/fundraising-deck-brief.md` was found and used (and, if a `gtm/pitch-deck.pptx`
+  already existed, which of the two decks now exist and what distinguishes them).

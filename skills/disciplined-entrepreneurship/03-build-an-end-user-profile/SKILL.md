@@ -22,7 +22,9 @@ is the direct input to Step 4's TAM count and Step 5's Persona.
 
 ## Read before starting
 
-- `.startup/<slug>/business-state.json`.
+- `.startup/<slug>/business-state.json`, including `business_basics.business_type` — read before
+  asking anything below; the profile dimensions that matter differ by type (see "Business-type
+  branching").
 - `.startup/<slug>/plan/02-select-a-beachhead-market.md` — **required**. If missing or Step 2's
   status is `not_started`, stop and tell the founder to run Step 2 first.
 
@@ -41,6 +43,27 @@ is the direct input to Step 4's TAM count and Step 5's Persona.
 6. What distinguishes someone genuinely IN this profile from someone who superficially looks
    similar but wouldn't behave the same way (e.g., same job title at a very different company
    size or maturity)?
+
+## Business-type branching
+
+Ask for what actually determines a good answer at this step for this business type, not a
+type-blind version of the questions above:
+
+- **SaaS:** ask about the end user's role and tools — what's their job title, what software stack
+  are they already living in, do they have budget authority or do they need to convince someone
+  else, what does a typical day look like at the moment they'd feel this problem.
+- **Physical product:** ask about the end user's purchase context instead — where do they
+  typically shop for products like this, what triggers the purchase occasion (a life event, a
+  season, a replacement need), who else in the household or team influences the purchase, what's
+  their price sensitivity at the category level.
+- **Marketplace:** ask about **both sides separately and explicitly** — a supply-side profile
+  (what does a seller/provider look like, what's their motivation to list) and a demand-side
+  profile (what does a buyer look like, what's their motivation to transact). Treating either side
+  alone as "the end user" is the step-3 mistake specific to marketplaces — write two profiles, not
+  one, and carry both forward into Steps 4 and 5.
+- **Services:** ask about who experiences the pain day-to-day versus who commissions the
+  engagement — the end user of a services offering (the person whose problem gets solved) is often
+  not the person buying it; note the split here even though full DMU mapping is Step 12.
 
 ## Method: composite profile from primary market research, not a demographic guess
 

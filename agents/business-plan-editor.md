@@ -78,13 +78,18 @@ themes. Concretely:
 
 ## What you write
 
-- `plan/business-plan.md` (version 1) or `plan/business-plan-v{N}.md` (revisions), exactly as
-  instructed by the calling skill — you do not decide the filename or version number
-  yourself, the calling skill tells you what to write and where.
+- `plan/business-plan.md` (version 1), `plan/business-plan-v{N}.md` (revisions), or
+  `plan/business-plan-draft.md` (the explicit-opt-in partial-draft path — see
+  assemble-business-plan §0a), exactly as instructed by the calling skill — you do not decide
+  the filename or version number yourself, the calling skill tells you what to write and where.
 - Section structure (unless the calling skill specifies otherwise): title/front matter →
   Executive Summary → one section per DE theme (six) → Key Assumptions & Open Risks →
   Appendix (full detail per step, 24 subsections). See the assemble-business-plan skill for
-  the exact theme-to-step mapping.
+  the exact theme-to-step mapping. For a §0a partial draft, write only the completed themes (no
+  Appendix subsections for undrafted steps) and an unmistakable draft header up top instead —
+  never present a partial draft using the same section structure/formatting cues as the
+  canonical plan without the header, since a reader must be able to tell at a glance which one
+  they're holding.
 
 ## Refusing cosmetic revisions
 

@@ -22,6 +22,38 @@ as researched fact is the specific harm this plugin must not cause. Nothing with
 in it reaches the founder as final, or reaches a review council, without passing through here
 first.
 
+> ## 🛑 MANDATORY GATE — DO NOT SKIP
+>
+> If you are a skill/agent about to mark a numeric-claim-bearing artifact `drafted`/`approved`,
+> set `stage` forward, or hand an artifact to the founder or a council as final — **stop and
+> invoke this skill first.** This is not optional, not "if there's time," and not satisfied by
+> having sourced your numbers carefully yourself. Concretely:
+>
+> **What to pass in, every call:**
+> 1. The target artifact's exact path (`plan/NN-slug.md`, `plan/business-plan.md` or
+>    `plan/business-plan-vN.md`, a set of `reviews/*.md` files, or a `gtm/*` artifact).
+> 2. The `business-slug`, so the analyst can read `.startup/<slug>/business-state.json` in full.
+> 3. Nothing pre-filtered — hand over the whole artifact, not a summary of it.
+>
+> **What a non-blocking (PASS) result looks like:** the first line of the report reads **PASS**.
+> You may proceed — mark the step, set the stage, hand off the artifact — immediately.
+>
+> **What a blocking (BLOCKED) result looks like:** the first line reads **BLOCKED**, followed by
+> the specific finding(s) and what resolves each. You may **not** proceed until either (a) the
+> finding is actually fixed and re-checked, or (b) the founder explicitly and knowingly overrides
+> it via the orchestrator (`agents/orchestrator.md` Non-negotiable #3) — see "The gate logic"
+> below. There is no third path: "presented with a caveat" and "sent to council with a note" are
+> not passing states.
+>
+> **If you skip this call entirely:** the artifact is not cleared, full stop, regardless of how
+> confident you are in your own sourcing — this gate's job includes the council-integrity
+> spot-check and the `risk_log` write-back, neither of which happens any other way. A caller that
+> reports an artifact as "done" without having called this gate has not actually finished the
+> artifact per this plugin's contract, even if every number in it happens to be sourced correctly.
+> `docs/QA-FINDINGS-GATES-ROUND2.md` documents, file by file, which callers currently skip this —
+> if you are one of them, wire the call in per that report before considering your file's fix
+> complete.
+
 ## Who must call this, and when (binding on other builders' skills)
 
 The following calling points are **required**, not optional, even though this skill does not

@@ -150,6 +150,46 @@ Increment `<sequential-number>` from the highest existing `ops-<slug>-*` id alre
 founder's or a later check-in's call, logged in the review/retro file, never silently overwritten
 or deleted (same rule as every other `risk_log` writer in this plugin).
 
+## When ops data points toward a pivot
+
+The drift comparison above sometimes doesn't just find a gap — it finds evidence the beachhead
+itself, or the business model, is wrong: TAM/segment drift stays material across several
+consecutive periods (not a one-period wobble), or `customer-success-lead` reports churn
+concentrated on-segment period after period, or the founder reads the retro and says some version
+of "I think we're going after the wrong market" or "we should change who we're selling to."
+
+That is a **pivot signal**, and recognizing it is your job — redesigning the beachhead is not.
+Concretely:
+
+1. **Don't manufacture a pivot from one noisy period.** A single period's drift, even a material
+   one, is a Watch List item or a `risk_log` entry per the rules above, not a pivot signal. What
+   makes it a pivot signal is persistence across periods (check the trend across prior
+   `ops/*-retro.md` files) or the founder explicitly saying they want to change direction because
+   of what they're seeing — one of those two, stated plainly, not inferred from a single bad week.
+2. **Name it plainly and cite the evidence.** In the retro, state exactly which finding(s) are
+   driving this read (the specific `risk_log` id(s), the metric, the trend across N periods) and
+   which upstream DE steps it implicates — beachhead/segment drift points at steps 01-05 (and 04's
+   TAM), business-model-shaped drift (e.g. COCA structurally too high for the chosen motion) points
+   at steps 15-16, unit-economics drift points at 17-19. Say which, don't leave it vague.
+3. **Do not redo the strategy yourself.** You do not rewrite `plan/02-select-a-beachhead-market.md`
+   or any other DE step file, and you do not talk the founder through choosing a new beachhead in
+   this session — that is exactly the DE-step skills' job, owned elsewhere, and doing it here would
+   bypass the council-review gate that a beachhead change needs before it's real again (see
+   `agents/orchestrator.md`'s own pivot protocol: a pivot that reopens earlier DE steps moves
+   `stage` back to `de_steps_in_progress` for the affected steps, then forward again through
+   `revising`/`council_review` before `approved` is re-earned).
+4. **Hand back to the orchestrator, don't act unilaterally.** Report to the orchestrator (or tell
+   the founder directly, if you're operating standalone outside orchestrator coordination): a pivot
+   appears warranted, the specific evidence, and which step(s) most likely need reopening. If
+   `stage: "gtm"` work is still active (a launch in flight, `agents/gtm/launch-director.md`
+   mid-sequence), say so explicitly — that work is likely built on the beachhead/model about to
+   change and `launch-director` needs to know before it keeps spending effort executing against it.
+5. **Log it.** If this rises to a pivot signal per step 1 above, append a `risk_log` entry (schema
+   above, `type: "business"`) describing the signal and the recommended reopened step(s) — this is
+   what lets the orchestrator (or a future session with no memory of this conversation) pick up the
+   thread, and it's what a fresh `operations-manager` invocation needs to avoid re-discovering the
+   same signal from scratch next period.
+
 ## Writing `ops/<timestamp>-retro.md`
 
 Timestamp format `YYYY-MM-DD`; if a second retro genuinely happens the same calendar day, suffix

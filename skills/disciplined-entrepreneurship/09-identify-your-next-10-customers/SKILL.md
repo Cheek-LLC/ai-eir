@@ -21,7 +21,8 @@ Steps 13/18 (acquisition/sales process) and the GTM skills build on later.
 
 ## Read before starting
 
-- `.startup/<slug>/business-state.json`.
+- `.startup/<slug>/business-state.json`, including `business_basics.business_type` — read before
+  interviewing (see "Business-type branching").
 - `.startup/<slug>/plan/03-build-an-end-user-profile.md` and
   `.startup/<slug>/plan/05-profile-the-persona-for-the-beachhead-market.md` — **required**, the
   fit criteria for who counts as a real prospect. If either is missing or `not_started`, stop and
@@ -39,6 +40,20 @@ Steps 13/18 (acquisition/sales process) and the GTM skills build on later.
 4. Have you already talked to any of these 10? What did they say?
 5. If you can't name 10 yet, what's blocking you — not enough people in the space, haven't
    started outreach, or does the beachhead itself turn out to be too narrow or inaccessible?
+
+## Business-type branching
+
+- **SaaS:** access paths are typically an existing network, direct LinkedIn outreach, communities/
+  Slack or Discord groups the persona is in, or a waitlist/content audience already built.
+- **Physical product:** access paths are typically existing retail-buyer relationships, pop-ups/
+  markets, a direct social audience, or wholesale contacts.
+- **Services:** access paths are typically referrals from past clients or colleagues, or an
+  existing professional network — cold outreach converts far less reliably here than a warm
+  introduction.
+- **Marketplace:** the "next 10" must include **both sides** — 10 supply-side prospects alone (or
+  10 demand-side prospects alone) isn't a real pipeline for a marketplace, since neither side has
+  anything to transact with the other. Name real prospects on both sides, even if the split isn't
+  even, and say explicitly whether the binding constraint is supply or demand right now.
 
 ## Method: real names, not a description of a type of customer
 
@@ -69,8 +84,8 @@ this step. If the founder can only name fewer than 10 real prospects:
 (summarized from Steps 3 & 5)
 
 ## Prospects
-| # | Name/org | Role | Fit rationale | Access path | Status |
-|---|---|---|---|---|---|
+| # | Name/org | Role | Fit rationale | Access path | Status | Side (marketplace only: supply/demand) |
+|---|---|---|---|---|---|---|
 
 ## Signal check: does this validate the beachhead?
 (explicit judgment — if fewer than 10 real prospects exist, say so and what it implies for Step 2)

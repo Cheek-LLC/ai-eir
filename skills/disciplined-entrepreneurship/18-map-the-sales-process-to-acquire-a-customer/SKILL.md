@@ -23,9 +23,19 @@ independent work — **do not re-derive the stage list from scratch**; pull it d
 The output of this step is the direct, required input to Step 19 (COCA calculation) — every cost
 driver COCA needs must trace back to a row in this map.
 
+For self-serve businesses (most `consumer_app`, some `saas`/`physical_product`), "sales process"
+is really a marketing/conversion funnel — impression/ad → signup → activation → paid conversion —
+with no human rep touching most prospects. Cost per stage there is overwhelmingly paid-acquisition
+spend and product/onboarding friction, not loaded rep time; don't force a multi-stage enterprise
+sales-cycle shape onto a motion that's actually self-serve. Read `business_basics.business_type`
+first. Step 13's stage list should already reflect the right shape if it was done well — if it
+doesn't (e.g. it lists "champion" and "procurement" for a $9/mo self-serve product), flag that
+gap back to Step 13 rather than silently costing the wrong shape here.
+
 ## Reads
 
-- `.startup/<slug>/business-state.json` (whole file)
+- `.startup/<slug>/business-state.json` (whole file). Check `business_basics.business_type` —
+  it determines whether the stages below are an enterprise sales cycle or a self-serve funnel.
 - `.startup/<slug>/plan/13-map-the-process-to-acquire-a-paying-customer.md` — required, and the
   primary source of truth for the stage list. Reuse its stages verbatim; do not rename or
   reorder them without explaining why.

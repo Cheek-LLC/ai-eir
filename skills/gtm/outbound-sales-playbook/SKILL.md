@@ -59,9 +59,30 @@ they map, or built fresh from step 12/3 detail where they don't.
 
 ### 3. Multi-touch outbound sequence — fully drafted, not outlined
 
-A concrete, dated sequence (adjust touch count/spacing to what steps 13/18 describe as the real
-acquisition process — don't force a generic 5-touch template onto a process step 13 describes
-differently). A standard structure to adapt:
+Scaling intensity is a decision procedure, not a judgment call — derive the tier directly from
+what steps 12/13/18 actually reported, in this order:
+
+1. **Count the distinct DMU roles from step 12's table** that are populated with a real, distinct
+   title (not "same as end user" / blank).
+2. **Read step 13's stage list** for whether a procurement/legal/security-review stage appears at
+   all, and **step 18's roll-up** for the total sales cycle length.
+3. Map to a tier — apply the first row that matches, top to bottom:
+
+| Signal from steps 12/13/18 | Tier | Sequence shape |
+|---|---|---|
+| 1 DMU role (end user = buyer = champion); no procurement/legal stage in step 13; step 18 cycle length ≤ ~7 days or "self-serve" | **PLG / self-serve** | 2–3 touches max (e.g. Day 1 email, Day 3 follow-up, Day 7 breakup); no discovery-call framework needed — point straight at signup/trial; drop the objection-handling call script, keep only email/async objection handling |
+| 2–3 DMU roles (e.g. champion + economic buyer, or + one influencer); no procurement/legal stage; step 18 cycle length roughly 8–45 days | **Light-touch / SMB** | 4–5 touches over 1–2 weeks, one call script, single-persona messaging with a light champion→buyer handoff step |
+| 4+ DMU roles, **or** a procurement/legal/security-review stage appears in step 13, **or** step 18 cycle length > ~45 days | **Enterprise / multi-touch** | Full 5+ touch sequence over the cycle length, multi-persona messaging (separate opener per DMU role per §2), an explicit procurement/security-review touch if step 13 named one, and a champion-enablement asset (something the champion forwards internally) |
+
+If the signals disagree (e.g. 1 DMU role but a 90-day cycle), use the **higher** tier and say so
+explicitly in the playbook — a long cycle with a thin DMU is still real friction worth planning
+for, even if it's not classic enterprise. Never default to the enterprise template because it
+looks more thorough, and never default to light-touch because it's less work to draft — the table
+above is the whole decision, not a starting point to override on vibes.
+
+Once the tier is set, produce a concrete, dated sequence at that intensity. A standard structure to
+adapt for the light-touch/enterprise tiers (the PLG tier uses the 3-touch shape from the table
+above instead):
 
 - **Day 1** — Cold email (full subject line + body, [bracketed] fields only for prospect-specific
   facts like name/company, not for the value prop itself).

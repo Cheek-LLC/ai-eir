@@ -1,0 +1,83 @@
+{
+  "slug": "shiftcover",
+  "business_name": "ShiftCover",
+  "created_at": "2026-08-18T14:00:00Z",
+  "updated_at": "2026-08-18T14:35:00Z",
+  "stage": "de_steps_in_progress",
+  "founder": {
+    "name": "Maria Chen",
+    "email": "",
+    "notes": "10 years multi-unit restaurant operations; most recently Director of Operations for a 42-unit QSR franchise group in the Texas Triangle. Left that role 3 months ago. No stated funding strategy yet."
+  },
+  "business_basics": {
+    "one_liner": "Software that lets a multi-location restaurant's shift manager automatically text the right qualified backup workers the moment someone calls out sick, so the shift gets covered in minutes instead of the manager working down a phone list for 45 minutes while the line backs up.",
+    "venture_stage": "idea_only",
+    "business_type": "saas",
+    "business_type_notes": "B2B SaaS, hybrid self-serve/sales-led: a single-location GM can self-serve a trial, but real revenue is sales-assisted contracts signed at the multi-unit franchise-group level. Buyer (Director of Operations / Owner-Operator) and day-to-day user (shift manager/GM) are different people. Must integrate with existing scheduling systems (7shifts, HotSchedules named by founder). SMS delivery is a hard requirement, not push notification, because backup workers often don't have the employer's scheduling app installed."
+  },
+  "disciplined_entrepreneurship": {
+    "01_market_segmentation": { "status": "not_started", "summary": "", "file": "" },
+    "02_select_a_beachhead_market": { "status": "not_started", "summary": "", "file": "" },
+    "03_build_an_end_user_profile": { "status": "not_started", "summary": "", "file": "" },
+    "04_calculate_the_tam_for_the_beachhead_market": { "status": "not_started", "summary": "", "file": "" },
+    "05_profile_the_persona_for_the_beachhead_market": { "status": "not_started", "summary": "", "file": "" },
+    "06_full_life_cycle_use_case": { "status": "not_started", "summary": "", "file": "" },
+    "07_high_level_product_specification": { "status": "not_started", "summary": "", "file": "" },
+    "08_quantify_the_value_proposition": { "status": "not_started", "summary": "", "file": "" },
+    "09_identify_your_next_10_customers": { "status": "not_started", "summary": "", "file": "" },
+    "10_define_your_core": { "status": "not_started", "summary": "", "file": "" },
+    "11_chart_your_competitive_position": { "status": "not_started", "summary": "", "file": "" },
+    "12_determine_the_dmu": { "status": "not_started", "summary": "", "file": "" },
+    "13_map_the_process_to_acquire_a_paying_customer": { "status": "not_started", "summary": "", "file": "" },
+    "14_calculate_the_tam_for_follow_on_markets": { "status": "not_started", "summary": "", "file": "" },
+    "15_design_a_business_model": { "status": "not_started", "summary": "", "file": "" },
+    "16_set_your_pricing_framework": { "status": "not_started", "summary": "", "file": "" },
+    "17_calculate_the_ltv_of_a_customer": { "status": "not_started", "summary": "", "file": "" },
+    "18_map_the_sales_process_to_acquire_a_customer": { "status": "not_started", "summary": "", "file": "" },
+    "19_calculate_the_coca": { "status": "not_started", "summary": "", "file": "" },
+    "20_identify_key_assumptions": { "status": "not_started", "summary": "", "file": "" },
+    "21_test_key_assumptions": { "status": "not_started", "summary": "", "file": "" },
+    "22_define_the_mvbp": { "status": "not_started", "summary": "", "file": "" },
+    "23_show_that_dogs_will_eat_the_dog_food": { "status": "not_started", "summary": "", "file": "" },
+    "24_develop_a_product_plan": { "status": "not_started", "summary": "", "file": "" }
+  },
+  "key_assumptions": [
+    {
+      "id": "ka-onboarding-cross-location-pool",
+      "statement": "Assumes hourly backup workers are willing to be on a shared on-call list across multiple nearby locations (even different franchise owners) rather than just their home location.",
+      "step_ref": "onboarding",
+      "confidence": "low",
+      "test_plan": "Ask this directly in the next 10 backup-worker conversations (feeds Step 9); if resistance is high, the beachhead may need to narrow to single-owner multi-location groups only, not cross-owner pools.",
+      "test_result": null
+    }
+  ],
+  "quantitative_claims": [],
+  "plan": {
+    "version": 0,
+    "file": "",
+    "history": []
+  },
+  "reviews": [],
+  "gtm": {
+    "status": "not_started",
+    "funding_strategy": "undecided",
+    "launch_plan_file": "",
+    "artifacts": []
+  },
+  "ops": {
+    "status": "not_started",
+    "cadence_metrics_files": [],
+    "last_retro_file": null
+  },
+  "connectors": {
+    "wired_up": [],
+    "needed_not_installed": []
+  },
+  "cadence": {
+    "check_in_frequency": "manual",
+    "last_check_in": null,
+    "next_check_in": null,
+    "scheduling_mechanism": ""
+  },
+  "risk_log": []
+}

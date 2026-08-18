@@ -125,4 +125,8 @@ This document describes the policy. The mechanics live in:
 
 If you are building a GTM, ops, or connector-facing skill elsewhere in this plugin: your skill is
 expected to call `skills/risk/privacy-check` before any real external send. That expectation is
-load-bearing for this whole policy — a gate no one calls protects no one.
+load-bearing for this whole policy — a gate no one calls protects no one. See that skill's
+"MANDATORY GATE — DO NOT SKIP" callout for the exact invocation contract (what to pass in, what
+clear/blocked look like), and `docs/QA-FINDINGS-GATES-ROUND2.md` for the current, file-by-file
+audit of which expected callers actually make this call today versus which still need to be
+wired in — do not assume compliance without checking it.

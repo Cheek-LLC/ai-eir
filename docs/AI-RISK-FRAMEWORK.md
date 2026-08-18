@@ -118,8 +118,12 @@ that ground and should not be treated as having done so.
 
 ### Into the review council system
 
-`skills/risk/ai-risk-review` is a mandatory pre-council gate (see that file for the exact
-calling points). A plan or step with an open blocking `ai_risk` finding should not reach a
+`skills/risk/ai-risk-review` is a mandatory pre-council gate — see that file's "MANDATORY GATE —
+DO NOT SKIP" callout for the exact invocation contract (what to pass in, what PASS/BLOCKED look
+like, what skipping the call means) and its "Who must call this, and when" table for the exact
+calling points. `docs/QA-FINDINGS-GATES-ROUND2.md` is the current audit of which of those calling
+points actually make the call, versus which still need to be wired in — check it before assuming a
+given caller is already compliant. A plan or step with an open blocking `ai_risk` finding should not reach a
 council in the first place — the gate exists so councils are scoring artifacts that have already
 cleared the sourcing/precision/framing bar, and can spend their scrutiny on business judgment
 rather than re-discovering an unsourced number a mechanical check could have caught. When the

@@ -19,7 +19,8 @@ drive Persona's choice, with all real alternatives — including the status quo 
 
 ## Read before starting
 
-- `.startup/<slug>/business-state.json`.
+- `.startup/<slug>/business-state.json`, including `business_basics.business_type` — read before
+  choosing axes (see "Business-type branching").
 - `.startup/<slug>/plan/10-define-your-core.md` — **required**, the competitive advantages to
   plot from.
 - `.startup/<slug>/plan/05-profile-the-persona-for-the-beachhead-market.md` — whose priorities
@@ -43,6 +44,20 @@ drive Persona's choice, with all real alternatives — including the status quo 
    it uncomfortably close to an incumbent?
 5. Is that position defensible given your Core (Step 10), or could a competitor move to match you
    on both axes without much difficulty?
+
+## Business-type branching
+
+- **SaaS:** axes commonly cluster around depth of integration vs. ease of use, or price vs.
+  feature depth — but confirm against what Persona actually said mattered (Steps 5/8), don't
+  default to these.
+- **Physical product:** axes commonly cluster around price vs. quality/durability, or convenience
+  vs. customization.
+- **Services:** axes commonly cluster around price vs. expertise/customization, or speed vs.
+  quality of outcome.
+- **Marketplace:** the two sides frequently face different alternatives — a supplier's alternative
+  may be a different marketplace or selling direct, while a buyer's alternative may be a different
+  marketplace or the status quo. If the sides' competitive landscapes genuinely diverge, chart them
+  as two separate positioning maps rather than forcing one chart to represent both sides honestly.
 
 ## Method: axes chosen by the persona's priorities, not by convenience
 

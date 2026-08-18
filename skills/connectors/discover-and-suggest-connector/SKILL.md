@@ -20,6 +20,28 @@ mechanism this specific environment actually provides. Environments differ (Clau
 Claude Code web, Claude.ai with connectors enabled, a bare API integration with no connector
 concept at all), so you inspect rather than assume.
 
+> ## How to invoke me — the contract
+>
+> My only caller is `agents/connectors-liaison.md`, for Step A (always) and Steps B/C (only when
+> Step A doesn't find a live match) of its own "identify → check → surface → gate" sequence. I am
+> not a substitute for that agent's privacy gate (step 4) and I never touch it — I only detect and
+> prompt.
+>
+> **What the caller must give me:** `category`, `canonical_id`, a real (non-generic) `purpose`
+> sentence, `needed_by_step`, and the founder's `business_name`. A missing or generic `purpose`
+> ("we might need it") is not a valid call — I send it back rather than guessing at one.
+>
+> **What I always return:** the structured shape at the bottom of this file — `connector`,
+> `category`, `status`, and whichever of `matched_tool`/`capability_used`/`founder_message`/
+> `detail` applies. I never return a bare "yes"/"no" — the caller's next action depends on which
+> exact `status` I report, not just whether it was good or bad news.
+>
+> **What I never do, regardless of how the caller invokes me:** report `available` or `prompted`
+> without having actually found/invoked a real tool this turn, invoke a connector's own domain
+> tool (send the actual email, create the actual charge), or write to `business-state.json` — see
+> "What you never do" below for the full list. If a caller seems to want any of those from me,
+> that caller has the contract wrong, not me.
+
 ## Input you need from the caller (`agents/connectors-liaison.md`)
 
 - `category` and `canonical_id` — from `docs/CONNECTORS-CATALOG.md` (e.g. category `payments`,

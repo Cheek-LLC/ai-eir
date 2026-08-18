@@ -23,7 +23,8 @@ reasoned choice, not asserted as a universal rule.
 
 ## Reads
 
-- `.startup/<slug>/business-state.json` (whole file)
+- `.startup/<slug>/business-state.json` (whole file). Read `business_basics.business_type` before
+  asking the pricing questions below — see "Business-type starting points."
 - `.startup/<slug>/plan/08-quantify-the-value-proposition.md` — required. The quantified value
   (e.g., "$50k/year saved") is the ceiling and the anchor for the pricing conversation.
 - `.startup/<slug>/plan/15-design-a-business-model.md` — required. Determines the pricing metric
@@ -53,6 +54,25 @@ Ask the founder directly:
   say?"
 - "If we doubled the price tomorrow, who would still buy, and who would walk?"
 - "Is there a natural tier boundary in how differently small vs. large customers get value?"
+
+## Business-type starting points
+
+The pricing metric question (deliverable 1) has a genuinely different shape by business type —
+ask the version below, not a generic one:
+
+- **SaaS:** Is it seat-based, usage-based, flat-tier, or hybrid? Is there a free tier or trial,
+  and what specifically is it meant to prove before the customer converts? How does price scale
+  as the customer grows — this expansion-revenue question is a direct input to Step 17's LTV.
+- **Physical product:** Walk the full markup chain explicitly — unit COGS, wholesale price if
+  selling through retail, retail markup, and what margin survives at each stage — and how DTC
+  pricing compares to any wholesale channel price. A single "the price" answer that ignores
+  channel is incomplete here.
+- **Marketplace:** The "price" is a take rate (% of transaction value) or a flat listing/
+  subscription fee on one or both sides — ask which, and whether the rate is actually viable
+  given what each side would tolerate before liquidity breaks down.
+- **Services:** Ask whether pricing is hourly, per-project/milestone, or retainer-based, and what
+  determines which engagements get quoted which way — the "unit" being priced is the harder
+  question here than the number itself.
 
 ## When the founder doesn't know
 

@@ -22,6 +22,41 @@ needs, delegate the actual judgment to that subagent, and make sure its output l
 place. You do not make privacy/legal-basis judgment calls yourself — that's the subagent's job;
 read `agents/risk/privacy-compliance-officer.md` before running this skill.
 
+> ## 🛑 MANDATORY GATE — DO NOT SKIP
+>
+> **Mode A (onboarding notice):** any skill running the founder's first business-basics capture
+> must call this skill, in Mode A, once, immediately after those basics are captured and before
+> any Disciplined Entrepreneurship step begins. Pass: nothing beyond the `business-slug` — Mode A
+> reads no external input, it delivers a fixed notice. Non-blocking by design (it cannot "fail");
+> **skipping it entirely** is the violation — a founder who starts DE step 1 without having heard
+> the local-storage/legal-scope notice has been let past a gate this plugin promises every founder
+> crosses exactly once.
+>
+> **Mode B (pre-send gate):** any skill or agent about to move real founder/prospect data into an
+> external connector must call this skill, in Mode B, **immediately before that send, every single
+> time**, with no exceptions for "it's just an email" or "the connector's already wired up."
+>
+> **What to pass in, every Mode B call:**
+> 1. What data is about to move (fields/records, not necessarily every raw value) and where it
+>    came from.
+> 2. Which connector it's going to (must match `business-state.json.connectors` / `connectors.json`).
+> 3. What the founder has said, if anything, about consent/legal basis for this specific data.
+>
+> **What "clear" looks like:** the calling skill/agent may proceed with the send; any `risk_log`
+> entry filed for the record is reported back for reference, not as a blocker.
+>
+> **What "blocked" looks like:** the calling skill/agent may **not** proceed. The specific finding
+> and specific fix are relayed in plain terms. The only way past a block is the founder explicitly
+> and knowingly overriding it (named risk, explicit "yes, override," `risk_log` entry updated to
+> `accepted` with a note) — never a silent pass-through, never the calling skill's own judgment
+> standing in for this gate's.
+>
+> **If a caller skips this entirely:** that send has not been cleared, regardless of how routine it
+> seemed — this is precisely the scenario Mode B exists to prevent, and a caller that sends first
+> and rationalizes after has violated this file's contract, not found a shortcut around it.
+> `docs/QA-FINDINGS-GATES-ROUND2.md` is the current audit of which expected callers actually make
+> this call — check it before assuming a given caller already complies.
+
 This skill runs in one of two modes. Determine which one you're in from how you were invoked.
 
 ## Mode A — Onboarding notice (run once per business)

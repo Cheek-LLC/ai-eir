@@ -21,7 +21,8 @@ customer), built by other skills — this step stops at identifying *who*, not *
 
 ## Read before starting
 
-- `.startup/<slug>/business-state.json`.
+- `.startup/<slug>/business-state.json`, including `business_basics.business_type` — read before
+  mapping roles (see "Business-type branching").
 - `.startup/<slug>/plan/05-profile-the-persona-for-the-beachhead-market.md` — **required**; the
   Persona is usually (but not always) the End User role in the DMU.
 - `.startup/<slug>/plan/06-full-life-cycle-use-case.md` — for the light-touch mention of who gets
@@ -43,6 +44,23 @@ customer), built by other skills — this step stops at identifying *who*, not *
    for consumer, which household member)? Be specific — "VP of Engineering at a 50-200 person
    SaaS company," not "a decision maker."
 6. Roughly how many total people are typically involved before a deal closes?
+
+## Business-type branching
+
+- **SaaS:** for anything touching customer data, expect an IT/security-review veto-holder even in
+  otherwise simple deals; the economic buyer is often a budget-holding manager/director, not the
+  end user themselves.
+- **Physical product (B2C):** the DMU often collapses to one or two people (the buyer plus a
+  household influencer). For B2B physical product (equipment, supplies), expect procurement and an
+  operations/facilities approver in addition to the end user.
+- **Services:** expect a champion who directly experienced the pain, plus whoever controls budget
+  for outside vendors — in larger organizations this is frequently a separate procurement or
+  finance approval step even for a small first engagement.
+- **Marketplace:** map a DMU **per side**, independently — the supply side has its own decision
+  process (e.g., a shop owner deciding whether to list, possibly with a business partner's
+  sign-off) and the demand side has its own (e.g., a consumer deciding to buy, possibly with a
+  household influencer). Mapping only one side's DMU misses half the acquisition problem Step 13
+  needs to solve.
 
 ## Method: name the roles, then name the real titles that fill them
 
@@ -78,6 +96,8 @@ decision?'," `test_result`: `null`.
 # Step 12: Decision-Making Unit (DMU)
 
 ## DMU roles
+(for a marketplace, complete one full table per side — supply-side DMU and demand-side DMU —
+rather than one shared table)
 | Role | Who fills it (realistic title) | Same as End User? | Notes |
 |---|---|---|---|
 | End User | | | |

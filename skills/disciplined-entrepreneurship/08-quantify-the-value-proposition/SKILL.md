@@ -21,7 +21,8 @@ that value clears the bar needed to overcome switching costs and status-quo bias
 
 ## Read before starting
 
-- `.startup/<slug>/business-state.json`.
+- `.startup/<slug>/business-state.json`, including `business_basics.business_type` — read before
+  choosing the metric to quantify (see "Business-type branching").
 - `.startup/<slug>/plan/07-high-level-product-specification.md` — **required**; defines what the
   product actually does. If missing or `not_started`, stop and tell the founder to complete
   Step 7 first.
@@ -42,6 +43,22 @@ that value clears the bar needed to overcome switching costs and status-quo bias
    net out the cost/effort of switching?
 6. Is the gap between as-is and possible large enough to justify the pain of switching (new tool,
    workflow change, adoption risk)? Answer this directly, don't hedge it away.
+
+## Business-type branching
+
+What the value is typically denominated in differs by type:
+
+- **SaaS:** commonly time saved × the persona's hourly value, error/risk reduced, or a direct
+  revenue/efficiency gain — expressed as $/year or a productivity metric the persona already
+  tracks.
+- **Physical product:** commonly cost avoided versus the current product/DIY alternative, or an
+  outcome improvement (durability, health, performance) — compare total cost of ownership, not
+  just sticker price, since that's usually the honest as-is/possible comparison.
+- **Marketplace:** quantify **each side separately** — supply-side value is typically incremental
+  revenue or utilization gained; demand-side value is typically time/cost saved finding a match or
+  a better price found. Don't average the two sides into one number; report both.
+- **Services:** commonly the outcome delivered (revenue generated, cost avoided, risk reduced) net
+  of the service's cost and the client's own time spent managing the engagement.
 
 ## Method: as-is minus possible, in Persona's own metric, checked against switching cost
 

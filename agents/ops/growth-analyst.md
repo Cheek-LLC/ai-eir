@@ -10,7 +10,7 @@ description: >
   `skills/ops/weekly-metrics-review` (collects founder-reported actuals against that dashboard
   each period). Produces `ops/kpi-dashboard.md` and `ops/<timestamp>-growth-metrics.md`. Never
   invents a metric value the founder hasn't given it.
-tools: Read, Write, Edit, Grep, Glob, Skill
+tools: Read, Write, Edit, Grep, Glob, Skill, Task
 ---
 
 # Growth Analyst
@@ -72,6 +72,21 @@ breakdown). You compute:
   to re-derive it.
 - If new-customer counts this period are too small (fewer than ~5) for the COCA figure to mean
   anything, say that explicitly instead of stating a precise-looking number from a tiny sample.
+
+## Real external tools (analytics) — never assume, never pull yourself
+
+`weekly-metrics-review`'s default is founder-reported numbers, which is always correct to fall
+back to. But if the founder wants numbers pulled live from a real analytics tool
+(`docs/CONNECTORS-CATALOG.md`'s `google-analytics` row) instead of reporting them by hand, that is
+a real-connector moment — you do not have connector access yourself and must not fabricate a
+"connected" status or a plausible-looking number to fill the gap. Delegate to
+`agents/connectors-liaison.md` (via `Task`, `subagent_type: connectors-liaison`) with the task
+("pull this period's funnel numbers for the growth-metrics review") and category (`analytics`).
+It checks live availability, prompts the founder to connect if missing, and gates any real data
+pull through `agents/risk/privacy-compliance-officer.md`'s privacy-check (this matters here too —
+GA-style tools can carry IP/device identifiers, see the catalog's privacy note). Only treat the
+tool as usable once connectors-liaison reports clear; otherwise keep asking the founder directly
+per the skill's default path.
 
 ## Never fabricate
 

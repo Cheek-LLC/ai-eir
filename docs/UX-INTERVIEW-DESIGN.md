@@ -164,6 +164,60 @@ types — asking a physical-product founder about API integrations, or a SaaS fo
 manufacturing cost, wastes the conversation and signals the interviewer doesn't understand the
 business. Concrete worked examples, same step, different business type:
 
+**Structural convention:** a step skill that branches by business type puts the branching in its
+own `## Business-type branching` section, positioned right after `## Interview the founder` (see
+`skills/disciplined-entrepreneurship/01-market-segmentation/SKILL.md` through `04-...` for the
+pattern) — not folded as asides into the numbered question list itself. Follow that placement when
+adding a branching section to a step skill that doesn't have one yet, so a founder-facing reader
+(and a reviewer diffing step skills against each other) always finds it in the same place.
+
+**Step 01 — Market Segmentation.** The axis that actually produces heterogeneous segments differs
+by type — steer the brainstorm at that axis, not a generic "list some segments" prompt:
+- *SaaS:* segment along company size/vertical/technical sophistication and workflow — "seed-stage
+  startups with no dedicated ops hire" is a real segment; "companies that need software" is not.
+- *Physical product:* segment along purchase channel and occasion (DTC vs. retail/wholesale, gift
+  vs. self-use, replacement vs. first purchase) as much as demographics — two demographically
+  identical buyers in different channels often behave like different segments.
+- *Marketplace:* brainstorm supply-side and demand-side segments **separately** before pairing
+  them — a segmentation done on only one side misses that the real constraint is usually finding a
+  supply segment and a demand segment that fit each other.
+- *Services:* segment by client sophistication, project complexity, or budget tier at least as
+  much as by industry vertical — engagement size/complexity is often the real driver of differing
+  needs, not the vertical label.
+
+**Step 02 — Select a Beachhead Market.** "Reach" and "competitive intensity" in the scoring matrix
+mean something different by type — probe for the right kind of access/threat, not a generic one:
+- *SaaS:* reach = access via existing communities, content/SEO, product-led signups, or a network
+  of prospects already using adjacent tools; competitive intensity = how many funded competitors
+  already target this exact workflow.
+- *Physical product:* reach = access to a retail buyer relationship, an existing DTC audience, or
+  a distribution/wholesale contact; competitive intensity should account for shelf-space or
+  channel gatekeeping, not just other brands.
+- *Marketplace:* reach must be assessed on **both sides** — a segment is only a real beachhead
+  candidate if the founder can plausibly access initial supply *and* initial demand at the same
+  time; reachable on one side only isn't a candidate yet.
+- *Services:* reach = access via referral relationships, past clients, or a professional network
+  where reputation travels; competitive intensity should weigh how commoditized the service
+  category already is.
+
+**Step 04 — Calculate the TAM for the Beachhead Market.** The counting unit and the multiplier
+both change shape by type — "count × price" without adapting to the type is how this step produces
+a misleading number:
+- *SaaS:* count = companies (or seats within them) matching the Step 3 profile; multiplier =
+  realistic annual contract value or seat price × seats — grounded in what the founder said
+  they'd charge, not an aspirational ACV.
+- *Physical product:* count = end consumers/households in the target segment; multiplier =
+  average annual spend at realistic purchase frequency (units/year × price/unit) — and note
+  whether the realizable price is DTC or nets down through a wholesale/retail channel, since that
+  changes the revenue that actually reaches the business.
+- *Marketplace:* size by **GMV × take rate**, not a per-user subscription price — count the
+  transacting population on the binding-constraint side, multiply by expected transaction value
+  and frequency to get GMV, then apply the take rate. Pricing a marketplace like a SaaS seat is the
+  most common sizing mistake at this step.
+- *Services:* count = target clients in the beachhead; multiplier = average annual contract/
+  engagement value — and flag delivery-capacity constraints explicitly, since a services TAM
+  otherwise silently assumes unlimited delivery capacity.
+
 **Step 03 — Build an End User Profile.**
 - *SaaS:* Ask about the end user's role and tools: what's their job title, what software stack are
   they already living in, do they have budget authority or do they need to convince someone else,
@@ -198,6 +252,11 @@ business. Concrete worked examples, same step, different business type:
 - *Marketplace:* Ask about take rate (percentage of transaction value) versus flat listing/
   subscription fees on one or both sides, and whether the take rate is even viable given what
   each side would tolerate — a marketplace's "price" is really a fee structure, not a unit price.
+
+These six (01, 02, 03, 04, 07, 16) are worked examples, not the full set — round 2 is actively
+extending `## Business-type branching` sections to more of the 24 step skills; check a given step
+skill's own file before assuming it's still generic, and update this doc with a new worked example
+whenever a step's branching becomes genuinely developed and this list is still missing it.
 
 The pattern to replicate when writing or reviewing any step skill: don't ask a business-type-
 blind version of the question and hope it lands; look up what actually determines a good answer

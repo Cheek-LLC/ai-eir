@@ -27,9 +27,20 @@ usage frequency, feature adoption depth, retention/renewal, expansion (seats/spe
 unprompted advocacy (referral, testimonial volunteered without being asked, case-study
 willingness).
 
+"Measurable signal" looks different by `business_basics.business_type` — push for the concrete
+version, not a generic one:
+- **SaaS:** login/feature-usage events, DAU/WAU, core-workflow completion rate.
+- **Physical product:** repeat purchase or reorder rate, consumption rate of a consumable,
+  unprompted reviews/unboxing engagement.
+- **Marketplace:** repeat transaction rate on **each side separately** (supply-side re-listing,
+  demand-side repeat purchase) — a healthy demand side with a churning supply side is not healthy.
+- **Services:** retainer renewal/expansion, scope increase requested by the client, referral to
+  another client — for a one-off project, "would they hire you again" is the closest analog.
+
 ## Reads
 
-- `.startup/<slug>/business-state.json` (whole file)
+- `.startup/<slug>/business-state.json` (whole file). Check `business_basics.business_type` for
+  which usage signal above is the right one to chase.
 - `.startup/<slug>/plan/22-define-the-mvbp.md` — required. Establishes who the paying
   customer(s) are and what "using it" was supposed to mean per the MVBP's definition of success.
 - `.startup/<slug>/plan/06-full-life-cycle-use-case.md` if present — the intended full usage

@@ -86,6 +86,24 @@ the actual editing to what changed. Call the `business-plan-editor` subagent wit
   rewrite; this repo has no symlink convention, so rewrite `plan/business-plan.md` with the new
   content directly.
 
+## 3.5. Mandatory AI-risk gate — before the revision is presented as addressing feedback
+
+Per `skills/risk/ai-risk-review`'s own "Who must call this, and when" table, this skill is a
+required caller: invoke `skills/risk/ai-risk-review` against the freshly-written
+`plan/business-plan-v{N+1}.md`, handing it the whole document plus the `business-slug`, **after**
+§3's re-synthesis and **before** §4's `summary_of_changes` / §5's "mark items addressed" step. A
+revision that introduces a new unsourced number should not be reported as having addressed the
+council's feedback.
+
+- **PASS** → proceed to §4.
+- **BLOCKED** → do not mark any required-revision item resolved in §5, do not advance `stage` in
+  §6. Either fix the specific finding(s) and re-run the gate to confirm, or route to the
+  orchestrator for an explicit, logged founder override (per `agents/orchestrator.md`
+  Non-negotiable #3) — this skill does not accept an override itself. As with
+  `assemble-business-plan`, there is no "presented with a caveat" middle path.
+
+Note the finding's `risk_log` entry ids in your final report per §8.
+
 ## 4. Write a real summary_of_changes
 
 Append to `plan.history` an entry:
@@ -147,8 +165,12 @@ never delete or silently alter an existing entry.
 ## 8. Done looks like
 
 - `plan/business-plan-v{N+1}.md` exists; `plan/business-plan.md` matches it.
+- `skills/risk/ai-risk-review` returned PASS on the new version, or every BLOCKED finding was
+  fixed-and-rechecked or carries a logged founder override — see §3.5. A revision that skipped
+  this call is not done per this plugin's contract.
 - `plan.version` bumped, `plan.history` has a specific, itemized `summary_of_changes`.
 - The triggering review's `resolved` flag accurately reflects whether every item was fixed.
 - `stage = "council_review"`.
 - Report back: version number, per-required-revision-item status (resolved/not resolved with
-  reason), and the file path of the new plan version.
+  reason), the file path of the new plan version, and the AI-risk gate's PASS/BLOCKED result with
+  any `risk_log` ids it wrote.

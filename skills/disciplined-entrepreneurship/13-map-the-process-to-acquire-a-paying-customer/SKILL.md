@@ -2,13 +2,11 @@
 name: 13-map-the-process-to-acquire-a-paying-customer
 description: >
   Use once Step 12 (Determine the DMU) is drafted and the founder needs to trace, role by role,
-  how a real prospect actually moves from first contact to signed and paid. Triggers: "map the
-  buying process," "how do we actually close a customer," "sales process," "who has to say yes,"
-  "DMU journey," "acquisition process map," "step 13." Produces a qualitative, stage-by-stage map
-  of the acquisition journey for each DMU role (champion, decision maker, influencer, saboteur,
-  end user, procurement/legal) — what triggers each role's involvement, what they must see or
-  believe, and what can kill the deal at each stage. Purely qualitative; costing and conversion
-  rates are added later in Step 18 — do not conflate the two.
+  how a real prospect moves from first contact to signed and paid. Triggers: "map the buying
+  process," "how do we actually close a customer," "sales process," "who has to say yes," "DMU
+  journey," "acquisition process map," "step 13." Produces a qualitative, stage-by-stage map of
+  the acquisition journey per DMU role — trigger, proof needed, objection, and deal-killer at
+  each stage. Purely qualitative; costing and conversion rates belong to Step 18, not here.
 ---
 
 # Step 13: Map the Process to Acquire a Paying Customer
@@ -26,9 +24,18 @@ out into COCA (Step 19). If a founder or reviewer asks "didn't we already do thi
 spirit, but Step 13 answers "what happens and who has to agree," while Step 18 answers "how long
 does it take and what does it cost." Do not duplicate Step 18's costing work here; leave it out.
 
+Read `business_basics.business_type` before assuming the default shape of a multi-stakeholder
+enterprise sale. For `consumer_app` or self-serve `saas`/`physical_product` businesses where
+Step 12's DMU already collapsed to one person (buyer = user = decision maker), most of these
+roles collapse too — don't manufacture a champion/procurement/saboteur cast for a one-person
+impulse purchase. The stages are still real (awareness → trial/first use → payment), just with
+fewer distinct roles acting at each one; say so plainly in the map rather than padding it out.
+
 ## Reads
 
-- `.startup/<slug>/business-state.json` (whole file, to preserve unrelated keys on write-back)
+- `.startup/<slug>/business-state.json` (whole file, to preserve unrelated keys on write-back).
+  Check `business_basics.business_type` before drafting — it determines whether this map is a
+  multi-role B2B buying process or a collapsed single-person purchase (see above).
 - `.startup/<slug>/plan/12-determine-the-dmu.md` — required. The DMU roles are the backbone of
   this map. If Step 12 is missing or `not_started`, stop and tell the founder Step 12 must be
   drafted first.

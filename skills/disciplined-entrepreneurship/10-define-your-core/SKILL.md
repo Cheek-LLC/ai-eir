@@ -20,7 +20,8 @@ Core lets you win) and is a load-bearing fact for every later claim about defens
 
 ## Read before starting
 
-- `.startup/<slug>/business-state.json`.
+- `.startup/<slug>/business-state.json`, including `business_basics.business_type` — read before
+  probing for candidate Cores (see "Business-type branching").
 - `.startup/<slug>/plan/07-high-level-product-specification.md` — what the product can do.
 - `.startup/<slug>/plan/08-quantify-the-value-proposition.md` — why it matters to the persona.
 - `.startup/<slug>/plan/02-select-a-beachhead-market.md` for competitive context. If Step 7 or 8
@@ -40,6 +41,26 @@ Core lets you win) and is a load-bearing fact for every later claim about defens
    true Core is something you build the company around and keep in-house.)
 5. What are the resulting competitive advantages/customer-visible benefits that flow from this
    Core (faster, cheaper, better UX, etc.)? These can be plural even though the Core is singular.
+
+## Business-type branching
+
+What a real, durable Core tends to look like differs by type — use these as prompts for the
+interview questions above, not as a checklist to rubber-stamp:
+
+- **SaaS:** common real Cores are proprietary data/models trained on accumulating usage, deep
+  workflow/integration lock-in, or network effects within a workspace or team.
+- **Physical product:** common real Cores are a proprietary manufacturing process or IP, exclusive
+  supplier/material-sourcing relationships, or a brand built over years — "our product is well
+  designed" is not a Core; a competitor can copy a design.
+- **Marketplace:** the single most common real Core is liquidity/network effects — density on one
+  side attracting the other — but this is only a true Core once real liquidity exists, not merely
+  hoped for; a pre-liquidity marketplace usually has no durable Core yet, and that's a legitimate
+  finding, not a failure to paper over.
+- **Services:** common real Cores are a proprietary methodology/playbook, a practitioner's
+  reputation/expertise that's genuinely hard to replicate, or a proprietary tool/dataset built
+  through delivering the service. A generalist services business often has no durable Core yet —
+  say so plainly rather than defaulting to "our people" as a Core, which rarely survives the
+  Unique test.
 
 ## Method: Core vs. Moat vs. Competitive Advantage — three distinct things
 

@@ -70,7 +70,13 @@ track state so nothing is lost, and never let the business drift past a gate it 
      a header. Go to Phase 1.
    - **Exists** → read it fully. This is a resume. Read `interview-log.md`'s most recent entries
      and skim `reviews/` for anything unresolved. Produce a short status summary (see "On
-     resume" below) and continue from `stage`.
+     resume" below). If `stage` is anything past `"interview"` (onboarding already complete),
+     delegate to `skills/interview/recurring-check-in` for the reconciliation conversation
+     (what's changed in the real world, open `key_assumptions`/`risk_log` items) before doing
+     substantive stage work this session — that skill, not freeform chat, owns this shape of
+     conversation. Skip it only if the founder explicitly asks for a quick single action with no
+     catch-up ("just run step 5, skip the check-in"); default to running it. Then continue from
+     `stage`.
 3. Never start doing specialist work yourself because "it'll be faster" — even a one-field
    answer goes through the owning skill/agent so the file it's responsible for gets written
    correctly and state stays consistent.
@@ -106,14 +112,17 @@ plan_assembled
    │  business-plan.md generated from the 24 step files
    ▼
 council_review
-   │  council run; verdict recorded
+   │  council run; verdict recorded (note: run-review-council writes stage straight to
+   │  approved/revising below — it never persists "council_review" as an on-disk value, so
+   │  never write that value to business-state.json yourself; treat it as describing the
+   │  activity in progress, not a stage you set)
    ├── verdict APPROVE / APPROVE_WITH_NOTES ──────────────► approved
    └── verdict REVISE / REJECT
            ▼
         revising
            │  required revisions addressed (or founder override logged)
            ▼
-        council_review (re-review)
+        council re-run while stage is still "revising" (its own precondition)
 approved
    │  founder greenlights go-to-market
    ▼
@@ -189,37 +198,53 @@ ones relevant to this business). Each panel returns verdicts in the schema fixed
 CONVENTIONS.md §6; the panel's aggregate verdict is the harshest non-outlier verdict among its
 personas, not an average.
 
-For each review:
-1. Record it in `reviews[]` (`id`, `council`, `target`, `verdict`, `score`, `file`,
-   `resolved: false` until closed) and save the full review under `reviews/`.
-2. If `APPROVE` or `APPROVE_WITH_NOTES`: mark `resolved: true`. Notes are logged, not
-   necessarily all actioned — tell the founder what the notes were and let them decide which to
-   act on before or after launch; that decision itself gets a one-line note in the review file.
-3. If `REVISE` or `REJECT`: set `stage: "revising"`, and enforce Non-negotiable #3 above — no
-   exceptions, no "it's probably fine." List every required revision to the founder plainly.
-   Route each revision to the specialist that owns the underlying content (a DE step skill for
-   content problems, `skills/risk/*` or `agents/risk/*` for an AI-risk/legal/privacy finding,
-   `skills/business-plan/assemble-business-plan` if it's a plan-structure issue) — you are
-   routing, not rewriting the plan text yourself.
-4. Once revisions are addressed, re-run the same council (or, if only one persona's objection
-   was blocking, that persona) via the same skill, targeting the new plan version, and set
-   `stage: "council_review"` for the re-review, then advance per its outcome.
+`skills/business-plan/run-review-council` writes `reviews[]` and `stage` itself as part of its
+own contract (its precondition requires `stage` to be exactly `plan_assembled` or `revising` when
+you invoke it, and it writes `stage: "approved"` or `stage: "revising"` directly — it never
+persists an intermediate `stage: "council_review"` value, so never set that yourself before or
+between invocations; doing so would fail its precondition check on the next call). Your job after
+it returns:
 
-When the loop lands on `APPROVE`/`APPROVE_WITH_NOTES` (or a logged founder override), set
-`stage: "approved"`. Tell the founder plainly that the plan cleared review and ask whether they
-want to proceed to go-to-market now or pause here.
+1. Confirm it actually wrote a new `reviews[]` entry and a file under `reviews/` in the schema
+   above — verify, don't re-do; recording the review is the skill's write, not yours.
+2. If `APPROVE` or `APPROVE_WITH_NOTES`: the skill left `resolved: false` on that entry by design
+   (see its own boundary note) — flip it to `resolved: true` yourself once you've told the founder
+   what the notes were. Notes are logged, not necessarily all actioned — let the founder decide
+   which to act on before or after launch; that decision itself gets a one-line note in the review
+   file.
+3. If `REVISE` or `REJECT`: the skill has already set `stage: "revising"`. Enforce Non-negotiable
+   #3 above — no exceptions, no "it's probably fine." List every required revision to the founder
+   plainly. Route each revision to the specialist that owns the underlying content (a DE step
+   skill for content problems, `skills/risk/*` or `agents/risk/*` for an AI-risk/legal/privacy
+   finding, `skills/business-plan/assemble-business-plan` if it's a plan-structure issue) — you
+   are routing, not rewriting the plan text yourself.
+4. Once revisions are addressed, re-run the same council (or, if only one persona's objection
+   was blocking, that persona) via the same skill, targeting the new plan version. Do not change
+   `stage` yourself before this call — it must still read `"revising"`, which is exactly what the
+   skill's precondition expects for a re-review. Let the skill's own write move `stage` to
+   `"approved"` or back to `"revising"` per the new outcome.
+
+When the loop lands on `APPROVE`/`APPROVE_WITH_NOTES` (or a logged founder override) and `stage`
+is `"approved"`, tell the founder plainly that the plan cleared review and ask whether they want
+to proceed to go-to-market now or pause here.
 
 ### Phase 5 — Go-to-market (`stage: gtm`)
 
-On founder go-ahead, set `stage: "gtm"` and `gtm.status: "in_progress"`. Delegate to the
-relevant agents under `agents/gtm/` (launch planning, marketing, sales, fundraising as
-applicable) and skills under `skills/gtm/`. Track deliverables in `gtm.artifacts[]` and the
-launch plan in `gtm.launch_plan_file`. If a GTM step needs a connector that isn't wired up
-(ad platform, CRM, email, analytics), delegate to `agents/connectors-liaison.md` to get it
-wired or logged in `connectors.needed_not_installed[]` — don't stall silently on a missing
-connector; surface it.
+On founder go-ahead, delegate to `agents/gtm/launch-director.md` — invoke it while `stage` is
+still `"approved"`; do not set `stage: "gtm"` or `gtm.status: "in_progress"` yourself first.
+`launch-director` owns that transition and writes it itself only after completing its own
+sequencing pass (its own gate logic reads `stage: "approved"` as the signal this is a fresh
+kickoff, not something you've already flipped). It coordinates the relevant agents under
+`agents/gtm/` (marketing, sales, fundraising as applicable) and skills under `skills/gtm/`,
+tracks deliverables in `gtm.artifacts[]`, and owns `gtm.launch_plan_file`. If a GTM step needs a
+connector that isn't wired up (ad platform, CRM, email, analytics), it delegates to
+`agents/connectors-liaison.md` to get it wired or logged in `connectors.needed_not_installed[]`
+— confirm that happened rather than letting it stall silently on a missing connector.
 
-When launch actually goes out, set `gtm.status: "launched"` and `stage: "operating"`.
+`launch-director` explicitly does not declare a real-world launch unilaterally (it drafts the
+plan, it doesn't confirm the launch happened) — that confirmation is yours: when the founder (or
+your own observation of what's actually shipped) confirms launch has genuinely gone out, set
+`gtm.status: "launched"` and `stage: "operating"` yourself.
 
 ### Phase 6 — Ongoing operations (`stage: operating`)
 
@@ -286,7 +311,7 @@ is to force rigor a founder wouldn't otherwise apply to their own idea. Act like
 | Work | Delegate to |
 |---|---|
 | Onboarding interview | `skills/interview/onboarding-interview` |
-| Recurring check-in interview content | `skills/interview/*` (check-in variant) |
+| Recurring check-in interview content | `skills/interview/recurring-check-in` |
 | Each DE step 01–24 | `skills/disciplined-entrepreneurship/NN-slug/SKILL.md` |
 | Assemble/version/diff the plan | `skills/business-plan/assemble-business-plan` (and related `skills/business-plan/*`) |
 | Convene review panel(s) | `skills/business-plan/run-review-council` → `agents/council/*` |

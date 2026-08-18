@@ -21,7 +21,8 @@ from or checked against this persona.
 
 ## Read before starting
 
-- `.startup/<slug>/business-state.json`.
+- `.startup/<slug>/business-state.json`, including `business_basics.business_type` — read before
+  drafting (see "Business-type branching").
 - `.startup/<slug>/plan/03-build-an-end-user-profile.md` — **required**. The persona must be a
   specific instantiation of this profile, not a different or broader character.
 - `.startup/<slug>/plan/04-calculate-the-tam-for-the-beachhead-market.md` — read for market
@@ -43,6 +44,22 @@ from or checked against this persona.
 6. What do they read or watch, and who do they trust for recommendations? How do they typically
    discover new tools or approaches?
 7. Is there a quote, in their own words, that captures how they feel about this problem?
+
+## Business-type branching
+
+- **SaaS:** the "day in the life" should center on their workflow and tools — where in their
+  actual work the problem shows up.
+- **Physical product:** the "day in the life" should center on the purchase/usage occasion (the
+  moment the need arises, where they are, what else is happening) rather than a generic workday.
+- **Marketplace:** if Step 3 produced two profiles (supply-side and demand-side), build the
+  persona from whichever side is the harder constraint to win first (usually supply, in early
+  marketplaces) and say explicitly which side this persona represents — a single persona silently
+  standing in for both sides understates how different their days actually look. A second persona
+  for the other side is worth building once the first is solid, but is not required to call this
+  step done.
+- **Services:** distinguish clearly whether the persona is the person who experiences the problem
+  or the person who commissions the engagement (per Step 3's split) — name which one this persona
+  is, since the day-in-the-life and goals differ substantially between the two.
 
 ## Method: one vivid individual, not a restatement of Step 3
 

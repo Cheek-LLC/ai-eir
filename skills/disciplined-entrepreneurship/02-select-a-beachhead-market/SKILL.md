@@ -20,7 +20,8 @@ is anchored to this one market; get this wrong and everything downstream is buil
 
 ## Read before starting
 
-- `.startup/<slug>/business-state.json`.
+- `.startup/<slug>/business-state.json`, including `business_basics.business_type` — read before
+  scoring; tailor "reach" and "competitive intensity" per "Business-type branching" below.
 - `.startup/<slug>/plan/01-market-segmentation.md` — **required**. If it doesn't exist or
   `disciplined_entrepreneurship.01_market_segmentation.status` is `not_started`, stop and tell
   the founder Step 1 needs to run first; do not invent a segment list here.
@@ -42,6 +43,24 @@ For each of the top candidate segments carried forward from Step 1:
    could plausibly become the clear #1 player within ~2-3 years?
 7. What does the competitive landscape look like here — fragmented and displaceable, or
    dominated by an entrenched incumbent?
+
+## Business-type branching
+
+What "reach" and "competitive intensity" actually mean differs by business type — probe for the
+right kind of access/threat, not a generic version:
+
+- **SaaS:** reach = access via existing communities, content/SEO, product-led signups, or a
+  network of prospects already using adjacent tools; competitive intensity = how many funded
+  competitors already target this exact workflow.
+- **Physical product:** reach = access to a retail buyer relationship, an existing DTC audience,
+  or a distribution/wholesale contact; competitive intensity should account for shelf-space or
+  channel gatekeeping, not just other brands.
+- **Marketplace:** reach must be assessed on **both sides** — a segment is only truly reachable if
+  the founder can plausibly access initial supply *and* initial demand at the same time; a segment
+  reachable on one side only is not yet a real beachhead candidate.
+- **Services:** reach = access via referral relationships, past clients, or a professional network
+  where reputation travels; competitive intensity should weigh how commoditized/undifferentiated
+  the service category already is.
 
 ## Method: weighted scoring matrix, not a gut call
 

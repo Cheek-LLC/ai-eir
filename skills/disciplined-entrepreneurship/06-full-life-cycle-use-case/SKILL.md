@@ -21,7 +21,8 @@ elsewhere) build on later — this step covers the full arc, not the sales proce
 
 ## Read before starting
 
-- `.startup/<slug>/business-state.json`.
+- `.startup/<slug>/business-state.json`, including `business_basics.business_type` — read before
+  mapping stages (see "Business-type branching").
 - `.startup/<slug>/plan/05-profile-the-persona-for-the-beachhead-market.md` — **required**; this
   is written from the Persona's point of view. If missing or `not_started`, stop and tell the
   founder to complete Step 5 first.
@@ -44,6 +45,23 @@ elsewhere) build on later — this step covers the full arc, not the sales proce
 8. What triggers renewal, expanded usage, churn, or abandonment? Is there a natural
    disposal/replacement cycle?
 9. At each stage, where's the biggest risk they get stuck or drop off?
+
+## Business-type branching
+
+The eight stages are universal, but what fills them changes by type:
+
+- **SaaS:** onboarding = signup/trial/activation flow; ongoing use = login frequency and feature
+  adoption; renewal = subscription renewal, upgrade, or downgrade decision.
+- **Physical product:** onboarding = unboxing and first use; add shipping/fulfillment as part of
+  decision & purchase; support = returns/warranty/replacement; renewal/disposal = repurchase or
+  replenishment cadence, or end-of-life disposal.
+- **Marketplace:** map the supply side and demand side as **separate tracks** through the same
+  eight stages — a supplier's trigger, onboarding, and "renewal" (continuing to list/fulfill) look
+  nothing like a buyer's trigger, evaluation, and repeat-purchase behavior. Mapping only one side
+  misses where the other side actually drops off.
+- **Services:** onboarding = engagement kickoff/scoping; ongoing use = the service delivery
+  cadence itself (sessions, deliverables, check-ins); renewal = contract renewal or re-engagement
+  decision, often gated by a relationship review rather than an automated prompt.
 
 ## Method: the whole arc, stage by stage
 

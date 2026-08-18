@@ -67,6 +67,7 @@ exists for it.
 | Consumables / "razor and blades" | Core-unit sell-through, recurring-consumable repeat-purchase rate/frequency, consumable revenue per active core-unit owner |
 | Reseller / channel | Channel partner count, sell-through rate per channel, channel-attributed revenue, partner-acquisition cost |
 | Advertising / attention-based | Active users (DAU/MAU as relevant), engagement depth (time/sessions), ad revenue per active user or per impression, fill rate |
+| Franchise (license the whole operating model) | Active franchise unit count, new-unit opening rate, franchise fee revenue (one-time), royalty revenue (% of unit sales, run-rate), average unit-level sales/profitability, same-unit sales growth, franchisee renewal/retention rate |
 
 For every business, regardless of archetype, always include (these are universal, not
 archetype-specific): actual COCA vs. plan (step 19), and — once retention data exists — actual

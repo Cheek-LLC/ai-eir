@@ -22,7 +22,9 @@ product is.
 
 ## Reads
 
-- `.startup/<slug>/business-state.json` (whole file)
+- `.startup/<slug>/business-state.json` (whole file). Read `business_basics.business_type`
+  before running the archetype checklist below — it should sharply narrow which archetypes are
+  even plausible starting points (see "Business-type starting points").
 - `.startup/<slug>/plan/08-quantify-the-value-proposition.md` — required. The value metric
   identified there (cost saved, revenue generated, time saved, risk reduced) should drive which
   business model captures it most naturally.
@@ -68,6 +70,29 @@ For each candidate the founder considers seriously, require:
 
 Ask explicitly: "How do comparable products in this market typically get paid, and is there a
 real reason to differ from that norm?"
+
+## Business-type starting points
+
+Don't run the checklist blind — `business_basics.business_type` should narrow the live
+candidates before the founder rules anything in or out:
+
+- **SaaS:** Subscription (flat or usage-based) is the default starting hypothesis; freemium is a
+  real contender only with genuine self-serve virality. Ask which of seat-based, usage-based, or
+  flat-tier actually tracks how the customer perceives value growing.
+- **Physical product:** Consumables/"razor and blades" is worth ruling in/out explicitly if there's
+  any recurring-use component; otherwise it's one-time-sale-plus-accessories. The real question is
+  channel: DTC-only, wholesale/reseller, or both — each implies a different margin structure and
+  a different archetype from the list above.
+- **Marketplace:** Advertising/take-rate is the near-default, but *which side pays* is the actual
+  decision — supply-side fee, demand-side fee, or a cut of the transaction — and it's rarely
+  symmetric. State explicitly which side is price-sensitive enough that charging them would kill
+  liquidity, and price the other side instead.
+- **Services:** Fee-for-service/project-based is the honest starting point pre-productization.
+  Ask what would have to be standardized before a subscription/retainer model becomes credible
+  rather than defaulting to it aspirationally.
+
+When `business_type` is `other` or a genuine hybrid, ask the founder which of the above framings
+fits best rather than guessing (per `docs/UX-INTERVIEW-DESIGN.md` §4).
 
 ## When the founder doesn't know
 

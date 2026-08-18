@@ -28,7 +28,9 @@ one thing a founder can actually go execute this week.
 
 ## Reads
 
-- `.startup/<slug>/business-state.json` (whole file)
+- `.startup/<slug>/business-state.json` (whole file). Read `business_basics.business_type` — what
+  "manual/concierge delivery" actually means differs sharply by type (see "Business-type MVBP
+  shapes").
 - `.startup/<slug>/plan/15-design-a-business-model.md` — required. Determines what "paying"
   looks like operationally (one-time invoice, first subscription charge, signed contract).
 - `.startup/<slug>/plan/16-set-your-pricing-framework.md` — required. The MVBP must be sold at a
@@ -64,6 +66,27 @@ Ask the founder directly:
   you actually sell them, and what would you do by hand to deliver it?"
 - "What are you tempted to give away for free to make this easier, and why would that undermine
   what this step is supposed to prove?"
+
+## Business-type MVBP shapes
+
+"Manual behind the scenes" (deliverable 3) means something different by
+`business_basics.business_type` — push for the concrete version, not a generic one:
+
+- **SaaS:** The MVBP is often a concierge version of the software — a spreadsheet, a manual
+  ops process, or the founder personally doing what the eventual product will automate — sold and
+  invoiced as if the product already existed, at the real Step 16 price. The software isn't the
+  MVBP; the whole transaction is.
+- **Physical product:** Usually a small-batch or handmade run sold directly to a handful of real
+  first customers before any manufacturing scale-up; the founder often fulfills and ships by hand.
+  Resist the urge to wait for "production quality" before selling — that's over-building ahead of
+  validation, exactly what this step exists to prevent.
+- **Marketplace:** Almost always a concierge/hand-matched marketplace first — the founder manually
+  sources and pairs supply and demand before any matching or discovery technology exists. Decide
+  explicitly which side (supply or demand) gets sourced first and why that side is the harder
+  liquidity problem.
+- **Services:** The MVBP is usually close to the eventual delivery model already — a real client
+  engagement, just narrower in scope or shorter in duration than the full offering. The "minimum"
+  cut here is scope, not realism — don't let this collapse into a free diagnostic call.
 
 ## When the founder doesn't know
 
