@@ -56,6 +56,22 @@ founder can make), do not fabricate it — flag it back to the caller/orchestrat
 and proceed with the other items. Report the blocked item clearly rather than silently
 skipping it.
 
+**Distinguish decision-gated items from time-gated items — they need different honest handling.**
+Some required revisions are blocked on a decision the founder can make right now in this session
+(pick a build approach, state a funding preference) — route these per the rule above. Others are
+blocked on real-world elapsed time or evidence that literally cannot exist yet within a single
+revision session no matter how fast the founder moves (e.g. "recompute the funnel once 5+
+prospects have moved through two pipeline stages," which can take weeks of real prospect
+conversations to satisfy honestly). Confirmed live in round 6's dry run
+(`docs/QA-FINDINGS-ROUND6.md`): fabricating a satisfied version of a time-gated item is exactly
+the false-precision/automation-bias failure this plugin exists to prevent, so don't do it — but
+don't report it identically to a founder-decision block either, since the caller and founder need
+to know "wait for real time to pass and re-review" is a different next action than "make a
+decision and I'll re-synthesize immediately." Report time-gated items explicitly as **open,
+time-gated** (name what real-world evidence must accumulate and roughly how), distinct from
+**blocked, needs founder decision** in your final report and in `plan.history`'s
+`summary_of_changes`.
+
 ## 2. Update state before re-synthesizing
 
 - Set `stage = "revising"` in `business-state.json` while work is in progress (write this
