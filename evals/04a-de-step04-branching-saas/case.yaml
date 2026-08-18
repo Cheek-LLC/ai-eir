@@ -1,0 +1,71 @@
+schema_version: "1.0"
+name: de-step04-branching-saas-uses-seat-pricing
+description: >
+  Confirms skills/disciplined-entrepreneurship/04-calculate-the-tam-for-the-beachhead-market's
+  "Business-type branching" section actually changes the calculation shape for business_type
+  "saas" — count = companies/seats matching the Step 3 profile, multiplier = ACV or seat price x
+  seats — not the marketplace GMV x take-rate shape. Paired with evals/04b (marketplace) to confirm
+  the same DE step step produces a structurally different calculation for a different
+  business_type on the same founder inputs shape.
+tags: [de-steps, business-type-branching, step-04]
+expected_outcome: >
+  TAM = count of qualifying companies (or seats within them) x per-seat/ACV annual price — no GMV
+  or take-rate language anywhere in the output.
+
+context:
+  scaffold_script: scaffold.sh
+
+execution:
+  prompt: >
+    Run skills/disciplined-entrepreneurship/04-calculate-the-tam-for-the-beachhead-market for
+    business-slug "eval-branch-saas". Read business-state.json and Steps 2/3 first (already
+    drafted). The founder says: "There are roughly 4,000 companies matching the Step 3 profile,
+    each running about 3 dispatch seats, and we'd charge $2,400/year per seat." Write
+    plan/04-calculate-the-tam-for-the-beachhead-market.md and update business-state.json per the
+    skill's contract.
+  max_turns: 30
+  timeout_seconds: 600
+  allowed_tools: [Read, Write, Edit, Grep, Glob]
+
+runs: 3
+
+graders:
+  - type: file_exists
+    name: step-4-file-written
+    path: .startup/eval-branch-saas/plan/04-calculate-the-tam-for-the-beachhead-market.md
+    exists: true
+    weight: 1
+
+  - type: regex
+    name: uses-seat-or-acv-language
+    target:
+      source: file
+      path: .startup/eval-branch-saas/plan/04-calculate-the-tam-for-the-beachhead-market.md
+    pattern: "(seat|ACV|annual contract value|per.?user)"
+    flags: "i"
+    match: contains
+    weight: 1
+
+  - type: regex
+    name: does-not-use-marketplace-language
+    target:
+      source: file
+      path: .startup/eval-branch-saas/plan/04-calculate-the-tam-for-the-beachhead-market.md
+    pattern: "(GMV|take.?rate|gross merchandise)"
+    flags: "i"
+    match: not_contains
+    weight: 1
+
+  - type: llm
+    name: applies-the-saas-branch-correctly
+    focus:
+      source: file
+      path: .startup/eval-branch-saas/plan/04-calculate-the-tam-for-the-beachhead-market.md
+    criteria: >
+      The TAM methodology must follow Step 4's SaaS branch: count = number of companies (or seats
+      within them) matching the Step 3 profile; multiplier = realistic annual contract value or
+      seat price x seats. The arithmetic should use the founder's stated 4,000 companies x 3 seats
+      x $2,400/year (or an equivalent per-seat framing), not a GMV x take-rate framing, and not a
+      generic per-consumer or per-transaction framing. It must include a sourced
+      quantitative_claims entry for the resulting figure.
+    weight: 2

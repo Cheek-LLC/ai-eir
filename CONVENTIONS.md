@@ -9,28 +9,45 @@ agents/skills interoperate without a central author reconciling formats by hand.
 ```
 .claude-plugin/plugin.json      # plugin manifest (do not edit structure, only add discoverable dirs if needed)
 agents/                         # subagent definitions, one .md per agent, may use subfolders
-  orchestrator.md               # the central "Startup Operator" agent
+  orchestrator.md               # the central "Startup Operator" agent (frontmatter name: startup-operator)
+  business-plan-editor.md       # a singleton agent can live directly under agents/ — not every
+  connectors-liaison.md         #   agent needs a category subfolder, just a well-formed file
   council/                      # review council agents (VC panel, expert panels, etc.)
+  design/                       # brand/landing-page/pitch-deck design agents
   gtm/                          # go-to-market agents (launch, marketing, sales, fundraising)
   ops/                          # operations, analytics, finance, scaling agents
-  risk/                         # AI risk, privacy, compliance agents
   qa/                           # testing / quality assurance agents
-  connectors/                   # connector-liaison agents
+  risk/                         # AI risk, privacy, compliance agents
 skills/                         # SKILL.md packages, one folder per skill
   disciplined-entrepreneurship/
     01-market-segmentation/SKILL.md
     02-...-24.../SKILL.md
   business-plan/                # assembling, versioning, diffing the plan
-  interview/                    # onboarding + recurring check-in interview flows
-  gtm/
-  ops/
-  design/
   connectors/
+  design/
+  gtm/
+  interview/                    # onboarding + recurring check-in interview flows
+  ops/
+  qa/
+  risk/
 commands/                       # slash commands, one .md per command
-docs/                           # ARCHITECTURE.md, ROADMAP.md, DATA-CONTRACT.md, etc.
+docs/                           # ARCHITECTURE.md, ROADMAP.md, DATA-CONTRACT.md, QA-FINDINGS-*.md, etc.
+scripts/                        # validate-plugin.sh — structural drift checker; run before opening a PR
+                                 #   that touches agents/skills/commands (see docs/ARCHITECTURE-IMPLEMENTATION.md §4)
+.github/workflows/              # CI: validate-plugin.yml runs scripts/validate-plugin.sh on every push/PR
 ```
 
 Use kebab-case for every skill folder, agent file, and command file.
+
+**`docs/QA-FINDINGS-*.md` naming.** Each end-to-end dry run or targeted audit gets its own,
+never-overwritten file: `docs/QA-FINDINGS-ROUND<N>.md` for a general dry run that round (role-play
+a real founder through the real flow, producing real `.startup/<slug>/` artifacts), or
+`docs/QA-FINDINGS-<SCOPE>-ROUND<N>.md` (e.g. `GATES`, `CONNECTORS`) for a pass scoped to one
+subsystem. Open with a `# QA Findings — Round N: <title>` heading and a `**Method.**` paragraph
+that states plainly what was actually exercised — a real fixture, a full read of named files —
+never a hypothetical description of what a run would produce. A later round's findings are always
+a new, dated file, not an edit to a prior round's file, so the history of what was found and fixed
+when stays intact.
 
 ## 2. SKILL.md frontmatter
 
@@ -82,19 +99,22 @@ truth all agents/skills read and write — never keep business data only in conv
 
 ```
 .startup/<business-slug>/
-  business-state.json     # canonical structured record — see docs/DATA-CONTRACT.md for schema
+  business-state.json     # canonical structured record — see docs/DATA-CONTRACT.md for schema.
+                           # Connector status and check-in cadence live INSIDE this file, as its
+                           # own `connectors` and `cadence` top-level keys — there is no separate
+                           # connectors.json or cadence.json on disk.
   interview-log.md        # running transcript of every interview / check-in session
   plan/                   # one markdown file per Disciplined Entrepreneurship step, 01-24
     01-market-segmentation.md
     ...
     24-....md
-  plan/business-plan.md   # assembled, human-readable full plan (generated, not hand-edited)
-  reviews/                # one file per council review, timestamped
-    2026-08-18-vc-panel-v1.md
+    business-plan.md      # assembled, human-readable full plan (generated, not hand-edited)
+    business-plan-vN.md   # prior version snapshot, written by revise-business-plan on every
+                           #   revision cycle; business-plan.md always mirrors the latest version
+  reviews/                # one file per council review: <YYYY-MM-DD>-<track-slug>-panel-v<N>.md
+    2026-08-18-venture-track-panel-v1.md
   gtm/                    # launch plans, campaign briefs, sales collateral
   ops/                    # metrics snapshots, dashboards, retros
-  connectors.json         # which connectors are wired up vs. still needed
-  cadence.json            # recurring trigger config (frequency, last-run, next-run)
 ```
 
 `docs/DATA-CONTRACT.md` is the authoritative schema for `business-state.json` — every field
@@ -121,8 +141,17 @@ orchestrator and other agents can parse it mechanically:
 1. ...
 ```
 
-A council is a *panel* of 3-5 distinct reviewer personas run in parallel (never a single
-reviewer standing in for "the council"). The council's aggregate verdict is the harshest
+A **formal** review council — the kind `skills/business-plan/run-review-council` convenes at the
+`plan_assembled`/`council_review` gate — is a *panel* of exactly 5 distinct reviewer personas run
+in parallel: 4 fixed seats (evidence quality, financial-modeling rigor, and the two generalist VC
+vs. operator lenses) plus one contextual specialist seat chosen by the plan's business type and
+content (see that skill for the selection and tie-break rules). It is never fewer than 5 for a
+real gate decision, and never a single reviewer standing in for "the council." `/run-council`
+additionally supports a smaller or differently-composed **ad-hoc** panel (as few as one named
+persona) for a founder's early gut-check or a maintainer's manual test outside the formal gate —
+it uses the same per-persona verdict schema below, but must be reported as advisory, never as a
+substitute for the formal 5-seat gate decision (see `commands/run-council.md`). In either case,
+whenever more than one persona is convened, the council's aggregate verdict is the harshest
 non-outlier verdict among the panel, not an average — one credible blocking objection should
 block, not get diluted.
 

@@ -1,0 +1,49 @@
+name: Validate plugin structure
+
+# Structural drift check for the 30-Minute Startup plugin — runs scripts/validate-plugin.sh
+# (CONVENTIONS.md compliance: frontmatter shape, kebab-case naming, no duplicate agent/skill
+# names, DE-step slugs matching docs/DE-24-STEPS.md, business-state.json field references vs.
+# docs/DATA-CONTRACT.md, and council verdict-schema commitment vs. CONVENTIONS.md §6) on every
+# push and pull request. See docs/ARCHITECTURE-IMPLEMENTATION.md §4 and docs/TESTING.md for what
+# the script checks and why this is Layer 1 (structural QA) of the repo's testing strategy — this
+# workflow is what makes that check run automatically instead of relying on a contributor
+# remembering to run it locally.
+#
+# Round 3 (docs/ROADMAP.md v0.2 priority 3) confirmed the following, deliberately, rather than
+# assuming it:
+#   - `pull_request:` below has no `branches:` filter, which means GitHub triggers this workflow
+#     for a pull request against ANY base branch, not just the repo's default branch — this is
+#     already "every PR", not a narrower scope that needed broadening. Do not add a `branches:`
+#     filter under `pull_request:` unless the intent is deliberately to narrow this.
+#   - `push:` likewise has no `branches:` filter, so every push to every branch is covered too.
+#   - There is no `continue-on-error` anywhere in this file, and scripts/validate-plugin.sh exits
+#     1 on any error-level finding (see its own exit-code contract at the top of that file) — a
+#     red run therefore fails the `validate-plugin.sh` check itself, which GitHub Actions reports
+#     as a failed check on the commit/PR. It is genuinely blocking, not merely annotating, PROVIDED
+#     the repo's branch protection rules for the target branch(es) require this check to pass
+#     before merge — that requirement lives in GitHub's branch protection settings, not in this
+#     workflow file, and cannot be set or verified from here; confirm it separately in the repo's
+#     Settings → Branches if it isn't already required.
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-plugin:
+    name: validate-plugin.sh
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run scripts/validate-plugin.sh
+        # No `continue-on-error` here, deliberately: scripts/validate-plugin.sh exits non-zero on
+        # any error-level finding, and that must fail this step (and therefore this check) rather
+        # than just printing a warning in the log.
+        run: |
+          chmod +x scripts/validate-plugin.sh
+          ./scripts/validate-plugin.sh

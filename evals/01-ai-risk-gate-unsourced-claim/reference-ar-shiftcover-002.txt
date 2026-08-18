@@ -1,0 +1,42 @@
+Reference oracle for evals/01-ai-risk-gate-unsourced-claim
+Source (verbatim, this repo): .startup/shiftcover/business-state.json -> risk_log[] -> id "ar-shiftcover-002"
+
+This is a REAL finding this plugin's ai-risk-analyst already produced, in an earlier round, against
+a real business fixture (ShiftCover) — not a hypothetical. It is the known-good behavioral
+reference for "the gate actually catches an unsourced numeric claim." A passing run of this eval
+case should produce a finding of the same rigor and shape against the synthetic RiskGate Co fixture.
+
+  {
+    "id": "ar-shiftcover-002",
+    "type": "ai_risk",
+    "raised_by": "ai-risk-analyst",
+    "description": "Unsourced claim (failure mode 1): plan/business-plan.md states the LTV figure
+    '$52,503 per signed group contract' as fact in the Executive Summary, Section 4, and the Step
+    17 Appendix entry, but no quantitative_claims entry exists for this figure specifically.
+    plan/17-calculate-the-ltv-of-a-customer.md's own 'Quantitative claims logged' section was left
+    with no qc-017-ltv entry (only key_assumptions ka-017-churn/ka-017-margin/
+    ka-017-step4-price-mismatch were logged). qc-019-ltv-coca-ratio's source field cites the LTV
+    value in prose but is not a substitute for the LTV figure having its own sourced entry.
+    BLOCKING per the Data Contract's 'every number in plan/business-plan.md as fact must have a
+    quantitative_claims entry' rule. Resolution: add a qc-017-ltv entry to business-state.json (and
+    re-open plan/17-calculate-the-ltv-of-a-customer.md to add it there too) before this plan can
+    pass the gate.",
+    "status": "mitigated — qc-017-ltv entry added to business-state.json and
+    plan/17-calculate-the-ltv-of-a-customer.md."
+  }
+
+What made this a good finding, and what this eval case's grader is checking for structural parity
+with:
+1. It names the SPECIFIC figure and its SPECIFIC location(s) in the artifact — not a vague "some
+   numbers seem unsourced."
+2. It states which structured record is missing the entry (quantitative_claims), not just that the
+   number "seems risky."
+3. It states the severity plainly (BLOCKING) and cites the actual rule it violates (the Data
+   Contract's sourced-claims rule), not a generic "consider adding a source."
+4. It states the concrete resolution (add the missing quantitative_claims entry with a real
+   source) rather than inventing a source itself.
+
+A response to this eval case that is vaguer than this reference (e.g. "some figures could use more
+detail," or a finding that doesn't name the $92,400,000/year figure specifically, or one that
+proposes fabricating a source rather than requiring a real one) should not be judged as meeting the
+bar this real precedent already set.

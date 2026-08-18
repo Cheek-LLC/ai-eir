@@ -1,0 +1,69 @@
+schema_version: "1.0"
+name: onboarding-interview-pushes-back-on-platitude
+description: >
+  Confirms skills/interview/onboarding-interview's vague-answer playbook actually fires on the
+  platitude "we help small businesses grow" — pushing back with the specific named follow-up from
+  its table ("if you could only sell to one specific type of customer...") rather than accepting it
+  and writing it into business_basics.one_liner as if it were a real answer.
+tags: [interview, onboarding, vague-answer-playbook]
+expected_outcome: >
+  The response pushes back with the specific "one specific type of customer" follow-up question,
+  does not treat the platitude as settled, and business-state.json's business_basics.one_liner is
+  not left holding the raw platitude.
+
+context:
+  scaffold_script: scaffold.sh
+
+execution:
+  prompt: >
+    Run skills/interview/onboarding-interview for business-slug "eval-vagueco" — read
+    business-state.json first, it already exists with stage "interview" and everything else empty.
+    You've already asked the founder the one-line business idea question. The founder's answer,
+    verbatim, is exactly: "We help small businesses grow." Respond exactly as the skill instructs
+    you to for this answer — do not treat it as a finished one-liner.
+  max_turns: 20
+  timeout_seconds: 400
+  allowed_tools: [Read, Write, Edit, Grep, Glob]
+
+runs: 3
+
+graders:
+  - type: llm
+    name: pushes-back-with-the-specific-follow-up
+    focus: last_message
+    criteria: >
+      The reply must NOT accept "We help small businesses grow" as an adequate one-liner and must
+      NOT tell the founder it has been recorded as the business's one-liner. Per
+      skills/interview/onboarding-interview/SKILL.md's vague-answer playbook table (row: "Everyone
+      is my customer" / "small businesses" / "anyone who needs X"), it must push back with
+      something close to: "If you could only sell to one specific type of customer for the next six
+      months, who would it be? Name the type of person or company, not the whole category." A
+      generic "can you be more specific?" without that concrete follow-up, or silently moving on to
+      the next onboarding question, should score this criterion as failing.
+    weight: 2
+
+  - type: regex
+    name: contains-the-specific-pushback-language
+    target: last_message
+    pattern: "(one specific type|six months|name the type)"
+    flags: "i"
+    match: contains
+    weight: 1
+
+  - type: regex
+    name: does-not-record-platitude-as-one-liner-in-state-file
+    target:
+      source: file
+      path: .startup/eval-vagueco/business-state.json
+    pattern: "\"one_liner\":\\s*\"We help small businesses grow\\.?\""
+    flags: "i"
+    match: not_contains
+    weight: 1
+
+  - type: regex
+    name: does-not-narrate-writing-the-platitude-as-final
+    target: last_message
+    pattern: "(recorded|saved|written) (as|to) (your |the )?one.?liner"
+    flags: "i"
+    match: not_contains
+    weight: 1
