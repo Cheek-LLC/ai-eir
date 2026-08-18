@@ -118,6 +118,18 @@ Tested with real prospects? Y/N — details, or see ka-016-...
 - ka-016-...: ...
 ```
 
+## Mandatory AI-risk gate — before this step is reported done
+
+This step is one of the five DE steps `skills/risk/ai-risk-review`'s own "Who must call this, and
+when" table names explicitly. After writing `plan/16-set-your-pricing-framework.md` and before
+setting `status: "drafted"`, invoke `skills/risk/ai-risk-review` against this step's plan file
+(whole file, not a summary) plus the business-slug.
+
+- **PASS** → proceed to write `business-state.json` below.
+- **BLOCKED** → do not set `status: "drafted"`. Fix the finding and re-run the gate, or route to
+  the orchestrator for an explicit founder override (per `agents/orchestrator.md` Non-negotiable
+  #3) — this step does not accept an override itself.
+
 ## Update business-state.json
 
 ```json
@@ -133,6 +145,9 @@ Append `quantitative_claims` and `key_assumptions` entries; preserve all other k
 ## Done means
 
 - `plan/16-set-your-pricing-framework.md` written with specific price points, not vague ranges.
-- Every price figure has a `quantitative_claims` entry with a source.
+- Every price figure has a `quantitative_claims` entry with a source — before reporting
+  `drafted`, re-read this file's own claims section and confirm every stated price has a matching
+  entry.
+- The mandatory AI-risk gate above returned PASS, or a BLOCKED finding was resolved/overridden.
 - `business-state.json` key `16_set_your_pricing_framework` set to `status: "drafted"`; leave
   review/approval to the later council skill.

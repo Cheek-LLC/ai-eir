@@ -103,6 +103,25 @@ Ask one question at a time. Do not dump a checklist in a single message — see
    `idea_only | already_operating | pivoting`. If `already_operating` or `pivoting`, ask one
    follow-up: what's the current traction or what's changing and why — a sentence is enough here,
    the DE steps will go deep later.
+5. **Funding intent (light touch, optional).** Ask once, briefly: "Are you thinking about
+   bootstrapping this, raising outside money, or is that not decided yet?" Map a clear answer to
+   `business_basics.funding_intent`: `bootstrap | raising_outside_capital`. If the founder hasn't
+   formed a view — a very common and completely fine answer this early — set `undecided` and move
+   on; do not push for a decision they haven't made. This is a distinct field from
+   `gtm.funding_strategy` (a later, GTM-stage confirmation) — see `docs/DATA-CONTRACT.md`'s
+   Conventions section for why both exist.
+
+## Mandatory privacy notice — before Phase 2 begins
+
+Phase 1 just captured the founder's business name and basic info — this is exactly the trigger
+point `skills/risk/privacy-check`'s own Mode A contract requires. Invoke
+`skills/risk/privacy-check` in Mode A now, once, before any further question is asked. Pass
+nothing but the business-slug; it delivers a fixed, non-blocking notice (what's stored locally,
+what never leaves `.startup/<slug>/` without an explicit connector action, and the
+scope-of-advice boundary) and logs a `privacy-onboarding-<slug>` `risk_log` entry so it's never
+re-run for this business. Do not skip this because it feels like a formality — a founder who
+starts the DE steps without having heard it has been let past a gate this plugin promises every
+founder crosses exactly once.
 
 ## Phase 2 — Business-type framing (before the 24 steps)
 

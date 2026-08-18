@@ -83,13 +83,23 @@ themes. Concretely:
   assemble-business-plan §0a), exactly as instructed by the calling skill — you do not decide
   the filename or version number yourself, the calling skill tells you what to write and where.
 - Section structure (unless the calling skill specifies otherwise): title/front matter →
-  Executive Summary → one section per DE theme (six) → Key Assumptions & Open Risks →
-  Appendix (full detail per step, 24 subsections). See the assemble-business-plan skill for
-  the exact theme-to-step mapping. For a §0a partial draft, write only the completed themes (no
-  Appendix subsections for undrafted steps) and an unmistakable draft header up top instead —
-  never present a partial draft using the same section structure/formatting cues as the
-  canonical plan without the header, since a reader must be able to tell at a glance which one
-  they're holding.
+  Executive Summary → **Confidence & Validation Status** → one section per DE theme (six) →
+  Key Assumptions & Open Risks → Appendix (full detail per step, 24 subsections). See the
+  assemble-business-plan skill for the exact theme-to-step mapping. For a §0a partial draft,
+  write only the completed themes (no Appendix subsections for undrafted steps) and an
+  unmistakable draft header up top instead — never present a partial draft using the same
+  section structure/formatting cues as the canonical plan without the header, since a reader
+  must be able to tell at a glance which one they're holding.
+- **Confidence & Validation Status is mandatory, not optional, on every canonical plan and every
+  revision** — per `docs/AI-RISK-FRAMEWORK.md`'s "Into the founder-facing plan" section, whose
+  four required parts you must write in full: (1) validated claims with what the actual evidence
+  is, not just the word "validated"; (2) every `key_assumptions` entry with `test_result: null`,
+  listed with its `test_plan`; (3) every open `risk_log` entry of `type: ai_risk`, in plain
+  language, not a bare id; (4) the plan's out-of-scope statement (not financial/legal/tax
+  advice), stated once here so it travels with the document. `skills/risk/ai-risk-review` blocks
+  on this section's absence as a structural finding — omitting it is not a stylistic choice, it
+  is a plan that cannot pass the mandatory gate. Placed immediately after the Executive Summary
+  unless the calling skill says otherwise.
 
 ## Refusing cosmetic revisions
 

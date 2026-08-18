@@ -67,12 +67,20 @@ Read, in this priority order, until you get a clear signal:
    that at a *first* council review (before `stage: gtm` has ever been reached),
    `gtm.funding_strategy` is very often still `undecided`, because `agents/gtm/launch-director.md`
    doesn't set it until GTM work actually starts — that is the expected common case, not a data
-   gap, and it sends you to step 2.
-2. **If `gtm.funding_strategy` is `undecided` (or absent),** infer it yourself, provisionally and
+   gap, and it sends you to step 1a.
+1a. **If `gtm.funding_strategy` is `undecided` (or absent), check `business_basics.funding_intent`
+   next, before doing any prose-inference.** This field is the founder's own earliest stated
+   signal, captured directly during onboarding (`skills/interview/onboarding-interview`) — it's
+   auditable and stable across re-reviews in a way that re-scanning plan prose every cycle is not.
+   If it is `bootstrap` or `raising_outside_capital`, use it directly (as a provisional signal for
+   weighting only, same non-write-back rule as step 2 below) and skip to step 3. If it is
+   `undecided` or the field doesn't exist on this business's record (older businesses created
+   before this field existed), fall through to step 2.
+2. **If neither field above gave a clear signal,** infer it yourself, provisionally and
    *only for the purpose of weighting this review* — never write your inference back into
-   `gtm.funding_strategy`; that field stays owned by `launch-director` and stays `undecided` in
-   the state file until it sets it for real. Scan, in order: `founder.notes`, the executive
-   summary and Step 15 (business model) section of `plan/business-plan.md`, and
+   `gtm.funding_strategy` or `business_basics.funding_intent`; those fields stay owned by
+   `launch-director` and `onboarding-interview` respectively. Scan, in order: `founder.notes`, the
+   executive summary and Step 15 (business model) section of `plan/business-plan.md`, and
    `plan/15-design-a-business-model.md` directly, for explicit statements of funding intent:
    - **Bootstrap signal** — phrases like "bootstrapped," "self-funded," "no outside investment,"
      "profitable from day one," "not raising," "keep full ownership," "cash-flow funded,"
@@ -223,7 +231,14 @@ in §6:
 `[MVBP-SCOPE]` `[ASSUMPTION-UNTESTED]` `[UNIT-ECONOMICS]` `[PRICING]` `[SOURCING]`
 `[DEFENSIBILITY]` `[COMPETITIVE-BLIND-SPOT]` `[BUSINESS-MODEL]` `[SALES-CYCLE]`
 `[DMU-COMPLEXITY]` `[EXECUTION-RISK]` `[FOUNDER-MARKET-FIT]` `[VENTURE-FIT]` `[SCALABILITY]`
-`[FINANCIAL-ARITHMETIC]` `[TECHNICAL-FEASIBILITY]`
+`[FINANCIAL-ARITHMETIC]` `[TECHNICAL-FEASIBILITY]` `[FALSE-PRECISION]`
+
+`[FALSE-PRECISION]` is distinct from `[FINANCIAL-ARITHMETIC]` — use it for "this number claims
+more precision than its method supports" (e.g. a TAM stated to the dollar from a rough bottom-up
+estimate), and reserve `[FINANCIAL-ARITHMETIC]` for actual computation/formula errors. Conflating
+the two under one tag would make the §6 overlap check treat an unrelated arithmetic mistake and a
+precision complaint as corroborating each other, which could wrongly save a verdict from being
+discarded as an outlier.
 
 If a returned verdict has an untagged bullet, tag it yourself from context before running §6
 rather than discarding the aggregation step — but note in the review file that you had to backfill
@@ -357,6 +372,17 @@ Write, in this order:
    and a synthesized Required revisions list — the union of every required-revision item from
    every reviewer whose verdict counted toward the aggregate severity, deduplicated by tag+substance,
    not just the single harshest reviewer's list, so the founder gets one actionable checklist).
+   **Immediately under that checklist, add a `### Discarded-but-real concerns` subsection** if
+   §6 discarded any verdict as an outlier — one line per discarded reviewer: persona name,
+   severity, and a one-sentence summary of their sharpest point (not their full required-revisions
+   list — that would defeat the point of the outlier rule, which exists precisely so one
+   uncorroborated verdict doesn't dictate the aggregate). Nothing in this skill's design hides a
+   verdict (every individual verdict is written in full per item 2 above), but a busy founder is
+   realistically going to treat the synthesized checklist in this section as *the* action list —
+   don't let a discarded reviewer's sharpest finding, which may be the single most consequential
+   point on the whole panel, be findable only by reading past the checklist into the full verdict
+   blocks above. Omit this subsection entirely if nothing was discarded — don't write "none" for
+   every review, that's noise.
 5. **Council-integrity note** from §7, even if it's reassuring ("no rubber-stamping signal this
    pass") — state it, don't omit it because it's good news.
 6. **Footer disclaimer, once:** "This review is a planning aid produced by simulated reviewer

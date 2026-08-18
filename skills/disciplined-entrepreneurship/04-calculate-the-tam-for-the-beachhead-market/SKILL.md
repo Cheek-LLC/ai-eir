@@ -161,6 +161,24 @@ This output is a planning aid, not financial, legal, or tax advice — state tha
 *This is a planning aid, not financial, legal, or tax advice.*
 ```
 
+## Mandatory AI-risk gate — before this step is reported done
+
+This step is one of the five DE steps `skills/risk/ai-risk-review`'s own "Who must call this, and
+when" table names explicitly (it produces the beachhead TAM figure, a headline number a founder
+can act on before ever seeing the assembled plan). Per that gate's MANDATORY GATE banner: after
+writing `plan/04-calculate-the-tam-for-the-beachhead-market.md` and before setting `status:
+"drafted"`, invoke `skills/risk/ai-risk-review` against this step's plan file (whole file, not a
+summary) plus the business-slug.
+
+- **PASS** → proceed to write `business-state.json` below.
+- **BLOCKED** → do not set `status: "drafted"`. Fix the specific finding and re-run the gate, or
+  route to the orchestrator for an explicit founder override (per `agents/orchestrator.md`
+  Non-negotiable #3) — this step does not accept an override itself.
+
+Do not skip this because plan-assembly time will "catch it later" — a founder who stops after
+this step (a common real pattern: "let's just see the market size first") would otherwise get an
+unreviewed figure with zero mechanical check on it.
+
 ## Update `business-state.json`
 
 ```json
@@ -181,7 +199,16 @@ every other key untouched.
 - Bottom-up math shown in full (population, density/fit logic, count, price, result).
 - Sourced `quantitative_claims` entry added for the TAM figure — no unsourced number stands as
   fact.
+- Before reporting `drafted`: re-read this file's own "Quantitative claims logged" section and
+  confirm every dollar figure/percentage/ratio stated as fact above it has a matching entry — a
+  heading with no JSON block under it is not done.
 - Sanity check against the beachhead-size heuristic stated explicitly.
+- If you fell back to a founder-estimate/range instead of using WebSearch for a credible
+  published count, say so explicitly in the Assumptions section ("no external search attempted
+  this session") — this distinguishes an honest fallback from a skipped search, which otherwise
+  look identical in the output.
+- The mandatory AI-risk gate above returned PASS, or a BLOCKED finding was resolved/overridden —
+  see above. A step that skipped this call is not done per this plugin's contract.
 - `business-state.json` key `04_calculate_the_tam_for_the_beachhead_market` set to
   `status: "drafted"`.
 - Stop here — review/approval happens later via the council skill, not this one.

@@ -28,7 +28,10 @@ orchestrator agent must use exactly these slugs for `plan/NN-slug.md` and the ma
 15. `15-design-a-business-model` — Design a Business Model
 16. `16-set-your-pricing-framework` — Set Your Pricing Framework
 17. `17-calculate-the-ltv-of-a-customer` — Calculate the Lifetime Value (LTV) of an Acquired Customer
-18. `18-map-the-sales-process-to-acquire-a-customer` — Map the Sales Process to Acquire a Customer (refines Step 13 with the rigor needed to cost it — expect overlap with Step 13, resolve it explicitly rather than repeating the same content)
+18. `18-map-the-sales-process-to-acquire-a-customer` — Map the Sales Process to Acquire a Customer
+    (refines Step 13 with the rigor needed to cost it — expect overlap with Step 13, resolve it
+    explicitly rather than repeating the same content)
+
 19. `19-calculate-the-coca` — Calculate the Cost of Customer Acquisition (COCA)
 
 **Theme 5 — How do you design and build your product?**

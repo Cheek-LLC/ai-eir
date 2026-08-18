@@ -100,6 +100,18 @@ This LTV will be compared against COCA once Step 19 is drafted for the LTV:COCA 
 no ratio is computed here.
 ```
 
+## Mandatory AI-risk gate — before this step is reported done
+
+This step is one of the five DE steps `skills/risk/ai-risk-review`'s own "Who must call this, and
+when" table names explicitly. After writing `plan/17-calculate-the-ltv-of-a-customer.md` and
+before setting `status: "drafted"`, invoke `skills/risk/ai-risk-review` against this step's plan
+file (whole file, not a summary) plus the business-slug.
+
+- **PASS** → proceed to write `business-state.json` below.
+- **BLOCKED** → do not set `status: "drafted"`. Fix the finding and re-run the gate, or route to
+  the orchestrator for an explicit founder override (per `agents/orchestrator.md` Non-negotiable
+  #3) — this step does not accept an override itself.
+
 ## Update business-state.json
 
 ```json
@@ -116,6 +128,12 @@ Append `quantitative_claims` and `key_assumptions` entries; preserve all other k
 
 - `plan/17-calculate-the-ltv-of-a-customer.md` written with full derivation, not just a headline
   number.
-- Every material figure has a `quantitative_claims` entry with a source.
+- Every material figure has a `quantitative_claims` entry with a source — **specifically
+  including the headline LTV figure itself**, not just its input assumptions. It is easy to log
+  `key_assumptions` entries for churn/margin/lifetime inputs and forget the derived LTV result
+  needs its own `quantitative_claims` entry too; before reporting `drafted`, re-read this file's
+  "Quantitative claims" section and confirm the LTV figure has a JSON block under it, not just a
+  heading.
+- The mandatory AI-risk gate above returned PASS, or a BLOCKED finding was resolved/overridden.
 - `business-state.json` key `17_calculate_the_ltv_of_a_customer` set to `status: "drafted"`;
   review/approval is a later council skill's job.

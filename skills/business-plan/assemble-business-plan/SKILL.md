@@ -185,10 +185,16 @@ looks like for the MVBP/next milestone instead).
 Call the `business-plan-editor` subagent with: the full theme mapping (step 2), the
 reconciliation instructions (step 3), the Key Assumptions & Open Risks data (step 4), and
 instruct it to write the appendix (step 5) and executive summary (step 6, last) in that order.
-Tell it explicitly to write to `plan/business-plan.md`. Do not draft the plan prose yourself —
-delegate it, then review the output against this SKILL's requirements before finalizing (theme
-sections present, both reconciliations visible, LTV:COCA ratio stated, executive summary
-present and last-written-in-spirit i.e. consistent with the rest of the doc).
+**Also explicitly instruct it to write the mandatory `Confidence & Validation Status` section**
+(per `agents/business-plan-editor.md`'s own contract and `docs/AI-RISK-FRAMEWORK.md`), placed
+immediately after the executive summary — do not assume the editor will include it unprompted;
+name it in the delegation. Tell it explicitly to write to `plan/business-plan.md`. Do not draft
+the plan prose yourself — delegate it, then review the output against this SKILL's requirements
+before finalizing (theme sections present, both reconciliations visible, LTV:COCA ratio stated,
+Confidence & Validation Status section present with all four required parts, executive summary
+present and last-written-in-spirit i.e. consistent with the rest of the doc). A plan missing this
+section will fail §7.5's gate below — catching its absence here, before the gate call, saves a
+round trip.
 
 ## 7.5. Mandatory AI-risk gate — before the plan is ready or `stage` advances
 

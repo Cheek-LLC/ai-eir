@@ -102,6 +102,18 @@ Beachhead ([Step 2 name]) → Pin 2: [...] → Pin 3: [...]
 - ka-014-...: ...
 ```
 
+## Mandatory AI-risk gate — before this step is reported done
+
+This step is one of the five DE steps `skills/risk/ai-risk-review`'s own "Who must call this, and
+when" table names explicitly. After writing `plan/14-calculate-the-tam-for-follow-on-markets.md`
+and before setting `status: "drafted"`, invoke `skills/risk/ai-risk-review` against this step's
+plan file (whole file, not a summary) plus the business-slug.
+
+- **PASS** → proceed to write `business-state.json` below.
+- **BLOCKED** → do not set `status: "drafted"`. Fix the finding and re-run the gate, or route to
+  the orchestrator for an explicit founder override (per `agents/orchestrator.md` Non-negotiable
+  #3) — this step does not accept an override itself.
+
 ## Update business-state.json
 
 ```json
@@ -118,6 +130,12 @@ keys untouched.
 ## Done means
 
 - `plan/14-calculate-the-tam-for-follow-on-markets.md` written with sourced TAM figures.
-- Every TAM figure has a matching `quantitative_claims` entry.
+- Every TAM figure has a matching `quantitative_claims` entry — before reporting `drafted`,
+  re-read this file's own "Quantitative claims" section and confirm every figure stated as fact
+  above it has a matching entry; a heading with no JSON block under it is not done.
+- If you fell back to a founder-estimate/range instead of using WebSearch for a credible
+  published count, say so explicitly ("no external search attempted this session") — an honest
+  fallback and a skipped search otherwise look identical in the output.
+- The mandatory AI-risk gate above returned PASS, or a BLOCKED finding was resolved/overridden.
 - `business-state.json` key `14_calculate_the_tam_for_follow_on_markets` set to `status:
   "drafted"`. Review/approval happens later via a council skill — do not set it yourself.

@@ -25,7 +25,8 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
     "one_liner": "string, the founder's one-line description of the business, refined during onboarding until it names a real customer and a real problem",
     "venture_stage": "idea_only | already_operating | pivoting",
     "business_type": "saas | physical_product | marketplace | services | consumer_app | other",
-    "business_type_notes": "string, free-text detail beyond the category (e.g. 'B2B SaaS, usage-based' or 'physical product, sold DTC + one retail channel') — every DE step skill reads this before tailoring its questions"
+    "business_type_notes": "string, free-text detail beyond the category (e.g. 'B2B SaaS, usage-based' or 'physical product, sold DTC + one retail channel') — every DE step skill reads this before tailoring its questions",
+    "funding_intent": "bootstrap | raising_outside_capital | undecided — the founder's STATED intent, captured directly during onboarding if they volunteer it (do not ask a founder who hasn't formed a view yet to guess; leave undecided). This is distinct from gtm.funding_strategy: funding_intent is the earliest founder-stated signal (or undecided), set once by onboarding-interview and never re-inferred from plan prose; gtm.funding_strategy is the confirmed, operational GTM-stage decision (which may start as an inference from the plan if funding_intent was left undecided). run-review-council should prefer funding_intent when present — it's auditable and stable across re-reviews in a way that re-scanning plan prose every cycle is not."
   },
   "disciplined_entrepreneurship": {
     "01_market_segmentation": { "status": "not_started|drafted|reviewed|approved", "summary": "string", "file": "plan/01-market-segmentation.md" },
@@ -39,7 +40,7 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
     { "id": "string", "claim": "string", "value": "string", "step_ref": "string", "source": "string", "confidence": "low|medium|high", "ai_risk_flag": "boolean" }
   ],
   "plan": {
-    "version": "integer, starts at 1",
+    "version": "integer or null — null/absent until the first assembly; assemble-business-plan writes 1 the first time it runs. Do NOT initialize this to 1 when creating a new business's skeleton — assemble-business-plan's own precondition treats an existing version-1 value as 'a plan already exists,' and would wrongly hand off to revise-business-plan (which requires an unresolved review to act on, and finds none) instead of ever assembling the first plan. The skeleton-creation step (onboarding-interview / orchestrator bootstrap) must leave this null.",
     "file": "plan/business-plan.md",
     "history": [ { "version": "integer", "file": "plan/business-plan-vN.md", "created_at": "timestamp", "summary_of_changes": "string" } ]
   },
@@ -101,5 +102,10 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
   `skills/disciplined-entrepreneurship/NN-slug/SKILL.md` must read `business_basics.business_type`
   before asking its questions and tailor them accordingly — see `docs/UX-INTERVIEW-DESIGN.md` for
   worked examples of how the same step diverges by business type.
+- `key_assumptions[].id` and `quantitative_claims[].id` values just need to be unique within
+  their array — the `ka-NN-slug`/`qc-NN-slug` style used throughout the DE step skills is a
+  convention for readability, not a schema requirement, and different step skills' worked
+  examples use inconsistent zero-padding (`qc-04-...` vs `qc-016-...`). Don't read padding
+  differences as a bug; do keep ids unique.
 
 See `docs/DE-24-STEPS.md` for the authoritative list of the 24 step keys/filenames.

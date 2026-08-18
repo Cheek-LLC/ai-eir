@@ -138,6 +138,9 @@ untouched.
 - Axes traceable to specific persona research, not chosen for convenience.
 - Status quo plotted alongside real competitors.
 - Any competitor fact-claim sourced via `quantitative_claims`; unverified positions flagged.
+- If a competitor's position was placed without a WebSearch/founder-confirmed source, say so
+  explicitly in the flagged-assumptions note ("no external search attempted this session") —
+  an honest fallback and a skipped search otherwise look identical in the output.
 - Explicit defensibility judgment tied to Step 10's Core.
 - `business-state.json` key `11_chart_your_competitive_position` set to `status: "drafted"`.
 - Stop here — review/approval happens later via the council skill, not this one.

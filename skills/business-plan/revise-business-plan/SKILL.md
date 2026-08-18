@@ -79,6 +79,12 @@ the actual editing to what changed. Call the `business-plan-editor` subagent wit
   what's blocking it, per the refusal contract in `agents/business-plan-editor.md`. If the
   editor reports an item as not resolved, do not mark it resolved in your own bookkeeping —
   carry it forward as still-open in your report and in `plan.history`.
+- **Explicit instruction to re-verify (not just carry forward) the mandatory `Confidence &
+  Validation Status` section** — `key_assumptions`/`risk_log` entries change between revisions
+  (a test resolves, a new AI-risk finding lands), so this section must be regenerated against the
+  current state, not copied unchanged from the prior version. Per
+  `agents/business-plan-editor.md`'s contract and `docs/AI-RISK-FRAMEWORK.md`, name it explicitly
+  in the delegation — do not assume the editor includes it unprompted.
 - Write the result to `plan/business-plan-v{N+1}.md` where N is the current `plan.version`
   (e.g. current version 1 -> write `plan/business-plan-v2.md`). Also update
   `plan/business-plan.md` itself to match the latest version (it's the canonical

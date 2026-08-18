@@ -107,7 +107,8 @@ interview
    │  onboarding interview complete, founder + business basics captured
    ▼
 de_steps_in_progress
-   │  all 24 DE steps drafted (each step status: approved)
+   │  all 24 DE steps reach status: "drafted" — that is the real, sufficient gate; no step's
+   │  status is ever promoted to "approved" by anything in this plugin (see below)
    ▼
 plan_assembled
    │  business-plan.md generated from the 24 step files
@@ -156,9 +157,12 @@ Drive the steps **in numeric order, 01 through 24**, exactly as enumerated in
 `docs/DE-24-STEPS.md`. For each step `NN-slug`:
 
 1. Confirm prerequisites: a step should generally not start until the steps it structurally
-   depends on are `approved` (e.g. step 05 needs 02–04; step 08 needs 06–07; step 17 needs
-   09–16; step 19 needs 17–18). If the DE-24-STEPS doc or the step's own skill states a
-   dependency, respect it; otherwise steps proceed in order.
+   depends on have reached `status: "drafted"` (no step's status ever goes beyond that — see
+   item 4). **The step's own "Read before starting"/"Reads" section is the source of truth for
+   its real dependencies — do not rely on memory or on any inline example list, including the
+   one that used to be here, since a stale illustrative example is worse than none.** If
+   `docs/DE-24-STEPS.md` or the step's own skill states a dependency, respect it; otherwise steps
+   proceed in numeric order.
 2. Delegate to `skills/disciplined-entrepreneurship/NN-slug/SKILL.md`. Give it the business
    context it needs (read from `business-state.json`, prior step files under `plan/`) — don't
    make it re-derive facts already captured.
@@ -166,10 +170,13 @@ Drive the steps **in numeric order, 01 through 24**, exactly as enumerated in
    `business-state.json.disciplined_entrepreneurship.NN_slug` (`status`, `summary`, `file`).
    Any new assumptions or figures the step surfaced get appended to `key_assumptions[]` /
    `quantitative_claims[]` — don't let a skill's output evaporate if it forgot to log one.
-4. Push back before marking a step `approved` if its output is vague, unsourced, or dodges the
-   hard question the step exists to force (see Tone). A step's `status` only becomes `approved`
-   once it holds up — `drafted` and `reviewed` are legitimate intermediate states, not places to
-   stall indefinitely.
+4. Push back before letting a step settle at `drafted` if its output is vague, unsourced, or
+   dodges the hard question the step exists to force (see Tone) — send it back for another pass
+   instead. **No step's `status` is ever promoted beyond `drafted`** — there is no per-step
+   `approved` state; the individual DE steps are cleared for real (not just drafted) collectively,
+   once, when the assembled plan passes a review council (`stage: "approved"`, a whole-business
+   state — see the state-machine diagram above). Don't write `status: "approved"` on any
+   `disciplined_entrepreneurship.NN_slug` entry; nothing reads it and no skill produces it.
 5. Steps 20–21 (Identify/Test Key Assumptions) explicitly operate on the `key_assumptions[]`
    list accumulated from steps 1–19 — make sure that list is populated and current before
    delegating to them.
@@ -179,8 +186,8 @@ Drive the steps **in numeric order, 01 through 24**, exactly as enumerated in
    signaled they want you to move briskly; read the room and say so explicitly if you're
    switching into "run ahead and summarize at checkpoints" mode.
 
-When all 24 steps are `approved`, set `stage: "plan_assembled"` — but first actually assemble it
-(next phase); don't flip the stage before the plan file exists.
+When all 24 steps have reached `status: "drafted"`, set `stage: "plan_assembled"` — but first
+actually assemble it (next phase); don't flip the stage before the plan file exists.
 
 ### Phase 3 — Assemble the plan (`stage: plan_assembled`)
 
@@ -301,8 +308,9 @@ is to force rigor a founder wouldn't otherwise apply to their own idea. Act like
   specific number, the named competitor, the one customer segment, the actual price. Don't
   accept "TBD" as an answer to a question the step exists to force; if the founder genuinely
   doesn't know yet, that becomes a `key_assumptions[]` entry with a `test_plan`, not a blank.
-- Don't rubber-stamp. A step, a plan, or a review response only gets marked `approved`/
-  `resolved` when it actually holds up, not because re-asking is friction.
+- Don't rubber-stamp. A step only settles at `drafted`, a plan only reaches `stage: "approved"`,
+  and a revision item only gets marked `resolved` when it actually holds up, not because
+  re-asking is friction.
 - Flag real uncertainty once, plainly, and move on — don't hedge every sentence.
 - Keep the founder oriented: state the stage, the next concrete action, and any blocking item,
   every time you hand control back.

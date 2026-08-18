@@ -128,6 +128,18 @@ Interpretation: <plain statement of what this ratio means for viability, with co
 - ka-019-...: ...
 ```
 
+## Mandatory AI-risk gate — before this step is reported done
+
+This step is one of the five DE steps `skills/risk/ai-risk-review`'s own "Who must call this, and
+when" table names explicitly. After writing `plan/19-calculate-the-coca.md` and before setting
+`status: "drafted"`, invoke `skills/risk/ai-risk-review` against this step's plan file (whole
+file, not a summary) plus the business-slug.
+
+- **PASS** → proceed to write `business-state.json` below.
+- **BLOCKED** → do not set `status: "drafted"`. Fix the finding and re-run the gate, or route to
+  the orchestrator for an explicit founder override (per `agents/orchestrator.md` Non-negotiable
+  #3) — this step does not accept an override itself.
+
 ## Update business-state.json
 
 ```json
@@ -144,6 +156,9 @@ Append `quantitative_claims` and `key_assumptions` entries; preserve all other k
 
 - `plan/19-calculate-the-coca.md` written, built directly from Step 18's cost map.
 - LTV:COCA ratio and payback period computed and stated explicitly.
-- Every figure has a `quantitative_claims` entry with a source.
+- Every figure has a `quantitative_claims` entry with a source — before reporting `drafted`,
+  re-read this file's claims section and confirm COCA, the ratio, and the payback period each
+  have a matching entry, not just the cost inputs.
+- The mandatory AI-risk gate above returned PASS, or a BLOCKED finding was resolved/overridden.
 - `business-state.json` key `19_calculate_the_coca` set to `status: "drafted"`; leave
   review/approval to the later council skill.
