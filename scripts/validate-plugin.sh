@@ -213,8 +213,8 @@ dupe_names="$(cut -f1 "$NAMES_FILE" | sort | uniq -d)"
 if [ -n "$dupe_names" ]; then
   while IFS= read -r dup; do
     [ -z "$dup" ] && continue
-    offenders="$(awk -F'\t' -v n="$dup" '$1 == n {printf "%s (%s: %s)", sep, $2, $3; sep=", "}' "$NAMES_FILE")"
-    fail "[name-collision] name '$dup' is used by more than one agent/skill: ${offenders#, }"
+    offenders="$(awk -F'\t' -v n="$dup" '$1 == n {printf "%s%s (%s)", sep, $3, $2; sep=", "}' "$NAMES_FILE")"
+    fail "[name-collision] name '$dup' is used by more than one agent/skill: $offenders"
   done <<< "$dupe_names"
 else
   echo "   no duplicate names found"
