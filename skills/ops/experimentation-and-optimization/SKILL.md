@@ -99,6 +99,32 @@ they have a strategic reason to test pricing now regardless of ICE) — that's a
 decision, but log it as a deliberate override in the experiment's Notes field, not as if ICE
 picked it.
 
+## Step 1.5: Check viability BEFORE designing anything (round 10 fix)
+
+Before investing effort in Step 2's hypothesis/variant design, do a rough viability check for the
+top-ranked candidate using the business's own real, current volume at that funnel stage (from
+`weekly-metrics-review`/`kpi-dashboard.md` — actual entries-per-period, not a hypothetical):
+
+1. Take the candidate's real baseline rate and a plausible relative lift (even a bold, generous
+   one — 30-50%), and look up (or compute via Step 3's formula) the required sample size per
+   variant.
+2. Divide that by the business's real per-period volume at that stage to get a rough
+   **periods-to-valid-sample** figure.
+3. **If that figure is wildly impractical for this business's actual scale** (many months or
+   years, not a handful of check-in cycles) — this is common and expected for early-stage,
+   low-volume, or B2B/high-touch funnels, not a failure of the candidate idea — do not proceed to
+   Step 2's test design at all. Route the underlying question through qualitative signal instead
+   (funnel-loss reasons already on file, a direct founder conversation, a small number of
+   structured prospect interviews) and say so plainly in your report to the founder, including the
+   actual arithmetic that shows why. This is very often the right, honest answer for a real
+   early-stage business — treat it as a legitimate outcome of this skill, not a failure to find
+   something testable.
+4. Only candidates that clear this rough check move on to Step 2's full design — don't build a
+   hypothesis and variant for something the arithmetic already rules out; that wastes the
+   founder's time reading a plan for a test that was never going to be runnable. (Step 3 repeats
+   this arithmetic more rigorously once a test is actually designed — this step is a cheap,
+   early filter, not a replacement for Step 3's full check before calling a result.)
+
 ## Step 2: Design a single-variable test
 
 - One hypothesis, one changed variable, one target metric. "Redesign the landing page" is not a
@@ -206,7 +232,13 @@ new entry that references the earlier one's id, not an edit to the original.
 # Experiments Log — <business name>
 
 ## EXP-<NN> — <short title>
-**Started:** <date> | **Concluded:** <date, or "running"> | **Status:** running | shipped | killed | inconclusive-retest
+**Started:** <date> | **Concluded:** <date, or "running"> | **Status:** running | shipped | killed | inconclusive-retest | not-quantitatively-testable
+
+(`not-quantitatively-testable` — round 10 addition — is the correct status when Step 1.5 or Step 3's
+arithmetic, run honestly against this business's real volume, shows no plausible variant reaches a
+valid sample size in a usable timeframe. This is a real, complete outcome of doing this skill's job
+rigorously, not an incomplete or failed entry — log it with the arithmetic shown, same as any other
+status, and route the underlying question to qualitative signal per Step 1.5.)
 
 **Hypothesis:** If we change [X], then [target metric] will [improve/decrease] by roughly
 [magnitude], because [reasoning/evidence].

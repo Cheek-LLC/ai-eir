@@ -36,7 +36,10 @@ JD, it does not execute a legally binding hire.
 
 - `business-state.json`: `business_basics` (`business_type`, `business_type_notes`,
   `funding_intent`, `venture_stage`), `stage` (confirm `operating`, or a late-`gtm` key hire the
-  founder is explicitly asking about), `cadence`, `risk_log` (open entries, so a hiring-outpaces-
+  founder is explicitly asking about, **or `ops.status: "active"`/`gtm.status: "launched"` even
+  if `stage` currently reads `de_steps_in_progress` from a pivot reopening a subset of DE steps
+  per `agents/orchestrator.md` Phase 6 — `stage` and ops/gtm liveness are independent signals**),
+  `cadence`, `risk_log` (open entries, so a hiring-outpaces-
   runway finding isn't duplicated), `key_assumptions`/`quantitative_claims` tagged step_ref 17/19
   (LTV/COCA — relevant context if the role being considered is revenue-generating, e.g. a sales
   hire whose ramp should plausibly move COCA/payback, not just add cost).

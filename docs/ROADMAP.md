@@ -637,6 +637,45 @@ commands, 13 council files, 0 warnings, 0 errors — the largest single-round gr
 since round 1, and (10 concurrently-running agents) the widest fan-out of any round, with zero
 file-collision incidents, confirmed by every agent's own `git status` check in its final report.
 
+## Round 10 — live dry-run validation of every round-9 skill: complete and integrated
+
+Round 9 built 9 new skills, extended/added 8 agents, and added a council persona, but none of it
+had ever been executed live — every prior round's own discipline says a skill that's only been
+read and reasoned about, never run, is unverified. Round 10, on explicit human request, closed that
+gap directly rather than waiting for it to surface naturally in a future round: **11 parallel
+agents**, each isolated on its own disposable copy of a canonical fixture, each live-executed
+exactly one round-9 skill/agent/persona as literal instructions against real data. This is the same
+"live dry run, not a read-through" methodology every round since round 2 has used, applied for the
+first time to a batch of skills rather than a single business's full lifecycle.
+
+**Nine real, concrete gaps were found; six are fixed as of this revision** (full detail in
+`docs/CHANGELOG.md`'s round 10 entry): `autonomous-continuation`'s stage table was single-axis and
+could silently skip real ops/gtm work mid-pivot (fixed); its own mechanical skim caught two stale
+DE steps a prior round's pivot-signal write missed, and the skill now has explicit authority to
+flag them (fixed); its rescheduling logic had no guard against silently creating an unwanted real
+Routine (fixed); `experimentation-and-optimization` let you design a full test before checking
+whether the business's real traffic could ever reach statistical validity — against
+`vantage-point-search`'s real funnel, the honest answer was ~29-35 years — so a viability check now
+runs first (fixed); five skills' stage-gating didn't recognize a legitimate mid-pivot combined
+state, confirmed independently by three different test agents (fixed across all five);
+`docs/DATA-CONTRACT.md`'s source-kind taxonomy didn't cover a tested/measured number, which two
+round-9 skills' own feedback-loop mechanic needed (fixed, a fourth canonical source kind added);
+`operations-and-fulfillment-playbook`'s marketplace branch never operationalized
+`marketplace-liquidity-specialist`'s own flagged disintermediation risk into a tracked metric
+(fixed). Three smaller, more judgment-dependent findings were read, understood, and deliberately
+left open rather than fixed under this round's own scope — see the changelog entry for exactly
+which and why. One test (the council persona) found no defect at all, which is itself a real,
+useful result: the newest, most complex piece of round 9's work — a compound two-of-three trigger
+competing for a shared panel seat — worked correctly by hand in both a real-fixture and a
+synthetic-scenario test on its first live exercise.
+
+**Round 10 is complete and integrated.** `scripts/validate-plugin.sh` still reports 56 skills, 34
+agents, 6 commands, 13 council files, 0 warnings, 0 errors — round 10 deepened round 9's own files
+rather than adding new ones. The 11 disposable test-fixture copies used to produce these findings
+were deleted after their findings were extracted into `docs/QA-FINDINGS-*-ROUND10.md`; unlike the 4
+canonical fixtures (`shiftcover`, `skyclaim`, `vantage-point-search`, `kindling`), they were
+one-off test doubles, not ongoing project history.
+
 ## v0.3 and beyond — the real frontier, restated, and what round 9 did and didn't change about it
 
 With v0.2's depth work closed since round 4, and the revision loop and post-approval half both
@@ -705,13 +744,19 @@ this as new:
   artifact set against an overridden plan; and the transitive-impact question the pivot-reopening
   protocol still leaves informal. None of these were round 8's or round 9's scope; a future round
   returning to live-dry-run territory should look here first before scoping a new business type.
-- **`skills/autonomous-continuation` and `/continue-business` are built but never actually fired
-  unattended against a real Routine.** Round 9 built the mechanism round 6 and round 8 both flagged as
-  the one live-firing test that had never happened; it still hasn't — this was a build round, not a
-  dry-run round, so the skill's own discipline (autonomous-safe vs. founder-required classification,
-  the digest format, never crossing a gate) has been read and reasoned about carefully but not yet
-  watched executing against a real scheduled firing. This is squarely inside the "real human trial"
-  frontier above, not a separate gap.
+- **`skills/autonomous-continuation` and `/continue-business` have now been live-executed once
+  (round 10), but still never against a genuinely real scheduled Routine with no one watching.**
+  Round 10 role-played a real unattended firing against a real, copied fixture (round 7's
+  mid-pivot `vantage-point-search` state) and drove the skill's own instructions literally — this
+  found and fixed three real gaps (see `docs/CHANGELOG.md`'s round 10 entry) and confirmed the
+  core "never fabricate, never cross a gate" disciplines hold under real pressure. What this still
+  has not tested: an actual Claude Code Routine firing this command on its own schedule, with a
+  real elapsed gap and a real human genuinely not present to answer anything in real time — round
+  10's agent deliberately declined to wire up a real persistent Routine against a disposable QA
+  fixture (see Finding 3 in its findings doc), which was the right call for a test but means this
+  specific gap — real automated scheduling infrastructure actually firing this skill unattended —
+  is still squarely inside the "real human trial" frontier above, one layer more specific than it
+  was before round 10.
 - **More industry verticals per DE step remain unwritten.** Regulated industries and hardware now
   have a dedicated council seat, and execution-complexity now has one too (round 9); their DE-step
   branching depth hasn't been dry-run tested the way marketplace/services/SaaS/consumer-app have;

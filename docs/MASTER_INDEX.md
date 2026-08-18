@@ -1,4 +1,4 @@
-# Master Index — after Round 9
+# Master Index — after Round 10
 
 Full catalog of every agent, skill, and command in the plugin after round 1 (v0.1 build, 15
 parallel builders), round 2 (adversarial review + fix pass, 9 parallel reviewers plus a live
@@ -35,10 +35,18 @@ direct human instruction, not a swarm-self-directed continuation — 10 parallel
 fundraising/IR, operations/fulfillment, and competitive-intelligence skills/agents plus a new
 13th council persona `operational-execution-reviewer`, and a new `skills/autonomous-continuation` +
 `/continue-business` pair giving the plugin a genuine, disciplined unattended-firing entry point for
-a scheduled Routine). **Round 9 is complete and integrated** — every count and claim below was
-re-walked directly against the repo (`find`, targeted `grep`, and a live run of
-`scripts/validate-plugin.sh`) while writing this revision, not carried forward from the prior
-snapshot. `/list-skills` gives a live, always-current view for day-to-day use between regenerations.
+a scheduled Routine), and round 10 (a live dry-run validation of every round-9 skill — 11 parallel
+agents, each on a disposable copy of a canonical fixture, live-executing one round-9 skill/agent/
+persona as literal instructions against real data; found and fixed 6 real gaps including a
+single-axis stage-gate bug independently confirmed by 3 test agents across 5 skills, and confirmed
+the new council persona's trigger logic works correctly with no defect found — see
+`docs/QA-FINDINGS-*-ROUND10.md` and `docs/CHANGELOG.md`'s round 10 entry). **Round 10 is complete
+and integrated** — every count and claim below was re-walked directly against the repo (`find`,
+targeted `grep`, and a live run of `scripts/validate-plugin.sh`) while writing this revision, not
+carried forward from the prior snapshot. Round 10 deepened round 9's own files rather than adding
+new ones, so the skill/agent/command/council-file totals below are unchanged from the round-9
+snapshot. `/list-skills` gives a live, always-current view for day-to-day use between
+regenerations.
 
 **Live validation output at the time of this revision:**
 `PASS — no structural drift from CONVENTIONS.md detected` — **56 skills, 34 agents, 6 commands, 13

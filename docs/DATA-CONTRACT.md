@@ -80,8 +80,17 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
 - Every step file under `plan/NN-slug.md` corresponds 1:1 to a key in `disciplined_entrepreneurship`.
 - Any number presented as fact in `plan/business-plan.md` (market size, LTV, COCA, pricing, etc.)
   must have a corresponding entry in `quantitative_claims` with a `source` — "founder estimate",
-  "web research (cite URL)", or "industry benchmark (cite)". Numbers without a source are an
-  AI-risk finding (see `agents/risk/ai-risk-analyst.md`) and block council approval.
+  "web research (cite URL)", "industry benchmark (cite)", or (round 10; a business's own real,
+  post-launch operating data or a shipped, statistically-valid internal experiment — e.g.
+  "internal experiment, see ops/experiments-log.md#EXP-NN" or "operating data, see
+  ops/pricing-review-<timestamp>.md" — never a not-yet-run or under-powered test) "internal
+  experiment/operating data (cite the specific ops/ file)". A tested or measured number is at
+  least as strong a source as a web citation and is exactly what
+  `skills/ops/experimentation-and-optimization` and `skills/ops/pricing-and-monetization-
+  optimization`'s `quantitative_claims`-feedback-loop mechanic is designed to produce — do not
+  treat this fourth kind as a lesser or informal source. Numbers without a source of any of these
+  four kinds are an AI-risk finding (see `agents/risk/ai-risk-analyst.md`) and block council
+  approval.
 - `risk_log` entries are never silently deleted — mark `mitigated`/`accepted` with a note in the
   relevant review file instead.
 - `risk_log[].type: "business"` is for material drift/operational findings raised by the

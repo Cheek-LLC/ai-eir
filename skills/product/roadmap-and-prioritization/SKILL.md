@@ -29,7 +29,12 @@ silently into next week's backlog.
 ## Reads
 
 - `.startup/<slug>/business-state.json` — `business_basics`, `stage` (confirm `operating`, or a
-  late-`gtm` beta cohort exists), `quantitative_claims`/`key_assumptions` tagged `step_ref` 03, 05,
+  late-`gtm` beta cohort exists, **or `ops.status: "active"`/`gtm.status: "launched"` even if
+  `stage` currently reads `de_steps_in_progress`** — a pivot reopening a subset of DE steps per
+  `agents/orchestrator.md`'s Phase 6 leaves ops/gtm running in parallel; `stage` and ops/gtm
+  liveness are independent signals, and this skill is safe to run whenever the business is
+  actually live, regardless of what `stage` says about DE-step progress), `quantitative_claims`/
+  `key_assumptions` tagged `step_ref` 03, 05,
   07, 08, 10, 24, `risk_log` (open `business`-type entries — you don't want to re-surface a drift
   finding another agent already logged as if it were new).
 - `plan/03-build-an-end-user-profile.md`, `plan/05-profile-the-persona-for-the-beachhead-market.md`

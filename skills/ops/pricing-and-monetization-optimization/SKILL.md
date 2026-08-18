@@ -38,7 +38,10 @@ job is `business-state.json` and its own dated ops file.
 ## Reads
 
 - `.startup/<slug>/business-state.json` (whole file). Confirm `stage` is `operating` (or the
-  founder has explicitly asked for a pricing check mid-`gtm` after a soft launch). Read
+  founder has explicitly asked for a pricing check mid-`gtm` after a soft launch, **or
+  `ops.status: "active"`/`gtm.status: "launched"` even if `stage` currently reads
+  `de_steps_in_progress` from a pivot reopening a subset of DE steps per `agents/orchestrator.md`
+  Phase 6 — `stage` and ops/gtm liveness are independent signals**). Read
   `business_basics.business_type`, `quantitative_claims` entries tagged `step_ref`
   `16_set_your_pricing_framework` and `17_calculate_the_ltv_of_a_customer`, matching
   `key_assumptions` entries, and any open `risk_log` entries `type: "business"` already touching

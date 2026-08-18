@@ -69,10 +69,20 @@ Before doing anything, classify the concrete next action per the state machine i
 
 ## Autonomous-safe work by stage
 
+**`stage` and ops/gtm liveness are independent signals, not one gating the other.** A pivot that
+reopens a subset of DE steps (per `agents/orchestrator.md` Phase 6) moves `stage` back to
+`de_steps_in_progress` while `ops.status`/`gtm.status` keep running in parallel — this is a normal,
+expected combined state, not an edge case. The table below is written as if `stage` were the only
+axis; read the `de_steps_in_progress` row's DE-step guidance AND, independently, whenever
+`ops.status: "active"` or `gtm.status: "launched"` is also true, the `operating`/`gtm` row's ops/gtm
+guidance — both apply at once. Do not let a `de_steps_in_progress` reading cause you to silently
+skip a real ops snapshot or gtm artifact that's actually due; that is a live founder losing
+visibility silently, with no error, at exactly the moment (mid-pivot) they need it most.
+
 | `stage` | Autonomous-safe this cycle | Founder-required (list, don't fabricate) |
 |---|---|---|
 | `interview` | Nothing — onboarding is inherently a live conversation. Note the business hasn't started onboarding and stop; don't attempt it. | Everything. |
-| `de_steps_in_progress` | Re-check step dependencies/readiness per Phase 2 of `agents/orchestrator.md`; identify precisely which step is next and exactly what founder-only inputs it needs. **Do not draft DE-step content that requires founder judgment or founder-only facts on their behalf** — every DE step is built to force real founder thinking, and a plausible-sounding autonomous guess defeats the entire point of the framework. | The next step's actual content — list the specific questions it will ask so the founder can think about them before the next live session. |
+| `de_steps_in_progress` | Re-check step dependencies/readiness per Phase 2 of `agents/orchestrator.md`; identify precisely which step is next and exactly what founder-only inputs it needs. **Do not draft DE-step content that requires founder judgment or founder-only facts on their behalf** — every DE step is built to force real founder thinking, and a plausible-sounding autonomous guess defeats the entire point of the framework. **If this reading came from a pivot reopening (not a first pass), also run a read-only mechanical skim of every other `plan/*.md` file for content still naming the specific thing the pivot changed — the same check `agents/orchestrator.md` Phase 6 item 3 requires before a human re-assembles the plan.** You have explicit authority to apply the `NEEDS RE-CONFIRMATION:` summary-prefix convention (per `docs/DATA-CONTRACT.md`) directly to any step your skim finds, exactly as a live session would — this is mechanical pattern-matching against the pivot's own already-stated change, not new founder judgment, so it does not need to wait for a live session; still report every flag you applied in the digest so the founder sees it. **And if `ops.status: "active"`/`gtm.status: "launched"` also holds** (a pivot reopening, not a first pass — see the note above the table), also do the `operating`/`gtm` row's autonomous-safe work in the same cycle. | The next step's actual content — list the specific questions it will ask so the founder can think about them before the next live session. |
 | `plan_assembled` | If not yet assembled and all 24 steps are genuinely `drafted`, run `skills/business-plan/assemble-business-plan` — this is mechanical (it reads existing step files, invents nothing new). | Nothing new unless assembly surfaces a gap. |
 | `revising` | Route any required revision that's purely technical (an AI-risk/privacy fix, a plan-structure fix, re-sourcing a `quantitative_claims` entry that already has the real number sitting in another step file) to the owning specialist skill/agent and re-check. | Any revision needing new founder judgment (narrowing a beachhead, a pricing call) — list it, don't attempt it. |
 | `approved` (pre-GTM) | Draft launch-plan and GTM artifacts via `agents/gtm/launch-director.md` and its skills — drafting is safe, it is explicitly not a real launch. | The founder's actual go-ahead to launch. |
@@ -147,14 +157,31 @@ message — not a transcript of your internal steps:
 Keep it tight — a founder scanning this on their phone should understand what happened and what's
 needed from them in under 30 seconds.
 
+**Durable home:** reproduce this digest verbatim as the body of the dated `interview-log.md` entry
+required under Write-back rules above — don't write a separately-worded summary there and let the
+"real" digest live only in this session's own output. `interview-log.md` is the one place a founder
+(or a resumed live session) is guaranteed to look; nothing else on disk is a reliable pointer back
+to this specific firing's session transcript.
+
 ## Phase 4 — Reschedule
 
 Follow `agents/orchestrator.md`'s "Recurring check-ins" logic exactly: look for a scheduling
-capability in this session's available tools; if one exists, use it to schedule the next firing
-(prompt text: invoke `/continue-business <slug>`, per that command's own contract), and record the
-mechanism in `cadence.scheduling_mechanism`. If none exists, this cycle itself couldn't have been
-autonomous in the first place — a human just ran `/continue-business` manually — so simply remind
-them, in the digest, when their chosen cadence says to run it again.
+capability in this session's available tools.
+
+- **If `cadence.scheduling_mechanism` already names a real scheduling tool** (a prior live session
+  already opted in — this is the normal, expected case for any firing that got here via a Routine
+  actually invoking this skill), use that same tool to **re-arm the existing cadence** for the next
+  firing, and update `cadence.scheduling_mechanism`/`next_check_in` accordingly.
+- **If `cadence.scheduling_mechanism` is unset, empty, or `"manual-reminder"`, do not create a new
+  Routine/trigger on your own initiative just because a scheduling tool happens to be technically
+  available in this session** — a scheduling capability's mere presence is not the same as a
+  founder having actually opted into recurring automated firings. Creating one unasked is a real,
+  persistent side effect (a standing Routine tied to this business, firing indefinitely) that this
+  skill has no standing to create unilaterally, the same category of irreversible-without-a-founder
+  action the gated-actions list above already treats seriously. Instead, note in the digest that a
+  scheduling capability appears to be available and that the founder can opt in during their next
+  live session (or by asking directly) — and if none exists at all, remind them, in the digest,
+  when their chosen cadence says to run `/continue-business` again by hand.
 
 ## Done means
 

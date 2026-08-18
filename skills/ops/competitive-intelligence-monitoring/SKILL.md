@@ -36,8 +36,12 @@ discipline at the end — because unbounded competitor-watching is itself a way 
 
 - `.startup/<slug>/business-state.json` in full — `business_basics` (business type, one-liner,
   drives which signal categories are even applicable, e.g. app-store ratings only for
-  `consumer_app`), `stage` (confirm `operating`, or an explicit late-`gtm` founder request),
-  `cadence.check_in_frequency` (this skill's own pass frequency is derived from it, see Step 2 —
+  `consumer_app`), `stage` (confirm `operating`, or an explicit late-`gtm` founder request, **or
+  `ops.status: "active"`/`gtm.status: "launched"` even if `stage` currently reads
+  `de_steps_in_progress` from a pivot reopening a subset of DE steps per `agents/orchestrator.md`
+  Phase 6 — `stage` and ops/gtm liveness are independent signals; if none of these hold, say so
+  plainly and stop rather than silently proceeding**), `cadence.check_in_frequency` (this skill's
+  own pass frequency is derived from it, see Step 2 —
   never run more often than that cadence allows without a real trigger event), `risk_log` (open
   entries, so a drift finding already logged isn't silently duplicated).
 - `.startup/<slug>/plan/11-chart-your-competitive-position.md` — **required**. The named

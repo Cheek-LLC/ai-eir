@@ -2,7 +2,10 @@
 name: operations-and-fulfillment-playbook
 description: >
   Advanced COO-level operations playbook for physical_product, marketplace, and services
-  businesses once business-state.json.stage is operating (or gtm post-soft-launch). Delegated to
+  businesses once business-state.json.stage is operating (or gtm post-soft-launch, or
+  ops.status: "active"/gtm.status: "launched" even if stage currently reads
+  de_steps_in_progress from a pivot reopening a subset of DE steps per agents/orchestrator.md
+  Phase 6 -- stage and ops/gtm liveness are independent signals). Delegated to
   by agents/ops/operations-manager.md as part of a recurring check-in, or run directly when a
   founder asks about reorder points/safety stock, supplier defect rates and when to dual-source,
   fulfillment cost-per-order, marketplace supply-side vetting and liquidity health, delivery-
@@ -216,6 +219,32 @@ still personally making it happen isn't liquidity — it's a founder doing manua
 increasing scale). Tag `[LIQUIDITY-OPS]`. This is exactly the kind of finding that should also
 inform `operations-manager`'s pivot-signal judgment if it persists across several periods — name
 that explicitly in the review if it's trending that direction.
+
+### 4. Disintermediation / off-platform leakage (round 10 addition)
+
+Read `marketplace-liquidity-specialist`'s plan-stage review file(s) for this business first — if it
+flagged disintermediation risk (repeat transactions between a matched pair moving off-platform
+after the first match, bypassing the take rate entirely) as a specific concern, this section is
+where that concern gets tracked in operation, since nothing else in this skill's liquidity metrics
+above would ever catch it — fill/match rate and rating trends both look identical whether repeat
+business stays on-platform or leaves. Ask the founder directly, or check whatever repeat-transaction
+data exists: of the supply-demand pairs who completed a first match, what share show a **second
+on-platform transaction with the same counterpart** within a reasonable repeat-purchase window for
+this category, versus going quiet on-platform while the founder has reason to believe the
+relationship continued (a rating left describing an off-platform arrangement, a supply-side
+participant's own account of it, a demand-side cancellation pattern right after a successful first
+match). This is inherently a harder signal to observe directly than the metrics above — say so
+plainly rather than presenting a confident rate the founder can't actually verify, and treat a
+credible qualitative signal (even one or two direct accounts) as worth logging, not just a hard
+percentage.
+
+**Material →** a credible, repeated pattern (not a single anecdote) of matched pairs going
+off-platform for repeat business, especially concentrated on the higher-value/higher-frequency
+segment of the marketplace. Tag `[LIQUIDITY-OPS]` (this is the same underlying "is liquidity real
+and captured, not just occurring" concern as §3, from a different angle — not a new tag). This is a
+take-rate-and-business-model-viability question, not just an operations one — route a material
+finding here to the founder explicitly as something that may warrant revisiting the plan's
+business-model step (15) or a future council re-review, not only a routine ops note.
 
 ---
 
