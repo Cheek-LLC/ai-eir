@@ -21,6 +21,12 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
     "email": "string (optional, only if the user offers it)",
     "notes": "string"
   },
+  "business_basics": {
+    "one_liner": "string, the founder's one-line description of the business, refined during onboarding until it names a real customer and a real problem",
+    "venture_stage": "idea_only | already_operating | pivoting",
+    "business_type": "saas | physical_product | marketplace | services | consumer_app | other",
+    "business_type_notes": "string, free-text detail beyond the category (e.g. 'B2B SaaS, usage-based' or 'physical product, sold DTC + one retail channel') — every DE step skill reads this before tailoring its questions"
+  },
   "disciplined_entrepreneurship": {
     "01_market_segmentation": { "status": "not_started|drafted|reviewed|approved", "summary": "string", "file": "plan/01-market-segmentation.md" },
     "02_beachhead_market": { "...": "same shape" },
@@ -42,8 +48,9 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
   ],
   "gtm": {
     "status": "not_started|in_progress|launched",
+    "funding_strategy": "bootstrap|raising_outside_capital|undecided",
     "launch_plan_file": "gtm/launch-plan.md",
-    "artifacts": [ { "type": "string, e.g. pitch-deck|landing-page|content-calendar", "file": "string" } ]
+    "artifacts": [ { "type": "string, e.g. pitch-deck|positioning|content-calendar|outbound-sales-playbook|fundraising-deck-brief|landing-page", "file": "string" } ]
   },
   "ops": {
     "status": "not_started|active",
@@ -77,5 +84,17 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
   relevant review file instead.
 - Agents should read the whole `business-state.json` before acting and write back only the keys
   they own, preserving everything else — never blind-overwrite the file.
+- `gtm.funding_strategy` is set by `agents/gtm/launch-director.md` the first time GTM work starts,
+  inferred from the plan's business-model section (step 15) and executive summary plus any
+  explicit founder statement in `founder.notes`; it stays `undecided` (never guessed) if the plan
+  doesn't say, and `agents/gtm/fundraising-advisor.md` only runs when it's
+  `raising_outside_capital`. Any later agent may update it if the founder's capital strategy
+  changes — never leave it stale against a revised plan.
+- `business_basics` is set by `skills/interview/onboarding-interview` and owned by it thereafter
+  (a pivot updates it via `skills/interview/recurring-check-in` handing the change to the
+  orchestrator, never a silent overwrite by a step skill). Every
+  `skills/disciplined-entrepreneurship/NN-slug/SKILL.md` must read `business_basics.business_type`
+  before asking its questions and tailor them accordingly — see `docs/UX-INTERVIEW-DESIGN.md` for
+  worked examples of how the same step diverges by business type.
 
 See `docs/DE-24-STEPS.md` for the authoritative list of the 24 step keys/filenames.
