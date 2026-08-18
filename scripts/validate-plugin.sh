@@ -493,4 +493,3 @@ fi
 
 echo "PASS — no structural drift from CONVENTIONS.md detected."
 exit 0
-</content>
