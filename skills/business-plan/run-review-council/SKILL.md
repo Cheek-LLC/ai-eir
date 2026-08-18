@@ -133,7 +133,24 @@ track. A thin panel is exactly the rubber-stamping risk `docs/AI-RISK-FRAMEWORK.
 **One contextual 5th seat**, chosen by this priority procedure — evaluate in order, take the
 first that triggers; if none trigger, use the default:
 
-1. **`technical-feasibility-reviewer`** triggers if `business_basics.business_type` is
+1. **`regulated-industry-compliance-reviewer`** triggers on a **content signal, not a
+   `business_type` match** — none of the 6 `business_basics.business_type` enum values name a
+   regulated vertical, so this trigger is evaluated against `business_basics.business_type_notes`
+   and the plan's own text at Steps 1, 7, and 15 (`plan/01-market-segmentation.md`,
+   `plan/07-high-level-product-specification.md`, `plan/15-design-a-business-model.md`) for
+   mentions of health/medical/patient data, financial services/payments/lending, or another
+   explicitly regulated activity (insurance, cannabis, alcohol, firearms, gambling, education
+   records, transportation-safety-regulated services, and the like) — keywords such as "patient,"
+   "PHI," "HIPAA," "clinical," "diagnosis," "medical record," "payments," "lending," "custody of
+   funds," "money transmission," "KYC," "AML," "insurance underwriting," "FERPA," "controlled
+   substance," "licensed provider." **Added this round as the new highest-priority trigger,
+   evaluated ahead of `technical-feasibility-reviewer` (now #2) and every other tier** — see "Why
+   the compliance reviewer is checked first" immediately below the numbered list for the full
+   reasoning; in short, this seat can fire for business types (`saas`, `consumer_app`, `services`,
+   `marketplace`) that no other tier below reaches on a licensing/regulatory-awareness basis at
+   all, and even where it overlaps with a lower tier's trigger, the "can this business legally
+   operate as scoped" question it asks is prior-in-kind to that tier's question.
+2. **`technical-feasibility-reviewer`** triggers if `business_basics.business_type` is
    `physical_product` **and** `business_type_notes` (or `founder.notes`) signals hardware,
    deep-tech, or regulated-engineering content — keywords like "hardware," "device," "firmware,"
    "IoT," "robotics," "battery," "manufacturing tooling," "biotech," "medical device," "clinical,"
@@ -148,45 +165,54 @@ first that triggers; if none trigger, use the default:
    proprietary algorithm, novel hardware mechanism, or a safety-/accuracy-critical or regulated
    product) regardless of the `business_type` label — trigger on the plan's own content, not just
    the category field, since a `saas`-labeled plan can still describe a technically ambitious or
-   regulated build (an AI-diagnostics or fraud-detection product, for instance). This is the
-   highest-priority trigger, unconditionally, regardless of what else would trigger below: a
+   regulated build (an AI-diagnostics or fraud-detection product, for instance). Among tiers #2-#6,
+   this is the highest priority, unconditionally, regardless of what else would trigger below: a
    business built on a technically infeasible premise is a more consequential blind spot than an
    unresolved market, liquidity, capacity, or channel question, because no amount of good GTM
    execution, take-rate design, or delivery-capacity planning rescues a product that can't be
    built as scoped. This holds even for a `marketplace` or `services` business that would
-   otherwise take seat #2 below — a marketplace with real hardware-feasibility risk (e.g., a
+   otherwise take seat #3 below — a marketplace with real hardware-feasibility risk (e.g., a
    physical fulfillment/IoT component embedded in an otherwise two-sided platform) or a services
    business betting on an unproven core technology still needs its buildability question answered
-   before its business-model question, so #1 wins the seat and the business-type-specific
-   specialist becomes the logged runner-up per the tie-break rule below.
-2. **`marketplace-liquidity-specialist`** triggers if `business_basics.business_type` is
+   before its business-model question, so #2 wins the seat and the business-type-specific
+   specialist becomes the logged runner-up per the tie-break rule below. It in turn yields to #1
+   when `regulated-industry-compliance-reviewer`'s content signal independently fires (e.g. a
+   novel medical device is simultaneously a hardware-feasibility question and a licensing-
+   awareness question) — see the reasoning below the list.
+3. **`marketplace-liquidity-specialist`** triggers if `business_basics.business_type` is
    `marketplace`. **`services-unit-economics-reviewer`** triggers if `business_basics.business_type`
-   is `services`. These two triggers are mutually exclusive by construction — `business_type` is a
-   single enum value, so a given business can match at most one of them — and unlike #1, neither
-   needs an extra content signal beyond the type itself: being a marketplace (or a services
-   business) at all is enough to make two-sided liquidity (or delivery-capacity/utilization
-   economics) close to always a central question worth a dedicated seat, per the roadmap's
-   explicit finding that these two business types previously had no persona equipped to interrogate
-   their specific claims at all. This tier sits above `sales-motion-reviewer` and
-   `product-market-fit-panel` deliberately: `business_type` is a more fundamental, holistic signal
-   about what kind of business this is than a single-step content pattern, and — more
-   importantly — the concerns these two specialists own (GMV×take-rate arithmetic, two-sided cold
-   start, billable-hours capacity ceilings, founder-dependency) were entirely uncovered by any
-   existing persona before this round, whereas `sales-motion-reviewer`'s and
-   `product-market-fit-panel`'s concerns, while real, already have a seat that can pick them up on
-   a later review cycle.
-3. **`sales-motion-reviewer`** triggers if `business_basics.business_type` is `services` or
+   is `services`. **`hardware-physical-product-operator`** triggers if
+   `business_basics.business_type` is `physical_product` — added this round, closing the gap the
+   Data Contract's persona-coverage table flagged: `physical_product` previously had no
+   unconditional dedicated persona, only `technical-feasibility-reviewer`'s narrow hardware/deep-
+   tech carve-out (#2 above) or `sales-motion-reviewer`'s channel carve-out (#4 below). These three
+   triggers are mutually exclusive by construction — `business_type` is a single enum value, so a
+   given business can match at most one of them — and, like the original two, none needs an extra
+   content signal beyond the type itself: being a marketplace, a services business, or a
+   physical-product business at all is enough to make two-sided liquidity, delivery-capacity
+   economics, or manufacturing/supply-chain operations close to always a central question worth a
+   dedicated seat. This tier sits above `sales-motion-reviewer` and `product-market-fit-panel`
+   deliberately: `business_type` is a more fundamental, holistic signal about what kind of
+   business this is than a single-step content pattern, and — more importantly — the concerns
+   these three specialists own (GMV×take-rate arithmetic and two-sided cold start; billable-hours
+   capacity ceilings and founder-dependency; manufacturing lead times, tooling/certification cost,
+   supply-chain single-points-of-failure, and the prototype-to-production gap) were entirely
+   uncovered by any existing persona before this round and last round, whereas
+   `sales-motion-reviewer`'s and `product-market-fit-panel`'s concerns, while real, already have a
+   seat that can pick them up on a later review cycle.
+4. **`sales-motion-reviewer`** triggers if `business_basics.business_type` is `services` or
    `physical_product` with a stated retail/wholesale/channel component, **or** Step 12's DMU
    description (check `disciplined_entrepreneurship.12_determine_the_dmu.summary` and/or
    `plan/12-determine-the-dmu.md`) names multiple stakeholder roles, procurement, or an explicitly
    long/multi-stage sales cycle — i.e., anything beyond a single self-serve buyer-user-payer.
    **Note the direct consequence of the tie-break rule below:** because `business_type: services`
-   satisfies both this trigger and #2's `services-unit-economics-reviewer` trigger, and #2 is
-   evaluated first, `sales-motion-reviewer` will not win the seat for a services business purely
-   on the type match — it can still win for a `physical_product`-with-channel business (no
-   conflict with #2), or, in principle, for a non-services business whose DMU content
-   independently trips this trigger.
-4. **`product-market-fit-panel`** triggers if `business_basics.business_type` is `saas`,
+   satisfies both this trigger and #3's `services-unit-economics-reviewer` trigger, and
+   `business_type: physical_product` satisfies both this trigger's channel clause and #3's
+   `hardware-physical-product-operator` trigger, and #3 is evaluated first in both cases,
+   `sales-motion-reviewer` will not win the seat for a services business or a physical-product
+   business purely on the type match — it can still win, in principle, for a non-services,
+   non-physical-product business whose DMU content independently trips this trigger.
+5. **`product-market-fit-panel`** triggers if `business_basics.business_type` is `saas`,
    `consumer_app`, or `marketplace`, **and** `key_assumptions` entries with `step_ref` in the
    06/07/08/20/21/22/23 range and `confidence: low` outnumber similarly-low-confidence entries
    elsewhere in the plan — i.e., the PMF-critical steps are the plan's least mature section right
@@ -197,9 +223,9 @@ first that triggers; if none trigger, use the default:
    vacuous — it always fired whenever the business-type matched, regardless of actual step
    maturity. Removed; the `key_assumptions`-confidence-concentration test is the only real signal
    and was already doing the actual work.)** In practice this trigger's `marketplace` branch will
-   rarely fire, for the same reason noted at #3: `business_type: marketplace` is already claimed
-   by #2 before evaluation reaches #4. It remains live for `saas` and `consumer_app`.
-5. **`competitive-strategy-reviewer`** — the default, used only when nothing above triggered.
+   rarely fire, for the same reason noted at #4: `business_type: marketplace` is already claimed
+   by #3 before evaluation reaches #5. It remains live for `saas` and `consumer_app`.
+6. **`competitive-strategy-reviewer`** — the default, used only when nothing above triggered.
    **Also use this instead of #3/#4 whenever Steps 10 or 11 have `key_assumptions` entries with
    `step_ref` in that range at `confidence: low`, or either step's `summary` explicitly states no
    differentiated Core/position was found yet (e.g. a pre-liquidity marketplace with no Core yet,

@@ -107,10 +107,14 @@ Grep every file for path-shaped strings (anything containing a `/`) and check ea
 under a directory CONVENTIONS §1 actually declares:
 
 - `.claude-plugin/`, `agents/` (+ its named subfolders `council/`, `gtm/`, `ops/`, `risk/`,
-  `qa/`, `connectors/`), `skills/` (+ its named subfolders), `commands/`, `docs/`, and
-  `.startup/<slug>/` with exactly the sub-structure in CONVENTIONS §5 / `docs/DATA-CONTRACT.md`
-  (`business-state.json`, `interview-log.md`, `plan/`, `reviews/`, `gtm/`, `ops/`,
-  `connectors.json`, `cadence.json`).
+  `qa/`, `design/` — plus singleton agents that live directly under `agents/` with no subfolder,
+  e.g. `business-plan-editor.md`, `connectors-liaison.md`, per CONVENTIONS §1), `skills/` (+ its
+  named subfolders), `commands/`, `docs/`, and `.startup/<slug>/` with exactly the sub-structure
+  in CONVENTIONS §5 / `docs/DATA-CONTRACT.md` (`business-state.json`, `interview-log.md`, `plan/`,
+  `reviews/`, `gtm/`, `ops/`). Connector status and check-in cadence live *inside*
+  `business-state.json` as its own `connectors`/`cadence` keys, not as separate `connectors.json`/
+  `cadence.json` files on disk — a file that still references either of those as a standalone file
+  path is stale against the current CONVENTIONS §5 and is itself a finding under this check.
 - A path referencing an undeclared top-level directory (`output/`, `data/`, `tmp/`, a new
   `agents/` subfolder not in the list, a `.startup/<slug>/` sub-path not in the Data Contract) is
   a finding. Two outcomes are both legitimate, so say which you think applies rather than just
