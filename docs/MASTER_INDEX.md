@@ -1,23 +1,29 @@
-# Master Index — after Round 3, during Round 4
+# Master Index — after Round 4, during Round 5
 
 Full catalog of every agent, skill, and command in the plugin after round 1 (v0.1 build, 15
 parallel builders), round 2 (adversarial review + fix pass, 9 parallel reviewers plus a live
-end-to-end dry run — see `docs/QA-FINDINGS-ROUND2.md` and `docs/QA-FINDINGS-GATES-ROUND2.md`), and
+end-to-end dry run — see `docs/QA-FINDINGS-ROUND2.md` and `docs/QA-FINDINGS-GATES-ROUND2.md`),
 round 3 (deepening business-type branching to all 24 steps, 2 new council personas, CI/validation
 hardening, ops instrumentation across all 5 ops skills, a connectors audit, and a second live dry
 run against a marketplace business — see `docs/QA-FINDINGS-ROUND3.md` and
-`docs/QA-FINDINGS-CONNECTORS-ROUND3.md`, both now landed and resolved). **Round 3 is complete and
-integrated** — every count and claim below was re-walked directly against the repo (`find`,
-targeted `grep`, and a live run of `scripts/validate-plugin.sh`) while writing this revision, not
-carried forward from the prior snapshot. **Round 4 is running concurrently with this revision**
-(2 more council personas, a third live dry run against a services business, a `CONVENTIONS.md`
-staleness audit, a full-repo QA-tooling dogfood pass, and a first Layer 2 eval-suite seed) —
-regenerate this file again once round 4 lands rather than trusting the round-4-shaped claims below,
-which are explicitly marked as checked-and-not-yet-present. `/list-skills` gives a live,
-always-current view for day-to-day use between regenerations.
+`docs/QA-FINDINGS-CONNECTORS-ROUND3.md`), and round 4 (2 more council personas closing the last
+persona-coverage gap, a third live dry run against a services business, a `CONVENTIONS.md`
+staleness audit that closed a cross-cutting `connectors.json`/`cadence.json` drift across 7 files,
+a first full-repo QA-tooling dogfood pass, and a first Layer 2 eval-suite seed — see
+`docs/QA-FINDINGS-ROUND4.md` and `docs/QA-DOGFOOD-ROUND4.md`, both now landed and resolved).
+**Round 4 is complete and integrated** — every count and claim below was re-walked directly against
+the repo (`find`, targeted `grep`, and a live run of `scripts/validate-plugin.sh`) while writing
+this revision, not carried forward from the prior snapshot. **Round 5 is running concurrently with
+this revision** (a fourth live dry run against a `consumer_app` business, a mechanical fix adding a
+"what you write" statement to all 12 council personas, a real execution of `docs/TESTING.md`'s
+Layer 3 regression checklist, and a consolidated `docs/CHANGELOG.md`) — the council write-statement
+fix is confirmed landed below (12 of 12 files); the rest is explicitly marked as checked-and-not-
+yet-present. Regenerate this file again once round 5 fully lands rather than trusting the round-5-
+shaped claims below. `/list-skills` gives a live, always-current view for day-to-day use between
+regenerations.
 
 **Live validation output at the time of this revision:**
-`PASS — no structural drift from CONVENTIONS.md detected` — **46 skills, 27 agents, 5 commands, 10
+`PASS — no structural drift from CONVENTIONS.md detected` — **46 skills, 29 agents, 5 commands, 12
 council files checked, 0 warnings, 0 errors**, all 24 DE step folders matching
 `docs/DE-24-STEPS.md`, every referenced `business-state.json` top-level field matching
 `docs/DATA-CONTRACT.md`, and every `agents/council/*.md` file committing to the CONVENTIONS.md §6
@@ -105,7 +111,7 @@ they produce is sourced.
 
 ## Review councils (`agents/council/`, `skills/business-plan/run-review-council/`)
 
-**10 distinct reviewer personas**, confirmed by direct directory listing and by
+**12 distinct reviewer personas**, confirmed by direct directory listing and by
 `scripts/validate-plugin.sh`'s own live count — a fixed 4-seat core plus one contextual 5th seat
 chosen by priority rules (business type, or the plan's own content), convened as a
 strategy-weighted panel (funding-track aware: bootstrap vs. venture vs. undecided), aggregated by
@@ -113,24 +119,34 @@ the "harshest non-outlier verdict" rule (round 2 hardened this computation's edg
 dry run exercised it by hand a second time, hit a genuinely different worked case — a lone REJECT
 surviving the outlier test via cross-severity tag corroboration — and found (then fixed) a gap
 where that survivor's own findings could still be absent from the severity-gated Required Revisions
-checklist; §8.4 now has an explicit "Also flagging, regardless of severity" callout for exactly
-this case):
+checklist; round 4's dry run hit a third, distinct shape of the same underlying "aggregation layer
+can under-surface a real concern" family — a syntactic tag-overlap check missing a semantically
+real corroboration, and an undefined checklist heading when the aggregate is `APPROVE_WITH_NOTES` —
+both now fixed):
 
 `vc-panel` · `expert-entrepreneur-panel` · `customer-discovery-skeptic` ·
 `product-market-fit-panel` · `financial-modeling-reviewer` · `competitive-strategy-reviewer` ·
 `sales-motion-reviewer` · `technical-feasibility-reviewer` · `marketplace-liquidity-specialist` ·
-`services-unit-economics-reviewer`
+`services-unit-economics-reviewer` · `hardware-physical-product-operator` ·
+`regulated-industry-compliance-reviewer`
 
 `run-review-council` decides which seats convene and how they're weighted for a given business,
 calls the AI-risk gate before and after the panel, and writes the aggregate verdict to `reviews/`.
+Every persona's own body now states explicitly, under an added "## What you write" section, that it
+writes nothing to disk and returns its verdict to the calling skill instead (round 5's mechanical
+fix, confirmed landed by a direct case-insensitive grep across all 12 files — this closes the one
+gap round 4's QA dogfood pass flagged as systemic but explicitly out of that round's own scope).
 
-**The two newest personas are a confirmed, working fix, not a checkbox.** Round 3's marketplace
-dry run compared `marketplace-liquidity-specialist`'s verdict against what the persona it replaced
-(`competitive-strategy-reviewer`) would have produced for the same plan, and found the new persona
-surfaced a real, consequential finding (disintermediation risk) no other panelist raised in any
-form.
+**The marketplace and services personas are a confirmed, working fix, not a checkbox.** Round 3's
+marketplace dry run compared `marketplace-liquidity-specialist`'s verdict against what the persona
+it replaced (`competitive-strategy-reviewer`) would have produced for the same plan, and found the
+new persona surfaced a real, consequential finding (disintermediation risk) no other panelist
+raised in any form. Round 4's services dry run ran the identical comparison for
+`services-unit-economics-reviewer` and found the same result — two `[DELIVERY-CAPACITY]` findings
+(a capacity-ceiling arithmetic inconsistency; an uncounted guarantee cost folded out of the margin
+figures) that no other seat's rubric owns.
 
-**A real bug found and fixed in the seat-selection logic itself.** The same dry run found the
+**A real bug found and fixed in the seat-selection logic itself.** Round 3's dry run found the
 §3 trigger rules for `competitive-strategy-reviewer` (the default 5th seat) and
 `product-market-fit-panel` each carried a clause keyed to Steps 10/11 reaching `status: "approved"`
 — which, per the orchestrator's own design (see above), never happens for any business, ever,
@@ -139,14 +155,22 @@ triggers for every business type other than `marketplace`/`services`. This is th
 round 2 found in the orchestrator, independently present here, and confirmed to have survived a
 full round-3 rewrite of the surrounding section untouched. **Fixed**: both clauses now key off a
 real, variable content signal (low-confidence `key_assumptions` on steps 10/11, or an explicit
-no-differentiated-Core finding) instead of a status value that can never actually vary.
+no-differentiated-Core finding) instead of a status value that can never actually vary. Round 4's
+dry run re-ran the current (by-then substantially rewritten, two-tiers-larger) seat-selection logic
+against a services business and confirmed this fix still holds — the rewrite around the two new
+personas did not regress it.
 
-**Round 4 in progress, not yet landed as of this revision:** two more personas —
-`regulated-industry-compliance-reviewer` and `hardware-physical-product-operator` — are being
-built to close the two remaining gaps in `docs/DATA-CONTRACT.md`'s persona-coverage table. **A
-direct walk of `agents/council/` immediately before writing this section found exactly the same 10
-files listed above and neither new persona present** — re-walk the directory before quoting a
-count higher than 10.
+**The two newest personas closed the last gap in `docs/DATA-CONTRACT.md`'s persona-coverage
+table.** `regulated-industry-compliance-reviewer` is a content-signal trigger (not tied to any
+single `business_type` value) checked with the highest priority of any contextual seat — ahead of
+`technical-feasibility-reviewer` — for a health/fintech/regulated-activity signal in
+`business_basics.business_type_notes` or Steps 1/7/15. `hardware-physical-product-operator` is the
+unconditional dedicated seat for `physical_product`. Round 4's services dry run exercised the new,
+highest-priority trigger live for the first time on a real fixture and found (then fixed) a real
+false-positive risk: a literal keyword match (e.g. "licensed," "HIPAA") fired regardless of whether
+the matched text described the business's own pursued activity or a surveyed-and-rejected
+candidate/segment, or even a sentence explicitly *denying* the regulated attribute. The trigger
+spec now requires the match to describe "the business's own actual or pursued activity."
 
 ## Go-to-market (`agents/gtm/`, `skills/gtm/`)
 
@@ -225,49 +249,77 @@ anywhere in the corpus is cross-checked against `docs/DATA-CONTRACT.md`'s declar
 literal commitment to the CONVENTIONS.md §6 verdict schema — a `## Verdict:` heading naming all
 four values (error-level).
 
-**Round 4 in progress, not yet landed as of this revision:** a full-repo dogfood pass actually
-running `skill-quality-auditor` and `consistency-checker` at scale for the first time (prior rounds
-exercised their design, not a real full-corpus run), plus a first Layer 2 behavioral eval suite
-seed. **A direct check found no `docs/QA-DOGFOOD-ROUND4.md`-shaped file and no `evals/` directory
-at the repo root** as of this revision — confirmed by directory listing, not assumed absent.
+**Round 4's full-repo dogfood pass landed** (`docs/QA-DOGFOOD-ROUND4.md`) — `skill-quality-auditor`
+and `consistency-checker` run for real, at real full-repo scale, for the first time: 29 files read
+in full (all 10 then-current council files, all 4 GTM agents, all 5 ops agents, both risk agents, 6
+sampled DE steps, the QA layer itself), plus a duplicate-name sweep and a cross-reference/path-
+existence sweep across the **entire** corpus (all agents, all skills, unsampled). Findings: one
+cross-cutting `connectors.json`/`cadence.json` staleness (traced into 7 files, all now fixed — see
+the round 4 section of `docs/ROADMAP.md`), one stale reference list inside
+`consistency-checker.md`'s own §4 (fixed same-pass), and one systemic, deliberately-out-of-scope
+finding — all council personas missing an explicit "## What you write" body statement — flagged for
+a later round to fix mechanically rather than touched there. **Round 5 is making exactly that
+fix**, confirmed landed above (12 of 12 council files).
+
+**Round 4's first Layer 2 behavioral eval suite seed landed.** `evals/` now exists at the repo
+root with **7 eval cases** (`01-ai-risk-gate-unsourced-claim`, `02-council-verdict-aggregation`,
+`03-onboarding-vague-answer-pushback`, `04a-de-step04-branching-saas`,
+`04b-de-step04-branching-marketplace`, `05-connectors-liaison-fail-closed`,
+`06-revise-routes-through-revise-business-plan`), a `run-evals.sh` harness, a shared `lib/`, and a
+`README.md` — confirmed present by direct directory listing, closing a gap `docs/TESTING.md` had
+described without a real suite behind it since round 1.
+
+**Round 5 in progress, not yet landed as of this revision (beyond the council write-statement
+fix above):** a fourth live dry run against a `consumer_app` business, a real execution of
+`docs/TESTING.md`'s Layer 3 pre-release regression checklist, and `docs/CHANGELOG.md`. **A direct
+check found no `docs/QA-FINDINGS-ROUND5.md`-shaped file, no fourth business under `.startup/`
+alongside `shiftcover`/`skyclaim`/`vantage-point-search`, no recorded Layer 3 checklist run, and no
+`docs/CHANGELOG.md`** as of this revision — confirmed by directory/file listing, not assumed
+absent.
 
 ## Reference docs (`docs/`)
 
 `ARCHITECTURE.md` (lifecycle narrative) · `ARCHITECTURE-IMPLEMENTATION.md` (file-level
 mechanics) · `DATA-CONTRACT.md` (business-state.json schema, now including a council
-persona-coverage-by-business-type table) · `DE-24-STEPS.md` (canonical step list) ·
-`UX-INTERVIEW-DESIGN.md` · `AI-RISK-FRAMEWORK.md` · `PRIVACY-AND-DATA-HANDLING.md` ·
+persona-coverage-by-business-type table, closed as of round 4) · `DE-24-STEPS.md` (canonical step
+list) · `UX-INTERVIEW-DESIGN.md` · `AI-RISK-FRAMEWORK.md` · `PRIVACY-AND-DATA-HANDLING.md` ·
 `CONNECTORS-CATALOG.md` · `TESTING.md` · `ROADMAP.md` · `QA-FINDINGS-ROUND2.md` (round 2's
 ShiftCover B2B SaaS dry run — resolved, findings fixed directly) ·
 `QA-FINDINGS-GATES-ROUND2.md` (round 2's parallel risk-gate sweep) ·
 `QA-FINDINGS-ROUND3.md` (round 3's SkyClaim marketplace dry run — resolved, all four findings fixed
-directly, confirmed in this revision) · `QA-FINDINGS-CONNECTORS-ROUND3.md` (round 3's connectors-
-enforcement audit — resolved, no fixes owed to any caller file, one ambiguity fixed in
-`connectors-liaison.md` itself). Root `CONVENTIONS.md` is the contract every file above conforms
-to.
+directly) · `QA-FINDINGS-CONNECTORS-ROUND3.md` (round 3's connectors-enforcement audit — resolved,
+no fixes owed to any caller file, one ambiguity fixed in `connectors-liaison.md` itself) ·
+`QA-FINDINGS-ROUND4.md` (round 4's Vantage Point Search services dry run — resolved, all five
+findings fixed directly, confirmed in this revision) · `QA-DOGFOOD-ROUND4.md` (round 4's first
+full-repo QA-tooling dogfood pass — resolved: the connectors.json/cadence.json drift and
+`consistency-checker.md`'s own stale reference list both fixed directly; the one systemic
+out-of-scope finding, the council write-statement gap, handed to round 5 and confirmed landed
+above). Root `CONVENTIONS.md` is the contract every file above conforms to; round 4's staleness
+audit re-checked it against the repo it governs and fixed the one real drift found (§5's
+`connectors.json`/`cadence.json` description, traced into 6 more files).
 
-**Round 4 deliverables, checked directly and confirmed not yet present in `docs/` as of this
-revision** — do not cite these as existing until a file read confirms otherwise: a
-`docs/QA-FINDINGS-ROUND4.md`-shaped file (the services-business dry run), a
-`docs/QA-DOGFOOD-ROUND4.md`-shaped file (the QA-tooling full-repo run), and any file documenting
-the `CONVENTIONS.md` staleness audit's results. An `evals/` directory for the Layer 2 behavioral
-eval suite seed is likewise not yet present at the repo root.
+**`docs/CHANGELOG.md` does not yet exist as of this revision** — a round 5 deliverable, confirmed
+absent by a direct file-existence check, not assumed. Add it to this list once a file read confirms
+it's landed; do not cite it as existing until then.
 
 ## Totals (walked directly against the repo via `find` and a live `scripts/validate-plugin.sh` run)
 
-- **27 agents** across orchestration (1), council (**10** personas — `technical-feasibility-
+- **29 agents** across orchestration (1), council (**12** personas — `technical-feasibility-
   reviewer` added round 2; `marketplace-liquidity-specialist` and `services-unit-economics-
-  reviewer` added round 3; round 4's 2 additional personas not yet landed), GTM (4), ops (5),
-  risk (2), QA (2), connectors (1), design (1), and plan-editing (1)
+  reviewer` added round 3; `hardware-physical-product-operator` and `regulated-industry-
+  compliance-reviewer` added round 4), GTM (4), ops (5), risk (2), QA (2), connectors (1),
+  design (1), and plan-editing (1)
 - **46 skills** across interview (2), the 24 DE steps, business-plan (3), GTM (5), ops (5),
-  design (3), risk (2), QA (1), connectors (1) — same total as the round-3 snapshot; round 3's
-  work deepened existing skill files rather than adding new skill folders, confirmed by
-  `scripts/validate-plugin.sh`'s own live count, not by incrementing the prior number
+  design (3), risk (2), QA (1), connectors (1) — same total as the round-3 and round-4 snapshots;
+  rounds 3 and 4 both deepened existing skill files rather than adding new skill folders, confirmed
+  by `scripts/validate-plugin.sh`'s own live count, not by incrementing the prior number
 - **5 slash commands**
 - **1 CI workflow** (`.github/workflows/validate-plugin.yml`, added round 2, still the only one —
-  runs `scripts/validate-plugin.sh` on every `push` and `pull_request`, now checking 2 more
-  structural properties than it did at the round-2/round-3-snapshot version of this document)
+  runs `scripts/validate-plugin.sh` on every `push` and `pull_request`, checking 2 more structural
+  properties than it did at the round-2 snapshot, unchanged since round 3)
+- **7 Layer 2 eval cases** under `evals/` (seeded round 4 — `01-ai-risk-gate-unsourced-claim`
+  through `06-revise-routes-through-revise-business-plan`, one case, 04, split into an `a`/`b` pair)
 
 `scripts/validate-plugin.sh` output at the time of this revision: `PASS — no structural drift from
-CONVENTIONS.md detected` (46 skills, 27 agents, 5 commands, 10 council files, 0 warnings, 0 errors,
+CONVENTIONS.md detected` (46 skills, 29 agents, 5 commands, 12 council files, 0 warnings, 0 errors,
 all 24 DE step folders matching `docs/DE-24-STEPS.md`).
