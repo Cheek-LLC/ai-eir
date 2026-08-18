@@ -1,4 +1,4 @@
-# Master Index — after Round 5, during Round 6
+# Master Index — after Round 6, during Round 7
 
 Full catalog of every agent, skill, and command in the plugin after round 1 (v0.1 build, 15
 parallel builders), round 2 (adversarial review + fix pass, 9 parallel reviewers plus a live
@@ -10,22 +10,27 @@ run against a marketplace business — see `docs/QA-FINDINGS-ROUND3.md` and
 persona-coverage gap, a third live dry run against a services business, a `CONVENTIONS.md`
 staleness audit that closed a cross-cutting `connectors.json`/`cadence.json` drift across 7 files,
 a first full-repo QA-tooling dogfood pass, and a first Layer 2 eval-suite seed — see
-`docs/QA-FINDINGS-ROUND4.md` and `docs/QA-DOGFOOD-ROUND4.md`), and round 5 (the council
+`docs/QA-FINDINGS-ROUND4.md` and `docs/QA-DOGFOOD-ROUND4.md`), round 5 (the council
 write-statement mechanical fix closing round 4's last flagged dogfood gap, a fourth live dry run
 against a `consumer_app` business, and the first real execution of `docs/TESTING.md`'s Layer 3
 regression checklist — which found and fixed a genuine, previously-uncaught bug in
 `revise-business-plan`'s stage-transition logic — see `docs/QA-FINDINGS-ROUND5.md` and
-`docs/QA-LAYER3-REGRESSION-ROUND5.md`, both now landed and resolved). **Round 5 is complete and
+`docs/QA-LAYER3-REGRESSION-ROUND5.md`), and round 6 (the first completed revision cycle, driven
+live against `shiftcover`'s standing REVISE verdict — confirming round 5's fix holds and finding a
+real revision-routing gap of its own — and the first live GTM/ops/check-in run, driven against
+`vantage-point-search`'s standing `approved` stage — finding a real 2-4.3x runway-overstatement bug
+and a real connectors-gate scope ambiguity — see `docs/QA-FINDINGS-ROUND6.md` and
+`docs/QA-FINDINGS-POSTAPPROVAL-ROUND6.md`, both now landed and resolved). **Round 6 is complete and
 integrated** — every count and claim below was re-walked directly against the repo (`find`,
 targeted `grep`, and a live run of `scripts/validate-plugin.sh`) while writing this revision, not
-carried forward from the prior snapshot. **Round 6 is running concurrently with this revision**: one
-agent is driving `.startup/shiftcover/` through an actual revision cycle for the first time (the
-first live test of round 5's `revise-business-plan` fix), and another is driving
-`.startup/vantage-point-search/` through GTM and ops for the first time (the first live test of the
-plugin's entire post-approval half) — neither `docs/QA-FINDINGS-ROUND6.md` nor
-`docs/QA-FINDINGS-POSTAPPROVAL-ROUND6.md` exists yet as of this revision, confirmed by a direct
-file-existence check, not assumed absent. Regenerate this file again once round 6 fully lands.
-`/list-skills` gives a live, always-current view for day-to-day use between regenerations.
+carried forward from the prior snapshot. **Round 7 is running concurrently with this revision**: one
+agent is testing the founder-override path against `shiftcover`'s standing REJECT verdict (never
+exercised before), and another is testing a second recurring check-in cycle and a mid-lifecycle
+pivot against `vantage-point-search` (also never exercised before) — neither
+`docs/QA-FINDINGS-OVERRIDE-ROUND7.md` nor `docs/QA-FINDINGS-PIVOT-ROUND7.md` exists yet as of this
+revision, confirmed by a direct file-existence check, not assumed absent. Regenerate this file again
+once round 7 fully lands. `/list-skills` gives a live, always-current view for day-to-day use
+between regenerations.
 
 **Live validation output at the time of this revision:**
 `PASS — no structural drift from CONVENTIONS.md detected` — **46 skills, 29 agents, 5 commands, 12
@@ -305,12 +310,32 @@ attempting to close live: a full revision cycle, and a run past `stage: "approve
 `docs/CHANGELOG.md` also landed this round, confirmed present, consolidating rounds 1-5's build
 history into one chronological ledger.
 
-**Round 6 in progress, not yet landed as of this revision:** one agent driving
-`.startup/shiftcover/` through an actual revision cycle (the first live test of round 5's
-`revise-business-plan` fix), another driving `.startup/vantage-point-search/` through GTM and ops
-for the first time. **A direct check found neither `docs/QA-FINDINGS-ROUND6.md` nor
-`docs/QA-FINDINGS-POSTAPPROVAL-ROUND6.md`** as of this revision — confirmed by directory/file
-listing, not assumed absent.
+**Round 6 landed and is confirmed resolved.** `docs/QA-FINDINGS-ROUND6.md` drove
+`.startup/shiftcover/` through a real, full revision cycle for the first time — round 5's
+`revise-business-plan` stage-value fix held live, with no workaround needed, and the run's own real
+re-review (a genuinely new 5-persona panel, a real REJECT via semantic tag-overlap corroboration)
+surfaced one significant new gap: a discarded outlier's required revisions were never carried
+forward for rework by `revise-business-plan`, so they resurfaced identically on re-review. **Fixed**:
+`revise-business-plan/SKILL.md` §0 now explicitly carries forward discarded-but-real and
+also-flagging concerns as in-scope work alongside the aggregate checklist; §1 now distinguishes
+decision-gated from time-gated blocked items. `docs/QA-FINDINGS-POSTAPPROVAL-ROUND6.md` drove
+`.startup/vantage-point-search/` through GTM, a live `connectors-liaison` invocation, and the ops
+layer's first-ever real check-in — the entire post-approval half of the lifecycle diagram, exercised
+live for the first time — and found a real, significant bug: `runway-and-burn-tracking`'s formula had
+no period-normalization step, which would have overstated a real biweekly first check-in's runway by
+roughly 2.1x (and would compound to ~4.3x at a weekly cadence), on the single number
+`finance-controller` names as the one whose staleness is "actively dangerous." **Fixed**: the skill
+now normalizes any non-monthly period's burn to a monthly-equivalent figure before computing runway.
+The same run also found and fixed a real, previously-undocumented ambiguity in the connectors gate's
+scope (agent-automated vs. founder-personal actions) in `agents/connectors-liaison.md`. All fixes
+confirmed present in the current files as of this revision, not carried forward from either finding's
+own description.
+
+**Round 7 in progress, not yet landed as of this revision:** one agent testing the founder-override
+path against `shiftcover`'s standing REJECT verdict, another testing a second recurring check-in
+cycle and a mid-lifecycle pivot against `vantage-point-search`. **A direct check found neither
+`docs/QA-FINDINGS-OVERRIDE-ROUND7.md` nor `docs/QA-FINDINGS-PIVOT-ROUND7.md`** as of this
+revision — confirmed by directory/file listing, not assumed absent.
 
 ## Reference docs (`docs/`)
 
@@ -318,12 +343,12 @@ listing, not assumed absent.
 mechanics) · `DATA-CONTRACT.md` (business-state.json schema, now including a council
 persona-coverage-by-business-type table, closed as of round 4) · `DE-24-STEPS.md` (canonical step
 list) · `UX-INTERVIEW-DESIGN.md` · `AI-RISK-FRAMEWORK.md` · `PRIVACY-AND-DATA-HANDLING.md` ·
-`CONNECTORS-CATALOG.md` · `TESTING.md` · `ROADMAP.md` · `CHANGELOG.md` (landed round 5 — a
-chronological ledger of what got built, what broke, and what got fixed across rounds 1-5, indexing
-every findings doc below) · `QA-FINDINGS-ROUND2.md` (round 2's ShiftCover B2B SaaS dry run —
-resolved, findings fixed directly) · `QA-FINDINGS-GATES-ROUND2.md` (round 2's parallel risk-gate
-sweep) · `QA-FINDINGS-ROUND3.md` (round 3's SkyClaim marketplace dry run — resolved, all four
-findings fixed directly) · `QA-FINDINGS-CONNECTORS-ROUND3.md` (round 3's connectors-enforcement
+`CONNECTORS-CATALOG.md` · `TESTING.md` · `ROADMAP.md` · `CHANGELOG.md` (landed round 5, extended
+round 6 — a chronological ledger of what got built, what broke, and what got fixed across rounds
+1-6, indexing every findings doc below) · `QA-FINDINGS-ROUND2.md` (round 2's ShiftCover B2B SaaS dry
+run — resolved, findings fixed directly) · `QA-FINDINGS-GATES-ROUND2.md` (round 2's parallel
+risk-gate sweep) · `QA-FINDINGS-ROUND3.md` (round 3's SkyClaim marketplace dry run — resolved, all
+four findings fixed directly) · `QA-FINDINGS-CONNECTORS-ROUND3.md` (round 3's connectors-enforcement
 audit — resolved, no fixes owed to any caller file, one ambiguity fixed in
 `connectors-liaison.md` itself) · `QA-FINDINGS-ROUND4.md` (round 4's Vantage Point Search services
 dry run — resolved, all five findings fixed directly) · `QA-DOGFOOD-ROUND4.md` (round 4's first
@@ -334,13 +359,17 @@ out-of-scope finding, the council write-statement gap, handed to and closed by r
 findings fixed directly, confirmed in this revision) · `QA-LAYER3-REGRESSION-ROUND5.md` (round 5's
 first real Layer 3 pre-release regression pass — one FAIL fixed directly, one FAIL logged as
 fixture data off-limits to this round, 9 GAPs named plainly as the plugin's genuinely untested
-surface, now the direct basis for round 6's scope). Root `CONVENTIONS.md` is the contract every
-file above conforms to; round 4's staleness audit re-checked it against the repo it governs and
-fixed the one real drift found (§5's `connectors.json`/`cadence.json` description, traced into 6
-more files).
+surface, which became the direct basis for round 6's scope) · `QA-FINDINGS-ROUND6.md` (round 6's
+first completed revision cycle against `shiftcover` — resolved: round 5's `revise-business-plan`
+fix confirmed live, and a real discarded-outlier revision-routing gap found and fixed) ·
+`QA-FINDINGS-POSTAPPROVAL-ROUND6.md` (round 6's first live GTM/ops/check-in run against
+`vantage-point-search` — resolved: a real 2-4.3x runway-overstatement bug and a real connectors-gate
+scope ambiguity, both found and fixed). Root `CONVENTIONS.md` is the contract every file above
+conforms to; round 4's staleness audit re-checked it against the repo it governs and fixed the one
+real drift found (§5's `connectors.json`/`cadence.json` description, traced into 6 more files).
 
-**`docs/QA-FINDINGS-ROUND6.md` and `docs/QA-FINDINGS-POSTAPPROVAL-ROUND6.md` do not yet exist as of
-this revision** — round 6 deliverables, confirmed absent by a direct file-existence check, not
+**`docs/QA-FINDINGS-OVERRIDE-ROUND7.md` and `docs/QA-FINDINGS-PIVOT-ROUND7.md` do not yet exist as
+of this revision** — round 7 deliverables, confirmed absent by a direct file-existence check, not
 assumed. Add them to this list once a file read confirms they've landed; do not cite either as
 existing until then.
 
@@ -352,8 +381,8 @@ existing until then.
   compliance-reviewer` added round 4), GTM (4), ops (5), risk (2), QA (2), connectors (1),
   design (1), and plan-editing (1)
 - **46 skills** across interview (2), the 24 DE steps, business-plan (3), GTM (5), ops (5),
-  design (3), risk (2), QA (1), connectors (1) — same total as the round-3, round-4, and round-5
-  snapshots; rounds 3, 4, and 5 all deepened existing skill files rather than adding new skill
+  design (3), risk (2), QA (1), connectors (1) — same total as the round-3 through round-6
+  snapshots; rounds 3 through 6 all deepened existing skill files rather than adding new skill
   folders, confirmed by `scripts/validate-plugin.sh`'s own live count, not by incrementing the
   prior number
 - **5 slash commands**
@@ -362,13 +391,16 @@ existing until then.
   properties than it did at the round-2 snapshot, unchanged since round 3)
 - **7 Layer 2 eval cases** under `evals/` (seeded round 4 — `01-ai-risk-gate-unsourced-claim`
   through `06-revise-routes-through-revise-business-plan`, one case, 04, split into an `a`/`b`
-  pair — unchanged this round, confirmed by directory listing)
+  pair — unchanged since round 4, confirmed by directory listing)
 
-**Round 5 held both the agent and skill counts stable, confirmed directly rather than assumed** —
-this was a dry-run-and-regression-audit round, not a build round, and the only file-count-affecting
-change was the 12 already-existing council files each gaining a body section, not a new file.
-`scripts/validate-plugin.sh` still reports 46 skills, 29 agents, 5 commands, 12 council files, 0
-warnings, 0 errors as of this revision — identical to the round-4 snapshot's counts.
+**Round 6 held both the agent and skill counts stable, confirmed directly rather than assumed** —
+this was a dry-run round exercising two existing fixtures, not a build round, and every
+file-count-affecting scope was a fix to an existing skill/agent file
+(`revise-business-plan/SKILL.md`, `runway-and-burn-tracking/SKILL.md`, `connectors-liaison.md`),
+never a new file. `scripts/validate-plugin.sh` still reports 46 skills, 29 agents, 5 commands, 12
+council files, 0 warnings, 0 errors as of this revision — identical to the round-4 and round-5
+snapshots' counts, confirmed by a live run of the script during this revision, not assumed carried
+forward.
 
 `scripts/validate-plugin.sh` output at the time of this revision: `PASS — no structural drift from
 CONVENTIONS.md detected` (46 skills, 29 agents, 5 commands, 12 council files, 0 warnings, 0 errors,

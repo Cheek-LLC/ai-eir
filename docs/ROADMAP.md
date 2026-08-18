@@ -18,19 +18,28 @@ tested live), and — for the first time — actually executed `docs/TESTING.md`
 regression checklist against the three existing dry-run fixtures, which is where round 5's single
 most consequential finding came from: a real, latent bug in `revise-business-plan`'s
 stage-transition logic that would have stalled the revision loop the first time anyone actually
-drove a business through it. **Rounds 2, 3, 4, and 5 are all now complete and integrated** — every
-finding any round's dry run or audit work surfaced was fixed directly in the repo, not left as an
-open backlog; each "complete and integrated" section below documents each fix confirmed present,
-file by file, the same way every prior round's section has. **Round 6** — happening now,
-concurrently with this revision — is two agents each driving a real fixture through exactly the
-territory round 5's Layer 3 pass identified as the biggest untested gap: one is driving
-`.startup/shiftcover/` through an actual revision cycle for the first time, live-testing whether
-round 5's `revise-business-plan` fix actually holds; the other is driving
-`.startup/vantage-point-search/` through GTM and operations for the first time, since nothing in
-this repo's live-testing history has ever taken a business past `stage: "approved"`. Round 5's
-output fed directly into this revision's roadmap; round 6's output will do the same for round 7's
-revision of this document. Treat this document as a snapshot that gets rewritten each round, not a
-static plan drafted once and executed against.
+drove a business through it. **Round 6** was two agents each driving a real existing fixture
+through exactly the territory round 5's Layer 3 pass identified as the biggest untested gap: one
+drove `.startup/shiftcover/` through an actual revision cycle for the first time, confirming live
+that round 5's `revise-business-plan` fix actually holds — and finding a real revision-routing gap
+of its own (a discarded outlier's required revisions were never carried forward for rework, so they
+resurfaced identically on re-review); the other drove `.startup/vantage-point-search/` through GTM
+and operations for the first time, since nothing in this repo's live-testing history had ever taken
+a business past `stage: "approved"` — and found a real 2-4.3x runway-overstatement bug (a missing
+period-normalization step for non-monthly check-in cadences) plus a real, previously-undocumented
+ambiguity in the connectors gate's scope. **Rounds 2 through 6 are all now complete and
+integrated** — every finding any round's dry run or audit work surfaced was fixed directly in the
+repo, not left as an open backlog; each "complete and integrated" section below documents each fix
+confirmed present, file by file, the same way every prior round's section has. **Round 7** —
+happening now, concurrently with this revision — is two agents each exercising one of the three
+specific gaps round 6's own roadmap update (below) named as the next frontier: one is testing the
+founder-override path against `shiftcover`'s standing REJECT verdict, a mechanism
+`agents/orchestrator.md` specifies but no fixture has ever exercised; the other is testing a second
+recurring check-in cycle and a mid-lifecycle pivot against `vantage-point-search`, neither of which
+any fixture has ever exercised either. Round 5's output fed directly into round 6's revision of this
+document; round 6's output is feeding directly into this revision; round 7's output will do the same
+for round 8's. Treat this document as a snapshot that gets rewritten each round, not a static plan
+drafted once and executed against.
 
 This document is honest about the gap between what the plugin actually is right now and the
 long-term vision the spec describes — potentially hundreds of agents and thousands of skills
@@ -416,98 +425,192 @@ re-confirmed present in the current files, not carried forward from round 5's in
   fixed, and cross-round patterns into one chronological ledger, confirmed present at
   `docs/CHANGELOG.md`.
 
-## Round 6 — testing the revision loop and the post-approval half: in progress
+## Round 6 — testing the revision loop and the post-approval half: complete and integrated
 
-Round 6 is running concurrently with this roadmap revision, and is a direct, deliberate response to
-round 5's Layer 3 pass naming this exact gap as the single largest untested surface in the plugin's
-live-testing history. Two agents are each driving a real existing fixture through territory no live
-dry run has ever reached:
+Round 6 was a direct, deliberate response to round 5's Layer 3 pass naming this exact gap as the
+single largest untested surface in the plugin's live-testing history. Two agents each drove a real
+existing fixture through territory no live dry run had ever reached, and this section was rewritten
+after reading both findings docs and re-confirming every fix directly in the current files, the same
+"confirmed present" treatment every prior round's section has gotten:
 
-- **One agent is driving `.startup/shiftcover/` through an actual revision cycle for the first
-  time** — `shiftcover` has sat at `stage: "revising"` since round 2, never once continued through
-  `revise-business-plan` and back to a second council review. This is also the first live test of
-  round 5's fix to `revise-business-plan`'s stage-transition logic: does `run-review-council`
-  actually accept the handoff now that the skill leaves `stage` at `"revising"` instead of writing
-  the `"council_review"` value its precondition would have rejected.
-- **The other agent is driving `.startup/vantage-point-search/` through GTM and operations for the
-  first time** — `vantage-point-search` is the only fixture to ever reach `stage: "approved"`, and
-  it has never continued into `agents/gtm/*`, `agents/ops/*`, or the recurring check-in cadence
-  machinery. This is the first live test of the entire back half of `docs/ARCHITECTURE.md`'s
-  lifecycle diagram.
+- **`.startup/shiftcover/` was driven through an actual revision cycle for the first time**
+  (`docs/QA-FINDINGS-ROUND6.md`) — `shiftcover` had sat at `stage: "revising"` since round 2, never
+  once continued through `revise-business-plan` and back to a second council review. This was also
+  the first live test of round 5's fix to `revise-business-plan`'s stage-transition logic, and it
+  **held**: `run-review-council` accepted the handoff cleanly, with `stage` staying `"revising"`
+  throughout, exactly as round 5 predicted it would once fixed. The run went further than a bare
+  confirmation, though — it drove a full, real revision (5 required-revision items routed to DE-step
+  rework or a synthesis-level fix, a real `plan/business-plan-v2.md`, the mandatory AI-risk gate run
+  live against the new content) and a full, real re-review (the funding track re-derived live, a
+  genuinely new 5-persona panel run, the aggregation algorithm's semantic-overlap check worked by
+  hand and confirmed load-bearing on a real outcome for the first time). The re-review's real result
+  was REJECT again — and *why* is this round's one significant new finding: **a discarded outlier's
+  required revisions were never routed to by `revise-business-plan`, so they resurfaced identically
+  on re-review.** `customer-discovery-skeptic`'s v1 REJECT was correctly discarded as a
+  non-corroborated outlier by the aggregation algorithm, but `revise-business-plan` only ever read
+  the synthesized aggregate checklist — which, by construction, never contains a discarded persona's
+  items — so that persona's 3 concerns were never worked at all, and resurfaced as a fresh-looking
+  REJECT on re-review even though 4 of the other 5 items had been genuinely, substantively fixed.
+  **Fixed:** `revise-business-plan/SKILL.md` §0 now explicitly instructs carrying forward — never
+  dropping — the review file's `### Discarded-but-real concerns` and `### Also flagging, regardless
+  of severity` sections as in-scope work alongside the aggregate checklist, so a discarded concern's
+  *substance* still gets worked even though the outlier-discard rule correctly keeps it from
+  dictating the aggregate verdict on its own. A smaller, related finding from the same live run was
+  fixed in the same file: §1 conflated "blocked on a founder decision" with "blocked on real calendar
+  time passing" under one "blocked" bucket; time-gated items (e.g. a sales-cycle funnel that needs
+  more real prospects to move through the pipeline before it can be honestly recomputed) are now
+  reported explicitly and distinctly as "open, time-gated," rather than risking pressure to fabricate
+  progress on them.
+- **`.startup/vantage-point-search/` was driven through GTM and operations for the first time**
+  (`docs/QA-FINDINGS-POSTAPPROVAL-ROUND6.md`) — the only fixture to ever reach `stage: "approved"`,
+  and it had never continued into `agents/gtm/*`, `agents/ops/*`, or the recurring check-in cadence
+  machinery. This was the first live test of the entire back half of `docs/ARCHITECTURE.md`'s
+  lifecycle diagram, and it surfaced a real, significant bug: **`skills/ops/runway-and-burn-
+  tracking/SKILL.md`'s formula had no period-normalization step**, and this was the first time it
+  had ever run against a non-monthly check-in cadence. Applied literally to a real biweekly first
+  check-in, the un-normalized formula would have reported roughly 28.3 months of runway against a
+  correct, monthized figure of about 13.2 — a 2.1x overstatement at biweekly cadence, and a
+  projected ~4.3x overstatement at weekly cadence — on exactly the one number
+  `agents/ops/finance-controller.md` names as "actively dangerous" when wrong, since a founder can
+  make a real payroll decision off it. The gap survived every prior round only because the ops layer
+  had never run live before round 6. **Fixed:** the skill now instructs normalizing any non-monthly
+  period's burn to a monthly-equivalent figure before computing runway, and reporting both the raw
+  period figure and the monthized figure so the normalization itself stays visible. The same run also
+  found and fixed a real, previously-undocumented ambiguity in the connectors gate's scope: neither
+  `docs/CONNECTORS-CATALOG.md` nor `agents/connectors-liaison.md` specified whether a task like
+  "send the launch announcement" meant an agent automating a send through a wired tool, or a founder
+  personally sending an email from their own inbox — a real distinction, since either misreading has
+  a real cost (an unnecessary UX block, or a privacy-gate bypass). **Fixed:**
+  `agents/connectors-liaison.md`'s MANDATORY GATE callout now states explicitly that the gate applies
+  when the agent itself initiates or automates an action through a connector it operates, not when
+  the plan simply recommends the founder personally use their own already-existing tools.
 
-**As of this snapshot, checked directly rather than assumed:** neither `docs/QA-FINDINGS-ROUND6.md`
-nor `docs/QA-FINDINGS-POSTAPPROVAL-ROUND6.md` exists yet in `docs/` — confirmed by a direct
-file-existence check, not assumed absent, since both agents are still running concurrently with
-this revision. This section should be rewritten once both land, with the same "confirmed present in
-the current files" treatment every prior round's section above got, rather than left as this
-in-progress snapshot.
+**Every fix named above is confirmed present in the current files, not left as an open backlog** —
+verified directly while writing this revision, not carried forward from either findings doc's own
+description of an intended fix: `skills/business-plan/revise-business-plan/SKILL.md` (§0 discarded-
+concerns routing, §1 decision-gated vs. time-gated distinction), `skills/ops/runway-and-burn-
+tracking/SKILL.md` (period-normalization step), and `agents/connectors-liaison.md` (agent-automated
+vs. founder-personal gate scope). `scripts/validate-plugin.sh` still reports 46 skills, 29 agents, 5
+commands, 12 council files, 0 warnings, 0 errors as of this revision — round 6 deepened existing
+skill/agent files rather than adding new ones.
 
-## v0.3 and beyond — the real frontier, and what stays open even after round 6
+## Round 7 — the founder-override path, a second check-in cycle, and a mid-lifecycle pivot: in progress
 
-With v0.2's depth work closed since round 4, the honest next horizon has not been primarily more
-breadth since round 5. The five live dry runs this build has run so far (round 2 SaaS, round 3
-marketplace, round 4 services, round 5 consumer app) have been extraordinarily effective at finding
-and fixing real gaps — but every one of them is a single, unbroken session that starts at onboarding
-and stops at or before `council_review`/`revising`, and round 5's Layer 3 pass confirmed this
-plainly rather than leaving it inferred: not one fixture has ever exercised the revision loop or
-anything past plan approval. **Round 6 is the first live attempt to close that gap, and once its
-two findings docs land, this section needs the same "confirmed present" re-verification treatment
-every prior round's work has gotten here — not marked done on the strength of the plan alone.**
+Round 7 is running concurrently with this roadmap revision, and picks up exactly the three items
+round 6's own roadmap update (the prior version of this section) named as the next frontier once the
+revision loop and the post-approval half were closed. Two agents are each exercising territory no
+live dry run has ever reached:
 
-Even a fully successful round 6 will not close every corner of this frontier. Naming what stays
-genuinely untested afterward, plainly, so a future round doesn't rediscover it as if it were new:
-
-- **A REJECT-and-founder-override path has still never been tested.** `agents/orchestrator.md`'s
-  Non-negotiable #3 specifies an explicit founder-override mechanism (a `risk_log` entry with
-  `raised_by: "startup-operator (founder override)"`, the review file marked noted-but-overridden)
-  for exactly the case where a founder wants to proceed against a council's REVISE/REJECT — round
-  6's revision-loop test is about the plan actually improving and re-passing, not about a founder
-  choosing to override a standing objection. No fixture has ever exercised this branch.
-- **A second or third recurring check-in cycle has never been tested.** Round 6's GTM/ops run, if it
-  reaches a check-in at all, will be the *first* one any fixture has ever had — it cannot, by
-  itself, test whether the cadence mechanism, drift detection, and check-in interview hold up across
-  *multiple* cycles (a founder's numbers changing check-in to check-in, an escalation from one
-  check-in's finding carrying forward correctly into the next, `cadence.next_check_in` actually
-  advancing correctly a second time).
-- **A pivot mid-lifecycle has never been tested.** `business_basics` is explicitly designed to be
-  updatable by `skills/interview/recurring-check-in` handing a change to the orchestrator (per
-  `docs/DATA-CONTRACT.md`'s ownership note) — a founder whose `venture_stage` moves from
-  `idea_only`/`already_operating` to `pivoting`, or whose `business_type` changes, mid-flight. No
-  fixture has ever exercised this, and it's a materially different test than round 3's SkyClaim
+- **One agent is testing the founder-override path against `shiftcover`'s standing REJECT
+  verdict** — `agents/orchestrator.md`'s Non-negotiable #3 specifies an explicit founder-override
+  mechanism (a `risk_log` entry with `raised_by: "startup-operator (founder override)"`, the review
+  file marked noted-but-overridden) for exactly the case where a founder wants to proceed against a
+  council's REVISE/REJECT rather than revise further. Round 6's revision-loop test was about the plan
+  actually improving and re-passing (and, as it turned out, not fully re-passing); this is the first
+  test of a founder instead choosing to override a standing objection outright — a mechanism no
+  fixture has ever exercised.
+- **The other agent is testing a second recurring check-in cycle and a mid-lifecycle pivot against
+  `vantage-point-search`** — round 6's GTM/ops run produced the *first* check-in any fixture has ever
+  had, which by itself cannot test whether the cadence mechanism, drift detection, and check-in
+  interview hold up across *multiple* cycles (numbers changing check-in to check-in, an escalation
+  from one check-in carrying forward correctly into the next, `cadence.next_check_in` actually
+  advancing a second time). The same agent is also testing a pivot mid-lifecycle — `business_basics`
+  is explicitly designed to be updatable by `skills/interview/recurring-check-in` handing a change to
+  the orchestrator (per `docs/DATA-CONTRACT.md`'s ownership note), for a founder whose
+  `venture_stage` moves to `pivoting` or whose `business_type` changes mid-flight. No fixture has
+  ever exercised either of these — they are materially different tests than round 3's SkyClaim
   fixture, which started as `pivoting` rather than becoming so partway through.
-- **A real, multi-session lifecycle exercise driven by an actual human, not a role-played dry
-  run.** Nothing in this repo has been driven by an actual person across a real gap of time — the
-  specific failure modes that only show up across sessions (a founder who forgets what they said
-  last time, `/business-status` resuming correctly after a real multi-day gap, a scheduling
-  mechanism actually firing a check-in) have never been tested by anything, simulated or real, and
-  round 6's two dry runs are still simulated, single-operator sessions.
 
-Only once round 6 lands and these remaining corners are named honestly against what it actually
-covered does further breadth become the priority again: more industry verticals per DE step
-(regulated industries and hardware now have a dedicated council seat, but their DE-step branching
-depth hasn't been dry-run tested the way marketplace/services/SaaS/consumer-app have; B2B2C and
-nonprofit/social-enterprise variants remain entirely unwritten), a genuinely large council-persona
-library segmented by stage and geography as well as business type (starting with the still-open
-`saas`/`consumer_app`/`other` dedicated-persona question round 5 sharpened but didn't close), deeper
-fundraising-specific agents (pitch-deck iteration, cap-table sanity checks flagged clearly as
-non-legal-advice), a Layer 2 behavioral eval suite grown well beyond the 7-case seed round 4
-planted, and operations agents that extend meaningfully past year one (scaling playbooks, hiring
-plans, board-reporting assembly). This is where the "hundreds of agents, thousands of skills" scale
-of the long-term vision actually starts to apply — but only some of it, and only after the
-lifecycle this plugin already claims to support has actually been run start to finish, more than
-once, including the revision loop and the post-approval half. Getting there is explicitly not a
-matter of writing many more agents as fast as possible, and it is not a matter of running one more
-review round and calling the plugin finished — it's a standing practice of building, adversarially
-reviewing, dry-running, and rewriting the roadmap, the same shape this document has now gone
-through five times.
+**As of this snapshot, checked directly rather than assumed:** neither `docs/QA-FINDINGS-OVERRIDE-
+ROUND7.md` nor `docs/QA-FINDINGS-PIVOT-ROUND7.md` exists yet in `docs/` — confirmed by a direct
+file-existence check, not assumed absent, since both agents are still running concurrently with this
+revision. This section should be rewritten once both land, with the same "confirmed present in the
+current files" treatment every prior round's section above got, rather than left as this in-progress
+snapshot.
+
+## v0.3 and beyond — the real frontier, and what stays open even after round 7
+
+With v0.2's depth work closed since round 4, and the revision loop and post-approval half both
+closed live since round 6, the honest next horizon is narrower than it has ever been — and it is
+worth naming plainly, rather than reflexively scoping another round of simulated dry runs, that this
+narrowing is itself the headline finding of this revision.
+
+**After round 6, most of what a *swarm of simulated dry runs* can find in this plugin has now been
+found.** Six live dry runs and two deep post-approval/revision runs (rounds 2-6) have independently,
+repeatedly demonstrated the same thing: a fresh pair of simulated eyes driving a real fixture through
+real code finds real bugs, every single time, across eight rounds running. But the *shape* of what's
+left to exercise has been narrowing steadily — round 5 found the first bug that wasn't a business-type
+gap at all, and round 6 found two more of that same new kind (an unexercised revision-loop seam, an
+unexercised non-monthly-cadence formula) in a single round, on two different subsystems. Round 7,
+scoped as the founder-override path, a second check-in cycle, and a mid-lifecycle pivot, closes three
+more specifically-named, specifically-still-open branches — and once it lands, the honest question
+this document needs to ask is not "what's the next branch" but **whether the swarm-dry-run method
+itself has reached diminishing returns**, at least for finding bugs of this category, in this repo.
+
+That question has an honest answer even before round 7's findings land: **a real, multi-session
+lifecycle exercise driven by an actual human — not a role-played dry run — is the next qualitatively
+different kind of testing this project needs, not just another simulated business or another
+simulated branch.** Every one of rounds 2 through 6 shares one structural limit no amount of swarm
+volume can close on its own: a single operator, in a single session, deciding what a founder would
+plausibly say next. That produces real, valuable findings (eight rounds of evidence for this, now),
+but it cannot produce the specific failure modes that only show up across real elapsed time and a
+real, un-scripted human: a founder who genuinely forgets what they said last session and gives an
+answer that contradicts `business-state.json`; `/business-status` resuming correctly (or not) after a
+real multi-day or multi-week gap, not a same-session simulated one; a scheduling mechanism actually
+firing a check-in unattended, with no one driving; a founder phrasing a vague, evasive, or
+overconfident answer in the genuinely unpredictable way real people do rather than the way a
+role-playing agent, however careful, tends to phrase one. Round 6's own `docs/QA-FINDINGS-
+POSTAPPROVAL-ROUND6.md` (§6) hit the edge of this limit directly and named it honestly: a real
+scheduling capability existed in that session's environment, and the agent correctly declined to
+actually fire it against a real account for a fictional business, rather than fake a demonstration —
+which is the right call for a dry run, but it also means the one live-firing test that would matter
+most has still never happened, by design, and cannot happen inside another simulated round.
+
+This does not mean simulated dry runs stop being useful — round 7's three items are real, specific,
+still-open gaps worth closing, and a future business type, persona, or code path may still turn up a
+real bug the same way rounds 2-6 did. It means the roadmap should stop treating "run another
+simulated business through the plugin" as the presumptive next horizon by default, once round 7's
+three specifically-named branches are closed, and start treating **a real founder's real, multi-
+session use of this plugin** as the qualitatively different validation this project now needs most.
+Naming what stays genuinely untested even after a fully successful round 7, so a future round doesn't
+rediscover it as if it were new:
+
+- **A real, multi-session lifecycle exercise driven by an actual human is still the single biggest
+  structural gap, and no further swarm round can close it by itself.** See the framing above — this
+  is restated here, not as one bullet among several equally-weighted open items the way it was in the
+  round-6 revision of this document, but as the frontier everything else in this section is now
+  secondary to.
+- **More industry verticals per DE step remain unwritten.** Regulated industries and hardware now
+  have a dedicated council seat, but their DE-step branching depth hasn't been dry-run tested the way
+  marketplace/services/SaaS/consumer-app have; B2B2C and nonprofit/social-enterprise variants remain
+  entirely unwritten.
+- **A genuinely large council-persona library segmented by stage and geography, as well as business
+  type, remains open** — starting with the still-open `saas`/`consumer_app`/`other` dedicated-persona
+  question round 5 sharpened but didn't close.
+- **Deeper fundraising-specific agents** (pitch-deck iteration, cap-table sanity checks flagged
+  clearly as non-legal-advice) remain unwritten.
+- **A Layer 2 behavioral eval suite** grown well beyond the 7-case seed round 4 planted remains open —
+  and is worth weighing directly against the "real human" frontier above: a larger eval suite is
+  still simulated, automatable validation, not a substitute for it.
+- **Operations agents that extend meaningfully past year one** (scaling playbooks, hiring plans,
+  board-reporting assembly) remain unwritten.
+
+This is where the "hundreds of agents, thousands of skills" scale of the long-term vision actually
+starts to apply — but only some of it, and only once it's weighed honestly against the fact that the
+single highest-value thing this project can do next is no longer "simulate one more business," it's
+"get a real founder to actually use it and see what breaks." Getting there is explicitly not a matter
+of writing many more agents as fast as possible, and it is not a matter of running one more review
+round and calling the plugin finished — it's a standing practice of building, adversarially
+reviewing, dry-running, and rewriting the roadmap, the same shape this document has now gone through
+seven times, alongside an honest reckoning with which parts of that practice have started to plateau.
 
 ## The constraint that doesn't loosen as this grows
 
 Every horizon above is additive to the same contract, not a departure from it. `CONVENTIONS.md`
 exists precisely because a swarm of independently-authored agents and skills only stays coherent
 if they all write against one directory layout, one frontmatter shape, one data contract, and one
-verdict schema. Growth from "hundreds" toward "thousands" of skills — and from round 6 toward round
-7 and beyond — is only survivable, for users and for the swarm of contributors building it, if
+verdict schema. Growth from "hundreds" toward "thousands" of skills — and from round 7 toward round
+8 and beyond — is only survivable, for users and for the swarm of contributors building it, if
 every new or revised skill or agent still:
 
 - lives in the directory layout `CONVENTIONS.md` §1 defines, with kebab-case names;
@@ -532,6 +635,9 @@ actually was, round 3 extended what gets checked and confirmed it held under a s
 dry run, round 4 turned that same scrutiny on `CONVENTIONS.md` itself and closed a real
 cross-cutting drift it found, round 5 closed the QA layer's own last flagged gap and, running the
 mechanical checklist meant to catch a whole-lifecycle regression for the first time, found a real
-contradiction between two skills' contracts before any live run ever hit it, and round 6 is now
-testing whether that fix — and the entire back half of the lifecycle diagram alongside it — actually
-holds when a real revision cycle and a real GTM/ops run are driven through it live.
+contradiction between two skills' contracts before any live run ever hit it, round 6 confirmed live
+that fix — and the entire back half of the lifecycle diagram alongside it — actually holds when a
+real revision cycle and a real GTM/ops run are driven through it, and round 7 is now testing the
+three specifically-named branches that were still open once that back half was closed: a founder
+overriding a standing council objection, a second recurring check-in cycle, and a mid-lifecycle
+pivot.

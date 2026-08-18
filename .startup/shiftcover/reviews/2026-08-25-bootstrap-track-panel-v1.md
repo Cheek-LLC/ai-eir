@@ -1,3 +1,15 @@
+> ## Founder Override — logged 2026-08-27
+> Per `agents/orchestrator.md` Non-negotiable #3, founder Maria Chen explicitly and knowingly
+> overrode this REJECT rather than starting a third revision cycle. Nothing below this line has
+> been altered, deleted, or reworded — every persona's verdict, the aggregation accounting, and the
+> original required-revisions list stand exactly as written. The four items overridden are marked
+> inline where they appear, each cross-referenced to its `risk_log` entry
+> (`ov-shiftcover-001`–`ov-shiftcover-004`, `status: "accepted"`) in `business-state.json`. Full
+> exchange, including Maria's explicit "yes, override" naming all four risks, is in
+> `interview-log.md`'s 2026-08-27 entry. Resulting `stage`: `"approved"` (not a further
+> `"revising"` cycle — see `docs/QA-FINDINGS-OVERRIDE-ROUND7.md` for why the state-machine diagram
+> doesn't say this outcome explicitly and how that gap was resolved).
+
 # ShiftCover — Review Council — Bootstrap Track (Track A) — Re-review v1
 
 **Plan version reviewed:** `plan/business-plan.md` v2 (`plan/business-plan-v2.md`), the revision
@@ -316,12 +328,17 @@ severity)*
 ### Required revisions (from the sole reviewer at the aggregate severity)
 1. [PERSONA-VALIDITY] Conduct at least 7 more real conversations specifically with GMs/shift
    managers (not Directors of Operations) before treating Step 3's profile as more than a
-   hypothesis.
+   hypothesis. **[OVERRIDDEN 2026-08-27 — see `risk_log` entry `ov-shiftcover-001`, accepted by
+   founder, not resolved.]**
 2. [EVIDENCE-GAP] Get Step 9's prospects to an actual stated signal of interest — a scheduled
    pricing conversation, a stated "yes, interested," or a declined-with-reason — before the list
-   is used to justify anything downstream (COCA, sales-cycle length, TAM confidence).
+   is used to justify anything downstream (COCA, sales-cycle length, TAM confidence). **[OVERRIDDEN
+   2026-08-27 — see `risk_log` entry `ov-shiftcover-002`, accepted by founder, not resolved. Founder
+   stated reasoned disagreement with this bar, not just acceptance of the gap — see
+   `interview-log.md`.]**
 3. [SOURCING] Find or commission an independently checkable source for the 3,000-group beachhead
-   count before this TAM is shown to anyone outside this working session.
+   count before this TAM is shown to anyone outside this working session. **[OVERRIDDEN 2026-08-27
+   — see `risk_log` entry `ov-shiftcover-003`, accepted by founder, not resolved.]**
 
 **All three items are carried forward unchanged from `reviews/2026-08-18-balanced-panel-v1.md`** —
 none were part of this revision cycle's routed work, because `revise-business-plan` worked the
@@ -340,6 +357,10 @@ corroborating evidence that kept `customer-discovery-skeptic`'s REJECT from bein
 outlier** in the accounting above — without it, this aggregate would very likely have come back
 APPROVE_WITH_NOTES (three of five seats landed there this cycle). It is worth the founder's direct
 attention on that basis alone, not just as a secondary note buried under a harsher verdict.
+
+**[OVERRIDDEN 2026-08-27 — see `risk_log` entry `ov-shiftcover-004`, accepted by founder, not
+resolved. This was surfaced to the founder explicitly and separately from the required-revisions
+list, exactly as this section is designed to force — see `interview-log.md`.]**
 
 ## Council-integrity note
 

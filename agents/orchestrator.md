@@ -122,9 +122,13 @@ council_review
    └── verdict REVISE / REJECT
            ▼
         revising
-           │  required revisions addressed (or founder override logged)
-           ▼
-        council re-run while stage is still "revising" (its own precondition)
+           ├── required revisions addressed ─────────────────► council re-run while stage
+           │                                                    is still "revising" (its own
+           │                                                    precondition) ─► loops back to
+           │                                                    the verdict branch above
+           └── founder override logged (Non-negotiable #3) ──────────────────────► approved
+                  (no re-run — the override substitutes for a clean pass, it does not
+                   trigger one; see Non-negotiable #3 and Phase 4's closing paragraph)
 approved
    │  founder greenlights go-to-market
    ▼

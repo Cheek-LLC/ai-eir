@@ -1,7 +1,7 @@
 # Changelog — 30-Minute Startup
 
 This is the single chronological ledger of what got built, what broke, and what got fixed, across
-every round of this plugin's build. It exists because the QA history now spans seven separate
+every round of this plugin's build. It exists because the QA history now spans eight separate
 `docs/QA-FINDINGS-*.md` reports plus a dogfood pass and a first real Layer 3 regression pass, each a
 standalone, never-overwritten record of one round's audit (per `CONVENTIONS.md`'s own naming rule)
 — accurate on its own, but not skimmable as a set. For the full file-by-file catalog of what exists
@@ -375,6 +375,94 @@ structurally reviewed and read correctly, but carry zero real-run evidence. See
 
 ---
 
+## Round 6 — first completed revision cycle, first post-approval run, and a revision-routing gap
+
+**Findings:** `docs/QA-FINDINGS-ROUND6.md` (the first real revision cycle, driven live against
+`shiftcover`'s standing `stage: "revising"` REVISE verdict), `docs/QA-FINDINGS-POSTAPPROVAL-ROUND6.md`
+(the first real GTM → ops → recurring-check-in run, driven live against `vantage-point-search`'s
+standing `stage: "approved"`). Both are exactly the two gaps round 5's Layer 3 pass named, in its own
+closing section, as the highest-value next tests — not a new business type, not a new persona, but
+the first live exercise of two code paths every prior round had only read.
+
+This round ran no new onboarding session and created no new fixture; it picked up the two existing
+fixtures the plugin's live-testing history had left stalled at exactly the two points round 5 flagged,
+and drove each through real, on-disk work for the first time.
+
+**Headline 1 — the revision loop works end to end, live, for the first time, and round 5's stage-value
+fix holds under real execution, not just inspection.** `revise-business-plan/SKILL.md` kept `stage` at
+`"revising"` through a full revision cycle (routing 5 real required-revision items to DE-step rework
+or synthesis-level fixes, producing a real `plan/business-plan-v2.md`, running the mandatory AI-risk
+gate live against the new content), and `run-review-council/SKILL.md`'s precondition accepted the
+handoff cleanly with no workaround — the stall round 5 predicted under the pre-fix
+`stage = "council_review"` bug did not happen. The re-review landed REJECT again, on real, defensible
+grounds (worked by hand through the aggregation algorithm's semantic-overlap check, confirmed
+load-bearing on a real outcome for the first time), not a rubber-stamped approval.
+
+That REJECT surfaced this round's one significant, previously-undetected gap: **a discarded outlier's
+required revisions were never routed to by `revise-business-plan`, so they resurfaced identically on
+re-review.** `customer-discovery-skeptic`'s REJECT in v1 was correctly discarded as a
+non-corroborated outlier by the aggregation algorithm — but `revise-business-plan` §0.3 only ever
+extracted the synthesized aggregate checklist, which by construction never contained a discarded
+persona's items. The revision genuinely, substantively addressed 4 of 5 aggregate items, but never
+touched the discarded persona's 3 concerns at all, because nothing in the skill's instructions pointed
+at them — and on re-review that persona reconvened, found its concerns untouched, and REJECTed again,
+this time surviving the outlier test via semantic (not literal) tag corroboration with a second
+reviewer. **Fixed:** `revise-business-plan/SKILL.md` §0 now explicitly instructs extracting and
+carrying forward (never dropping) both the `### Discarded-but-real concerns` and `### Also flagging,
+regardless of severity` sections alongside the aggregate checklist as in-scope work, so a discarded
+concern's substance gets worked even though the outlier-discard rule correctly kept it from dictating
+the aggregate verdict on its own. A related, smaller finding from the same live run was fixed in the
+same file: §1's routing guidance conflated "blocked on a founder decision" with "blocked on real
+calendar time passing" under one "blocked" bucket, risking pressure to fabricate progress on a
+time-gated item (e.g. recomputing a sales-cycle funnel before enough real prospects have moved through
+it) — now reported explicitly and distinctly as "open, time-gated."
+
+**Headline 2 — the first live run past `stage: "approved"` found a real 2-4.3x runway-overstatement
+bug, plus a real, previously-undocumented ambiguity in the connectors gate's scope.**
+`vantage-point-search` was driven through `launch-director`'s full GTM sequencing, a live
+`connectors-liaison` invocation (confirmed, not assumed, that no CRM connector exists in this
+environment), `operations-manager`'s first-ever real check-in, and a full `recurring-check-in` pass —
+the entire back half of the lifecycle diagram, exercised live for the first time.
+
+`skills/ops/runway-and-burn-tracking/SKILL.md`'s formula (`runway_months = cash_on_hand / net_burn`)
+had no period-normalization step, and this was the first time it had ever run against a non-monthly
+check-in cadence. Applied literally to a real biweekly (14-day) first check-in, the un-normalized
+formula would have reported roughly **28.3 months of runway against a correct, monthized figure of
+about 13.2** — a 2.1x overstatement at biweekly cadence, and a projected ~4.3x overstatement at a
+weekly cadence, on exactly the single number `agents/ops/finance-controller.md` names as the one
+whose staleness or fabrication is "actively dangerous" because a founder can make a real payroll
+decision off it. The gap survived every prior round only because the ops layer had never run live
+before this round. **Fixed:** the skill now instructs normalizing any non-monthly period's burn to a
+monthly-equivalent figure before computing runway, and reporting both the raw period figure and the
+monthized figure so the normalization itself is visible in the output, not just the final number.
+
+The same run also surfaced a real, previously-undocumented ambiguity in the connectors gate's
+scope: neither `docs/CONNECTORS-CATALOG.md` nor `agents/connectors-liaison.md` specified whether a
+task like "send the launch announcement" meant an agent automating a send through a wired tool, or a
+founder personally sending an email from their own inbox on the agent's recommendation — a real
+distinction, since reading it too broadly risks blocking a founder from using their own tools
+unnecessarily, and reading it too narrowly risks letting an agent-automated bulk send bypass the
+privacy gate. **Fixed:** `agents/connectors-liaison.md`'s MANDATORY GATE callout now states explicitly
+that the gate applies when the agent itself initiates or automates an action through a connector it
+operates, not when the plan simply recommends the founder personally take an action through their own
+already-existing tools.
+
+**What worked well, confirmed live for the first time:** the connectors-liaison gate's full chain
+(identify → live-check → surface → record → report) held under real pressure on a real CRM need, with
+round 4's "don't silently drop the pending piece" fix confirmed intact; `launch-director`'s
+funding-strategy determination and its GTM/ops state-machine boundary with the orchestrator both held
+exactly as documented; `operations-manager`'s "insufficient data" discipline produced honest output
+rather than a forced read from too little real history; and the AI-risk gate held on the revision path
+specifically (not just first assembly), catching a real fresh unsourced figure introduced mid-revision.
+
+**Round 6 is now complete and integrated** — every fix named above is confirmed present in the current
+files, not left as an open backlog: `skills/business-plan/revise-business-plan/SKILL.md` (§0 discarded-
+concerns routing, §1 decision-gated vs. time-gated distinction), `skills/ops/runway-and-burn-
+tracking/SKILL.md` (period-normalization step), and `agents/connectors-liaison.md` (agent-automated vs.
+founder-personal gate scope).
+
+---
+
 ## Patterns worth knowing
 
 These are the things that only become visible by reading the findings docs together, not from any
@@ -447,4 +535,22 @@ one of them alone.
   all, they're about depth of exercise — a code path nobody has ever actually walked, however well
   it reads. Round 6, running concurrently with this document, is the first attempt to walk that
   specific path for real.
+- **Round 6 confirmed round 5's new category, and then repeated it a second and third time in the
+  same round, on two entirely different subsystems — this is now a pattern, not a one-off.** Both
+  of round 6's headline findings are unexercised-code-path bugs, not business-type gaps: the
+  discarded-outlier revision-routing gap lives in a seam between `revise-business-plan` and
+  `run-review-council` that only a real *second* pass through revision (not just a second pass
+  through council review) exercises, and the runway-normalization bug lives in a formula that was
+  always wrong for any non-monthly cadence but had simply never been run against one, because the
+  ops layer had never run live at all before this round. Neither bug involved a business type, an
+  industry vertical, or a step template — both were sitting, fully formed, in code every prior round
+  had read and judged correct. Read together with round 5's finding, the pattern across rounds 5 and
+  6 is now explicit: **the most consequential findings in this build have shifted from "a business
+  type or shape the code was never written for" (rounds 2-4, and still present but secondary in round
+  5) to "a code path nobody has ever actually executed, however well it reads"** — the revision loop,
+  the post-approval GTM/ops layer, and (within round 6 itself) a *second* pass through revision. This
+  is worth stating plainly for future rounds: once every DE step and every council persona has real
+  business-type coverage (true since round 4), the highest-yield place to look next is not a seventh
+  business type, it's the next code path nothing has ever actually walked — see `docs/ROADMAP.md`'s
+  framing of round 7 and what stays open after it.
 
