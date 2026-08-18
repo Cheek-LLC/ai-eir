@@ -77,6 +77,13 @@ The fully-loaded buildup (deliverable 1) is dominated by a different cost line d
 - **Marketplace:** Cost supply-side and demand-side acquisition **separately** — they're rarely
   symmetric, and one side is often subsidized (free listings, incentive payments) to reach
   liquidity. A single blended "marketplace COCA" hides which side is actually expensive.
+  **When comparing each side's COCA to Step 17's LTV, check explicitly whether that side has a
+  representable LTV at all** — per Step 17's marketplace guidance, a side that is paid by the
+  business (not charged) has no positive LTV under the standard formula. Report that side's ratio
+  as "N/A — compensated side, not charged" rather than omitting it or forcing a number, and use
+  Step 17's substitute sustainability metric for that side instead. Do not present a single
+  flattering LTV:COCA ratio (typically the demand side's) as if it represented the whole business
+  — state both sides' status explicitly, even when one is N/A.
 - **Services:** Usually dominated by founder/BD loaded time (referral- and network-driven), with
   near-zero paid marketing spend early on — the "ask the founder" question above about a market-
   rate rep salary is especially load-bearing here, since unpaid founder time is most of the real

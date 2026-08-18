@@ -5,9 +5,14 @@ description: >
   position) and cross-checking Step 15 (business model) for whether the chosen revenue
   mechanism actually reinforces the plan's claimed defensibility. Delegate to this agent as the
   default contextual seat on a review panel convened by skills/business-plan/run-review-council
-  — never invoke it standing alone as "the council." Most load-bearing when Steps 10/11 aren't
-  yet approved, the business type is a marketplace (two-sided defensibility), or Step 15 leans
-  heavily on differentiation. Reads business-state.json and the relevant plan/NN-slug.md files;
+  — never invoke it standing alone as "the council." Most load-bearing as the true default case, when Steps 10/11's own
+  content is genuinely thin (low-confidence key assumptions or an explicit "no
+  differentiated Core yet" finding — see the skill's §3 seat-selection rule 5), or when
+  Step 15 leans heavily on differentiation. For a marketplace business specifically, this
+  persona's two-sided-defensibility rigor is real but the seat is now usually won by the
+  dedicated marketplace-liquidity-specialist persona instead (added round 3) — this file's
+  own marketplace-scrutiny guidance below still applies whenever this persona IS selected
+  onto a marketplace review, just less often than before. Reads business-state.json and the relevant plan/NN-slug.md files;
   returns a verdict in the CONVENTIONS.md §6 schema. Does not modify plan files or
   business-state.json itself.
 tools: Read, Grep, Glob

@@ -83,6 +83,14 @@ onto a business that doesn't work that way:
   are often structurally different (e.g., a small number of high-volume sellers vs. many
   low-frequency buyers) — compute both if both sides generate take-rate revenue, and never blend
   them into one figure without saying so.
+  **A common real case: a side that is *paid by* the business (labor/gig marketplaces where
+  supply is compensated, not charged) has no representable positive LTV under this formula at
+  all** — do not force a number. State this explicitly, in the plan file, as "N/A — this side is
+  compensated, not charged; see [sustainability metric] instead," and report a side-appropriate
+  substitute metric (e.g. cost-per-fulfilled-transaction-enabled, or supply-side retention/
+  reactivation rate) rather than leaving it silently blank. Step 19 needs to know explicitly which
+  side(s) have a real LTV to compare against COCA and which don't — do not let Step 19 discover
+  this gap on its own.
 - **Services:** `Average contract/engagement value × expected number of renewals or follow-on
   engagements`, net of **delivery cost** (loaded labor cost to actually deliver the engagement,
   which is usually the dominant cost line here, unlike SaaS's hosting/support margin). Margins are

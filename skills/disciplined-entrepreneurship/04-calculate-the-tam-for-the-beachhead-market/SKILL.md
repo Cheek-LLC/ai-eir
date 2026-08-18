@@ -65,6 +65,17 @@ directly on Steps 2 and 3 and feeds every downstream financial claim in the plan
    plausibly dominate. If the number lands far outside that range, say so explicitly as a note
    for the founder to consider revisiting Step 2's beachhead choice — do not silently redo Step 2
    yourself.
+   **This heuristic is stated in revenue terms and applies directly to SaaS/physical-product/
+   services/consumer_app beachhead TAM (their step-4 output is revenue). For a `marketplace`
+   business, the step-4 output per the Business-type branching section above is take-rate
+   *revenue* (GMV × take rate), which is structurally a fraction of GMV — do not apply this
+   heuristic's dollar range to the take-rate figure directly, or nearly every early-stage
+   marketplace's correctly-computed beachhead will spuriously look "too small." Instead: check the
+   heuristic against the underlying GMV figure (report both GMV and take-rate revenue explicitly,
+   per the branching section above), and treat a take-rate-revenue figure an order of magnitude or
+   more below the stated range as expected and non-disqualifying for a marketplace specifically —
+   flag it as a marketplace-typical pattern, not a beachhead-choice problem, unless the GMV figure
+   itself is also outside a sane range.**
 5. **Cross-check against any top-down figure** (a market report's stated TAM for the broader
    category) as directional support only. Always show the bottom-up math as the number of
    record; label any top-down figure as "directional cross-check," never as the primary source.

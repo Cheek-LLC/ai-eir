@@ -104,6 +104,8 @@ profile from the founder's hypotheses, but:
 (# of real conversations, method — interviews, observation, surveys)
 
 ## Profile dimensions
+(for a marketplace, complete one full table per side — supply-side profile and demand-side
+profile — rather than one shared table; see "Business-type branching" above)
 | Dimension | Detail |
 |---|---|
 | Firmographic/demographic anchor | |
@@ -112,6 +114,7 @@ profile from the founder's hypotheses, but:
 | Distinguishing/trigger characteristic | |
 
 ## Narrative profile
+(for a marketplace: one narrative per side)
 ("This person is a ... who currently ... and struggles with ...")
 
 ## In-profile vs. out-of-profile

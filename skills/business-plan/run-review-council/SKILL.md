@@ -187,21 +187,38 @@ first that triggers; if none trigger, use the default:
    conflict with #2), or, in principle, for a non-services business whose DMU content
    independently trips this trigger.
 4. **`product-market-fit-panel`** triggers if `business_basics.business_type` is `saas`,
-   `consumer_app`, or `marketplace`, **and** any of Steps 06, 07, 08, 20, 21, 22, 23 has `status`
-   other than `approved`, **or** `key_assumptions` entries with `step_ref` in that range and
-   `confidence: low` outnumber similarly-low-confidence entries elsewhere in the plan — i.e., the
-   PMF-critical steps are the plan's least mature section right now. In practice this trigger's
-   `marketplace` branch will rarely fire, for the same reason noted at #3: `business_type:
-   marketplace` is already claimed by #2 before evaluation reaches #4. It remains live for `saas`
-   and `consumer_app`.
-5. **`competitive-strategy-reviewer`** — the default, used only when nothing above triggered. Also
-   use this instead of #3/#4 whenever Steps 10/11 are not yet `approved`. (Its own file's
-   description still names `marketplace` as a load-bearing case from before this round — that is
-   now superseded by #2 for seat-selection purposes; `business_type: marketplace` will always be
-   intercepted by #2 unless #1 fires first, so this persona's marketplace-specific rigor, while
-   still real and worth reading in its own right, will only be selected onto the panel via the
-   Steps-10/11 condition or the true default case, not via the business-type match alone. This is
-   a known, intentional consequence of adding #2, not an oversight — flagged here so a future
+   `consumer_app`, or `marketplace`, **and** `key_assumptions` entries with `step_ref` in the
+   06/07/08/20/21/22/23 range and `confidence: low` outnumber similarly-low-confidence entries
+   elsewhere in the plan — i.e., the PMF-critical steps are the plan's least mature section right
+   now. **(Round 3 fix: this used to also OR in "any of those steps has `status` other than
+   `approved`" — since no `disciplined_entrepreneurship.NN_slug.status` value is ever promoted
+   past `drafted` by anything in this plugin, per `agents/orchestrator.md`'s explicit design, that
+   clause was unconditionally true for every business ever reviewed and made the maturity check
+   vacuous — it always fired whenever the business-type matched, regardless of actual step
+   maturity. Removed; the `key_assumptions`-confidence-concentration test is the only real signal
+   and was already doing the actual work.)** In practice this trigger's `marketplace` branch will
+   rarely fire, for the same reason noted at #3: `business_type: marketplace` is already claimed
+   by #2 before evaluation reaches #4. It remains live for `saas` and `consumer_app`.
+5. **`competitive-strategy-reviewer`** — the default, used only when nothing above triggered.
+   **Also use this instead of #3/#4 whenever Steps 10 or 11 have `key_assumptions` entries with
+   `step_ref` in that range at `confidence: low`, or either step's `summary` explicitly states no
+   differentiated Core/position was found yet (e.g. a pre-liquidity marketplace with no Core yet,
+   or a generic/undifferentiated competitive chart)** — i.e. the same kind of real content-based
+   maturity signal #4 uses, not a status value. **(Round 3 fix: this condition used to read
+   "whenever Steps 10/11 are not yet `approved`" — the identical vacuous-status bug found and
+   fixed in #4 above, independently present here too and confirmed, by a live second dry run, to
+   have survived a full rewrite of this section untouched. Since no step status ever reaches
+   `approved`, that clause was unconditionally true for every business, silently overriding #3 and
+   #4's legitimately-firing triggers every single time for any business type other than
+   `marketplace`/`services` — which now have their own higher-priority trigger at #2 and so were
+   accidentally shielded from ever hitting this bug. Replaced with a real, variable signal.)** Its
+   own file's description still names `marketplace` as a load-bearing case from before this
+   round — that is now superseded by #2 for seat-selection purposes; `business_type: marketplace`
+   will always be intercepted by #2 unless #1 fires first, so this persona's marketplace-specific
+   rigor, while still real and worth reading in its own right, will only be selected onto the
+   panel via the Steps-10/11 content signal above or the true default case, not via the
+   business-type match alone. This is a known, intentional consequence of adding #2, not an
+   oversight — flagged here so a future
    editor of `competitive-strategy-reviewer.md` understands why its own description now overstates
    how often it's actually selected for a marketplace.)
 
@@ -486,6 +503,22 @@ Write, in this order:
    point on the whole panel, be findable only by reading past the checklist into the full verdict
    blocks above. Omit this subsection entirely if nothing was discarded — don't write "none" for
    every review, that's noise.
+   **A related, distinct case (round 3 fix): a verdict can *survive* the outlier test — it wasn't
+   discarded, it's sitting right there in the panel — while still landing at a severity softer
+   than the aggregate, purely because its corroboration came from a lower-severity reviewer's tag
+   overlap. In that case its required-revisions items still don't make the synthesized checklist
+   (the literal rule above only unions items from reviewers *at* the final aggregate severity),
+   even though the finding itself might be the single most consequential one on the whole panel —
+   this was confirmed to happen for real, not just hypothetically, in round 3's second live dry
+   run (a marketplace disintermediation-risk finding at APPROVE_WITH_NOTES, aggregate REJECT).
+   After the Required Revisions checklist and any Discarded-but-real-concerns subsection, add one
+   more, severity-independent check: does any surviving verdict contain a finding you'd judge as
+   the single most consequential one on the panel, regardless of its own severity level? If so,
+   add a one-line `### Also flagging, regardless of severity` note: "<finding>, raised by
+   <persona> — not part of the aggregate-severity checklist above, but worth the founder's
+   attention on its own merits." This is a judgment call, not a mechanical trigger like the
+   discarded-outlier case — use it sparingly, for a genuinely load-bearing finding, not every
+   review. Omit entirely when nothing meets that bar.**
 5. **Council-integrity note** from §7, even if it's reassuring ("no rubber-stamping signal this
    pass") — state it, don't omit it because it's good news.
 6. **Footer disclaimer, once:** "This review is a planning aid produced by simulated reviewer
