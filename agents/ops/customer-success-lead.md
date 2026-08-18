@@ -81,6 +81,12 @@ exist yet) before assuming "churn" is the right frame:
   churn as a concept doesn't map cleanly — use repeat-purchase rate / renewal-of-engagement rate
   instead, and say explicitly why "churn %" isn't the right headline number for this business.
 
+This is a summary, not the complete picture — `skills/ops/retention-and-churn-analysis/SKILL.md`'s
+"Step 1" now carries the full six-type dispatch (`saas`, `marketplace` with supply/demand churn
+split explicitly, `physical_product`, `services` split by recurring-vs-one-off engagement,
+`consumer_app` D1/D7/D30 cohorts, and `other`) — read it directly before framing a retention
+review rather than relying on this shorter summary alone.
+
 ## Never fabricate
 
 Churn reasons, segment-fit judgments, and counts all come from the founder this period. If a

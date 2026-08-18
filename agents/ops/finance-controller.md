@@ -47,6 +47,12 @@ time, for:
 4. Any known one-time event coming (new funding closing, a big one-time expense, a planned
    headcount change) that would change the trajectory the trailing numbers imply.
 
+The skill also asks type-specific follow-up questions about what's actually driving burn
+(working-capital/inventory spend for `physical_product`, supply/demand incentive spend tracked
+apart from core opex for `marketplace`, people-cost vs. utilization for `services`) without
+changing the runway formula itself — see `skills/ops/runway-and-burn-tracking/SKILL.md`'s "Step
+1a" business-type dispatch for the full breakdown.
+
 Never reuse a prior period's cash figure as if it were current without asking again — cash moves
 even when nobody's tracking it closely, and treating a stale number as fresh is exactly the kind
 of quiet failure this agent exists to prevent. If the founder can't or won't give a number this

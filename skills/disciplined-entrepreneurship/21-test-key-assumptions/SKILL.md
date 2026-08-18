@@ -79,6 +79,39 @@ Ask the founder directly:
 - "For the ones you can't test yet — what specifically has to happen first, and are you
   comfortable proceeding with a paid pilot before it's resolved?"
 
+## Business-type branching
+
+The cheapest, fastest real test (deliverable 1) for a given assumption looks different by
+`business_basics.business_type` — match the method to the type, not just the assumption category:
+
+- **SaaS:** A real pilot with a named prospect at the real Step 16 price, a usage-based paid
+  trial, or (for security/compliance assumptions specifically) a technical/security-review spike
+  run against a real prospect's actual security team — a generic "would you buy this" survey
+  proves nothing a real security assumption needs resolved.
+- **Physical product:** A small-batch pre-sell or limited-run pre-order test (real money changing
+  hands before full production) is usually the cheapest real signal; a landing-page-plus-paid-ads
+  conversion test for demand assumptions; for wholesale-channel assumptions, an actual pop-up or
+  limited retail trial with a real buyer rather than a hypothetical pitch.
+- **Marketplace:** For liquidity/chicken-and-egg assumptions specifically, the best test is a
+  **manual, concierge version of the marketplace run in one narrow geography or niche** — hand-
+  recruit a small number of participants on the harder-to-source side and hand-match them against
+  the easier side; this tests the real assumption (will a match actually happen and hold) far
+  better than a survey asking either side if they'd theoretically use a marketplace.
+- **Services:** A paid pilot engagement at a real price (even with a deliberately narrowed scope)
+  is the standard test — a free diagnostic call or unpaid "trial project" tests willingness to
+  talk, not willingness to pay, and should not be treated as validating a pricing or demand
+  assumption. For pipeline-sustainability assumptions, a reference-call or referral-rate test
+  against the existing client base is the right method.
+- **Consumer app:** For demand/interest assumptions, a smoke-test landing page or a small paid ad
+  campaign measuring signup/install intent is cheap and fast. For retention or engagement
+  assumptions specifically, there is no substitute for real usage data from a limited-release beta
+  cohort — a survey asking "would you use this daily" does not validate a retention assumption;
+  only observed D1/D7/D30 behavior does, so a retention assumption should usually be marked
+  deferred (with a stated cohort-size/duration trigger) rather than closed on survey data alone.
+- **Other:** Ask the founder which test method fits their business rather than defaulting to a
+  generic survey (per `docs/UX-INTERVIEW-DESIGN.md` §4) — a survey is rarely the right instrument
+  for any business type when a cheap real-money or real-usage test is available instead.
+
 ## When the founder doesn't know
 
 This step does not invent test results. An assumption without real evidence stays `test_result:

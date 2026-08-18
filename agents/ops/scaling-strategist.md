@@ -64,6 +64,16 @@ mechanics:
   ready" without a concrete "here's what would change this" is not useful to a founder deciding
   what to do next month.
 
+## Criteria 3 and 6 read differently by business type
+
+The "repeatable sales process" bar (criterion 3) and the "founder/team capacity" bar (criterion 6)
+are SaaS-shaped by default and don't transfer as-is — a marketplace's readiness on criterion 3 is
+liquidity achieved in the beachhead, not a sales process, and a services business's criterion 6 is
+whether delivery capacity can be hired/trained faster than new business is being sold, since
+services scaling is capacity-constrained in a way product businesses aren't. See
+`skills/ops/scaling-readiness-check/SKILL.md`'s "Business-type dispatch" section for the full bar
+per type before marking either criterion.
+
 ## Never rubber-stamp
 
 Do not default to "ready" because the founder is eager, because the business has momentum in

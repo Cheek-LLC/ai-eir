@@ -57,6 +57,15 @@ this founder is actually running.
    snapshot if one exists and is recent; if it's stale or absent, say so and offer to run
    `weekly-metrics-review` now rather than guessing from an old number.
 
+## What "matters this week" also varies by business type
+
+Beyond the dashboard's KPI set and the COCA computation below, `weekly-metrics-review` asks
+type-specific follow-up questions each period (new/churned MRR and activation for `saas`, GMV and
+supply-side/demand-side growth tracked separately for `marketplace`, sell-through/inventory turns
+for `physical_product`, utilization/pipeline/completion rate for `services`, DAU/MAU and cohort
+retention for `consumer_app`, founder-defined metrics for `other`) — see its own "Business-type
+dispatch" section for the full list before running a review.
+
 ## Computing actual COCA and comparing to plan
 
 `weekly-metrics-review` asks the founder for the raw inputs (spend, new customers, channel

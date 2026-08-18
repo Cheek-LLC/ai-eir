@@ -58,12 +58,15 @@ criterion yet.
    `retention-and-churn-analysis` snapshots) is stable or improving across the last 3 periods.
    *Fail* if churn is still rising or hasn't stabilized. *Insufficient-data* if fewer than 3
    periods exist, or if customer volume is too small for the rate to be meaningful.
-3. **Sales process is actually repeatable and costed (step 18), not founder-improvised.** Ask the
-   founder directly: of the last several closed deals, how many followed the documented step-18
+3. **Acquisition is actually repeatable and costed, not founder-improvised.** For `saas`, this is
+   step 18's sales process: of the last several closed deals, how many followed the documented
    process (stages, resources, conversion pattern) vs. were bespoke one-offs the founder
    personally engineered? *Pass* only if a real majority followed the documented process. *Fail*
-   if most deals are still founder-led snowflakes with no repeatable pattern — scaling sales spend
-   against a non-repeatable process multiplies an unproven motion, it doesn't scale a working one.
+   if most deals are still founder-led snowflakes with no repeatable pattern — scaling spend
+   against a non-repeatable motion multiplies an unproven one, it doesn't scale a working one. For
+   every other type, apply the matching bar in the **Business-type dispatch** section below before
+   marking pass/fail — a marketplace, for instance, is evaluated on beachhead liquidity, not a
+   sales process.
 4. **MVBP/dogfood validation signal still holds in production (steps 22/23).** Ask the founder
    directly whether real paying customers are actually using the product the way the step 22/23
    validation assumed — not just buying it, but engaging with it the way that signal predicted.
@@ -77,7 +80,10 @@ criterion yet.
    the time, cash (cross-check with the latest finance-metrics runway classification — do not mark
    this pass if runway is Warning/Critical), and team bandwidth to execute a scale-up without
    breaking something currently working (support quality, fulfillment, personal capacity)? This is
-   a direct founder self-report, not an inference.
+   a direct founder self-report, not an inference. What "capacity" actually means varies by type
+   (delivery/hiring capacity for `services`, fulfillment/supply-chain for `physical_product`,
+   trust-and-safety/support for `marketplace`) — apply the matching bar in the **Business-type
+   dispatch** section below.
 
 ## Business-type dispatch: what criteria 3 and 6 actually check
 
@@ -155,7 +161,7 @@ Timestamp format `YYYY-MM-DD`; append `-2`, `-3`... for a same-day rerun.
 |---|---|---|---|
 | 1 | Unit economics hold, not widening | ... (cite source file/period) | pass/fail/insufficient-data |
 | 2 | Retention curve flattening | ... | pass/fail/insufficient-data |
-| 3 | Repeatable, costed sales process | ... | pass/fail/insufficient-data |
+| 3 | Repeatable, costed acquisition motion (bar varies by business type — see dispatch) | ... | pass/fail/insufficient-data |
 | 4 | MVBP/dogfood signal holds in production | ... | pass/fail/insufficient-data |
 | 5 | Product plan supports this scale | ... | pass/fail/insufficient-data |
 | 6 | Founder/team capacity | ... (cross-checked against latest runway classification) | pass/fail/insufficient-data |

@@ -87,6 +87,14 @@ Ask the founder directly:
 - **Services:** The MVBP is usually close to the eventual delivery model already — a real client
   engagement, just narrower in scope or shorter in duration than the full offering. The "minimum"
   cut here is scope, not realism — don't let this collapse into a free diagnostic call.
+- **Consumer app:** The MVBP is a real, functioning app release to a small real cohort — a limited
+  TestFlight/closed-beta or narrow public release — sold via real payment (subscription or IAP) at
+  the actual Step 16 price, not an unlimited free beta with no monetization attached. "Manual
+  behind the scenes" here often means manually-provided customer support, manually curated
+  content, or a human doing what a recommendation/matching algorithm will eventually automate,
+  sitting behind what looks to the user like an automated product.
+- **Other:** Ask the founder what "manual behind the scenes, real payment" concretely looks like
+  for their business rather than guessing (per `docs/UX-INTERVIEW-DESIGN.md` §4).
 
 ## When the founder doesn't know
 
