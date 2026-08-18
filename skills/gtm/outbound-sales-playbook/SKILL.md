@@ -63,7 +63,13 @@ Scaling intensity is a decision procedure, not a judgment call — derive the ti
 what steps 12/13/18 actually reported, in this order:
 
 1. **Count the distinct DMU roles from step 12's table** that are populated with a real, distinct
-   title (not "same as end user" / blank).
+   title (not "same as end user" / blank) **and have real influence on the decision** — a role
+   step 12 itself notes as purely advisory/soft-input with no observed veto or blocking power
+   (e.g. "consulted but has never blocked a decision") does not count toward this tier signal,
+   since it doesn't add the coordination complexity the role-count trigger is meant to detect.
+   This distinction rarely changes the outcome on its own (the procurement/cycle-length signals in
+   steps 2-3 below usually corroborate independently), but don't let a soft-influence role alone
+   push a business into a heavier tier than its real DMU complexity warrants.
 2. **Read step 13's stage list** for whether a procurement/legal/security-review stage appears at
    all, and **step 18's roll-up** for the total sales cycle length.
 3. Map to a tier — apply the first row that matches, top to bottom:

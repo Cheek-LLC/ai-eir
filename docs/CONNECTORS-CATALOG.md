@@ -8,6 +8,14 @@ a tool" to "which category, which real products, what data moves, what to check 
 If a category or connector you need isn't listed here, add a row in the same change that
 introduces the need — don't invent an ad hoc category name inline in an agent/skill file.
 
+**Scope note:** a row's "task that creates the need" describes a real deliverable, not necessarily
+an agent-automated action. Read each row as "this is what needs the connector *if an agent is the
+one sending/syncing it*" — a plan that simply recommends the founder personally take an action
+through their own already-existing tools (send an email from their own inbox, post in their own
+Slack) is outside the plugin's action space and needs no connector or gate, per
+`agents/connectors-liaison.md`'s own scope note. When a deliverable is genuinely ambiguous about
+which of the two it is, the calling agent must resolve it explicitly and say so in the artifact.
+
 ## Naming convention
 
 `business-state.json.connectors.wired_up[]` and `connectors.needed_not_installed[].connector`

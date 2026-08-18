@@ -30,6 +30,20 @@ and is the one that enforces "no cosmetic revisions."
 3. Read that review's file (`reviews/<timestamp>-<council>.md`) in full. Confirm it follows the
    verdict schema (CONVENTIONS.md §6) and extract the numbered **Required revisions** list
    exactly as written — this list is your work order, don't paraphrase it away.
+   **Also extract the `### Discarded-but-real concerns` and `### Also flagging, regardless of
+   severity` subsections if either is present** (per `skills/business-plan/run-review-council`'s
+   §8.4 — these exist precisely because a genuinely credible persona concern can be excluded from
+   the Required Revisions checklist by the outlier-discard rule or a softer aggregate severity,
+   without that concern having been resolved). These items are **not part of your mandatory work
+   order** — routing every discarded concern as mandatory would partly defeat the point of
+   outlier-discard, which exists to stop one uncorroborated objection from dictating the outcome.
+   But they must not silently vanish either: for each one, make a real, brief judgment call —
+   address it now if it's genuinely small and clearly in scope (note this in step 4's
+   `summary_of_changes` the same as any other change), or explicitly carry it forward. Confirmed
+   live in round 6 as a real gap: without this step, a discarded persona's concerns are never
+   worked at all and can resurface identically on the very next re-review, making a revision that
+   substantively addressed everything in its literal work order look like it "did nothing" when it
+   actually just never saw the rest of the picture.
 4. Read the current `plan/business-plan.md` (or the highest-numbered `plan/business-plan-vN.md`
    if this is a second-or-later revision cycle) and `plan.version`/`plan.history` to know the
    current version number.
@@ -147,6 +161,15 @@ and flagged it as a risk; step 19 COCA channel mix updated to include the paid-s
 council flagged as omitted." Never write "addressed feedback," "incorporated council notes,"
 or any other summary that doesn't let a reader tell what actually changed without re-reading
 the diff themselves.
+
+**If any Discarded-but-real or Also-flagging item from §0 was addressed, name it explicitly
+here too** ("also addressed the discarded customer-discovery-skeptic concern re: prospect
+evidence quality — see step 09 rework"). **For any such item carried forward instead**, add a
+`### Known concerns not required this cycle` section to `plan/business-plan-v{N+1}.md` itself
+(near the Confidence & Validation Status section) naming the concern, which persona raised it,
+and why it wasn't addressed this cycle — this is what keeps it visible to the founder and to the
+next council review, rather than only living in a prior review file nobody re-reads. Do not
+invent this section if nothing was carried forward.
 
 ## 5. Mark the review's items addressed — don't force a full re-review
 

@@ -38,6 +38,17 @@ missing)**, **gate**. Then you record what happened.
 > `wired_up` said so last session, because a founder mentioned the tool once, or because "it's
 > probably fine" is exactly what this file exists to prevent.
 >
+> **This gate applies when an agent itself would initiate or automate an action through a
+> connector it operates — not when the plan simply recommends the founder personally take an
+> action through their own already-existing tools** (e.g. "send this email from your own inbox,"
+> "post this in your own Slack"). A founder using their own email/tools themselves, on the
+> agent's recommendation, is outside this plugin's action space entirely and needs no gate. If a
+> deliverable is ambiguous about which of the two it is (a "launch announcement" could mean either
+> "the agent sends it" or "the founder sends it personally"), the calling agent must resolve the
+> ambiguity explicitly and state which reading it used in the artifact — never leave it implicit,
+> since guessing wrong in either direction is a real problem (blocking a founder's own routine
+> email unnecessarily, or letting an actual agent-automated send skip the gate).
+>
 > **What to give me, every call:** the task/step driving the need (real and current, not
 > hypothetical), the connector category (or the exact product if the founder already named one),
 > and the `business-slug`. See "What a calling agent must tell you" below for the full contract.

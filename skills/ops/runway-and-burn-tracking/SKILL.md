@@ -82,16 +82,34 @@ pattern from an undifferentiated "burn is high" read:
 ## Step 2: Compute net burn and runway
 
 ```
-Net burn = spend − revenue (this period)
+Net burn (this period) = spend − revenue (this period)
 ```
 
-- If net burn > 0: `runway_months = cash_on_hand / net_burn`. State to one decimal place.
-- If net burn ≤ 0 (revenue ≥ spend): state runway as **"not applicable — cash-generative this
-  period"**, not an infinite number or a divide-by-zero artifact. Still show the actual net
+**Normalize to a monthly-equivalent figure before computing runway — do not divide cash-on-hand by
+a non-monthly period's raw burn.** `runway_months` is defined in units of months; `cadence.
+check_in_frequency` (`weekly`/`biweekly`/`monthly`/`manual`) means this skill runs at every cadence,
+and applying the raw-period burn directly produces a real, silent multiple-of-error: a biweekly
+(14-day) period's raw burn understates monthly burn by roughly 2.1x (overstating runway by the same
+factor), a weekly period by roughly 4.3x. This is not a hypothetical — it produced exactly this
+error on this plugin's first live ops check-in before being caught by hand.
+
+```
+Monthized net burn = net_burn (this period) ÷ period_length_in_days × 30
+```
+
+- If monthized net burn > 0: `runway_months = cash_on_hand / monthized_net_burn`. State to one
+  decimal place. **Report both figures in the output** — the raw this-period net burn and the
+  monthized figure used for the runway calculation — so the reader can see the normalization, not
+  just the final number.
+- If monthized net burn ≤ 0 (revenue ≥ spend): state runway as **"not applicable — cash-generative
+  this period"**, not an infinite number or a divide-by-zero artifact. Still show the actual net
   figure (e.g. "+$4,200 net this period").
 - If cash-on-hand or spend or revenue is "not provided," do not compute a partial or estimated
   runway figure — state plainly that runway cannot be computed this period and name exactly which
   input is missing.
+- If the period length itself isn't known (e.g. an irregular manual check-in with no clear prior
+  check-in date), ask for it directly rather than assuming monthly — a wrong assumed period length
+  produces the same silent error this normalization step exists to prevent.
 
 ## Step 3: Classify against explicit thresholds
 
