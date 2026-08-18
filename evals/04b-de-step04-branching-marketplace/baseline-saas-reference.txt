@@ -1,0 +1,38 @@
+Authored contrastive reference for evals/04b-de-step04-branching-marketplace's `baseline` grader.
+
+This is NOT a live transcript from evals/04a (case runs are not guaranteed to execute in any
+particular order or to share state, so a baseline grader cannot safely depend on another case's
+live output at run time). It is a short, hand-authored exemplar of what a *correct SaaS-branch*
+Step 4 calculation looks like, written to the same level of detail this eval expects from a real
+run, so the baseline grader has a concrete methodology shape to contrast the marketplace run
+against.
+
+---
+
+# Step 4: TAM for the Beachhead Market (SaaS-branch exemplar)
+
+## Counting unit
+Dispatch-shift supervisor seats at mid-size regional logistics companies matching the Step 3
+profile.
+
+## Bottom-up calculation
+- Estimated qualifying companies: 4,000
+- Seats per qualifying company: 3
+- Annual price per seat: $2,400/year
+- **Beachhead TAM = 4,000 companies x 3 seats/company x $2,400/seat/year = $28,800,000/year**
+
+This is a per-seat subscription calculation: the multiplier is an annual price charged per
+individual user (seat), and the count is companies x seats within them. There is no gross
+transaction volume figure and no commission/take-rate anywhere in this calculation — the business
+collects the full per-seat price directly, not a percentage of a transaction between two other
+parties.
+
+---
+
+The run under test (evals/04b, a marketplace business) should look structurally different from
+this: it should compute a gross transaction volume (GMV) — transacting population x transaction
+value x frequency — and then apply a take rate to that GMV to arrive at the business's own
+revenue, per skills/disciplined-entrepreneurship/04-calculate-the-tam-for-the-beachhead-market/
+SKILL.md's marketplace branch. A marketplace run that instead prices each household like a
+per-seat subscription (the shape above) has made exactly the mistake that SKILL.md calls out as
+"the most common sizing mistake at this step for this business type."

@@ -1,0 +1,88 @@
+schema_version: "1.0"
+name: de-step04-branching-marketplace-uses-gmv-take-rate
+description: >
+  Confirms skills/disciplined-entrepreneurship/04-calculate-the-tam-for-the-beachhead-market's
+  "Business-type branching" section actually changes the calculation shape for business_type
+  "marketplace" — GMV x take rate, not a per-seat subscription price. Paired with evals/04a (saas)
+  to confirm the same DE step produces a structurally different calculation for a different
+  business_type on an equivalent founder-inputs shape — the SKILL.md's own named "most common
+  sizing mistake for this business type" is exactly what this case checks was avoided.
+tags: [de-steps, business-type-branching, step-04]
+expected_outcome: >
+  TAM = transacting population x transaction value x frequency = GMV, then GMV x take rate =
+  beachhead take-rate revenue — no per-seat subscription language anywhere in the output.
+
+context:
+  scaffold_script: scaffold.sh
+
+execution:
+  prompt: >
+    Run skills/disciplined-entrepreneurship/04-calculate-the-tam-for-the-beachhead-market for
+    business-slug "eval-branch-mkt". Read business-state.json and Steps 2/3 first (already
+    drafted). The founder says: "On the demand side there are roughly 50,000 households in the
+    beachhead, each booking about 1.5 jobs per year at an average job value of $380, and we plan to
+    charge a 15% take rate on each completed booking." Write
+    plan/04-calculate-the-tam-for-the-beachhead-market.md and update business-state.json per the
+    skill's contract, including reporting both the GMV and the take-rate revenue explicitly per the
+    skill's marketplace-sizing-heuristic note.
+  max_turns: 30
+  timeout_seconds: 600
+  allowed_tools: [Read, Write, Edit, Grep, Glob]
+
+runs: 3
+
+graders:
+  - type: file_exists
+    name: step-4-file-written
+    path: .startup/eval-branch-mkt/plan/04-calculate-the-tam-for-the-beachhead-market.md
+    exists: true
+    weight: 1
+
+  - type: regex
+    name: uses-gmv-and-take-rate-language
+    target:
+      source: file
+      path: .startup/eval-branch-mkt/plan/04-calculate-the-tam-for-the-beachhead-market.md
+    pattern: "(GMV|gross merchandise)"
+    flags: "i"
+    match: contains
+    weight: 1
+
+  - type: regex
+    name: does-not-price-like-a-saas-seat
+    target:
+      source: file
+      path: .startup/eval-branch-mkt/plan/04-calculate-the-tam-for-the-beachhead-market.md
+    pattern: "(per.?seat|seat price|per.?user subscription)"
+    flags: "i"
+    match: not_contains
+    weight: 1
+
+  - type: llm
+    name: applies-the-marketplace-branch-correctly
+    focus:
+      source: file
+      path: .startup/eval-branch-mkt/plan/04-calculate-the-tam-for-the-beachhead-market.md
+    criteria: >
+      The TAM methodology must follow Step 4's marketplace branch: size by GMV x take rate, using
+      the demand-side transacting population (50,000 households) x transaction value ($380) x
+      frequency (1.5/year) to get GMV, then apply the 15% take rate to get the business's own
+      revenue figure. Both GMV and take-rate revenue should be reported explicitly, per the skill's
+      own instruction that a marketplace's take-rate revenue can legitimately look small relative
+      to the beachhead-size heuristic and should be sanity-checked against the GMV figure instead.
+      It must NOT price this like a SaaS seat or per-user annual subscription.
+    weight: 2
+
+  - type: baseline
+    name: structurally-different-from-saas-branch-exemplar
+    baseline_file: baseline-saas-reference.txt
+    criteria: >
+      The baseline is a hand-authored exemplar of a correct SaaS-branch Step 4 calculation
+      (per-seat price x seats x companies, no GMV, no take rate). This run (a marketplace business)
+      should be structurally different in kind, not just in numbers: it should compute a GMV figure
+      from transacting population x transaction value x frequency, then apply a take rate — the
+      opposite shape from the baseline's direct per-seat pricing. A run whose calculation shape
+      actually resembles the baseline's per-seat framing rather than a GMV x take-rate framing
+      should score low, since that is precisely the sizing mistake Step 4's SKILL.md warns is most
+      common for this business type.
+    weight: 2

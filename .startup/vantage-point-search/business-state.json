@@ -1,0 +1,127 @@
+{
+  "slug": "vantage-point-search",
+  "business_name": "Vantage Point Search",
+  "created_at": "2026-08-18T14:00:00Z",
+  "updated_at": "2026-08-18T22:30:00Z",
+  "stage": "approved",
+  "founder": {
+    "name": "Jordan Reyes",
+    "email": "",
+    "notes": "11 years in-house technical recruiter at 3 VC-backed startups before going independent 14 months ago. Bootstrap-funded, explicit: 'This stays bootstrapped - I'm not raising money to run a search firm, I'm reinvesting placement fees into hiring associate recruiters.' Solo delivery today; the founder's own calendar is the stated bottleneck, named unprompted during onboarding."
+  },
+  "business_basics": {
+    "one_liner": "Retained executive search for VP/Director of Engineering hires at Series B-D venture-backed startups (roughly 50-500 employees) who've tried to fill the role through their own network or a generalist recruiter for 2-3+ months and struck out.",
+    "venture_stage": "already_operating",
+    "business_type": "services",
+    "business_type_notes": "Retained executive search, project-based per engagement (not retainer, not hourly). Currently solo - founder personally executes 100% of delivery (sourcing, screening, client management) in addition to 100% of business development. No licensing requirement (retained permanent-placement search is not a licensed profession in the founder's operating states). Founder's own 11-year professional network is both the primary demand-generation channel and the delivery bottleneck.",
+    "funding_intent": "bootstrap"
+  },
+  "disciplined_entrepreneurship": {
+    "01_market_segmentation": { "status": "drafted", "summary": "7 segments identified from real market exposure; beachhead segment (VP/Dir Engineering search, VC-backed Series B-D) already accounts for 6 of 8 real signed engagements", "file": "plan/01-market-segmentation.md" },
+    "02_select_a_beachhead_market": { "status": "drafted", "summary": "VP/Dir Engineering search for VC-backed Series B-D startups selected; reachable via founder's existing network, underserved between big search firms and generalist contingency recruiters, referenceable via VC-firm-level trust", "file": "plan/02-select-a-beachhead-market.md" },
+    "03_build_an_end_user_profile": { "status": "drafted", "summary": "Two real profiles: Dana (hiring CTO, experiences the problem) and the Head of Talent/CEO (commissions the engagement) - both built from real client relationships", "file": "plan/03-build-an-end-user-profile.md" },
+    "04_calculate_the_tam_for_the_beachhead_market": { "status": "drafted", "summary": "~$25M/year bottom-up TAM (~360 addressable searches/year x $70,500 average fee); explicit capacity caveat that TAM assumes unlimited delivery capacity, which does not hold here", "file": "plan/04-calculate-the-tam-for-the-beachhead-market.md" },
+    "05_profile_the_persona_for_the_beachhead_market": { "status": "drafted", "summary": "Dana: hiring CTO/technical co-founder at a ~130-person Series C company, 11 weeks into a stalled DIY search, exhausted her own network", "file": "plan/05-profile-the-persona-for-the-beachhead-market.md" },
+    "06_full_life_cycle_use_case": { "status": "drafted", "summary": "Full observed life cycle from failed DIY attempt through discovery, search execution, offer, and the 90-day guarantee window, drawn from real engagements", "file": "plan/06-full-life-cycle-use-case.md" },
+    "07_high_level_product_specification": { "status": "drafted", "summary": "Scoped search brief, active sourcing (40-60 real conversations), 4-6 candidate screened slate within ~30 days, interview coordination, offer support, 90-day guarantee; explicitly excludes onboarding and time-to-fill SLAs", "file": "plan/07-high-level-product-specification.md" },
+    "08_quantify_the_value_proposition": { "status": "drafted", "summary": "$15,000-$21,000 of founder-time opportunity cost avoided per engagement (low confidence); vacancy-cost avoidance real but unquantified", "file": "plan/08-quantify-the-value-proposition.md" },
+    "09_identify_your_next_10_customers": { "status": "drafted", "summary": "10 real named prospects (anonymized), 6 of 10 via referral; includes 2 honest non-response/decline signals, not omitted; pipeline concentrated in 2 referral sources", "file": "plan/09-identify-your-next-10-customers.md" },
+    "10_define_your_core": { "status": "drafted", "summary": "Core is founder's network plus an informal technical-screening method - honestly assessed as living entirely in the founder's head, not yet a durable, transferable asset", "file": "plan/10-define-your-core.md" },
+    "11_chart_your_competitive_position": { "status": "drafted", "summary": "Real named alternatives: DIY, large search firms (decline this deal size), generalist contingency recruiters (lack technical screening depth), and an unmeasured free VC-talent-partner-intro competitor", "file": "plan/11-chart-your-competitive-position.md" },
+    "12_determine_the_dmu": { "status": "drafted", "summary": "Genuinely multi-role DMU: champion (hiring CTO), economic buyer (CEO or Head of Talent), and a real comp-committee/board veto at larger clients - confirmed on 2 of 6 closed engagements", "file": "plan/12-determine-the-dmu.md" },
+    "13_map_the_process_to_acquire_a_paying_customer": { "status": "drafted", "summary": "5-stage DMU-keyed process; real conversion data across 35 tracked conversations, 23% overall conversion to signed", "file": "plan/13-map-the-process-to-acquire-a-paying-customer.md" },
+    "14_calculate_the_tam_for_follow_on_markets": { "status": "drafted", "summary": "Pin 2: VP/Dir Product search, same client base, ~$19M/year bottom-up TAM; pin-2 trigger gated on the playbook + associate-recruiter capacity thread, not started yet", "file": "plan/14-calculate-the-tam-for-follow-on-markets.md" },
+    "15_design_a_business_model": { "status": "drafted", "summary": "Fee-for-service/project-based (30% of first-year base, 3 installments); retainer model explicitly considered and deferred; revenue directly capped by founder calendar under the current model, named explicitly", "file": "plan/15-design-a-business-model.md" },
+    "16_set_your_pricing_framework": { "status": "drafted", "summary": "30% of first-year base salary (avg $70,500/engagement), validated across 8 real signed engagements; effective per-delivery-hour rate ~$783/hr, though underlying hours estimate is untimed", "file": "plan/16-set-your-pricing-framework.md" },
+    "17_calculate_the_ltv_of_a_customer": { "status": "drafted", "summary": "LTV $81,800 repeat-adjusted (conservative single-engagement: $61,500), net of a $9,000 delivery-cost estimate; repeat rate real but thin (n=6 clients)", "file": "plan/17-calculate-the-ltv-of-a-customer.md" },
+    "18_map_the_sales_process_to_acquire_a_customer": { "status": "drafted", "summary": "5-9 week sales cycle, 23% overall conversion, ~45 hrs founder time per signed engagement; identified a real gap in this step's own template for referral-driven background relationship-maintenance time", "file": "plan/18-map-the-sales-process-to-acquire-a-customer.md" },
+    "19_calculate_the_coca": { "status": "drafted", "summary": "COCA ~$5,200 (range), LTV:COCA 11.8:1 conservative / 15.7:1 repeat-adjusted, payback effectively immediate given front-loaded fee installments; ratio explicitly flagged as orthogonal to the real constraint (delivery capacity)", "file": "plan/19-calculate-the-coca.md" },
+    "20_identify_key_assumptions": { "status": "drafted", "summary": "14 assumptions carried from Steps 1-19 plus one new one (ka-020-associate-replication, the single most consequential untested assumption in the plan)", "file": "plan/20-identify-key-assumptions.md" },
+    "21_test_key_assumptions": { "status": "drafted", "summary": "Test designs written for the top 3 ranked assumptions (associate replication, delivery-hours estimate, referral concentration); none resolved yet this session", "file": "plan/21-test-key-assumptions.md" },
+    "22_define_the_mvbp": { "status": "drafted", "summary": "MVBP #1 (core solo offer) already validated 6 times; MVBP #2 (associate-delivered search, Jordan on QA only) is the real next test, explicitly a paid engagement", "file": "plan/22-define-the-mvbp.md" },
+    "23_show_that_dogs_will_eat_the_dog_food": { "status": "drafted", "summary": "Strong adoption signal (5/6 placements, no guarantee invocation, real unprompted referrals from 2 clients); 1 real negative data point (guarantee invoked, uncompensated ~85-hr cost not reflected in unit economics) reported plainly", "file": "plan/23-show-that-dogs-will-eat-the-dog-food.md" },
+    "24_develop_a_product_plan": { "status": "drafted", "summary": "Roadmap: write the playbook, hire and ramp one associate recruiter (~$78K comp+training, explicitly costed), run their first search as a real paid test of ka-020; Pin 2 gated on this chain; explicit fallback named if associate-replication fails", "file": "plan/24-develop-a-product-plan.md" }
+  },
+  "key_assumptions": [
+    { "id": "ka-001-segment-counts", "statement": "Segment sizes (esp. Segment 1's ~2,400-company estimate, carried into Step 4) are Jordan's informed-founder estimate, not sourced from a paid data provider", "step_ref": "01_market_segmentation", "confidence": "low", "test_plan": "Pull an actual PitchBook/Crunchbase filtered count once budget allows a subscription", "test_result": null },
+    { "id": "ka-004-turnover-rate", "statement": "The 15%/year leadership-opening rate used to size the addressable search count is a founder estimate, not sourced from an industry turnover study", "step_ref": "04_calculate_the_tam_for_the_beachhead_market", "confidence": "low", "test_plan": "Look for a published exec-search-industry turnover benchmark once time allows; until then, treat this TAM as order-of-magnitude only", "test_result": null },
+    { "id": "ka-008-vacancy-cost", "statement": "The cost of a prolonged vacancy itself (delayed roadmap, escalations) is real per client anecdote but has never been quantified in dollars by any client", "step_ref": "08_quantify_the_value_proposition", "confidence": "low", "test_plan": "Ask the next 3 clients directly to estimate a dollar cost of the vacancy period before engaging", "test_result": null },
+    { "id": "ka-009-referral-concentration", "statement": "6 of 10 prospects trace to just 2 referral sources (one repeat client, one VC talent partner) - the pipeline is currently concentrated, not diversified, which is a real acquisition-channel risk", "step_ref": "09_identify_your_next_10_customers", "confidence": "medium", "test_plan": "Track new-prospect source diversity over the next 2 quarters; flag if concentration doesn't improve", "test_result": null },
+    { "id": "ka-010-playbook-informal", "statement": "The technical-screening method exists in Jordan's head and practice, not as a written, teachable document - this is a real gap, not yet closed", "step_ref": "10_define_your_core", "confidence": "high", "test_plan": "Track whether the playbook gets written before the first associate-recruiter hire (Step 24 roadmap dependency)", "test_result": null },
+    { "id": "ka-011-vc-intro-competition", "statement": "The rate at which beachhead companies fill this role via a free VC-talent-partner intro instead of any paid search is unknown - this is a real competitive loss channel Jordan can't currently measure", "step_ref": "11_chart_your_competitive_position", "confidence": "low", "test_plan": "Ask lost/quiet prospects directly how the role eventually got filled, when known", "test_result": null },
+    { "id": "ka-013-conversion-sample", "statement": "All conversion rates above are founder-tracked counts from memory/notes across 14 months, not a CRM export - real numbers, small sample, not statistically robust", "step_ref": "13_map_the_process_to_acquire_a_paying_customer", "confidence": "medium", "test_plan": "Start logging real funnel data in a lightweight CRM/spreadsheet going forward rather than relying on memory", "test_result": null },
+    { "id": "ka-014-pin2-repeat-overlap", "statement": "Some portion of Pin 2 (Product search) demand will come from clients who are also counted in Step 17's repeat-engagement LTV assumption - this TAM figure and that LTV figure are not yet reconciled to confirm they aren't double-counting the same repeat-client revenue", "step_ref": "14_calculate_the_tam_for_follow_on_markets", "confidence": "low", "test_plan": "Track, going forward, whether a given repeat engagement counts as 'LTV repeat rate' (same role type) or 'Pin 2 TAM capture' (different role type) rather than blending the two", "test_result": null },
+    { "id": "ka-015-retainer-revisit", "statement": "A retainer/subscription model may become credible once the technical-screening playbook is written and at least one associate recruiter is delivering independently - not assumed now, explicitly deferred", "step_ref": "15_design_a_business_model", "confidence": "medium", "test_plan": "Revisit once Step 24's associate-recruiter hiring milestone is reached", "test_result": null },
+    { "id": "ka-016-delivery-hours-estimate", "statement": "The ~90-hour-per-engagement delivery-time estimate (feeding the effective-rate calculation and Step 19's COCA/delivery-cost buildup) is Jordan's rough recollection, not logged time-tracking data", "step_ref": "16_set_your_pricing_framework", "confidence": "low", "test_plan": "Time-track the next 3 engagements explicitly rather than estimating from memory", "test_result": null },
+    { "id": "ka-017-repeat-rate-optimism", "statement": "Jordan believes the true long-run repeat-engagement rate is higher than the observed 1.33 (portfolio companies scaling often need more leadership hires over a multi-year relationship), but this belief is not reflected in the headline LTV figure, which uses only the observed rate", "step_ref": "17_calculate_the_ltv_of_a_customer", "confidence": "low", "test_plan": "Recompute the repeat-rate input annually as more client history accumulates; do not raise the headline figure on belief alone", "test_result": null },
+    { "id": "ka-017-founder-delivery-rate", "statement": "Delivery cost is computed using the same $100/hr placeholder founder-time rate as Step 19's COCA buildup; this is an unvalidated placeholder, not a sourced market comp for a search-firm partner's actual billing rate", "step_ref": "17_calculate_the_ltv_of_a_customer", "confidence": "low", "test_plan": "Source a real comparable rate (e.g., what a contract technical recruiter or search-firm associate would bill per hour) to replace the placeholder", "test_result": null },
+    { "id": "ka-018-relationship-maintenance-cost", "statement": "The ~29 hours/engagement of background relationship-maintenance time is a rough backed-out estimate (total 14-month BD hours minus stage-mapped hours), not independently tracked", "step_ref": "18_map_the_sales_process_to_acquire_a_customer", "confidence": "low", "test_plan": "Time-track relationship-maintenance activity separately going forward instead of backing it out by subtraction", "test_result": null },
+    { "id": "ka-019-founder-rate", "statement": "Founder time in both the BD/acquisition process and search delivery is valued at a $100/hr placeholder, which may understate what Jordan's actual senior relationship-management and technical-screening role would cost at true market rate", "step_ref": "19_calculate_the_coca", "confidence": "low", "test_plan": "Source a real comparable rate (e.g., a search-firm associate/partner billing rate, or what it would cost to hire a BD-capable associate recruiter) to replace the placeholder", "test_result": null },
+    { "id": "ka-020-associate-replication", "statement": "The entire growth plan assumes an associate recruiter, once trained on a not-yet-written playbook, can replicate Jordan's fill rate and technical-screening quality bar independently. Zero associate-run searches have ever been completed - this is untested, not just unproven at scale", "step_ref": "20_identify_key_assumptions", "confidence": "low", "test_plan": "Run the first associate-led search as a real paid engagement, with Jordan doing QA/oversight only, not personally sourcing", "test_result": null },
+    { "id": "ka-023-guarantee-cost-uncounted", "statement": "The real delivery-hour cost of a guarantee invocation (an uncompensated ~85-hour re-run) is not reflected in this plan's LTV/COCA figures, which are built from average-case engagements - at a 17% observed invocation rate, this is a real, currently-uncounted drag on true per-engagement margin", "step_ref": "23_show_that_dogs_will_eat_the_dog_food", "confidence": "medium", "test_plan": "Track guarantee-invocation rate and its real hour cost going forward; fold an expected-value adjustment into Step 17's delivery-cost figure once more data exists", "test_result": null }
+  ],
+  "quantitative_claims": [
+    { "id": "qc-004-tam", "claim": "Beachhead TAM, VP/Director Engineering search at VC-backed Series B-D companies", "value": "~$25M/year (bottom-up: ~360 addressable searches/year x $70,500 average fee)", "step_ref": "04_calculate_the_tam_for_the_beachhead_market", "source": "founder estimate - company count and turnover rate are Jordan's informed market-exposure estimate, not a paid data-provider pull; no external search attempted this session; fee figure sourced from Step 16 pricing", "confidence": "low", "ai_risk_flag": true },
+    { "id": "qc-008-time-saved", "claim": "Estimated founder-time value avoided by engaging Jordan vs. continuing DIY search", "value": "$15,000-$21,000 per engagement (range, not a point estimate)", "step_ref": "08_quantify_the_value_proposition", "source": "founder estimate: 100-140 hours of DIY search time (per client discovery-call accounts) x $150/hr placeholder value of a VP-level leader's time; not independently verified against any client's actual comp", "confidence": "low", "ai_risk_flag": true },
+    { "id": "qc-014-pin2-tam", "claim": "TAM for follow-on market: VP/Director Product search, same client base", "value": "~$19M/year (bottom-up: ~288 searches/year x ~$65,000 average fee)", "step_ref": "14_calculate_the_tam_for_follow_on_markets", "source": "founder estimate, same company-count basis as qc-004-tam; opening-rate and fee figures are Jordan's informed estimate, not independently verified", "confidence": "low", "ai_risk_flag": true },
+    { "id": "qc-016-price", "claim": "Average retained-search fee per engagement", "value": "$70,500 (30% of $235K average first-year base salary; scales with actual placed candidate's salary)", "step_ref": "16_set_your_pricing_framework", "source": "founder data - actual fee structure used and accepted across 8 real signed engagements in the last 14 months; $235K average base is the blended average of the 6 completed placements' actual salaries", "confidence": "high", "ai_risk_flag": false },
+    { "id": "qc-017-ltv", "claim": "LTV per client relationship (repeat-adjusted headline figure)", "value": "$81,800 (conservative single-engagement figure: $61,500)", "step_ref": "17_calculate_the_ltv_of_a_customer", "source": "computed: $70,500 average engagement fee (qc-016-price) minus $9,000 delivery cost (90 hrs x $100/hr placeholder rate, see ka-019-founder-rate) x 1.33 observed repeat-engagements-per-client rate (8 signed engagements / 6 distinct clients over 14 months, small sample)", "confidence": "low", "ai_risk_flag": true },
+    { "id": "qc-018-cycle-length", "claim": "Average sales cycle length, beachhead segment", "value": "5-9 weeks, conversation to signed (range, not a point estimate)", "step_ref": "18_map_the_sales_process_to_acquire_a_customer", "source": "founder-tracked estimate from 8 real signed engagements over 14 months; not a CRM export, see ka-013-conversion-sample", "confidence": "medium", "ai_risk_flag": false },
+    { "id": "qc-019-coca", "claim": "Fully-loaded COCA, beachhead segment", "value": "~$5,200 (range: $4,900-$5,400)", "step_ref": "19_calculate_the_coca", "source": "computed from Step 18 stage costs plus background relationship-maintenance time, using the $100/hr placeholder rate (ka-019-founder-rate); re-stated as a range after the AI-risk gate flagged an earlier exact-dollar figure as false precision this session", "confidence": "low", "ai_risk_flag": true },
+    { "id": "qc-019-ltv-coca-ratio", "claim": "LTV:COCA ratio (both LTV figures)", "value": "Conservative: 11.8:1 ($61,500/$5,200) | Repeat-adjusted: 15.7:1 ($81,800/$5,200)", "step_ref": "19_calculate_the_coca", "source": "computed: qc-017-ltv (both figures) / qc-019-coca", "confidence": "low", "ai_risk_flag": true },
+    { "id": "qc-023-guarantee-invocation-rate", "claim": "Guarantee invocation rate, completed placements to date", "value": "1 of 6 (17%)", "step_ref": "23_show_that_dogs_will_eat_the_dog_food", "source": "founder-reported, n=6, 14 months of data - small sample", "confidence": "medium", "ai_risk_flag": false }
+  ],
+  "plan": {
+    "version": 1,
+    "file": "plan/business-plan.md",
+    "history": []
+  },
+  "reviews": [
+    {
+      "id": "rev-vps-001",
+      "council": "bootstrap-track-panel (5 seats: customer-discovery-skeptic, financial-modeling-reviewer, vc-panel, expert-entrepreneur-panel, services-unit-economics-reviewer)",
+      "target": "plan-v1",
+      "verdict": "APPROVE_WITH_NOTES",
+      "score": "7",
+      "file": "reviews/2026-08-18-bootstrap-track-panel-v1.md",
+      "resolved": false
+    }
+  ],
+  "gtm": {
+    "status": "not_started",
+    "funding_strategy": "undecided",
+    "launch_plan_file": "gtm/launch-plan.md",
+    "artifacts": []
+  },
+  "ops": {
+    "status": "not_started",
+    "cadence_metrics_files": [],
+    "last_retro_file": null
+  },
+  "connectors": {
+    "wired_up": [],
+    "needed_not_installed": []
+  },
+  "cadence": {
+    "check_in_frequency": "manual",
+    "last_check_in": null,
+    "next_check_in": null,
+    "scheduling_mechanism": ""
+  },
+  "risk_log": [
+    {
+      "id": "privacy-onboarding-vantage-point-search",
+      "type": "privacy",
+      "raised_by": "privacy-check (onboarding)",
+      "description": "Onboarding privacy/data-handling and legal-scope notice given to founder on 2026-08-18.",
+      "status": "accepted"
+    },
+    {
+      "id": "ar-vps-001",
+      "type": "ai_risk",
+      "raised_by": "ai-risk-analyst (via skills/risk/ai-risk-review, called from Step 19's own contract)",
+      "description": "First-pass draft of plan/19-calculate-the-coca.md stated COCA as an exact '$5,173' figure and the LTV:COCA ratios to a precision the underlying $100/hr placeholder founder-rate and untimed ~45-hour delivery-time estimate did not support (false precision, AI-risk failure mode 2). BLOCKED. Fixed by re-stating COCA as an honest range ($4,900-$5,400, ~$5,200) and rounding the ratios to one decimal place; re-ran the gate same session, PASS confirmed. This is the third consecutive round (following round 2's ShiftCover and round 3's SkyClaim) in which the AI-risk gate independently caught a false-precision finding at a downstream synthesized unit-economics figure - a recurring, structurally expected failure mode the gate continues to catch reliably, not a new bug.",
+      "status": "mitigated"
+    }
+  ]
+}

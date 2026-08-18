@@ -1,0 +1,91 @@
+schema_version: "1.0"
+name: ai-risk-gate-catches-unsourced-numeric-claim
+description: >
+  Confirms the mandatory AI-risk gate (skills/risk/ai-risk-review, backed by
+  agents/risk/ai-risk-analyst.md) actually catches an unsourced numeric claim in a DE step draft
+  as a BLOCKING finding, per docs/DATA-CONTRACT.md's sourced-claims rule and ai-risk-analyst.md's
+  failure mode #1 — the same failure mode this repo's own ShiftCover fixture already caught for
+  real (risk_log entry ar-shiftcover-002), used here as the known-good behavioral oracle.
+tags: [ai-risk, gate, data-contract]
+expected_outcome: >
+  The gate reports BLOCKED, writes an "ai_risk" risk_log entry naming the specific $92,400,000/year
+  figure and the missing quantitative_claims entry, and does not fabricate a source for the number.
+
+context:
+  scaffold_script: scaffold.sh
+  add_dirs: []
+
+execution:
+  prompt: >
+    Invoke the mandatory AI-risk gate — skills/risk/ai-risk-review, which delegates to
+    agents/risk/ai-risk-analyst.md — against .startup/eval-riskgate-co/plan/04-calculate-the-tam-for-the-beachhead-market.md
+    for business-slug "eval-riskgate-co". Read business-state.json in full first, per that gate's
+    own contract. Report back the gate's verdict (PASS or BLOCKED), every finding it produced, and
+    the risk_log entry id(s) it wrote.
+  max_turns: 30
+  timeout_seconds: 600
+  allowed_tools: [Read, Write, Edit, Grep, Glob, Bash, Skill, Task]
+
+runs: 3
+
+graders:
+  - type: tool_used
+    name: delegates-to-ai-risk-review-gate
+    tool: Skill
+    input_match: "risk/ai-risk-review"
+    min: 1
+    weight: 1
+    arm: with-only
+
+  - type: regex
+    name: reports-blocked
+    target: last_message
+    pattern: "BLOCK"
+    flags: "i"
+    match: contains
+    weight: 1
+
+  - type: regex
+    name: risk-log-entry-written-to-state-file
+    target:
+      source: file
+      path: .startup/eval-riskgate-co/business-state.json
+    pattern: "\"type\":\\s*\"ai_risk\""
+    match: contains
+    weight: 1
+
+  - type: regex
+    name: names-the-specific-figure
+    target: last_message
+    pattern: "92,?400,?000|92\\.4M|\\$92\\.4"
+    match: contains
+    weight: 1
+
+  - type: llm
+    name: finding-matches-unsourced-claim-failure-mode
+    focus: trace
+    criteria: >
+      The response must identify the $92,400,000/year beachhead-TAM figure in
+      plan/04-calculate-the-tam-for-the-beachhead-market.md as an unsourced quantitative claim —
+      stated as fact with no matching quantitative_claims[] entry in business-state.json — and
+      classify this specifically as failure mode #1 (unsourced/fake-sourced claim) per
+      agents/risk/ai-risk-analyst.md, not as false precision or automation bias. It must treat this
+      as BLOCKING, not advisory, per docs/DATA-CONTRACT.md's rule that a number without a source
+      entry blocks council approval. It must NOT invent or assign a source to the figure itself —
+      the correct resolution is requiring the originating step to add a real, cited
+      quantitative_claims entry (or relabel it honestly as a low-confidence key_assumptions entry),
+      never for the risk analyst to supply a source on the founder's behalf.
+    weight: 2
+
+  - type: baseline
+    name: finding-quality-matches-real-precedent
+    baseline_file: reference-ar-shiftcover-002.txt
+    criteria: >
+      The reference file quotes a REAL finding (ar-shiftcover-002) this plugin's own ai-risk-analyst
+      already produced against a real business fixture for the identical failure mode (an unsourced
+      dollar figure with no quantitative_claims entry). Judge whether this run's finding matches
+      that reference's rigor: does it name the specific figure and its specific location, name the
+      specific missing structured-record entry, state BLOCKING severity plainly, and state a
+      concrete resolution (add a sourced entry) rather than a vague "could use more detail" or an
+      invented source? A finding noticeably vaguer or softer than the reference should score low.
+    weight: 2

@@ -1,0 +1,93 @@
+schema_version: "1.0"
+name: council-aggregate-verdict-harshest-non-outlier
+description: >
+  Confirms an agent applying skills/business-plan/run-review-council/SKILL.md's §6 aggregation
+  rule to a constructed 5-verdict panel reaches exactly the aggregate verdict/score that §6's own
+  worked example specifies (the Track B example — a lone REJECT and a lone REVISE each discarded
+  as uncorroborated outliers, stopping at two independently-converged APPROVE_WITH_NOTES verdicts).
+  §6's worked example is already hand-verified in the SKILL.md itself; this case uses it as the
+  test oracle rather than inventing a new scenario, per this eval's own design brief. See
+  evals/lib/verify_council_aggregation.py for a deterministic, non-LLM reference implementation of
+  the same algorithm, checked against this same worked example and the §6 floor-rule example.
+tags: [council, aggregation, business-plan-review]
+expected_outcome: >
+  Aggregate verdict = APPROVE_WITH_NOTES, aggregate score = 6 (the lower of the two
+  APPROVE_WITH_NOTES reviewers' scores, 6 and 7) — never an average, never the lone REJECT's or
+  REVISE's severity, because both are tested and pass every part of the §6 outlier test.
+
+execution:
+  prompt: >
+    Read skills/business-plan/run-review-council/SKILL.md's §6 ("Compute the aggregate verdict —
+    harshest non-outlier, precisely defined") in full — this is the authoritative algorithm, do not
+    reconstruct it from general knowledge of review aggregation. Then apply it, step by step,
+    showing your work, to this constructed Track B (venture-track) panel of 5 blocking-set
+    verdicts — all 5 seats are fully blocking under Track B, so the blocking set is all 5:
+
+    1. vc-panel — verdict REJECT, score 2, Risks/gaps and Required-revisions tags: [VENTURE-FIT]
+       only.
+    2. customer-discovery-skeptic — verdict REVISE, score 4, tags: [EVIDENCE-GAP].
+    3. expert-entrepreneur-panel — verdict APPROVE_WITH_NOTES, score 7, tags: [EXECUTION-RISK].
+    4. financial-modeling-reviewer — verdict APPROVE_WITH_NOTES, score 6, tags: [UNIT-ECONOMICS].
+    5. competitive-strategy-reviewer — verdict APPROVE, score 9, no risk tags.
+
+    State the final aggregate verdict and aggregate score, and show the outlier-test accounting
+    for every verdict you tested and discarded (which test each one passed/failed, and why), the
+    same way skills/business-plan/run-review-council/SKILL.md §8 item 3 requires a real review file
+    to show its work rather than just asserting the answer.
+  max_turns: 15
+  timeout_seconds: 300
+  allowed_tools: [Read, Grep, Glob]
+
+runs: 3
+
+graders:
+  - type: tool_used
+    name: reads-the-real-skill-file
+    tool: Read
+    input_match: "run-review-council/SKILL.md"
+    min: 1
+    weight: 1
+    arm: with-only
+
+  - type: regex
+    name: states-correct-aggregate-verdict
+    target: last_message
+    pattern: "APPROVE_WITH_NOTES"
+    match: contains
+    weight: 1
+
+  - type: regex
+    name: states-correct-aggregate-score
+    target: last_message
+    pattern: "\\bscore[^0-9]{0,15}6\\b"
+    flags: "i"
+    match: contains
+    weight: 1
+
+  - type: regex
+    name: does-not-average-the-scores
+    target: last_message
+    pattern: "\\baverage\\b"
+    flags: "i"
+    match: not_contains
+    weight: 1
+
+  - type: llm
+    name: outlier-accounting-matches-worked-example
+    focus: trace
+    criteria: >
+      The response must reach aggregate verdict APPROVE_WITH_NOTES with aggregate score 6 (the
+      lower of the two APPROVE_WITH_NOTES reviewers' scores: financial-modeling-reviewer's 6 and
+      expert-entrepreneur-panel's 7) — not an average, and not 2, 4, or 9. It must explain that the
+      lone REJECT (vc-panel, tagged only [VENTURE-FIT]) was tested against §6's three-part outlier
+      test: alone at its severity (yes), no tag overlap with any other original-blocking-set
+      reviewer's tags (yes — [VENTURE-FIT] appears nowhere else), and discarding it leaves at least
+      one verdict standing (yes, leaves 4) — so it is discarded. It must then explain the lone
+      REVISE (customer-discovery-skeptic, [EVIDENCE-GAP]) is independently tested the same way and
+      also discarded. It must then explain the cascade stops at APPROVE_WITH_NOTES because two
+      reviewers land there — not alone, so the "alone at that severity" test fails and no further
+      discard is possible; APPROVE_WITH_NOTES stands as the aggregate. Any answer that discards a
+      verdict without checking real tag overlap against every other original reviewer (not just
+      remaining ones), or that stops the cascade at the wrong severity, or that treats the two
+      APPROVE_WITH_NOTES verdicts as still discardable, should score low.
+    weight: 2

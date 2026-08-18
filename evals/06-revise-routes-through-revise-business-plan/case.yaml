@@ -1,0 +1,77 @@
+schema_version: "1.0"
+name: revise-verdict-routes-through-revise-business-plan
+description: >
+  Confirms a REVISE council verdict actually gets routed through
+  skills/business-plan/revise-business-plan rather than silently letting the plan proceed toward
+  approved/gtm — docs/TESTING.md §3.2's named Layer-3 regression item ("REVISE verdict actually
+  routes back through revise-business-plan"), promoted here into an automatable Layer-2 check. The
+  fixture reproduces the real shape .startup/shiftcover/business-state.json is actually in as of
+  this round (stage "revising", one unresolved REVISE review) under a fresh, self-contained eval
+  slug.
+tags: [revise-loop, gate, orchestrator, regression]
+expected_outcome: >
+  The session does not claim the plan is approved or move toward GTM; it identifies the unresolved
+  REVISE review as the blocker per orchestrator Non-negotiable #3, and its stated next action is
+  delegating to skills/business-plan/revise-business-plan (not silently skipping the gate).
+
+context:
+  scaffold_script: scaffold.sh
+
+execution:
+  prompt: >
+    You are agents/orchestrator.md (the Startup Operator) resuming business-slug "eval-revise-co".
+    Per your Non-negotiable #1, re-read business-state.json before doing or saying anything about
+    where the business stands, then report where it stands and what happens next, and take the
+    next concrete action per your own state machine and Non-negotiable #3 (the review gate).
+  max_turns: 30
+  timeout_seconds: 600
+  allowed_tools: [Read, Write, Edit, Grep, Glob, Bash, Skill, Task]
+
+runs: 3
+
+graders:
+  - type: regex
+    name: does-not-claim-plan-is-approved
+    target: last_message
+    pattern: "(stage[^.]{0,15}(is|:)?\\s*[\"']?approved|plan is approved|moving (on |ahead )?to (go-to-market|gtm)|proceeding to (launch|gtm))"
+    flags: "i"
+    match: not_contains
+    weight: 2
+
+  - type: regex
+    name: names-the-required-revisions-or-revise-verdict
+    target: last_message
+    pattern: "(required revisions?|REVISE)"
+    match: contains
+    weight: 1
+
+  - type: regex
+    name: mentions-revise-business-plan-as-the-route
+    target: last_message
+    pattern: "revise-business-plan"
+    match: contains
+    weight: 1
+
+  - type: tool_used
+    name: actually-delegates-to-revise-business-plan
+    tool: Skill
+    input_match: "revise-business-plan"
+    min: 1
+    weight: 2
+    arm: with-only
+
+  - type: llm
+    name: enforces-the-review-gate-per-non-negotiable-3
+    focus: trace
+    criteria: >
+      The response must not claim or imply the plan is approved, ready for GTM, or otherwise clear
+      to proceed. It must correctly read business-state.json's reviews[] entry (verdict REVISE,
+      resolved false) as an active blocker per agents/orchestrator.md Non-negotiable #3, and must
+      not silently wave it through. It must list (or clearly reference) the required revisions
+      rather than glossing over them, and its stated next concrete action must be delegating to
+      skills/business-plan/revise-business-plan to address them — not delegating to a GTM/launch
+      agent, and not re-running the review council directly without first addressing the revisions.
+      A response that treats "revising" as equivalent to "approved," or that silently drops the
+      required-revisions list, or that jumps straight to a fresh council re-review without routing
+      through revise-business-plan first, should score low.
+    weight: 2

@@ -81,6 +81,32 @@ or a meaningful rewrite of an existing one's judgment logic. A pure structural f
 frontmatter field, a corrected file path) doesn't need a fresh behavioral eval; a change to what
 an agent actually decides or how it phrases pushback does.
 
+### Layer 2 status (as of this round)
+
+This layer now has a starting implementation: **`evals/`** at the plugin root, a real
+`claude plugin eval` case suite (six behavioral properties, `evals/**/case.yaml` +
+`scaffold.sh` fixtures) plus a deterministic non-LLM reference check for the council
+aggregation rule and a structural validator for the case files themselves. This replaces the
+"never actually built" state this section previously implied — Layer 2 is no longer only a
+description of what `claude plugin eval` *should* be used for, it is also six concrete cases
+plus a runner (`evals/run-evals.sh`) that exercise it.
+
+**Read `evals/README.md`'s "Honest status" section before treating this as a green-lit
+regression suite.** The short version: `claude plugin eval`'s `case.yaml` schema was extracted
+directly from this environment's installed Claude Code binary (the official public docs don't
+document it yet), and every case file validates structurally against that schema — but actually
+*running* the six cases against live model turns was blocked in the environment this round ran
+in by a `` `plugin eval` is currently in early access `` feature flag, so no case has yet been
+confirmed to pass (or to fail informatively) end to end. The next round with early access
+enabled should run `bash evals/run-evals.sh` for real, fix whatever grader wording doesn't fire
+the way it was intended to, and update `evals/README.md`'s status note once that's actually
+happened — do not assume green just because the case files are well-formed.
+
+`evals/` is a starting point (six cases), not full coverage of every judgment-logic surface
+this plugin has — see `evals/README.md`'s "Extending this suite" section for the next-priority
+additions (the `business-plan-editor` cosmetic-revision refusal, the founder-override path, a
+second DE-step branching pair, the privacy-check Mode A/B split).
+
 ---
 
 ## Layer 3 — Pre-release regression checklist
