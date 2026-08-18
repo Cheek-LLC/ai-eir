@@ -226,61 +226,131 @@ first that triggers; if none trigger, use the default:
    rarely fire, for the same reason noted at #4: `business_type: marketplace` is already claimed
    by #3 before evaluation reaches #5. It remains live for `saas` and `consumer_app`.
 6. **`competitive-strategy-reviewer`** — the default, used only when nothing above triggered.
-   **Also use this instead of #3/#4 whenever Steps 10 or 11 have `key_assumptions` entries with
+   **Also use this instead of #4/#5 whenever Steps 10 or 11 have `key_assumptions` entries with
    `step_ref` in that range at `confidence: low`, or either step's `summary` explicitly states no
    differentiated Core/position was found yet (e.g. a pre-liquidity marketplace with no Core yet,
    or a generic/undifferentiated competitive chart)** — i.e. the same kind of real content-based
-   maturity signal #4 uses, not a status value. **(Round 3 fix: this condition used to read
+   maturity signal #5 uses, not a status value. **(Round 3 fix: this condition used to read
    "whenever Steps 10/11 are not yet `approved`" — the identical vacuous-status bug found and
-   fixed in #4 above, independently present here too and confirmed, by a live second dry run, to
+   fixed in #5 above, independently present here too and confirmed, by a live second dry run, to
    have survived a full rewrite of this section untouched. Since no step status ever reaches
-   `approved`, that clause was unconditionally true for every business, silently overriding #3 and
-   #4's legitimately-firing triggers every single time for any business type other than
-   `marketplace`/`services` — which now have their own higher-priority trigger at #2 and so were
+   `approved`, that clause was unconditionally true for every business, silently overriding #4 and
+   #5's legitimately-firing triggers every single time for any business type other than
+   `marketplace`/`services` — which now have their own higher-priority trigger at #3 and so were
    accidentally shielded from ever hitting this bug. Replaced with a real, variable signal.)** Its
-   own file's description still names `marketplace` as a load-bearing case from before this
-   round — that is now superseded by #2 for seat-selection purposes; `business_type: marketplace`
-   will always be intercepted by #2 unless #1 fires first, so this persona's marketplace-specific
+   own file's description still names `marketplace` as a load-bearing case from before round 3 —
+   that is now superseded by #3 for seat-selection purposes; `business_type: marketplace` will
+   always be intercepted by #3 unless #1 or #2 fires first, so this persona's marketplace-specific
    rigor, while still real and worth reading in its own right, will only be selected onto the
    panel via the Steps-10/11 content signal above or the true default case, not via the
-   business-type match alone. This is a known, intentional consequence of adding #2, not an
+   business-type match alone. This is a known, intentional consequence of adding #3, not an
    oversight — flagged here so a future
    editor of `competitive-strategy-reviewer.md` understands why its own description now overstates
    how often it's actually selected for a marketplace.)
 
-`technical-feasibility-reviewer` is deliberately **not** a fallback default — most plans describe
-conventional, well-understood builds where this seat has little to add, so it only takes the seat
-when its trigger actually fires, exactly like #3/#4 below it.
+`technical-feasibility-reviewer` and `regulated-industry-compliance-reviewer` are deliberately
+**not** fallback defaults — most plans describe conventional, well-understood, unregulated builds
+where these seats have little to add, so each only takes the seat when its own trigger actually
+fires, exactly like #4/#5 below them.
+
+### Why the compliance reviewer is checked first
+
+Placing `regulated-industry-compliance-reviewer` at #1 — ahead of `technical-feasibility-reviewer`,
+which held that position through round 3 — is a real priority change this round is making
+deliberately, not a default earned by being newest, and it deserves the same rigor as the
+tie-break rule below rather than being asserted in a bullet. Two independent reasons, either one
+sufficient on its own:
+
+1. **It reaches business types nothing else does on this question.** `technical-feasibility-
+   reviewer` and the #3 tier are gated by `business_type` (or a hardware/deep-tech content signal
+   layered on top of it). A regulated `saas` business (a HIPAA-scope patient-scheduling tool), a
+   regulated `services` business (a bookkeeping firm that starts handling client payroll funds), or
+   a regulated `marketplace` (a peer-to-peer lending platform) can each be a technically ordinary,
+   conventional build — zero `technical-feasibility-reviewer` trigger — while still carrying a
+   licensing/data-handling blind spot severe enough to block the business from operating at all.
+   Before this round, nothing on the panel could reach that concern except the generic default.
+2. **When it does overlap with a lower tier, its question is prior-in-kind.** For the one case
+   where `regulated-industry-compliance-reviewer` and `technical-feasibility-reviewer` can both
+   fire on the same business (a regulated hardware/deep-tech build — a medical device is the
+   clearest case), "can this business legally operate this activity at all, at this scope" is a
+   more fundamental gate than "is this specific engineering approach buildable" — a perfectly
+   buildable device that can't obtain the clearance to sell is exactly as dead as an unbuildable
+   one, and unlike `technical-feasibility-reviewer` (which explicitly punts the legal/compliance
+   *substance* of a certification requirement to `agents/risk/privacy-compliance-officer.md` and,
+   ultimately, real counsel — see that persona's own Step 7 rubric #4) and
+   `agents/risk/privacy-compliance-officer.md` itself (which is not a review-council seat and
+   doesn't produce a panel verdict), no seat on the panel evaluated the compliance-*awareness*
+   substance before this round. That gap, not novelty, is why it outranks #2 rather than merely
+   sitting alongside it.
+
+This is a genuinely new kind of priority decision, not a mechanical extension of the existing
+"business-type is more fundamental than a content pattern" reasoning used for tiers #3 vs. #4/#5 —
+those tiers rank a holistic type signal above a narrower content signal; this ranks a narrower
+content signal (regulated-industry) above both a wider content signal (#2) and a holistic type
+signal (#3), specifically because #1's content signal identifies a *legal-operability* gate that
+nothing else on the panel checks, not because content signals generally outrank type signals.
 
 ### Tie-break rule — precise, not vague
 
-If more than one of #1-#4 triggers for the same review, **take the lowest-numbered one that
-triggered**, full stop — this single rule resolves every case, including the two the roadmap
-specifically called out:
+If more than one of #1-#5 triggers for the same review, **take the lowest-numbered one that
+triggered**, full stop — this single rule resolves every case, including the ones the roadmap and
+this round's own persona-coverage gap specifically called out:
 
+- **A regulated `marketplace`, `services`, or `saas` business** (e.g., a peer-to-peer lending
+  marketplace, a bookkeeping services firm handling client funds, a HIPAA-scope patient-scheduling
+  SaaS tool) whose `business_type` would otherwise route it straight to #3 (or, for `saas`, to #5
+  or the #6 default): #1 outranks every lower tier. Seat goes to
+  `regulated-industry-compliance-reviewer`; whichever lower-tier persona would otherwise have been
+  selected (`marketplace-liquidity-specialist`, `services-unit-economics-reviewer`, or nothing more
+  specific than the default) is the logged runner-up. This is precisely the case the roadmap's
+  round-4 brief called out by name — a regulated marketplace or regulated SaaS business still gets
+  the compliance reviewer even though its `business_type` already triggers a different persona.
+- **A regulated `physical_product` business with an independently-triggering hardware/deep-tech
+  signal** (a medical device, the clearest case): #1 outranks #2. Seat goes to
+  `regulated-industry-compliance-reviewer`; `technical-feasibility-reviewer` is the logged
+  runner-up — see "Why the compliance reviewer is checked first" above for why the legal-
+  operability question goes first here specifically.
 - **A `marketplace` (or `services`) business with an independently-triggering technical-feasibility
   signal** (e.g., a marketplace with a real hardware/IoT/regulated-engineering component, or a
-  services business betting on an unproven core technology): #1 outranks #2. Seat goes to
-  `technical-feasibility-reviewer`; `marketplace-liquidity-specialist` or
-  `services-unit-economics-reviewer` (whichever matched) is the logged runner-up.
+  services business betting on an unproven core technology, with no regulated-industry content
+  signal present): #2 outranks #3. Seat goes to `technical-feasibility-reviewer`;
+  `marketplace-liquidity-specialist` or `services-unit-economics-reviewer` (whichever matched) is
+  the logged runner-up.
+- **A `physical_product` business with an independently-triggering hardware/deep-tech signal but no
+  regulated-industry content signal** (ordinary consumer electronics with a genuinely novel sensor,
+  say): #2 outranks #3. Seat goes to `technical-feasibility-reviewer`;
+  `hardware-physical-product-operator` is the logged runner-up — the two personas' lenses are
+  distinct (engineering buildability vs. manufacturing/supply-chain operations) but only one seat
+  exists, so the more consequential "can this be built at all" question wins per the reasoning at
+  #2 above.
 - **A `services` business whose Step 12 DMU also independently signals multi-stakeholder
-  complexity** (e.g., an agency selling to enterprise clients with real procurement): #2 outranks
-  #3. Seat goes to `services-unit-economics-reviewer`; `sales-motion-reviewer` is the logged
-  runner-up. As noted at #3 above, this is in fact the outcome for *every* `services` business,
+  complexity** (e.g., an agency selling to enterprise clients with real procurement): #3 outranks
+  #4. Seat goes to `services-unit-economics-reviewer`; `sales-motion-reviewer` is the logged
+  runner-up. As noted at #4 above, this is in fact the outcome for *every* `services` business,
   not just an edge case, since `sales-motion-reviewer`'s own trigger includes the bare
   `business_type: services` match — the tie-break rule makes that resolution automatic and
   consistent rather than something each review has to re-decide.
 - **A `marketplace` business whose Step 12 DMU independently signals complexity on one or both
-  sides** (a B2B marketplace with real procurement on the demand side, say): #2 outranks #3 here
+  sides** (a B2B marketplace with real procurement on the demand side, say): #3 outranks #4 here
   too, for the same reason. This is a smaller loss than it looks — `marketplace-liquidity-
   specialist`'s own rubric already requires a per-side DMU check at Step 12 (see its file), so the
   DMU-complexity concern is not dropped entirely, just read through a liquidity lens rather than
   `sales-motion-reviewer`'s process-realism lens.
+- **Every `physical_product` business whose Step 12 DMU or channel component would otherwise
+  independently signal `sales-motion-reviewer`'s trigger** (added this round, parallel to the
+  services case above): #3 outranks #4. Seat goes to `hardware-physical-product-operator`;
+  `sales-motion-reviewer` is the logged runner-up — this is the outcome for *every*
+  `physical_product` business, not an edge case, for the identical structural reason the services
+  case is unconditional: `sales-motion-reviewer`'s own trigger includes the bare
+  `business_type: physical_product`-with-channel match, and #3 is evaluated first.
 
 In every case above, **note in the review file's rationale that the runner-up trigger(s) are
 recommended for the *next* review cycle** rather than silently dropping the concern — this was
-already this skill's convention before this round and applies unchanged to the two new personas.
-Never exceed 5 seats total.
+already this skill's convention before this round and applies unchanged to the personas added this
+round. A single review can in principle have three or more triggers fire simultaneously (a
+regulated hardware physical product can trip #1, #2, and #3 all at once) — the rule still resolves
+mechanically to the single lowest-numbered winner, and every other triggering persona is logged as
+a runner-up, plural, not just the immediate next-lowest one. Never exceed 5 seats total.
 
 ### Why 5 seats stays fixed rather than flexing to 6
 
@@ -301,6 +371,42 @@ real concern silently, it demotes it to a named, logged runner-up that the found
 review cycle can see and act on. A future round is free to revisit the 3-5 range itself in
 `CONVENTIONS.md` directly, with the cross-file audit that deserves — this task deliberately does
 not make that call by side effect.
+
+**This round puts the fixed-5 design under a sharper version of the same pressure, and the answer
+is unchanged.** `regulated-industry-compliance-reviewer`'s trigger is content-based rather than
+`business_type`-based specifically *because* the roadmap's brief for this round raised the
+question directly: should a regulated marketplace or regulated SaaS business get a 6th seat so the
+compliance reviewer can run *alongside* the type-triggered persona, rather than competing with it
+for the single contextual slot? The answer, decided here with the same rigor as the tie-break rule
+above, is **no — it competes for the single contextual seat like every other trigger, it does not
+flex the panel to 6.** Three reasons:
+
+1. **Consistency with the round-3 precedent this task was explicitly pointed at.** Round 3 already
+   confronted the identical shape of pressure (two independently-warranted contextual triggers on
+   one review) and declined to flex, for the `CONVENTIONS.md`-range reasons above. Nothing about
+   this round's specific pressure case is structurally different enough to justify a different
+   answer — a regulated marketplace with two warranted contextual seats is the same category of
+   problem as a hardware-feasibility marketplace with two warranted contextual seats, just with a
+   different pair of personas. Treating one case as flex-worthy and the other as not would be an
+   unprincipled, undocumented exception, not a reasoned distinction.
+2. **The tie-break rule already has a clean answer, and it's not a silent loss.** Per the new
+   tie-break entries above, `regulated-industry-compliance-reviewer` wins the seat and the
+   type-triggered persona becomes a *named, logged runner-up* — visible to the founder in the
+   review file's rationale and explicitly recommended for the next review cycle, per the
+   standing convention every other tie-break case already follows. This is a real cost (the
+   founder's very next review cycle, not this one, gets `marketplace-liquidity-specialist`'s or
+   `services-unit-economics-reviewer`'s full rigor) but it is a bounded, visible one — not a
+   concern that disappears.
+3. **Flexing for content-triggered personas specifically would set a worse precedent than not
+   flexing.** `regulated-industry-compliance-reviewer` is the first council persona whose trigger
+   is explicitly content-based rather than tied to the `business_type` enum, and it will not be
+   the last — future rounds are likely to add more (geography-specific, stage-specific personas
+   are named directly in `docs/ROADMAP.md`'s v0.3 long tail). If a content-triggered persona gets
+   to flex the panel to 6 by rule, every future content-triggered persona has the same claim, and
+   the fixed-5 range stops being fixed in practice even though `CONVENTIONS.md` still states it on
+   paper — exactly the "silently exceeding a cap" failure mode the original round-3 decision was
+   written to prevent. Holding the line here, on the first content-triggered persona, is what
+   keeps the precedent meaningful for the next one.
 
 State your full seat list and the one-line trigger reason for the contextual 5th seat in the
 review file's rationale section — this is what makes the "extremely thoughtfully designed" part
@@ -357,7 +463,7 @@ in §6:
 `[DEFENSIBILITY]` `[COMPETITIVE-BLIND-SPOT]` `[BUSINESS-MODEL]` `[SALES-CYCLE]`
 `[DMU-COMPLEXITY]` `[EXECUTION-RISK]` `[FOUNDER-MARKET-FIT]` `[VENTURE-FIT]` `[SCALABILITY]`
 `[FINANCIAL-ARITHMETIC]` `[TECHNICAL-FEASIBILITY]` `[FALSE-PRECISION]` `[LIQUIDITY]`
-`[DELIVERY-CAPACITY]`
+`[DELIVERY-CAPACITY]` `[REGULATORY-RISK]` `[MANUFACTURING-RISK]`
 
 `[FALSE-PRECISION]` is distinct from `[FINANCIAL-ARITHMETIC]` — use it for "this number claims
 more precision than its method supports" (e.g. a TAM stated to the dollar from a rough bottom-up
@@ -366,7 +472,7 @@ the two under one tag would make the §6 overlap check treat an unrelated arithm
 precision complaint as corroborating each other, which could wrongly save a verdict from being
 discarded as an outlier.
 
-`[LIQUIDITY]` (added this round, owned primarily by `marketplace-liquidity-specialist`) is for
+`[LIQUIDITY]` (added round 3, owned primarily by `marketplace-liquidity-specialist`) is for
 two-sided cold-start sequencing and supply/demand-balance concerns specific to marketplaces —
 one side under-courted relative to the other, a take-rate that charges the price-sensitive side
 and threatens liquidity, a next-10 list that's real on one side but a wishlist on the other. It is
@@ -375,7 +481,7 @@ from `[MARKET-SIZE]`/`[FINANCIAL-ARITHMETIC]` (a marketplace TAM priced per-seat
 GMV × take-rate is a `[FINANCIAL-ARITHMETIC]` formula error, not a `[LIQUIDITY]` finding, even
 though both can appear in the same review of the same plan).
 
-`[DELIVERY-CAPACITY]` (added this round, owned primarily by `services-unit-economics-reviewer`)
+`[DELIVERY-CAPACITY]` (added round 3, owned primarily by `services-unit-economics-reviewer`)
 is for billable-hours/utilization ceilings and key-person/founder-dependency risk that caps how
 fast a services (or any labor-delivered) business can actually grow — a growth curve that requires
 more delivery hours than the stated team can provide, an uncapped retainer that quietly commits
@@ -385,6 +491,35 @@ distinct from `[UNIT-ECONOMICS]` (the LTV/COCA figures and ratio themselves) and
 capacity) — a services business can have a mathematically healthy LTV:COCA ratio and still be
 `[DELIVERY-CAPACITY]`-flagged if delivering on that LTV requires hours nobody on the team actually
 has.
+
+`[REGULATORY-RISK]` (added this round, owned primarily by
+`regulated-industry-compliance-reviewer`) is for the plan's own steps failing to show awareness of
+a licensing, certification, or data-handling regime that its stated business model or product spec
+implies — a health/fintech/regulated-vertical activity described with no named regime (HIPAA,
+money-transmission/KYC/AML, an industry-specific license), or a revenue mechanism that itself
+requires a license the plan doesn't mention. It is distinct from `[TECHNICAL-FEASIBILITY]` (which
+flags *that* a certification/regulatory-engineering step exists and whether a build timeline
+accounts for it, an engineering-sequencing question) and from `[MANUFACTURING-RISK]` below (a
+physical product's certification *cost and lead time* being unbudgeted is `[MANUFACTURING-RISK]`;
+the underlying licensing/regulatory-awareness gap for a regulated activity or regulated data type
+is `[REGULATORY-RISK]`, even when both show up on the same certification requirement) — and it is
+never itself a legal-clearance signal: an `APPROVE` tagged `[REGULATORY-RISK]`-free means the plan
+shows awareness, not that a lawyer has confirmed compliance (see the persona's own file for the
+full boundary with `agents/risk/privacy-compliance-officer.md`).
+
+`[MANUFACTURING-RISK]` (added this round, owned primarily by
+`hardware-physical-product-operator`) is for manufacturing lead times, tooling/certification cost
+and timeline, supply-chain single points of failure, and the gap between a validated prototype and
+a validated-at-production-volume product — a COGS or per-unit-cost figure that's really a
+prototype/small-batch number presented as production-ready, a certification named with no
+cost/timeline attached, an unaddressed single-supplier dependency, or an MVBP production quantity/
+lead time that doesn't match a real minimum order quantity. It is distinct from
+`[TECHNICAL-FEASIBILITY]` (whether the underlying hardware mechanism or engineering approach is a
+solved problem at all — a technically simple, conventional physical product can still be
+`[MANUFACTURING-RISK]`-flagged on operational grounds) and from `[UNIT-ECONOMICS]`/
+`[FINANCIAL-ARITHMETIC]` (a production-scale COGS figure being the *wrong kind* of number for what
+it's proving is `[MANUFACTURING-RISK]`; an actual multiplication/formula error in the same figure
+is `[FINANCIAL-ARITHMETIC]`, and both tags can legitimately appear together when they coincide).
 
 If a returned verdict has an untagged bullet, tag it yourself from context before running §6
 rather than discarding the aggregation step — but note in the review file that you had to backfill
