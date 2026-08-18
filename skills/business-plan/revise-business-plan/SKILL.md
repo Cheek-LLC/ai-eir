@@ -8,7 +8,8 @@ description: >
   disciplined-entrepreneurship step skill or fixes it at the synthesis level, produces
   plan/business-plan-v{N}.md via the same synthesis logic as assemble-business-plan, bumps
   plan.version, appends a specific plan.history entry, marks which items were addressed, and
-  moves stage revising -> council_review for re-review.
+  leaves stage at revising (unchanged) so run-review-council's own precondition picks it up for
+  re-review.
 ---
 
 # Revise Business Plan
@@ -144,11 +145,17 @@ the diff themselves.
   document.
 - Do not touch other `reviews[]` entries.
 
-## 6. Advance stage for re-review
+## 6. Leave stage at "revising" for re-review
 
 Once re-synthesis is complete (whether or not every item was resolved — an honest partial
-revision still needs review), set `stage = "council_review"` so
-`skills/business-plan/run-review-council` (owned by another builder) picks it up again. If one
+revision still needs review), **do not change `stage`** — leave it exactly as `"revising"` (set
+in §2 and never persisted as anything else by this skill). `skills/business-plan/run-review-council`
+owns the transition out of `"revising"`; its own precondition (§0.2 of that skill) requires
+`stage` to be exactly `"plan_assembled"` or `"revising"` when it is invoked, and it never reads or
+expects an on-disk `"council_review"` value — that string describes the activity in progress, not
+a stage this or any skill writes to disk (see `agents/orchestrator.md`'s state-machine notes,
+which say the same thing from the caller's side). Writing `stage = "council_review"` here would
+fail `run-review-council`'s precondition on the very next call and stall the revision loop. If one
 or more required-revision items are still open, say so plainly in your final report so whoever
 triggers the re-review knows this is not a claim of full resolution.
 
@@ -160,7 +167,8 @@ Read the full file, write back only:
 - `plan.file = "plan/business-plan.md"` (unchanged path, content updated)
 - `plan.history`: append-only, per step 4.
 - `reviews[]`: the triggering review's `resolved` field only, per step 5.
-- `stage = "council_review"`
+- `stage`: leave as `"revising"` — do not write `"council_review"` (see §6; that value is never
+  persisted to disk by any skill in this plugin).
 - `updated_at`: current timestamp.
 
 Do not touch `disciplined_entrepreneurship` entries directly (the step skills you delegated to
@@ -176,7 +184,7 @@ never delete or silently alter an existing entry.
   this call is not done per this plugin's contract.
 - `plan.version` bumped, `plan.history` has a specific, itemized `summary_of_changes`.
 - The triggering review's `resolved` flag accurately reflects whether every item was fixed.
-- `stage = "council_review"`.
+- `stage` is still `"revising"` (unchanged — see §6).
 - Report back: version number, per-required-revision-item status (resolved/not resolved with
   reason), the file path of the new plan version, and the AI-risk gate's PASS/BLOCKED result with
   any `risk_log` ids it wrote.
