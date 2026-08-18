@@ -16,6 +16,7 @@ agents/                         # subagent definitions, one .md per agent, may u
   design/                       # brand/landing-page/pitch-deck design agents
   gtm/                          # go-to-market agents (launch, marketing, sales, fundraising)
   ops/                          # operations, analytics, finance, scaling agents
+  product/                      # product management / roadmap agents (round 9)
   qa/                           # testing / quality assurance agents
   risk/                         # AI risk, privacy, compliance agents
 skills/                         # SKILL.md packages, one folder per skill
@@ -28,8 +29,12 @@ skills/                         # SKILL.md packages, one folder per skill
   gtm/
   interview/                    # onboarding + recurring check-in interview flows
   ops/
+  product/                      # product management / roadmap skills (round 9)
   qa/
   risk/
+  autonomous-continuation/SKILL.md  # a singleton skill can live directly under skills/ too, same
+                                 #   rule as the agents/ singletons above — not every skill needs
+                                 #   a category subfolder
 commands/                       # slash commands, one .md per command
 docs/                           # ARCHITECTURE.md, ROADMAP.md, DATA-CONTRACT.md, QA-FINDINGS-*.md, etc.
 scripts/                        # validate-plugin.sh — structural drift checker; run before opening a PR

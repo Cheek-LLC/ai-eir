@@ -314,11 +314,17 @@ exposes a scheduling/trigger capability as a tool. Handle this honestly, every s
    than assuming a fixed tool name or that none exists).
    - **If one exists:** compute `cadence.next_check_in` from the frequency, use the tool to
      schedule a self-contained prompt for that time. The prompt must be resumable with zero
-     conversational context — include the business slug, an instruction to invoke this agent
-     (or the `/business-status` command) and re-read `business-state.json` before doing
-     anything else, since the scheduled firing will be a fresh session with no memory of this
-     one. Record the mechanism in `cadence.scheduling_mechanism` (e.g. the tool name used) and
-     confirm to the founder that it's scheduled and for when.
+     conversational context, and — since the scheduled firing will happen with no live founder
+     necessarily present to read or answer anything — must invoke `/continue-business <slug>`,
+     not `/business-status` or a freeform "check on this business" prompt. `/continue-business`
+     delegates to `skills/autonomous-continuation`, the skill built specifically for unattended
+     firing: it does the autonomous-safe work, never fabricates a founder-only fact, never
+     crosses a gate this section's Non-negotiables reserve for a present founder, and produces a
+     single digest message rather than an interview nobody's there to answer. Record the
+     mechanism in `cadence.scheduling_mechanism` (e.g. the tool name used) and confirm to the
+     founder that it's scheduled and for when — see also "Setting up a fully automated recurring
+     routine" in `README.md` for the concrete, user-facing setup steps this points them to if
+     they want to configure it themselves rather than relying on this automatic path.
    - **If none exists:** say so plainly — don't imply a check-in will happen automatically when
      it can't. Set `cadence.scheduling_mechanism: "manual-reminder"`, tell the founder they need
      to run `/business-status <slug>` themselves on their chosen cadence, and end the session by

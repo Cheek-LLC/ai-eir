@@ -65,12 +65,21 @@ Two commands cover the whole lifecycle, and you'll use these almost exclusively:
   yourself, on your own schedule, if your environment can't schedule check-ins automatically —
   see below.**
 
-Three more commands exist for specific, less-frequent situations:
+Four more commands exist for specific, less-frequent situations:
 
 - **`/check-in [slug]`** — manually triggers a recurring check-in conversation right now, either
   because you want to check in early or because `/business-status` is your only way to trigger one
   at all (no automatic scheduling available). Functionally close to `/business-status`, but framed
-  explicitly as a check-in rather than a general resume.
+  explicitly as a check-in rather than a general resume. This one assumes **you're here live** —
+  it asks you questions and waits for real answers.
+- **`/continue-business [slug]`** — the unattended counterpart to `/check-in`: the command a
+  scheduled Routine should invoke, not a founder sitting at the keyboard. It does whatever
+  autonomous-safe work is available (metrics snapshots, retros, risk scans, drafting the next
+  artifact), never invents a founder-only fact or crosses an irreversible gate (a real launch, a
+  council override, spending money) on your behalf, and leaves you a short digest of what it did
+  and exactly what it needs from you next. See
+  [Setting up a fully automated recurring routine](#setting-up-a-fully-automated-recurring-routine)
+  below.
 - **`/run-council [slug] [council-name...]`** — manually convenes a review council against your
   current plan outside the normal review gate — useful for an early gut-check before you're ready
   to formally submit for review. Doesn't skip or replace the real gate.
@@ -101,6 +110,53 @@ exposes a scheduling/trigger capability as a tool:
 Know which case you're in before you finish your first session — the Startup Operator will tell
 you plainly, and it's worth writing down your own reminder (a calendar entry, a recurring to-do)
 if you're in the manual case and this business matters to you.
+
+### Setting up a fully automated recurring routine
+
+If your environment supports scheduled triggers (Claude Code on the web / claude.ai/code calls
+these **Routines** — recurring or one-shot prompts that fire back into a session on their own),
+you can have this plugin genuinely check in and keep working on your business without you
+initiating each session. Two ways to get there:
+
+1. **Let the Startup Operator do it for you.** When it asks about check-in cadence at the end of a
+   session, say yes to scheduling — it looks for a scheduling capability itself and, if your
+   environment has one, sets it up automatically (see above). This is the path most founders should
+   use; nothing further to configure.
+2. **Set it up yourself, explicitly**, if you want more control over the cadence or you're setting
+   this up ahead of a session rather than at the end of one. Ask Claude directly, in your own
+   words, something like:
+
+   > "Set up a recurring Routine that runs `/continue-business <your-business-slug>` every
+   > [weekday / week / two weeks — whatever cadence you want]."
+
+   Claude will create the Routine (a cron-style schedule) targeting this exact command. Two things
+   matter about the command it targets:
+
+   - **It must be `/continue-business`, not `/check-in` or `/business-status`.** Those two assume
+     you're present to answer questions live; if a Routine fires them with nobody watching, the
+     session just sits there having asked a question into the void. `/continue-business` is built
+     for exactly this situation — it never asks a question it expects an immediate answer to.
+   - **Include the business slug in the prompt** (the `.startup/<slug>/` folder name) so each
+     firing knows which business to continue without you present to clarify.
+
+**What actually happens on each automated firing, honestly:**
+
+- It re-reads your business's real state from disk (never from memory of a prior session) and does
+  whatever mechanical, data-grounded work is safe to do without you — a metrics snapshot, a retro,
+  a risk scan, drafting (not sending/shipping) the next artifact.
+- It leaves you a short digest: what it did, and a specific, short list of exactly what it needs
+  from you — never a fabricated number or a guessed answer standing in for something only you
+  actually know.
+- It will **never**, on its own: treat a review council's REVISE/REJECT verdict as resolved,
+  declare a real launch happened, spend money or send anything externally through a connector, or
+  write anything into `founder`/`business_basics` on your behalf. Those all require you, present,
+  saying so.
+- It reschedules the next firing itself before ending, the same way the Startup Operator does when
+  it sets this up for you in path 1 above.
+
+**Checking on it or turning it off:** ask Claude to list your Routines, or just say "stop the
+recurring check-ins for `<slug>`" — this plugin doesn't manage the Routine itself once it's
+created, so cancelling it is a normal Claude Code Routine action, not a plugin command.
 
 ## Directory layout
 
