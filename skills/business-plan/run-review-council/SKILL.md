@@ -125,24 +125,48 @@ track. A thin panel is exactly the rubber-stamping risk `docs/AI-RISK-FRAMEWORK.
 **One contextual 5th seat**, chosen by this priority procedure — evaluate in order, take the
 first that triggers; if none trigger, use the default:
 
-1. **`sales-motion-reviewer`** triggers if `business_basics.business_type` is `services` or
+1. **`technical-feasibility-reviewer`** triggers if `business_basics.business_type` is
+   `physical_product` **and** `business_type_notes` (or `founder.notes`) signals hardware,
+   deep-tech, or regulated-engineering content — keywords like "hardware," "device," "firmware,"
+   "IoT," "robotics," "battery," "manufacturing tooling," "biotech," "medical device," "clinical,"
+   "FDA," "novel algorithm," "proprietary model," "deep tech," "R&D," "patent-pending
+   technology," "regulatory approval," "certification (UL/FCC/CE/FDA)" — **or**
+   `business_basics.business_type` is `other` with `business_type_notes` describing exactly that
+   shape (the fixed enum has no dedicated hardware/deep-tech/regulated value yet — see this
+   skill's cross-team note), **or** Step 7's product spec itself
+   (`disciplined_entrepreneurship.07_high_level_product_specification.summary` and/or
+   `plan/07-high-level-product-specification.md`) describes a novel/unproven core technology (a
+   proprietary algorithm, novel hardware mechanism, or a safety-/accuracy-critical or regulated
+   product) regardless of the `business_type` label — trigger on the plan's own content, not just
+   the category field, since a `saas`-labeled plan can still describe a technically ambitious or
+   regulated build (an AI-diagnostics or fraud-detection product, for instance). This is the
+   highest-priority trigger: a business built on a technically infeasible premise is a more
+   consequential blind spot than an unresolved market or channel question, because no amount of
+   good GTM execution rescues a product that can't be built as scoped.
+2. **`sales-motion-reviewer`** triggers if `business_basics.business_type` is `services` or
    `physical_product` with a stated retail/wholesale/channel component, **or** Step 12's DMU
    description (check `disciplined_entrepreneurship.12_determine_the_dmu.summary` and/or
    `plan/12-determine-the-dmu.md`) names multiple stakeholder roles, procurement, or an explicitly
    long/multi-stage sales cycle — i.e., anything beyond a single self-serve buyer-user-payer.
-2. **`product-market-fit-panel`** triggers if `business_basics.business_type` is `saas`,
+3. **`product-market-fit-panel`** triggers if `business_basics.business_type` is `saas`,
    `consumer_app`, or `marketplace`, **and** any of Steps 06, 07, 08, 20, 21, 22, 23 has `status`
    other than `approved`, **or** `key_assumptions` entries with `step_ref` in that range and
    `confidence: low` outnumber similarly-low-confidence entries elsewhere in the plan — i.e., the
    PMF-critical steps are the plan's least mature section right now.
-3. **`competitive-strategy-reviewer`** — the default. Also use this instead of #1/#2 whenever
+4. **`competitive-strategy-reviewer`** — the default. Also use this instead of #1/#2/#3 whenever
    `business_basics.business_type` is `marketplace` (two-sided defensibility is close to always
    the central strategic question for a marketplace) or Steps 10/11 are not yet `approved`.
 
-If both #1 and #2 trigger for the same review, take #1 (`sales-motion-reviewer`) — DMU/channel
-mismatches are the rarer, more urgent signal — and note in the review file's rationale that
-`product-market-fit-panel` is recommended for the *next* review cycle rather than silently
-dropping the concern. Never exceed 5 seats total.
+`technical-feasibility-reviewer` is deliberately **not** a fallback default — most plans describe
+conventional, well-understood builds where this seat has little to add, so it only takes the seat
+when its trigger actually fires, exactly like #2/#3 below it.
+
+If more than one of #1-#3 triggers for the same review, take the lowest-numbered one that
+triggered — #1 (`technical-feasibility-reviewer`) outranks #2 (`sales-motion-reviewer`), which
+outranks #3 (`product-market-fit-panel`), per the priority order above (rarest, most consequential
+signal wins) — and note in the review file's rationale that the runner-up trigger(s) are
+recommended for the *next* review cycle rather than silently dropping the concern. Never exceed 5
+seats total.
 
 State your full seat list and the one-line trigger reason for the contextual 5th seat in the
 review file's rationale section — this is what makes the "extremely thoughtfully designed" part

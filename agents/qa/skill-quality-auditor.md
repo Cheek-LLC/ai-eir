@@ -143,9 +143,15 @@ not fine is jargon used with no anchor anywhere a first-time reader (a new build
 if the text is founder-facing) could resolve it:
 
 - Any DE acronym (TAM, DMU, COCA, LTV, MVBP) used in a file that is not itself a DE-step skill
-  or a file that clearly assumes DE literacy (e.g. `business-plan-editor.md`, which is fine to
-  assume it) should be expanded on first use, or the file should point to the step that defines
-  it (`docs/DE-24-STEPS.md`).
+  or a file that clearly assumes DE literacy should be expanded on first use, or the file should
+  point to the step that defines it (`docs/DE-24-STEPS.md`). Don't leave "assumes DE literacy" to
+  a fresh judgment call each time — this checklist treats it as presumed for any file under
+  `agents/council/*`, `agents/gtm/*`, `agents/ops/*`, `agents/risk/*`, `skills/business-plan/*`,
+  and (obviously) `skills/disciplined-entrepreneurship/*` itself, since every one of those reads
+  an already-DE-literate plan or persona and can't function without that vocabulary. Founder-facing
+  interview skills (`skills/interview/*`) and plugin-engineering-facing files (this QA layer,
+  commands, the orchestrator's own prose to a founder) are the files that actually need acronyms
+  expanded — flag those, not the DE-literate-by-design categories above.
 - Internal plugin jargon — "the gate," "the council," "the stage machine," "resolved" as a
   review-file status — used without any pointer to where it's defined (CONVENTIONS.md,
   `docs/DATA-CONTRACT.md`, or `agents/orchestrator.md`) is a `FAIL` if a reader with only this
