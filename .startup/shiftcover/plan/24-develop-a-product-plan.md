@@ -58,6 +58,11 @@ capability*.
 **Timeline note:** the roadmap's Item 1 (ship the Step 7 Must-have set for one real pilot) is now
 gated on this 2-week no-code build checkpoint, not an open-ended "whenever Maria gets to it."
 
+## Quantitative claims logged
+```json
+{ "id": "qc-024-contractor-quotes", "claim": "Contractor quote range for a fully outsourced MVBP build", "value": "$18,000-$24,000 for a 6-8 week build", "step_ref": "24_develop_a_product_plan", "source": "founder-obtained quotes from 2 independent contractors, week of 2026-08-25 — not published rates, not independently verified beyond the quotes themselves", "confidence": "low", "ai_risk_flag": false }
+```
+
 ## Handoff briefs
 ### To GTM
 Positioning should center on the Director-of-Ops-facing pitch (Step 6's discovery/evaluation

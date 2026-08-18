@@ -122,7 +122,7 @@ past "first conversation." Nothing has been confirmed by a signed contract or re
   `risk_log`). A new v2 accuracy finding (`ar-shiftcover-004`, advisory) is logged in
   `business-state.json.risk_log` — v1's Confidence & Validation Status miscounted
   `quantitative_claims` as 7 entries when 8 actually existed (`qc-019-ltv-coca-ratio` was omitted
-  from the count); corrected below to the accurate, now-9-entry count including this cycle's new
+  from the count); corrected below to the accurate, now-10-entry count including this cycle's new
   cold-outbound claim.
 
 **What this plan is not:** This is a planning aid produced by an LLM working the Disciplined
@@ -287,7 +287,7 @@ tests it has not yet arrived) rather than `null`.
 TAM compatibility note, and the Step 4/16 pricing-tier mismatch are all unaffected by this
 revision cycle's specific required-revisions list.)*
 
-**Quantitative claims with `confidence: low` or `ai_risk_flag: true`:** now **9** entries in
+**Quantitative claims with `confidence: low` or `ai_risk_flag: true`:** now **10** entries in
 `business-state.json.quantitative_claims` (corrected count — v1 undercounted this as 7; see
 Confidence & Validation Status above), all carrying `ai_risk_flag: true`: the beachhead TAM, the
 value-proposition delta, the follow-on TAM, the price point, the sales-cycle length, COCA, the
