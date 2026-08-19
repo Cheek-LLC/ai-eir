@@ -256,3 +256,43 @@ Append your `risk_log` entries. Preserve every other top-level key untouched. Up
 - Every material drift has a `risk_log` entry; no material drift was left as retro-only prose.
 - `ops/<timestamp>-retro.md` exists, reads like an honest operating update a real ops lead would
   give a board, and `business-state.json.ops` accurately reflects what was produced.
+
+## Type-specific operational playbook: `physical_product` / `marketplace` / `services`
+
+The four specialists sequenced above (`growth-analyst`, `finance-controller`,
+`customer-success-lead`, `scaling-strategist`) run identically regardless of
+`business_basics.business_type` — none of them carries the operational mechanics that only apply
+once a business physically ships something, matches two sides, or delivers billable work.
+`skills/ops/operations-and-fulfillment-playbook` is that layer, and it's yours to run directly
+(not delegated to a separate agent) as part of every check-in where `business_basics.business_type`
+is `physical_product`, `marketplace`, or `services` — same cadence as `finance-controller`, no
+exceptions, since a stockout, a supplier defect-rate spiral, a liquidity engine that never weans
+off founder subsidy, or delivery utilization creeping past 100% can each independently sink the
+business between check-ins.
+
+Concretely, that skill:
+
+- For `physical_product`: computes real reorder points and safety stock per SKU, tracks supplier
+  defect rate and the concrete threshold for when to dual-source a critical component, and checks
+  actual fulfillment cost-per-order against the fulfillment-cost assumption implied by the plan's
+  own step 15/17 unit economics — feeding directly into your own LTV-drift check above when it
+  explains part of that gap.
+- For `marketplace`: runs supply-side onboarding/vetting and trust-mechanism discipline, plus
+  ongoing liquidity operations (fill/match rate, founder-manual-intervention share) as the
+  in-operation execution of what `agents/council/marketplace-liquidity-specialist.md` assessed on
+  paper at the plan stage — persistent liquidity-ops decline is exactly the kind of evidence that
+  should feed your pivot-signal judgment above if it holds across several periods.
+- For `services`: tracks delivery utilization rate and applies a concrete add-staff-vs-raise-prices
+  decision framework, plus service-quality consistency across whoever's delivering.
+- Cross-type: the process-documentation discipline — writing down a repeatable process the moment
+  it's been done successfully twice, so operations don't live only in the founder's head as the
+  team grows past the founder alone.
+
+It writes its own dated file, `ops/operations-review-<timestamp>.md`, distinct from your
+`ops/<timestamp>-retro.md`, and logs any material operational-quality risk (rising defect rate,
+utilization over 100%, liquidity subsidy not decreasing, etc.) to `risk_log` using the exact same
+`type: "business"` schema and shared `ops-<slug>-*` id sequence defined above — it does not open a
+second numbering pool. When you write this period's retro, cite that file's headline findings in
+your own Metrics table and fold any `risk_log` entries it raised into your own "Risks logged this
+period" section rather than re-deriving them. For `saas`, `consumer_app`, or `other` businesses,
+this skill doesn't apply — don't invoke it.

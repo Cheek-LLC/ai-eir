@@ -571,6 +571,217 @@ files, 0 warnings, 0 errors — round 7 deepened existing agent/skill files rath
 
 ---
 
+## Round 8 — consolidation: findings-backlog sweep and real-use readiness, not a fifth dry run
+
+Round 7's own roadmap update named the judgment call directly: seven rounds of simulated dry runs
+had reached diminishing returns for this category of bug, and the next qualitatively different test
+this project needs is a real human's multi-session use, not another simulated business. Round 8 is
+the swarm's own direct response — three agents ran a consolidation round instead of a fifth fixture:
+
+- **A findings-backlog sweep** (`docs/QA-BACKLOG-SWEEP-ROUND8.md`) re-audited all 34 deferred items
+  across the seven prior rounds' `docs/QA-FINDINGS-*.md` documents against *current* file state, not
+  each document's own now-possibly-stale "not fixed" language — several items had in fact already
+  been resolved by a later round's unrelated edit and were confirmed, not re-fixed. 5 items were
+  genuinely still open and small enough to fix directly this round: a privacy-check gate forward-note
+  wired into `skills/gtm/outbound-sales-playbook` and `skills/ops/kpi-dashboard-setup` for any future
+  live-send/live-pull extension, and a structured "Funnel losses this period" field added to
+  `skills/ops/weekly-metrics-review`. 20 were confirmed already resolved by later rounds' work. 9
+  remain genuinely open, restated verbatim in that document, each blocked on a `DATA-CONTRACT.md`/
+  `CONVENTIONS.md` edit or a real maintainer judgment call rather than a quick fix.
+- **Real-use readiness polish**: `README.md` gained a "Before you start — what to actually expect"
+  section and an honest "Recurring check-ins" section explaining the scheduling-capability caveat
+  plainly, and corrected a stale claim about the command count; `.claude-plugin/plugin.json`'s
+  version was bumped to `0.2.0`; `skills/interview/onboarding-interview/SKILL.md`'s opening message
+  was tightened for a genuine first-time human founder rather than a simulated one — mechanics
+  (the vague-answer playbook, the "I don't know" protocol) were left untouched, only the spoken
+  opening.
+
+**Round 8 is complete and integrated.** `scripts/validate-plugin.sh` reported 46 skills, 29 agents, 5
+commands, 12 council files, 0 warnings, 0 errors at the end of this round — a consolidation round by
+design, touching no new skill/agent/command files. **Note for this document's own integrity:** this
+"Round 8" section itself was written retroactively during round 9's integration pass, after round 9's
+own audit noticed the changelog had gone straight from a "Round 7" section to "Patterns worth
+knowing" with no "Round 8" heading in between, even though `docs/ROADMAP.md` and `docs/MASTER_INDEX.md`
+had both been updated for round 8 at the time — the round-8 changelog agent's own report described
+writing a "Round 7" entry (round 7's own entry had been the actual gap at that time) and evidently
+never circled back to add round 8's own section once that was done. Recorded here so this document's
+own history is honest about the gap and how it was closed, not just about the plugin's.
+
+---
+
+## Round 9 — an autonomous recurring-routine skill, and 10 functional-specialist "expert
+   entrepreneur" agents building advanced-level skills, a new council persona, and optimization agents
+
+Two distinct pieces of work, run together: infrastructure for genuinely unattended operation, and a
+broad specialist-depth expansion explicitly requested to make this "the most effective entrepreneur
+agent overall" rather than another simulated-business dry run.
+
+**New unattended-firing infrastructure**, built directly rather than by a swarm agent (cross-cutting,
+contract-adjacent, same treatment `agents/orchestrator.md` and `CONVENTIONS.md` get every round):
+`skills/autonomous-continuation/SKILL.md` is the entry point for a scheduled Routine/cron firing with
+no live founder necessarily present — it classifies each stage's next action into
+autonomous-safe / founder-required / gated-never-cross-unattended (a council override, a real launch,
+a connector spend, anything requiring a fact only the founder has), does the first bucket, never
+fabricates the second, never crosses the third, and produces one scannable async digest rather than an
+interview nobody's there to answer. `commands/continue-business.md` is the Routine-safe counterpart to
+`/check-in` and `/business-status`, routing to that skill. `agents/orchestrator.md`'s existing
+self-scheduling logic (present since round 1, "look for a scheduling capability before assuming there
+isn't one") now points a scheduled firing's prompt at `/continue-business` specifically, instead of a
+generic resume command that assumes someone's there to answer its questions. `README.md` gained a
+"Setting up a fully automated recurring routine" section with literal, concrete setup instructions
+(the exact phrasing to ask Claude, why `/continue-business` and not `/check-in`/`/business-status` is
+the right target, and a plain statement of what it will and will never do unattended).
+
+**10 parallel functional-specialist agents**, each an "expert entrepreneur" in one functional area,
+each scoped to strictly disjoint files, built the advanced-level skills, optimization agents, and one
+new council persona the roadmap's long tail had named but nothing had built yet:
+
+- **Product** — `skills/product/roadmap-and-prioritization` (RICE-scored, Core/beachhead-drift-aware
+  roadmapping) + `agents/product/product-lead.md`, the plugin's first dedicated product-management
+  coverage (new `agents/product/`/`skills/product/` categories, pre-registered in `CONVENTIONS.md`).
+- **Legal** — `skills/risk/legal-structure-and-ip-basics` (entity choice tied to `funding_intent`,
+  vesting/IP-assignment mechanics, contract hygiene, explicit "when this needs a real lawyer"
+  boundary).
+- **HR/People** — `skills/ops/hiring-and-org-design` (runway-gated should-we-hire decision, per-type
+  first-hire sequencing, comp/equity bands) + `agents/ops/people-lead.md`.
+- **Customer Success** — `skills/ops/customer-success-playbook` (health-scoring, per-type onboarding,
+  expansion motion, save-play discipline) + an append to `agents/ops/customer-success-lead.md` giving
+  it a self-correcting practice: comparing the health model's predictions against real outcomes and
+  flagging when its own thresholds need recalibrating.
+- **Growth/CRO** — `skills/ops/experimentation-and-optimization` (ICE-prioritized experiments, and a
+  genuinely rigorous statistical-significance section sized for early-stage traffic — the single most
+  differentiated piece of content this round produced) + an append to `agents/ops/growth-analyst.md`.
+- **Pricing** — `skills/ops/pricing-and-monetization-optimization` (evidence-gated triggers for
+  revisiting DE step 16's pricing, packaging/tiering frameworks, a `quantitative_claims[]` feedback
+  loop for a tested price change) + `agents/ops/pricing-strategist.md`.
+- **Fundraising/IR** — `skills/gtm/investor-updates-and-cap-table-basics` (the five-part investor
+  update format, worked cap-table/SAFE-conversion numeric examples) + an append to
+  `agents/gtm/fundraising-advisor.md`.
+- **Operations/Fulfillment** — `skills/ops/operations-and-fulfillment-playbook` (real, type-specific
+  SOPs for `physical_product`/`marketplace`/`services`) + an append to `agents/ops/operations-manager.md`.
+- **Competitive Intelligence** — `skills/ops/competitive-intelligence-monitoring` (monitoring cadence,
+  win/loss taxonomy, positioning-drift-detection thresholds) + `agents/ops/competitive-intelligence-lead.md`.
+- **Council — Operational Execution** — `agents/council/operational-execution-reviewer.md`, the
+  plugin's 13th review-council persona: an ex-COO lens asking not whether the strategy is sound but
+  whether *this specific team, at this size,* can actually execute it — summing Steps 13/18/22's
+  concurrent load against a realistic weekly-hours ceiling and checking for a credible first-90-days
+  operating sequence, a genuinely new axis no existing persona owned. Registered as a new contextual
+  5th-seat candidate in `skills/business-plan/run-review-council/SKILL.md` §3 at priority tier #3
+  (between `technical-feasibility-reviewer` and the business-type-match tier), gated on a demanding
+  **two-of-three** independent execution-complexity signal specifically so the existing type-matched
+  seats stay unconditional for the ordinary single-axis case — every downstream numeric
+  cross-reference in that file's tie-break rules and "Why 5 seats stays fixed" reasoning was
+  renumbered and re-verified by grep for staleness. `docs/DATA-CONTRACT.md`'s "Council persona
+  coverage" table was updated to describe the new trigger and its (partial, not closing) reach into
+  the `saas`/`consumer_app`/`other` gap that table has tracked since round 4.
+
+**Integration-pass work done directly, after the 10 agents landed:** `docs/DATA-CONTRACT.md` gained
+`ops.last_roadmap_file` (mirroring `ops.last_retro_file`'s role, per `product-lead`'s explicit
+recommendation rather than an agent inventing a new field itself) and the council-persona-coverage
+table update above. Two agents (legal, product) each explicitly deferred a schema/wiring decision to
+this pass rather than making it themselves, per their brief — this is the same discipline every prior
+round's parallel agents have followed around `CONVENTIONS.md`/`docs/DATA-CONTRACT.md` since round 1,
+holding under a materially larger fan-out (10 concurrent agents, the widest of any round) with zero
+file-collision incidents.
+
+**Round 9 is complete and integrated.** `scripts/validate-plugin.sh` reports 56 skills, 34 agents, 6
+commands, 13 council files, 0 warnings, 0 errors.
+
+---
+
+## Round 10 — live dry-run validation of every round-9 skill, on real user request
+
+Round 9 built 9 new skills, 8 new/extended agents, and a new council persona — none of it had ever
+been executed live. Round 10, explicitly requested by the human maintainer, fixed that: **11
+parallel agents**, each isolated on its own throwaway copy of an existing canonical fixture
+(`shiftcover`, `skyclaim`, `vantage-point-search`, or `kindling` — never mutating the originals),
+each live-executed exactly one round-9 skill/agent/persona as literal instructions against real
+fixture data, and each produced a `docs/QA-FINDINGS-*-ROUND10.md` report. Zero write collisions
+across all 11 concurrent copies. The throwaway copies themselves were deleted after their findings
+were extracted — unlike the 4 canonical fixtures, they were disposable test doubles, not ongoing
+history.
+
+**The two highest-value results:**
+
+- **`skills/autonomous-continuation`'s first-ever live firing** (`docs/QA-FINDINGS-AUTONOMOUS-
+  ROUND10.md`), against round 7's real mid-pivot fixture (`stage: de_steps_in_progress` while
+  `gtm.status: launched`/`ops.status: active`), found three real gaps. **Fixed:** (1) the
+  autonomous-safe-work table was single-axis (`stage` only) and could have silently skipped real
+  ops/gtm work sitting on disk during exactly the period a founder needs visibility most — the
+  table now states explicitly that `stage` and ops/gtm liveness are independent signals to be read
+  together, not one gating the other; (2) the skill's own mechanical cross-step skim caught two
+  stale DE steps (09, 14) that `operations-manager`'s original pivot-signal write had missed —
+  the skill now has explicit authority to apply the `NEEDS RE-CONFIRMATION:` marker to what its
+  own skim finds, rather than only reporting it and waiting; (3) Phase 4's "if a scheduling
+  capability exists, use it" had no guard against silently creating a real, persistent Routine the
+  first time anyone ran the command in an environment where a scheduling tool happened to be
+  available — now gated on a prior, on-record opt-in (`cadence.scheduling_mechanism` already set)
+  before creating a new one, versus freely re-arming an existing one. The core "never fabricate,
+  never cross a gate" disciplines held cleanly under real pressure with no fix needed.
+- **`skills/ops/experimentation-and-optimization`**, tested against `vantage-point-search`'s real
+  low-volume B2B services funnel (`docs/QA-FINDINGS-GROWTH-ROUND10.md`): running the skill's own
+  sample-size formula against the fixture's real traffic showed a valid A/B test would take
+  **~29-35 years** to reach statistical significance — a genuinely important result showing the
+  skill's rigor works, but exposing that the skill let you design a full test before that math
+  said it wasn't runnable. **Fixed:** a new Step 1.5 viability check runs the rough arithmetic
+  against real business-scale volume *before* any hypothesis/variant gets designed, routing to
+  qualitative signal immediately when a test isn't viable at current scale; the experiment-log
+  status enum gained a `not-quantitatively-testable` value, since that's a real, complete,
+  correctly-reasoned outcome of doing this skill's job properly, not an incomplete entry.
+
+**Real, fixed findings across the rest of the round:**
+
+- **Cross-cutting stage-gate bug, confirmed independently by 3 different test agents**
+  (product-lead, hiring, and autonomous-continuation): five round-9 skills
+  (`product/roadmap-and-prioritization`, `ops/pricing-and-monetization-optimization`,
+  `ops/competitive-intelligence-monitoring`, `ops/hiring-and-org-design`,
+  `ops/operations-and-fulfillment-playbook`) gated their own "when to run" precondition on a
+  literal `stage: "operating"` read, which doesn't match a real, legitimate combined state (mid-
+  pivot, `stage: de_steps_in_progress`, while `ops.status`/`gtm.status` show the business is still
+  live). **Fixed** in all five: each now explicitly treats `ops.status`/`gtm.status` as
+  independent-of-`stage` liveness signals.
+- **`docs/DATA-CONTRACT.md`'s three-kind `quantitative_claims[].source` taxonomy didn't cover a
+  tested/measured number** (`docs/QA-FINDINGS-PRICING-ROUND10.md`'s finding, also implicit in the
+  growth findings) — the `pricing-and-monetization-optimization` and `experimentation-and-
+  optimization` skills' own `quantitative_claims`-feedback-loop mechanic writes a source string
+  ("operating data, see ops/...") that matched none of the three documented kinds. **Fixed:** a
+  fourth canonical source kind was added to `docs/DATA-CONTRACT.md` — a business's own real
+  operating data or a shipped, statistically-valid internal experiment is at least as strong a
+  source as a web citation, not an informal fourth-class one.
+- **`skills/ops/operations-and-fulfillment-playbook`'s marketplace branch never operationalized
+  `marketplace-liquidity-specialist`'s own plan-stage-flagged "most consequential finding"**
+  (disintermediation — repeat transactions moving off-platform after the first match) into any
+  tracked ops metric (`docs/QA-FINDINGS-OPSFULFILLMENT-ROUND10.md`). **Fixed:** a new "§4
+  Disintermediation / off-platform leakage" subsection, explicit about the signal being harder to
+  observe directly than the other liquidity metrics, and routed to a business-model/council
+  re-review recommendation when material, not just a routine ops note.
+
+**Findings read, understood, and deliberately deferred** (not silently dropped — each is a real,
+smaller, or more judgment-dependent item than the ones above):
+`docs/QA-FINDINGS-LEGAL-ROUND10.md`'s `risk_log[].id` format divergence from the `ar-`/`ov-` style
+(non-blocking per `docs/DATA-CONTRACT.md`'s own note that id format is a readability convention,
+not a schema requirement) and its missing entity-formation-status field;
+`docs/QA-FINDINGS-PRODUCT-ROUND10.md`'s finding that RICE scoring is structurally unscorable (not
+just weak-evidence) for internal-capability roadmap items, and its missing Effort-estimate fallback
+for asynchronous execution; `docs/QA-FINDINGS-CUSTOMERSUCCESS-ROUND10.md`'s gap in
+`customer-success-lead`'s self-correction section for a business's first-ever health-scoring cycle
+(no prior prediction exists yet to check); `docs/QA-FINDINGS-INVESTORRELATIONS-ROUND10.md`'s minor
+template gap (the zero-ops-data "don't invent a metric" rule isn't locally restated at the Key
+Metrics table); `docs/QA-FINDINGS-COMPETITIVEINTEL-ROUND10.md`'s applicability-scope gap (the
+skill silently proceeds when invoked on a pre-operating fixture rather than stating the mismatch
+plainly) and its drift-threshold criterion that breaks down when a plan's differentiation spans
+both axes at once. `docs/QA-FINDINGS-COUNCIL-ROUND10.md` found no defect at all —
+`operational-execution-reviewer`'s trigger logic worked correctly by hand in both a real-fixture
+test (correctly did not fire) and a synthetic compound-signal test (correctly fired and correctly
+displaced the type-matched seat).
+
+**Round 10 is complete and integrated.** `scripts/validate-plugin.sh` still reports 56 skills, 34
+agents, 6 commands, 13 council files, 0 warnings, 0 errors — round 10 deepened existing round-9
+files rather than adding new ones, the same "confirmed complete, not just claimed" treatment every
+prior round's dry-run pass has gotten since round 2.
+
+---
+
 ## Patterns worth knowing
 
 These are the things that only become visible by reading the findings docs together, not from any

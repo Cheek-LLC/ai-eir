@@ -1,4 +1,4 @@
-# Master Index — after Round 7, during Round 8
+# Master Index — after Round 10
 
 Full catalog of every agent, skill, and command in the plugin after round 1 (v0.1 build, 15
 parallel builders), round 2 (adversarial review + fix pass, 9 parallel reviewers plus a live
@@ -26,19 +26,30 @@ silent-failure risk in `launch-director`'s override detection — and the first 
 check-in cycle plus a real mid-lifecycle pivot, driven against `vantage-point-search` — finding the
 DE-step reopening protocol was a single unspecified sentence with no real mechanics — see
 `docs/QA-FINDINGS-OVERRIDE-ROUND7.md` and `docs/QA-FINDINGS-PIVOT-ROUND7.md`, both now landed and
-resolved). **Round 7 is complete and integrated** — every count and claim below was re-walked
-directly against the repo (`find`, targeted `grep`, and a live run of `scripts/validate-plugin.sh`)
-while writing this revision, not carried forward from the prior snapshot. **Round 8 is running
-concurrently with this revision**: one agent is sweeping every prior round's findings documents for
-deferred/unfixed items and closing what's safely closeable, and another is preparing the plugin for
-real human trial use (README/onboarding polish) per `docs/ROADMAP.md`'s own recommendation that
-further simulated dry runs have hit diminishing returns. `docs/QA-BACKLOG-SWEEP-ROUND8.md` does not
-exist yet as of this revision, confirmed by a direct file-existence check, not assumed absent.
-Regenerate this file again once round 8 fully lands. `/list-skills` gives a live, always-current view
-for day-to-day use between regenerations.
+resolved), round 8 (a findings-backlog sweep re-auditing all 34 deferred items across seven prior
+rounds' findings documents against current file state — see `docs/QA-BACKLOG-SWEEP-ROUND8.md` — and
+real-use-readiness polish to `README.md`, `plugin.json`, and `onboarding-interview`, run instead of
+an eighth simulated dry run per `docs/ROADMAP.md`'s own diminishing-returns finding), and round 9 (a
+direct human instruction, not a swarm-self-directed continuation — 10 parallel functional-specialist
+"expert entrepreneur" agents building product, legal, HR, customer success, growth/CRO, pricing,
+fundraising/IR, operations/fulfillment, and competitive-intelligence skills/agents plus a new
+13th council persona `operational-execution-reviewer`, and a new `skills/autonomous-continuation` +
+`/continue-business` pair giving the plugin a genuine, disciplined unattended-firing entry point for
+a scheduled Routine), and round 10 (a live dry-run validation of every round-9 skill — 11 parallel
+agents, each on a disposable copy of a canonical fixture, live-executing one round-9 skill/agent/
+persona as literal instructions against real data; found and fixed 6 real gaps including a
+single-axis stage-gate bug independently confirmed by 3 test agents across 5 skills, and confirmed
+the new council persona's trigger logic works correctly with no defect found — see
+`docs/QA-FINDINGS-*-ROUND10.md` and `docs/CHANGELOG.md`'s round 10 entry). **Round 10 is complete
+and integrated** — every count and claim below was re-walked directly against the repo (`find`,
+targeted `grep`, and a live run of `scripts/validate-plugin.sh`) while writing this revision, not
+carried forward from the prior snapshot. Round 10 deepened round 9's own files rather than adding
+new ones, so the skill/agent/command/council-file totals below are unchanged from the round-9
+snapshot. `/list-skills` gives a live, always-current view for day-to-day use between
+regenerations.
 
 **Live validation output at the time of this revision:**
-`PASS — no structural drift from CONVENTIONS.md detected` — **46 skills, 29 agents, 5 commands, 12
+`PASS — no structural drift from CONVENTIONS.md detected` — **56 skills, 34 agents, 6 commands, 13
 council files checked, 0 warnings, 0 errors**, all 24 DE step folders matching
 `docs/DE-24-STEPS.md`, every referenced `business-state.json` top-level field matching
 `docs/DATA-CONTRACT.md`, and every `agents/council/*.md` file committing to the CONVENTIONS.md §6
@@ -50,7 +61,8 @@ verdict schema.
 |---|---|
 | `/start-business` | Begin a brand-new business — delegates to `startup-operator` to bootstrap `.startup/<slug>/` and start onboarding. |
 | `/business-status` | Resume an existing business by slug/name — re-reads state, reports status, continues where it left off. |
-| `/check-in` | Manually trigger a recurring check-in outside the automatic cadence (also the fallback when no scheduling capability exists). |
+| `/check-in` | Manually trigger a recurring check-in outside the automatic cadence — assumes a live founder present to answer. |
+| `/continue-business` | **New, round 9.** The unattended counterpart to `/check-in`/`/business-status` — the command a scheduled Routine should target. Delegates to `skills/autonomous-continuation`; never asks a question it expects an immediate live answer to. |
 | `/run-council` | Manually invoke a review council against the current plan for a gut-check, outside the normal approval flow. |
 | `/list-skills` | Live enumeration of every skill/agent in the plugin, grouped by category. |
 
@@ -81,6 +93,22 @@ round 7 section below.
 | `recurring-check-in` | Conversational shape of every check-in after launch — asks for real founder-reported numbers, walks open risks/assumptions, confirms next cadence. Round 7's second-check-in-cycle dry run found this skill anticipated a pivot signal surfacing in its own Phase 2 conversation but gave its executor no instruction for what to do next, despite `docs/DATA-CONTRACT.md` explicitly naming this skill as the one that hands a pivot to the orchestrator — **fixed**, Phase 2 now names the handoff explicitly. |
 
 Design rationale for both: `docs/UX-INTERVIEW-DESIGN.md`.
+
+## Autonomous continuation (`skills/autonomous-continuation/`) — new, round 9
+
+A singleton skill living directly under `skills/` (same pattern `agents/business-plan-editor.md` and
+`agents/connectors-liaison.md` already use under `agents/`), invoked by `/continue-business` rather
+than a category directory. This is the entry point for a **scheduled Routine/cron firing with no live
+founder necessarily present** — distinct in kind from both interview skills above, which assume a live
+conversation. Classifies the current stage's next action into autonomous-safe (do it — a metrics
+snapshot, a retro, drafting an artifact from data already on disk) / founder-required (list it, never
+fabricate it) / gated-never-cross-unattended (a council override, a real launch, a connector spend —
+these require a founder physically present per `agents/orchestrator.md`'s Non-negotiables regardless of
+how confident an autonomous read is). Produces a single scannable async digest rather than an interview
+nobody's there to answer, and reschedules the next firing itself. `agents/orchestrator.md`'s own
+self-scheduling logic now points a scheduled firing's prompt here specifically, not at a generic resume
+command. See `README.md`'s "Setting up a fully automated recurring routine" for the user-facing setup
+instructions this enables.
 
 ## Disciplined Entrepreneurship — the 24 steps (`skills/disciplined-entrepreneurship/`)
 
@@ -143,7 +171,7 @@ in three of the four rounds' dry runs.
 
 ## Review councils (`agents/council/`, `skills/business-plan/run-review-council/`)
 
-**12 distinct reviewer personas**, confirmed by direct directory listing and by
+**13 distinct reviewer personas**, confirmed by direct directory listing and by
 `scripts/validate-plugin.sh`'s own live count — a fixed 4-seat core plus one contextual 5th seat
 chosen by priority rules (business type, or the plan's own content), convened as a
 strategy-weighted panel (funding-track aware: bootstrap vs. venture vs. undecided), aggregated by
@@ -160,7 +188,18 @@ both now fixed):
 `product-market-fit-panel` · `financial-modeling-reviewer` · `competitive-strategy-reviewer` ·
 `sales-motion-reviewer` · `technical-feasibility-reviewer` · `marketplace-liquidity-specialist` ·
 `services-unit-economics-reviewer` · `hardware-physical-product-operator` ·
-`regulated-industry-compliance-reviewer`
+`regulated-industry-compliance-reviewer` · `operational-execution-reviewer` (round 9)
+
+**`operational-execution-reviewer` (round 9)** is the newest contextual-seat candidate — an ex-COO
+lens asking not whether the strategy is sound (every other seat's territory) but whether *this
+specific team, at this size,* can actually execute it: summing Steps 13/18/22's concurrent
+operational load against a realistic weekly-hours ceiling and checking for a credible first-90-days
+operating sequence. Slotted into `run-review-council/SKILL.md` §3 at priority tier #3 (below the
+regulated-industry and technical-feasibility triggers, above the business-type-match tier), gated on
+a demanding **two-of-three** independent execution-complexity signal specifically so the existing
+type-matched seats stay unconditional for the ordinary single-axis case — see
+`docs/DATA-CONTRACT.md`'s persona-coverage table and `docs/CHANGELOG.md`'s round 9 entry for the full
+trigger and placement reasoning.
 
 `run-review-council` decides which seats convene and how they're weighted for a given business,
 calls the AI-risk gate before and after the panel, and writes the aggregate verdict to `reviews/`.
@@ -229,18 +268,68 @@ coverage for a pivot signal firing *after* launch (`gtm.status: "launched"`) —
 explicit post-launch clause (already-shipped artifacts get flagged as targeting the pre-pivot band,
 not assumed immune). See the round 7 section below for both.
 
+**Round 9** added `skills/gtm/investor-updates-and-cap-table-basics` — the ongoing-IR sequel to
+`fundraising-deck-prep` (which builds the first pitch deck; this skill covers the recurring investor
+update and cap-table literacy once a raise is active), and appended a pointer to it at the end of
+`agents/gtm/fundraising-advisor.md` without touching that file's existing pre-close mandate.
+
+## Product (`agents/product/`, `skills/product/`) — new category, round 9
+
+The plugin's first dedicated product-management coverage, closing a real gap DE steps 6-8/22/24 never
+owned past initial spec — ongoing roadmap and prioritization once a business is `operating`.
+`product-lead` (`agents/product/product-lead.md`) owns `skills/product/roadmap-and-prioritization`
+(RICE-scored roadmap items sourced from real churn/support/funnel data, tagged Core-vs-Context and
+beachhead-aligned-vs-off-segment against the plan's actual DE steps 3/5/10) and periodically checks the
+shipped product against the plan's stated Core/beachhead/value-proposition for drift, flagging it via
+`risk_log` rather than rewriting plan files itself. Output: `ops/product-roadmap-<timestamp>.md`,
+pointed to by the new `ops.last_roadmap_file` field in `docs/DATA-CONTRACT.md`.
+
 ## Operations (`agents/ops/`, `skills/ops/`)
 
 `operations-manager` (coordinator, runs plan-vs-actual drift checks) → `growth-analyst`,
 `finance-controller` (proactive runway escalation), `customer-success-lead`,
-`scaling-strategist`. Skills: `weekly-metrics-review`, `kpi-dashboard-setup`, `runway-and-burn-
-tracking`, `retention-and-churn-analysis`, `scaling-readiness-check`.
+`scaling-strategist`, and — new, round 9 — `people-lead`, `pricing-strategist`,
+`competitive-intelligence-lead`. Skills: `weekly-metrics-review`, `kpi-dashboard-setup`,
+`runway-and-burn-tracking`, `retention-and-churn-analysis`, `scaling-readiness-check`, and — new,
+round 9 — `hiring-and-org-design`, `customer-success-playbook`, `experimentation-and-optimization`,
+`pricing-and-monetization-optimization`, `operations-and-fulfillment-playbook`,
+`competitive-intelligence-monitoring`.
 
-**Business-type instrumentation: complete across all 5 ops skills**, confirmed by direct
+**Business-type instrumentation: complete across all 5 original ops skills**, confirmed by direct
 inspection — every one of `kpi-dashboard-setup`, `weekly-metrics-review`, `retention-and-churn-
 analysis`, `runway-and-burn-tracking`, and `scaling-readiness-check` now reads
 `business_basics.business_type` and dispatches its metric/KPI set accordingly (this closes the gap
 this file previously tracked, where only `kpi-dashboard-setup` had it as of the round-3 snapshot).
+
+**Round 9's six new ops skills, each an "optimization agent" or advanced-expert playbook in a
+functional area the plugin had no dedicated coverage for before this round:**
+- `hiring-and-org-design` (+ `people-lead`) — runway-gated should-we-hire decision (cross-references
+  `runway-and-burn-tracking` directly), per-`business_basics.business_type` first-hire sequencing,
+  comp/equity bands tied to `funding_intent`, a concrete job-description + scorecard deliverable.
+- `customer-success-playbook` (appended to existing `customer-success-lead`) — health-scoring
+  framework (green/yellow/red, founder-set thresholds from real known-good/bad accounts), per-type
+  onboarding definitions, expansion motion gated to the plan's real pricing tiers, a save-play
+  escalation path into `retention-and-churn-analysis`, and a self-correcting practice comparing the
+  health model's predictions against real outcomes.
+- `experimentation-and-optimization` (appended to existing `growth-analyst`) — ICE-prioritized
+  experiment selection and a genuinely rigorous statistical-significance section (sample-size
+  formula, a worked reference table, a hard anti-peeking rule) sized for early-stage traffic — the
+  round's most differentiated single piece of content. A shipped, statistically valid experiment is
+  explicitly allowed to update the relevant `quantitative_claims[]` entry, closing the loop back into
+  the plan.
+- `pricing-and-monetization-optimization` (+ `pricing-strategist`) — evidence-gated triggers for
+  revisiting DE step 16's pricing (not a calendar ritual), packaging/tiering frameworks, grandfathering
+  and phased-rollout discipline for a price change, and the same `quantitative_claims[]` feedback loop.
+- `operations-and-fulfillment-playbook` (appended to existing `operations-manager`) — real,
+  type-specific SOPs branching by `business_basics.business_type`: inventory/vendor/fulfillment
+  economics for `physical_product`, supply-side onboarding/liquidity ops for `marketplace` (explicitly
+  the ongoing-ops sequel to `marketplace-liquidity-specialist`'s plan-stage review), delivery-capacity
+  utilization discipline for `services`.
+- `competitive-intelligence-monitoring` (+ `competitive-intelligence-lead`) — the ongoing sequel to DE
+  step 11's one-time competitive chart: a fixed monitoring cadence, a structured win/loss reason
+  taxonomy with a pattern-threshold hand-off to `positioning-and-messaging`, and explicit
+  positioning-drift-detection criteria for when a competitive shift rises to "the plan needs a
+  re-review."
 
 ## Design (`agents/design/brand-designer.md`, `skills/design/`)
 
@@ -250,7 +339,7 @@ skill), `landing-page` (via the built-in `design` skill).
 
 ## Risk (`agents/risk/`, `skills/risk/`)
 
-Two distinct risk lenses, both logging to `risk_log`:
+Three risk/planning-aid lenses, sharing `risk_log`:
 - `ai-risk-analyst` / `ai-risk-review` — unsourced numeric claims, false precision,
   automation bias, review-council integrity spot-checks. Blocking gate before any
   numeric-claim-bearing artifact reaches a founder or council; round 2 wired this gate directly
@@ -259,6 +348,13 @@ Two distinct risk lenses, both logging to `risk_log`:
   business.
 - `privacy-compliance-officer` / `privacy-check` — data minimization, connector consent gate,
   scope-of-advice boundary (not legal/financial/tax advice).
+- `legal-structure-and-ip-basics` (skill only, new round 9, no dedicated agent) — entity choice
+  (LLC vs. Delaware C-corp) tied directly to `business_basics.funding_intent`, founder equity/vesting
+  mechanics, IP-assignment traps, and contract hygiene, closing with an explicit "when this needs a
+  real lawyer" boundary. Logs to `risk_log` with `type: "legal"` (already in the schema, unused until
+  now). Not yet wired into a specific DE step or orchestrator phase — the authoring agent recommended
+  DE step 15, before GTM launch, and whenever `funding_intent` changes; left as an open wiring item
+  for a future round rather than done under this round's own integration-pass time budget.
 
 ## Connectors (`agents/connectors-liaison.md`, `skills/connectors/`)
 
@@ -429,34 +525,39 @@ confirms it's landed; do not cite it as existing until then.
 
 ## Totals (walked directly against the repo via `find` and a live `scripts/validate-plugin.sh` run)
 
-- **29 agents** across orchestration (1), council (**12** personas — `technical-feasibility-
+- **34 agents** across orchestration (1), council (**13** personas — `technical-feasibility-
   reviewer` added round 2; `marketplace-liquidity-specialist` and `services-unit-economics-
   reviewer` added round 3; `hardware-physical-product-operator` and `regulated-industry-
-  compliance-reviewer` added round 4), GTM (4), ops (5), risk (2), QA (2), connectors (1),
-  design (1), and plan-editing (1)
-- **46 skills** across interview (2), the 24 DE steps, business-plan (3), GTM (5), ops (5),
-  design (3), risk (2), QA (1), connectors (1) — same total as the round-3 through round-7
-  snapshots; rounds 3 through 7 all deepened existing skill files rather than adding new skill
-  folders, confirmed by `scripts/validate-plugin.sh`'s own live count, not by incrementing the
-  prior number
-- **5 slash commands**
+  compliance-reviewer` added round 4; `operational-execution-reviewer` added round 9), GTM (4),
+  ops (**8** — `people-lead`, `pricing-strategist`, `competitive-intelligence-lead` added round 9),
+  risk (2), QA (2), connectors (1), design (1), product (**1**, new category — `product-lead`,
+  round 9), and plan-editing (1)
+- **56 skills** across interview (2), autonomous-continuation (**1**, new singleton, round 9), the
+  24 DE steps, business-plan (3), GTM (**6** — `investor-updates-and-cap-table-basics` added round
+  9), ops (**11** — `hiring-and-org-design`, `customer-success-playbook`,
+  `experimentation-and-optimization`, `pricing-and-monetization-optimization`,
+  `operations-and-fulfillment-playbook`, `competitive-intelligence-monitoring` added round 9),
+  product (**1**, new category, round 9), design (3), risk (**3** — `legal-structure-and-ip-basics`
+  added round 9), QA (1), connectors (1) — the largest single-round skill/agent growth since round
+  1's initial build; rounds 3 through 8 held the total flat, deepening existing files rather than
+  adding new ones, before round 9's 10-agent breadth expansion
+- **6 slash commands** (`/continue-business` added round 9)
 - **1 CI workflow** (`.github/workflows/validate-plugin.yml`, added round 2, still the only one —
   runs `scripts/validate-plugin.sh` on every `push` and `pull_request`, checking 2 more structural
   properties than it did at the round-2 snapshot, unchanged since round 3)
 - **7 Layer 2 eval cases** under `evals/` (seeded round 4 — `01-ai-risk-gate-unsourced-claim`
   through `06-revise-routes-through-revise-business-plan`, one case, 04, split into an `a`/`b`
-  pair — unchanged since round 4, confirmed by directory listing)
+  pair — unchanged since round 4, confirmed by directory listing; round 9 added no new eval cases
+  for its new skills, a real gap a future round should close)
 
-**Rounds 6 and 7 both held the agent and skill counts stable, confirmed directly rather than
-assumed** — both were dry-run rounds exercising existing fixtures, not build rounds, and every
-file-count-affecting scope was a fix to an existing skill/agent file: round 6 touched
-`revise-business-plan/SKILL.md`, `runway-and-burn-tracking/SKILL.md`, and `connectors-liaison.md`;
-round 7 touched `agents/orchestrator.md`, `agents/gtm/launch-director.md`, and
-`skills/interview/recurring-check-in/SKILL.md` — never a new file, in either round.
-`scripts/validate-plugin.sh` still reports 46 skills, 29 agents, 5 commands, 12 council files, 0
-warnings, 0 errors as of this revision — identical to the round-4 through round-6 snapshots' counts,
-confirmed by a live run of the script during this revision, not assumed carried forward.
+**Round 9 grew the skill/agent count for the first time since round 1** (rounds 2-8 all held it
+flat or near-flat, deepening existing files) — 10 concurrently-running agents, each scoped to
+strictly disjoint files per its own brief, produced 15 new files (9 new skills, 4 new agents, 1 new
+council persona, plus this round's own `skills/autonomous-continuation` and
+`commands/continue-business.md`) and 6 append-only edits to existing agent files, with **zero
+file-collision incidents** — confirmed both by every agent's own `git status`/`git diff` check in
+its final report and by a live run of the validator after all 10 landed.
 
 `scripts/validate-plugin.sh` output at the time of this revision: `PASS — no structural drift from
-CONVENTIONS.md detected` (46 skills, 29 agents, 5 commands, 12 council files, 0 warnings, 0 errors,
+CONVENTIONS.md detected` (56 skills, 34 agents, 6 commands, 13 council files, 0 warnings, 0 errors,
 all 24 DE step folders matching `docs/DE-24-STEPS.md`).

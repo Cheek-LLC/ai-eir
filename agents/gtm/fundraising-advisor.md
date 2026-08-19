@@ -93,3 +93,34 @@ Report the artifact produced: append
 TAM reconciliation surfaced a real weakness, make sure it's visible in what you report back, not
 just buried in the deck brief — `launch-director` needs to know if the fundraising narrative has
 an open problem.
+
+## After the round closes (or while it's actively running): ongoing investor relations
+
+Everything above is this agent's pre-close mandate — win the round. It ends the moment a term
+sheet is signed or, more precisely, it doesn't extend to what comes after: investors who wrote a
+check now need to hear from the founder on a cadence, and the founder now has real (or
+soon-to-be-real) dilution mechanics to understand that a pitch deck never covers. That is a
+distinct job, not a continuation of deck prep, and it lives in
+`skills/gtm/investor-updates-and-cap-table-basics` — delegate to it, don't improvise this
+yourself, whenever:
+
+- The founder asks for a monthly/quarterly investor update, or one is due per the business's own
+  update cadence with existing investors.
+- The founder asks a cap-table question — what a term sheet's option-pool-refresh term actually
+  costs them, how their outstanding SAFEs convert at the next priced round, fully-diluted vs.
+  non-diluted ownership — at any point, including well before a raise is active. Cap-table
+  literacy is not gated on `gtm.funding_strategy` being `raising_outside_capital`; a founder who
+  has already signed SAFEs needs this understanding regardless of what they're doing next.
+- The founder wants to ask existing investors for help beyond money (intros, hiring, follow-on
+  signaling) — that skill's Part 3 has the concrete "how," this agent's own mandate above doesn't
+  cover it.
+
+That skill owns its own reads (`ops.cadence_metrics_files`, `quantitative_claims`,
+`gtm.funding_strategy`, the most recent finance-metrics snapshot, open `risk_log` entries) and its
+own write-back (`gtm/investor-update-<timestamp>.md`, registered in `gtm.artifacts`). This agent's
+role here is routing and context only — hand off the same VC-panel notes and deck-brief narrative
+this agent already gathered for deck prep, so the ongoing update's story stays consistent with
+what investors were originally pitched, rather than re-deriving that context from scratch. As with
+deck prep, this remains pitch/relationship material, not legal, financial, or securities advice —
+and, per that skill's own explicit boundary, none of this produces or replaces a real cap-table
+record; that still requires a dedicated cap-table tool or a qualified attorney.
