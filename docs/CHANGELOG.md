@@ -898,3 +898,69 @@ one of them alone.
   its own right, not a failure to keep finding bugs. Round 8, running concurrently with this entry, is
   the swarm's own direct response to that judgment call — see `docs/ROADMAP.md`.
 
+
+---
+
+## Round 11 — rename to AI EIR, add the 15 Tactics, and a Cowork-first setup gate
+
+**Commits:** `b67f6bd` through the round-11 integration commit.
+
+This round did three separate things, requested directly by the human maintainer rather than
+surfaced by a dry run: renamed the plugin from "30-Minute Startup" to "AI EIR (Entrepreneur in
+Residence)"; added a second, distinct execution framework on top of the existing 24-step Disciplined
+Entrepreneurship planning framework — Paul Cheek's 15 Tactics (`disciplined_entrepreneurship:
+Startup Tactics`), as `skills/tactics/01-goals` through `skills/tactics/15-hiring`, one skill per
+tactic, organized into the book's own four categories (Foundations, Market Testing, Product
+Development, Resource Acquisition); and added an honest, instructional (not hard-technical) Step 0 to
+`agents/orchestrator.md` that welcomes a founder on first invocation in a working folder, asks
+directly whether this is a real Claude Cowork project with a persistent working folder rather than a
+one-off chat, and gives an exact paste-into-Project-instructions text block plus a recommendation to
+share the project with co-founders or point the working folder at a shared Drive/Dropbox folder.
+
+**The rename touched every user-facing surface but deliberately left one thing alone.**
+`agents/orchestrator.md`'s frontmatter `name: startup-operator` — a technical identifier referenced
+by name from other agent/skill files — was kept unchanged; only the prose that presents the agent to
+a founder now says "AI EIR." `docs/CHANGELOG.md` (this file), `docs/ROADMAP.md`, and
+`docs/MASTER_INDEX.md` each got a naming note rather than a retroactive rewrite of ten rounds of
+dated history — the plugin genuinely was called "30-Minute Startup" for rounds 1 through 10, and
+rewriting that history in place would make this ledger's own claim to be an honest record false.
+
+**The 15 Tactics are additive, not a replacement for the 24 steps, and the two frameworks cross-
+reference at exactly two confirmed real integration points rather than an invented one-to-one
+mapping.** Disciplined Entrepreneurship plans a venture (the 24 steps, `plan.*`,
+`business-state.json.disciplined_entrepreneurship`); Startup Tactics executes one (the 15 tactics,
+`tactics/*.md`, the new `business-state.json.tactics` object). `docs/TACTICS-15.md` is the new
+canonical source for the exact tactic titles/subtitles/category structure and the authoring
+conventions every `skills/tactics/NN-slug/SKILL.md` follows. A tactic's `status` can reach
+`"complete"` — real, finishable execution work — unlike a DE step's status, which never exceeds
+`"drafted"` (the plan is drafted; the business is what gets completed). The two real integration
+points, both confirmed against the actual 24-step and tactic content rather than assumed: DE Step 11
+(competitive position) feeds Tactic 6 (Sales messaging/rebuttals), and DE Step 19 (COCA) feeds Tactic
+12 (Finance model)'s monthly CAC line, worked through with the exact arithmetic in
+`skills/tactics/12-finance/SKILL.md`. Several tactics deliberately do not duplicate an existing
+round-9 skill and instead cross-reference it for the mechanics it already owns — Tactic 1 (Goals)
+defers dashboard-tracking mechanics to `skills/ops/kpi-dashboard-setup`; Tactic 11 (Legal) defers
+entity/vesting/IP substance to `skills/risk/legal-structure-and-ip-basics`; Tactic 14 (Fundraising)
+defers narrative/deck ownership to `agents/gtm/fundraising-advisor.md`; Tactic 15 (Hiring) defers
+should-we-hire/comp-band logic to `skills/ops/hiring-and-org-design` and only picks up once a hiring
+plan already exists.
+
+**The Cowork-only requirement is enforced honestly, not technically, because a Claude Code plugin has
+no mechanism to detect which client surface invoked it.** Rather than claim an enforcement this
+plugin cannot actually perform, the new orchestrator Step 0 asks the founder directly, refuses to
+create any file if the founder confirms this is plain Claude Chat rather than a Cowork project with a
+persistent working folder, and otherwise proceeds — the same "state uncertainty rather than overclaim
+certainty" discipline this plugin has used since its very first recurring-check-in design. This is
+also the round that added the plugin's `LICENSE` file (MIT, Cheek LLC) and its GitHub-repo-rename
+follow-up: the actual repository rename (`Cheek-LLC/30-minute-startup-plugin` →
+`Cheek-LLC/ai-eir-plugin`, or similar) has to happen through GitHub's own Settings UI — no tool
+available to this session can rename a GitHub repository — so `plugin.json`'s `homepage`/`repository`
+fields were deliberately left pointing at the plugin's current, real, working URL rather than a URL
+that does not exist yet.
+
+**A separate, already-running background task (the round-9/10 recurring-loop skill, scheduled before
+this round started and targeting the same branch) landed one more real fix concurrently with this
+round's own work**: a deepening of DE Step 1 (Market Segmentation) with full per-segment
+characterization, merged into this round's branch rather than lost, since it predates and is
+independent of the rename/tactics work above.
+

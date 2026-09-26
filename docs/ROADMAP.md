@@ -681,6 +681,35 @@ were deleted after their findings were extracted into `docs/QA-FINDINGS-*-ROUND1
 canonical fixtures (`shiftcover`, `skyclaim`, `vantage-point-search`, `kindling`), they were
 one-off test doubles, not ongoing project history.
 
+## Round 11 — rename to AI EIR, the 15 Tactics, and a Cowork-first setup gate: complete and integrated
+
+Round 11 was three human-directed changes, not a dry run: rename the plugin from "30-Minute Startup"
+to "AI EIR (Entrepreneur in Residence)"; add Paul Cheek's 15 Tactics (`disciplined_entrepreneurship:
+Startup Tactics`) as a second, additive execution framework alongside the existing 24-step Disciplined
+Entrepreneurship planning framework; and add an honest, instructional Step 0 to the orchestrator that
+gates first invocation on confirming a real Claude Cowork project with a persistent working folder,
+rather than a one-off chat.
+
+**The 15 Tactics landed as `skills/tactics/01-goals` through `skills/tactics/15-hiring`**, one skill
+per tactic across the book's own four categories (Foundations, Market Testing, Product Development,
+Resource Acquisition), plus a new canonical `docs/TACTICS-15.md` and a new `business-state.json.tactics`
+top-level object in `docs/DATA-CONTRACT.md`. Two real integration points with the 24 steps were
+confirmed rather than invented: DE Step 11 (competitive position) → Tactic 6 (Sales), and DE Step 19
+(COCA) → Tactic 12 (Finance). Several tactics deliberately defer mechanics an existing round-9 skill
+already owns rather than duplicating it — see `docs/CHANGELOG.md`'s round 11 entry for the specific
+cross-references.
+
+**The Cowork-only requirement has no technical enforcement mechanism available to a Claude Code
+plugin**, so it's enforced the same way every uncertain-capability gate in this plugin has been
+handled since its first design: ask directly, refuse to act if the founder confirms plain chat, and
+proceed honestly otherwise — never claim an enforcement this plugin cannot actually perform.
+
+**Round 11 is complete and integrated.** All 15 tactic skills exist on disk; `agents/orchestrator.md`,
+`README.md`, and every agent file's plugin-name reference were updated; `LICENSE` (MIT, Cheek LLC) was
+added. One item stays open, outside this session's tool access: the actual GitHub repository rename
+has to happen through GitHub's own Settings UI, not a tool call — `plugin.json`'s URLs were
+deliberately left pointing at the current, real, working repository URL until that happens.
+
 ## v0.3 and beyond — the real frontier, restated, and what round 9 did and didn't change about it
 
 With v0.2's depth work closed since round 4, and the revision loop and post-approval half both
