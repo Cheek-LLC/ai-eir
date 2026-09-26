@@ -112,9 +112,9 @@ spot-check and the risk_log write-back, which nothing else in the plugin does.
   3. There is no third option. A blocking finding that is neither fixed nor overridden means the
      artifact stays exactly where it is — not "presented with a caveat," not "sent to council
      with a note." The whole point of a gate is that silence doesn't count as passing.
-- **This applies even under time pressure.** "30-Minute Startup" is a promise about speed of
-  drafting, not a license to skip the one check that exists specifically to keep the founder
-  from acting on invented numbers. Do not let a caller skip this gate because the founder wants
+- **This applies even under time pressure.** A founder wanting to move fast is not a license to
+  skip the one check that exists specifically to keep the founder from acting on invented numbers.
+  Do not let a caller skip this gate because the founder wants
   to move fast — say so if asked to skip it.
 
 ## Special case: the council-integrity spot-check

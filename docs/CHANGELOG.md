@@ -1,4 +1,11 @@
-# Changelog — 30-Minute Startup
+# Changelog — AI EIR
+
+**Naming note (round 11):** this plugin was renamed from "30-Minute Startup" to "AI EIR
+(Entrepreneur in Residence)" in round 11. Every entry below through round 10 refers to it by its
+original name, kept exactly as originally written rather than retroactively edited — this
+document's own stated purpose is an honest ledger of what happened when, and the name genuinely
+was "30-Minute Startup" for rounds 1 through 10. Read "30-Minute Startup" in anything before the
+round 11 entry as this same plugin under its earlier name.
 
 This is the single chronological ledger of what got built, what broke, and what got fixed, across
 every round of this plugin's build. It exists because the QA history now spans ten separate

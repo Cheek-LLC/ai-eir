@@ -1,5 +1,10 @@
 # Roadmap
 
+**Naming note (round 11):** this plugin was renamed from "30-Minute Startup" to "AI EIR
+(Entrepreneur in Residence)" in round 11 — every round below through round 10 refers to it by its
+original name, kept as originally written for historical accuracy (see `docs/CHANGELOG.md`'s own
+naming note).
+
 This plugin is being built through iterative swarm rounds, not a single pass: **round 1** built
 v0.1 end to end (a full but shallow lifecycle spine); **round 2** was a swarm of agents
 adversarially reviewing and fixing every layer of that spine in parallel, plus one agent running a

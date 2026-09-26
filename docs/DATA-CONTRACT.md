@@ -47,6 +47,11 @@ of the onboarding interview (`skills/interview/onboarding-interview`).
   "reviews": [
     { "id": "string", "council": "string, e.g. vc-panel", "target": "string, e.g. plan-v1 or step-05", "verdict": "APPROVE|APPROVE_WITH_NOTES|REVISE|REJECT", "score": "1-10", "file": "reviews/<timestamp>-<council>.md", "resolved": "boolean" }
   ],
+  "tactics": {
+    "01_goals": { "status": "not_started|in_progress|complete", "summary": "string", "file": "tactics/01-goals.md" },
+    "02_systems": { "...": "same shape" },
+    "...": "one entry per tactic, keys 01..15 — each key is the tactic's docs/TACTICS-15.md slug with hyphens replaced by underscores (e.g. 13-pitch-deck-design -> 13_pitch_deck_design), mirroring the disciplined_entrepreneurship convention above. Round 11. Unlike disciplined_entrepreneurship steps, a tactic's status CAN reach complete — tactics are real, finishable execution work (a hire made, a round closed), not a plan artifact gated by council review. Only begin tracking a tactic once stage has reached approved (Foundations, tactics 01-02) or gtm/operating (tactics 03-15) — see agents/orchestrator.md's tactics-execution section for exactly when each one starts."
+  },
   "gtm": {
     "status": "not_started|in_progress|launched",
     "funding_strategy": "bootstrap|raising_outside_capital|undecided",

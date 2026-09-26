@@ -1,5 +1,5 @@
 ---
-description: Resume an existing business — reports current status and continues from where the Startup Operator left off.
+description: Resume an existing business — reports current status and continues from where AI EIR left off.
 ---
 
 The user wants to check on or continue an existing business.

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# validate-plugin.sh — structural drift check for the 30-Minute Startup plugin.
+# validate-plugin.sh — structural drift check for the AI EIR plugin.
 #
 # Checks the repo against CONVENTIONS.md without needing any tooling beyond a normal POSIX
 # shell (bash, grep, awk, sed, find). Intended to be run locally by any contributor before

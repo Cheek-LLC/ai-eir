@@ -1,4 +1,8 @@
-# Master Index — after Round 10
+# Master Index — after Round 11
+
+**Naming note:** this plugin was renamed from "30-Minute Startup" to "AI EIR (Entrepreneur in
+Residence)" in round 11 — references to rounds 1-10 below keep the original name for historical
+accuracy (see `docs/CHANGELOG.md`'s own naming note).
 
 Full catalog of every agent, skill, and command in the plugin after round 1 (v0.1 build, 15
 parallel builders), round 2 (adversarial review + fix pass, 9 parallel reviewers plus a live

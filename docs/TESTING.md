@@ -1,4 +1,4 @@
-# Testing Strategy — 30-Minute Startup
+# Testing Strategy — AI EIR
 
 This plugin is being built as a swarm: roughly 15 people/agents writing `agents/*.md` and
 `skills/*/SKILL.md` files in parallel right now, with a stated trajectory toward hundreds of
