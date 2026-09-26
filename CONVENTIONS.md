@@ -1,4 +1,4 @@
-# Plugin Conventions — 30-Minute Startup
+# Plugin Conventions — AI EIR
 
 This file is the shared contract every builder in this repo writes against. Read it before
 creating any agent, skill, or command file. It exists so dozens (eventually hundreds) of
@@ -9,7 +9,10 @@ agents/skills interoperate without a central author reconciling formats by hand.
 ```
 .claude-plugin/plugin.json      # plugin manifest (do not edit structure, only add discoverable dirs if needed)
 agents/                         # subagent definitions, one .md per agent, may use subfolders
-  orchestrator.md               # the central "Startup Operator" agent (frontmatter name: startup-operator)
+  orchestrator.md               # the central agent, presented to founders as "AI EIR" (frontmatter
+                                 #   name stays startup-operator — a technical identifier dozens of
+                                 #   other files reference by name; renaming it is out of scope for
+                                 #   the AI EIR rebrand, see round 11's changelog entry)
   business-plan-editor.md       # a singleton agent can live directly under agents/ — not every
   connectors-liaison.md         #   agent needs a category subfolder, just a well-formed file
   council/                      # review council agents (VC panel, expert panels, etc.)
@@ -23,6 +26,11 @@ skills/                         # SKILL.md packages, one folder per skill
   disciplined-entrepreneurship/
     01-market-segmentation/SKILL.md
     02-...-24.../SKILL.md
+  tactics/                      # the 15 Tactics (round 11) — execution guidance once a plan is
+                                 #   approved, the companion framework to the 24 steps above; see
+                                 #   docs/TACTICS-15.md for the canonical list/order
+    01-goals/SKILL.md
+    02-...-15.../SKILL.md
   business-plan/                # assembling, versioning, diffing the plan
   connectors/
   design/
@@ -98,9 +106,13 @@ user-supplied text.
 
 ## 5. Data contract — shared business state
 
-Every business this plugin operates on gets a working directory created wherever the user
-invokes the orchestrator, named `.startup/<business-slug>/`. This is the single source of
-truth all agents/skills read and write — never keep business data only in conversation memory.
+Every business this plugin operates on gets a working directory named `.startup/<business-slug>/`,
+created inside **the founder's real, persistent working folder** — a Claude Cowork project's own
+working directory (ideally on the founder's Desktop, or a shared Google Drive/Dropbox folder if
+there are co-founders), never a temporary or ephemeral session path. `agents/orchestrator.md`'s
+Step 0 owns confirming this before creating anything (round 11) — see that file and `README.md`'s
+"Before you start" section. This directory is the single source of truth all agents/skills read
+and write — never keep business data only in conversation memory.
 
 ```
 .startup/<business-slug>/
@@ -118,6 +130,10 @@ truth all agents/skills read and write — never keep business data only in conv
                            #   revision cycle; business-plan.md always mirrors the latest version
   reviews/                # one file per council review: <YYYY-MM-DD>-<track-slug>-panel-v<N>.md
     2026-08-18-venture-track-panel-v1.md
+  tactics/                # one markdown file per Tactic, 01-15 (round 11) — see docs/TACTICS-15.md
+    01-goals.md
+    ...
+    15-hiring.md
   gtm/                    # launch plans, campaign briefs, sales collateral
   ops/                    # metrics snapshots, dashboards, retros
 ```

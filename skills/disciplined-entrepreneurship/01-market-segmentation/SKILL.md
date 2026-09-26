@@ -86,21 +86,53 @@ The axes that actually produce heterogeneous segments differ by business type �
 4. **Avoid the three common failure modes**: (a) one mega-segment ("everyone who could use
    software"), (b) segments defined only by demographics with no distinct need attached, (c)
    collapsing to a single vertical this early — that collapse is Step 2's job, done with evidence.
+5. **Characterize each surviving segment on every axis below, not just name + need.** A thin
+   segmentation ("Segment: small businesses. Need: save time.") gives Step 2 nothing real to
+   score. For each candidate segment that survives clustering, work out:
+   - **Firmographic/demographic anchor** — B2B: industry, company size/revenue band, growth
+     stage, job function/title of the buyer and of the end user if different. B2C: age range,
+     life stage, income band, household/family context.
+   - **Behavioral characteristics** — how they solve this problem today (including "nothing,"
+     which is itself a real answer), what tools/workflows they already use, who holds budget
+     authority, typical buying process (self-serve vs. committee), tech-savviness.
+   - **Psychographic/attitudinal traits** — values, risk tolerance, what they're optimizing for,
+     how skeptical or eager they are toward new solutions in this category.
+   - **Buying trigger** — the specific event or moment that makes this segment receptive right
+     now (a new hire, a compliance deadline, a life event, a failed workaround) versus "someday."
+   - **Rough size signal** — a directional order-of-magnitude estimate (or an explicit "unknown,"
+     never a fabricated figure) of how many such end users/companies exist; a real bottom-up TAM
+     is Step 4's job, this is just enough signal to compare segments against each other now.
+   - **Willingness/ability to pay** — a directional read (low/medium/high, or a rough price
+     anchor if the founder has one) on price sensitivity and budget availability for this segment.
+   - **Primary reachable channel** — the single most plausible way to reach this segment today
+     (a community, a channel partner, paid acquisition, an existing network) — this seeds Step
+     2's "reach" scoring, it doesn't need to be exhaustive.
+   - **Competitive/alternative intensity** — what this segment uses instead today: a direct
+     competitor, a manual workaround, a spreadsheet, or nothing at all — and how entrenched that
+     alternative is.
+   Never invent a specific number or fact for any of these — see "When the founder doesn't know"
+   below for how to handle a genuinely unknown axis instead of guessing.
 
 ## When the founder doesn't know
 
-Never invent segments or their sizes to hit the 10+ target. If the founder can only substantiate
-2-3 segments from direct knowledge:
+Never invent segments, their sizes, or any of the characterization axes above to hit the 10+
+target or fill a cell. If the founder can only substantiate 2-3 segments from direct knowledge,
+or can't characterize an axis for a given segment:
 - Still produce a best-effort list of 10+ by combining the founder's raw ideas with reasonable
   adjacent-market extrapolations — but label every entry `founder-identified` or
   `candidate — needs validation`, never blend the two silently.
+- For any characterization cell (size signal, willingness to pay, channel, competitive intensity,
+  etc.) that can't be grounded in what the founder said or a reasonable, clearly-labeled
+  inference, write "unknown" rather than a plausible-sounding guess — a table full of specifics
+  that are all actually invented is worse than an honest gap.
 - Add a `key_assumptions` entry: `statement`: "Only N segments are grounded in the founder's
   direct knowledge; the rest are unvalidated candidates," `step_ref`: `01_market_segmentation`,
   `confidence`: `low`, `test_plan`: e.g. "run 5 exploratory conversations across the top
   unvalidated candidates," `test_result`: `null`.
 - If any segment description implies a market-size figure, do not state it as fact — either omit
-  it or flag it as unverified; a number stated as fact needs a `quantitative_claims` entry per
-  the Data Contract, and this step should not be manufacturing those.
+  it, write "unknown," or flag it as unverified; a number stated as fact needs a
+  `quantitative_claims` entry per the Data Contract, and this step should not be manufacturing
+  those (a bottom-up TAM is Step 4's job; the size signal here is directional only).
 
 ## Write `plan/01-market-segmentation.md`
 
@@ -111,9 +143,10 @@ Never invent segments or their sizes to hit the 10+ target. If the founder can o
 (tech push vs. market pull, one paragraph)
 
 ## Candidate segments
-| # | Segment name | End user | Distinct need | Why it's heterogeneous from other segments | Source | Side (marketplace only: supply/demand) |
-|---|---|---|---|---|---|---|
-(source = founder-identified | candidate — needs validation)
+| # | Segment name | End user (firmographic/demographic anchor) | Distinct need | Behavioral characteristics | Psychographic traits | Buying trigger | Rough size signal | Willingness/ability to pay | Primary reachable channel | Competitive/alternative intensity | Why it's heterogeneous from other segments | Source | Side (marketplace only: supply/demand) |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+(source = founder-identified | candidate — needs validation; any unknown cell should say
+"unknown," never a fabricated value — see "When the founder doesn't know" above)
 
 ## Segments carried forward to Step 2
 (shortlist of the strongest 4-6, one line each on why they made the cut)
@@ -141,7 +174,9 @@ Append any `key_assumptions` entries created above to the top-level `key_assumpt
 ## Definition of done
 
 - 10+ candidate segments documented in `plan/01-market-segmentation.md`, each with a clear,
-  distinct end-user + need pairing.
+  distinct end-user + need pairing, AND each characterized across every column in the table
+  above (behavioral, psychographic, buying trigger, size signal, willingness to pay, channel,
+  competitive intensity) — "unknown" is an acceptable cell value, a missing column is not.
 - `business-state.json` key `01_market_segmentation` set to `status: "drafted"`.
 - Any unvalidated claims logged in `key_assumptions`, not stated as fact.
 - Stop here — do not select a beachhead or run scoring; that's `02-select-a-beachhead-market`.

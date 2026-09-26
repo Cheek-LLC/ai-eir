@@ -1,4 +1,4 @@
-# UX Interview Design — 30-Minute Startup
+# UX Interview Design — AI EIR
 
 This document is the design rationale behind `skills/interview/onboarding-interview` and
 `skills/interview/recurring-check-in`, and the standard every other interview-shaped skill in
@@ -268,11 +268,10 @@ concrete-over-abstract discipline applies to resolving ambiguity about the busin
 ## 5. Session structure and pacing
 
 - **Set expectations before asking anything substantive.** The onboarding skill's opening framing
-  exists because "30-Minute Startup" is a memorable product hook, not an honest estimate of how
-  long a rigorous 24-step interview takes — overpromising speed here produces a founder who
-  disengages the moment step 4 takes real thought, or who resents the process for taking longer
-  than advertised. Say the honest version once, up front, and don't repeat it as a disclaimer
-  every subsequent session.
+  exists because a founder's first impression of how fast this moves shapes how they engage with
+  everything after — overpromising speed here produces a founder who disengages the moment step 4
+  takes real thought, or who resents the process for taking longer than they assumed. Say the
+  honest version once, up front, and don't repeat it as a disclaimer every subsequent session.
 - **Checkpoint, don't silently chain.** After each DE step (per the orchestrator's own guidance),
   give the founder a short "here's what we decided, here's what's next" before continuing —
   unless the founder has explicitly signaled they want to move briskly through several steps

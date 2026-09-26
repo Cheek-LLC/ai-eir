@@ -1,4 +1,8 @@
-# Master Index — after Round 10
+# Master Index — after Round 11
+
+**Naming note:** this plugin was renamed from "30-Minute Startup" to "AI EIR (Entrepreneur in
+Residence)" in round 11 — references to rounds 1-10 below keep the original name for historical
+accuracy (see `docs/CHANGELOG.md`'s own naming note).
 
 Full catalog of every agent, skill, and command in the plugin after round 1 (v0.1 build, 15
 parallel builders), round 2 (adversarial review + fix pass, 9 parallel reviewers plus a live
@@ -40,20 +44,25 @@ agents, each on a disposable copy of a canonical fixture, live-executing one rou
 persona as literal instructions against real data; found and fixed 6 real gaps including a
 single-axis stage-gate bug independently confirmed by 3 test agents across 5 skills, and confirmed
 the new council persona's trigger logic works correctly with no defect found — see
-`docs/QA-FINDINGS-*-ROUND10.md` and `docs/CHANGELOG.md`'s round 10 entry). **Round 10 is complete
-and integrated** — every count and claim below was re-walked directly against the repo (`find`,
-targeted `grep`, and a live run of `scripts/validate-plugin.sh`) while writing this revision, not
-carried forward from the prior snapshot. Round 10 deepened round 9's own files rather than adding
-new ones, so the skill/agent/command/council-file totals below are unchanged from the round-9
-snapshot. `/list-skills` gives a live, always-current view for day-to-day use between
-regenerations.
+`docs/QA-FINDINGS-*-ROUND10.md` and `docs/CHANGELOG.md`'s round 10 entry), and round 11 (renamed the
+plugin from "30-Minute Startup" to "AI EIR (Entrepreneur in Residence)"; added Paul Cheek's 15
+Tactics as a second, additive execution framework — `skills/tactics/01-goals` through
+`skills/tactics/15-hiring`, plus the new canonical `docs/TACTICS-15.md` and the new
+`business-state.json.tactics` top-level object; and added an honest, instructional Step 0 to
+`agents/orchestrator.md` gating first invocation on confirming a real Claude Cowork project with a
+persistent working folder — see `docs/CHANGELOG.md`'s round 11 entry). **Round 11 is complete and
+integrated** — every count and claim below was re-walked directly against the repo (`find`, targeted
+`grep`, and a live run of `scripts/validate-plugin.sh`) while writing this revision, not carried
+forward from the prior snapshot. Round 11 added the 15 new tactic skills on top of round 10's
+56-skill baseline (56 + 15 = 71); agent/command/council-file totals are unchanged. `/list-skills`
+gives a live, always-current view for day-to-day use between regenerations.
 
 **Live validation output at the time of this revision:**
-`PASS — no structural drift from CONVENTIONS.md detected` — **56 skills, 34 agents, 6 commands, 13
+`PASS — no structural drift from CONVENTIONS.md detected` — **71 skills, 34 agents, 6 commands, 13
 council files checked, 0 warnings, 0 errors**, all 24 DE step folders matching
 `docs/DE-24-STEPS.md`, every referenced `business-state.json` top-level field matching
-`docs/DATA-CONTRACT.md`, and every `agents/council/*.md` file committing to the CONVENTIONS.md §6
-verdict schema.
+`docs/DATA-CONTRACT.md` (now including the round-11 `tactics` object), and every
+`agents/council/*.md` file committing to the CONVENTIONS.md §6 verdict schema.
 
 ## Entry points (`commands/`)
 
@@ -160,6 +169,30 @@ four rounds running) that blocks `status: "drafted"` until every fact-claim they
 Step 19 additionally now carries a standing "round explicitly before writing the headline figure"
 reminder (round 5), added after the AI-risk gate's false-precision catch landed at this exact step
 in three of the four rounds' dry runs.
+
+## The 15 Tactics (`skills/tactics/`) — new category, round 11
+
+One skill per tactic of Paul Cheek's *Disciplined Entrepreneurship: Startup Tactics*, each producing
+`tactics/NN-slug.md`; the orchestrator (not the skill itself) writes the corresponding
+`tactics.NN_slug_key` entry in `business-state.json`. See `docs/TACTICS-15.md` for the canonical
+list, category structure, and authoring conventions. This framework executes a venture the 24 steps
+above already planned — a tactic's `status` can reach `"complete"`, unlike a DE step's, which never
+exceeds `"drafted"`. Four categories:
+
+1. **Foundations** (01–02) goals, systems
+2. **Market Testing** (03–06) market-research, assets, marketing, sales
+3. **Product Development** (07–10) product-roadmap, design, user-testing, engineering
+4. **Resource Acquisition** (11–15) legal, finance, pitch-deck-design, fundraising, hiring
+
+**Two confirmed real integration points with the 24 steps, not an invented one-to-one mapping**: DE
+Step 11 (`chart-your-competitive-position`) feeds Tactic 6 (Sales)'s rebuttal table; DE Step 19
+(`calculate-the-coca`) feeds Tactic 12 (Finance)'s monthly CAC line, with the exact arithmetic
+worked through in `skills/tactics/12-finance/SKILL.md`. Several tactics deliberately defer mechanics
+an existing round-9 skill already owns rather than duplicating it: Tactic 1 (Goals) → `skills/ops/
+kpi-dashboard-setup`; Tactic 2 (Systems) → `agents/connectors-liaison.md`/`docs/CONNECTORS-
+CATALOG.md`; Tactic 11 (Legal) → `skills/risk/legal-structure-and-ip-basics`; Tactic 14
+(Fundraising) → `agents/gtm/fundraising-advisor.md`; Tactic 15 (Hiring) → `skills/ops/
+hiring-and-org-design`.
 
 ## Business plan (`skills/business-plan/`, `agents/business-plan-editor.md`)
 
@@ -532,15 +565,16 @@ confirms it's landed; do not cite it as existing until then.
   ops (**8** — `people-lead`, `pricing-strategist`, `competitive-intelligence-lead` added round 9),
   risk (2), QA (2), connectors (1), design (1), product (**1**, new category — `product-lead`,
   round 9), and plan-editing (1)
-- **56 skills** across interview (2), autonomous-continuation (**1**, new singleton, round 9), the
+- **71 skills** across interview (2), autonomous-continuation (**1**, new singleton, round 9), the
   24 DE steps, business-plan (3), GTM (**6** — `investor-updates-and-cap-table-basics` added round
   9), ops (**11** — `hiring-and-org-design`, `customer-success-playbook`,
   `experimentation-and-optimization`, `pricing-and-monetization-optimization`,
   `operations-and-fulfillment-playbook`, `competitive-intelligence-monitoring` added round 9),
   product (**1**, new category, round 9), design (3), risk (**3** — `legal-structure-and-ip-basics`
-  added round 9), QA (1), connectors (1) — the largest single-round skill/agent growth since round
-  1's initial build; rounds 3 through 8 held the total flat, deepening existing files rather than
-  adding new ones, before round 9's 10-agent breadth expansion
+  added round 9), QA (1), connectors (1), tactics (**15**, new category, round 11 — see
+  `docs/TACTICS-15.md`) — round 9 was the largest single-round skill/agent growth since round 1's
+  initial build (rounds 3 through 8 held the total flat); round 11 added the 15 tactic skills on top
+  of that round-9/10 baseline
 - **6 slash commands** (`/continue-business` added round 9)
 - **1 CI workflow** (`.github/workflows/validate-plugin.yml`, added round 2, still the only one —
   runs `scripts/validate-plugin.sh` on every `push` and `pull_request`, checking 2 more structural

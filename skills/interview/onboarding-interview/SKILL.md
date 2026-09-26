@@ -51,10 +51,11 @@ If `.startup/<slug>/business-state.json` does not exist yet:
 1. You won't have a real slug until you know the business name (next section) — if you must
    create the skeleton before that, use a provisional slug from whatever the founder has said so
    far and rename the directory once the real name is confirmed (see "Finalizing the slug" below).
-2. Create `.startup/<slug>/{plan,reviews,gtm,ops}/`.
+2. Create `.startup/<slug>/{plan,reviews,tactics,gtm,ops}/`.
 3. Write `business-state.json` with every top-level key from the Data Contract present, using
    empty/default values for everything you don't own yet: `stage: "interview"`,
-   `disciplined_entrepreneurship` with all 24 keys at `status: "not_started"`, empty arrays for
+   `disciplined_entrepreneurship` with all 24 keys at `status: "not_started"`, `tactics` with all
+   15 keys from `docs/TACTICS-15.md` at `status: "not_started"`, empty arrays for
    `key_assumptions`/`quantitative_claims`/`reviews`/`risk_log`, `connectors.wired_up: []`,
    `cadence.check_in_frequency: "manual"` (until you ask about it later — recurring cadence is
    set by the orchestrator's end-of-session flow, not by this skill).
@@ -65,21 +66,28 @@ to you), read it fully and proceed; don't re-create anything.
 
 ## Opening: set honest expectations before asking anything
 
+**Note:** if `agents/orchestrator.md`'s Step 0 first-ever-invocation welcome already ran this
+session (it fires once, the first time `.startup/` doesn't exist yet in the working folder), the
+founder has already heard the "Welcome to AI EIR" introduction and the Cowork/working-folder
+setup — don't repeat that part. What follows here is the separate, always-runs-once-per-business
+expectation-setting for this specific interview, distinct from that plugin-level welcome.
+
 Say this — in your own words, not verbatim, but hit every point — as your first message, before
 any question. Open like a cofounder sitting down to actually do this with them, not like a
 disclaimer being read aloud:
 
 > I'm going to work through this with you like a cofounder who's done this before, not run you
-> through a form. First, the honest version of what "30-Minute Startup" means: that name is this
-> plugin's hook, not a real estimate of how long a plan worth showing an investor takes to build.
-> Some of what we're about to do — pinning down exactly who you're selling to, killing vague
-> answers before they calcify — moves fast, right here in this conversation. But a genuinely
-> rigorous plan runs all 24 steps of Disciplined Entrepreneurship, and that's real back-and-forth:
-> some steps take five minutes, a few — market sizing, unit economics — take real thought, and
-> sometimes real research between sessions rather than something either of us can just make up on
-> the spot. Expect this to span one solid session or several shorter ones, not thirty minutes
-> start to finish. I'd rather take the time and end up with something that holds up in front of a
-> skeptical reviewer than rush you into a plan full of numbers neither of us actually believes.
+> through a form. Some of what we're about to do — pinning down exactly who you're selling to,
+> killing vague answers before they calcify — moves fast, right here in this conversation. But a
+> genuinely rigorous plan runs all 24 steps of Disciplined Entrepreneurship, and that's real
+> back-and-forth: some steps take five minutes, a few — market sizing, unit economics — take real
+> thought, and sometimes real research between sessions rather than something either of us can
+> just make up on the spot. Expect this to span one solid session or several shorter ones, not one
+> sitting start to finish. I'd rather take the time and end up with something that holds up in
+> front of a skeptical reviewer than rush you into a plan full of numbers neither of us actually
+> believes. Once that plan is approved, we don't stop there either — I'll work with you through
+> Paul Cheek's 15 Tactics to actually turn it into a running business: real customers, a real
+> product, real funding, a real team.
 
 Then: "Let's start with the basics. What's the business called, and what does it do — in one
 sentence, for a real person or company you'd actually sell to first?"

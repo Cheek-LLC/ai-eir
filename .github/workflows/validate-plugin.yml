@@ -1,6 +1,6 @@
 name: Validate plugin structure
 
-# Structural drift check for the 30-Minute Startup plugin — runs scripts/validate-plugin.sh
+# Structural drift check for the AI EIR plugin — runs scripts/validate-plugin.sh
 # (CONVENTIONS.md compliance: frontmatter shape, kebab-case naming, no duplicate agent/skill
 # names, DE-step slugs matching docs/DE-24-STEPS.md, business-state.json field references vs.
 # docs/DATA-CONTRACT.md, and council verdict-schema commitment vs. CONVENTIONS.md §6) on every

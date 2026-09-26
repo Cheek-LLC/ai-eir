@@ -8,8 +8,8 @@ whole system is built on, see `docs/DATA-CONTRACT.md`. This document assumes you
 
 ## The core design decision: state lives on disk, not in conversation
 
-Every agent in this plugin is stateless between invocations by design. The Startup Operator does
-not "remember" your business from one session to the next — it re-reads
+Every agent in this plugin is stateless between invocations by design. AI EIR (the central
+orchestrator agent) does not "remember" your business from one session to the next — it re-reads
 `.startup/<slug>/business-state.json` in full at the start of every session, along with recent
 `interview-log.md` entries and anything new under `reviews/`, `gtm/`, and `ops/`. This is not an
 implementation detail; it's the reason a swarm of independently-authored agents and skills can

@@ -1,8 +1,8 @@
 ---
-description: Start a brand-new business — launches the Startup Operator to onboard and begin the 24-step Disciplined Entrepreneurship process.
+description: Start a brand-new business — launches AI EIR to onboard and begin the 24-step Disciplined Entrepreneurship process.
 ---
 
-The user wants to start a new business through the 30-Minute Startup process.
+The user wants to start a new business through the AI EIR process.
 
 Arguments given (may be empty): `$ARGUMENTS`
 

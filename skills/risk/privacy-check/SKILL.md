@@ -1,7 +1,7 @@
 ---
 name: privacy-check
 description: >
-  The callable privacy/legal-scope gate for the 30-Minute Startup plugin, backed by
+  The callable privacy/legal-scope gate for the AI EIR plugin, backed by
   agents/risk/privacy-compliance-officer.md. Use it in exactly two situations: (a) once, during
   onboarding, right after the founder's basic business info is captured, to set expectations
   about what's stored locally and why and to state the legal-advice scope boundary once; and
